@@ -20,6 +20,7 @@ export class UsersController {
     if (!createUserDto.password) return { msg: 'Password is mandatory.'}
     if (!createUserDto.role) return { msg: 'Role is mandatory.'}
 
+    // TODO: change _id for id and you don't need to return __v
     return this.usersService.createUser(createUserDto);
   }
 }

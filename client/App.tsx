@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 interface User {
   name: string;
@@ -9,7 +9,7 @@ interface User {
 }
 
 const App = (): JSX.Element => {
-  const [state, setState] = useState<User | null>(null);
+  const [ state, setState ] = useState<User | null>(null);
   const handlePress = (): string => {
     console.log(state);
     setState(null);
@@ -17,10 +17,10 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <View style={styles.root}>
+    <View style={ styles.root }>
       <View>
-        <Text style={styles.text}>Hello</Text>
-        <Button title="Press" onPress={handlePress} />
+        <Text style={ styles.text }>Hello</Text>
+        <Button title="Press" onPress={ handlePress } />
       </View>
     </View>
   );

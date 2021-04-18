@@ -1,30 +1,33 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import {CreateRoomDto} from './dto/create-room-dto';
-/*import { User } from '../users/interfaces/user.interface';*/
+
+import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
-import { Room } from './schemas/room.schema';
+import { Room } from './interfaces/room-interface';
 
-
-@Controller('room')
-export class RoomController {
+@Controller('rooms')
+export class RoomsController {
 
   constructor(private readonly roomService: RoomsService) {}
 
   @Get()
-  getRoom(): Promise<Room[]> {
+  getRooms(): Promise<Room[]> {
     return this.roomService.getRooms();
   }
 
   @Post()
-  postRoom(@Body() createRoomDto: CreateRoomDto): Promise<Room> | { msg: string } {
+  postRoom(@Body() { name, password, userId }: CreateRoomDto): Promise<Room> | { msg: string } {
 
-    if (!createRoomDto.name) return { msg: 'Name is mandatory' }
-    if (!createRoomDto.owner) return { msg: 'Owner is mandatory' }
-    if (!createRoomDto.password) return { msg: 'Password is mandatory' }
-
-    delete createRoomDto.owner
-
-    return this.roomService.createRoom(createRoomDto);
+    if (!name) return { msg: 'Name is mandatory' };
+    if (!password) return { msg: 'Password is mandatory' };
+    
+    const room = {
+      name: name,
+      password: password,
+      participants: []
+    }
+    
+    // TODO: change _id for id and you don't need to return __v
+    return this.roomService.createRoom(room, userId);
   }
 
 }
