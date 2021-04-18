@@ -13,7 +13,13 @@ export class UsersController {
   }
 
   @Post()
-  postUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+  postUser(@Body() createUserDto: CreateUserDto): Promise<User> | { msg: string } {
+    
+    if (!createUserDto.name) return { msg: 'Name is mandatory.'}
+    if (!createUserDto.email) return { msg: 'Email is mandatory.'}
+    if (!createUserDto.password) return { msg: 'Password is mandatory.'}
+    if (!createUserDto.role) return { msg: 'Role is mandatory.'}
+
     return this.usersService.createUser(createUserDto);
   }
 }
