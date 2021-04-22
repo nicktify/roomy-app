@@ -13,6 +13,10 @@ export class UsersService {
     return await this.userModel.find();
   }
 
+  async getById(id: string): Promise<User> {
+    return await this.userModel.findById(id);
+  }
+
   async createUser(user: User): Promise<User> {
     return this.userModel.create(user);
   }

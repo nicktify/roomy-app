@@ -25,8 +25,7 @@ export class RoomsController {
       password: password,
       participants: []
     }
-    
-    // TODO: change _id for id and you don't need to return __v
+
     return this.roomService.createRoom(room, userId);
   }
 
