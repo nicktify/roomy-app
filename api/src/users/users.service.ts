@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserDocument } from './schemas/user.schema';
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
+import { UserDocument } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
-  
   
   async getUsers(): Promise<ReturnUserDto[]> {
 
@@ -46,7 +45,6 @@ export class UsersService {
   
   }
 
-
   async createUser( user: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
 
     if (!user.name) return { msg: 'Name is mandatory.'};
@@ -54,12 +52,13 @@ export class UsersService {
     if (!user.password) return { msg: 'Password is mandatory.'};
     if (!user.role) return { msg: 'Role is mandatory.'};
 
-    const findedUser = await this.userModel.findOne({email: user.email});
     
-    if (findedUser) return { msg: 'User already exist.' };
-
     try {
 
+      const findedUser = await this.userModel.findOne({email: user.email});
+      
+      if (findedUser) return { msg: 'User already exist.' };
+      
       const createdUser = await this.userModel.create(user);
 
       return {
@@ -72,37 +71,31 @@ export class UsersService {
 
     } catch (error) {
 
-      console.log(error);
-
-      return { msg: 'Something went wrong, please try again.' };
+      throw 'Something went wrong, pls try again';
 
     }
 
   }
 
-  async editUser( user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
-
+  async editUser( user: EditUserDto ): Promise<ReturnUserDto> {
     try {
 
       await this.userModel.updateOne(user);
-      const findUser = await this.userModel.findById(user.id);
 
+      const editedUser = await this.userModel.findById(user.id);
+      
       return {
-        id: findUser._id,
-        name: findUser.name,
-        email: findUser.email,
-        rooms: findUser.rooms,
-        role: findUser.role,
+        id: editedUser._id,
+        name: editedUser.name,
+        email: editedUser.email,
+        rooms: editedUser.rooms,
+        role: editedUser.role,
       }
-
+      
     } catch (error) {
-
-      console.log(error);
-      return { msg: 'Something went wrong.' }
+      throw 'Something went wrong.';
     }
-
   }
-
 
   async deleteUser( id: string ): Promise<{ msg: string }> {
 

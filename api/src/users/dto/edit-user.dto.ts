@@ -1,5 +1,9 @@
+import { IsNotEmpty } from "class-validator";
 import { CreateUserDto } from "./create-user.dto";
 
-export interface EditUserDto extends CreateUserDto {
+export class EditUserDto extends CreateUserDto {
+
+  @IsNotEmpty()
   id: string;
+
 }
