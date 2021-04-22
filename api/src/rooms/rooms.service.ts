@@ -12,7 +12,7 @@ export class RoomsService {
   constructor(@InjectModel('Room') private roomModel: Model<RoomDocument>, @InjectModel('User') private userModel: Model<UserDocument>) {}
 
   async getRooms(): Promise<Room[]> {
-    return await this.roomModel.find()
+    return await this.roomModel.find();
   }
 
   async createRoom( room: Room, userId: string ): Promise<Room> {
