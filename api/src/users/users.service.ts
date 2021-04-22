@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument } from './schemas/user.schema';
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { EditUserDto } from './dto/edit-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -78,5 +79,45 @@ export class UsersService {
     }
 
   }
-  
+
+  async editUser( user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
+
+    try {
+
+      await this.userModel.updateOne(user);
+      const findUser = await this.userModel.findById(user.id);
+
+      return {
+        id: findUser._id,
+        name: findUser.name,
+        email: findUser.email,
+        rooms: findUser.rooms,
+        role: findUser.role,
+      }
+
+    } catch (error) {
+
+      console.log(error);
+      return { msg: 'Something went wrong.' }
+    }
+
+  }
+
+
+  async deleteUser( id: string ): Promise<{ msg: string }> {
+
+    try {
+
+      await this.userModel.deleteOne({_id: id});
+      return { msg: 'User has been deleted.' };
+
+    } catch (error) {
+
+      console.log(error);
+      return { msg: 'Something went wrong.'};
+
+    }
+
+  }
+
 }
