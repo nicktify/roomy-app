@@ -4,6 +4,7 @@ import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
 import { ReturnRoomDto } from './dto/return-room-dto';
 import { EditRoomDto } from './dto/edit-room-dto';
+import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -42,6 +43,11 @@ export class RoomsController {
   @Delete()
   deleteRoom( @Body() { id }: { id: string } ): Promise<{ msg: string }> {
     return this.roomService.deleteRoom(id);
+  }
+
+  @Post('newowner')
+  addNewOwner( @Body() addNewOwnerDto: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.addNewOwner(addNewOwnerDto);
   }
 
 }

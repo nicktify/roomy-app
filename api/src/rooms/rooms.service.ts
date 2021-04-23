@@ -7,6 +7,7 @@ import { UserDocument } from 'src/users/schemas/user.schema';
 import { EditRoomDto } from './dto/edit-room-dto';
 import { ReturnRoomDto } from './dto/return-room-dto';
 import { CreateRoomDto } from './dto/create-room-dto';
+import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 
 @Injectable()
 export class RoomsService {
@@ -31,13 +32,21 @@ export class RoomsService {
   }
 
   async getRoom( id: string ): Promise<ReturnRoomDto | { msg: string }> {
-    const findedRoom = await this.roomModel.findById(id);
-    if (!findedRoom) return { msg: 'Room not exist.'}
-    return {
-      id: findedRoom._id,
-      name: findedRoom.name,
-      owners: findedRoom.owners,
-      participants: findedRoom.participants,
+
+    try {
+
+      const findedRoom = await this.roomModel.findById(id);
+      if (!findedRoom) return { msg: 'Room not exist.'}
+
+      return {
+        id: findedRoom._id,
+        name: findedRoom.name,
+        owners: findedRoom.owners,
+        participants: findedRoom.participants,
+      }
+      
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -47,10 +56,9 @@ export class RoomsService {
 
       const findOwner = await this.userModel.findById(room.owner);
 
-      /* if user not exist just return */
       if (!findOwner) return { msg: 'User not exist.' };
 
-      /* Change propertie owner for owners[] */
+      /* Change owner for owners[] */
       const newRoom = {
         name: room.name,
         password: room.password,
@@ -69,7 +77,7 @@ export class RoomsService {
       return curatedRoom;
       
     } catch (error) {
-      console.log(error);
+      throw error;
     }
 
   }
@@ -94,9 +102,7 @@ export class RoomsService {
       return curatedRoom;
 
     } catch (error) {
-
-      console.log(error)
-
+      throw error;
     }
 
   }
@@ -109,8 +115,41 @@ export class RoomsService {
       return { msg: 'Room has been deleted.' };
 
     } catch (error) {
-      console.log(error);
+      throw error;
     }
 
+  }
+
+  async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
+
+    try {
+
+      const findedRoom = await this.roomModel.findById( id );
+      if ( ! findedRoom ) return { msg: "The room not exists." };
+  
+      const findNewUser = await this.userModel.findById( newOwner );
+      if ( ! findNewUser ) return { msg: "New user not exists." };
+  
+      const findOwner = await this.userModel.findById( owner );
+      if ( ! findOwner ) return { msg: "Owner user not exist" };
+  
+      if( ! findedRoom.owners.includes( owner ) ) return { msg: "You are not the owner of this room." }
+  
+      findedRoom.owners.push(newOwner);
+      findedRoom.save();
+  
+      const curatedRoom = {
+        id: findedRoom._id,
+        name: findedRoom.name,
+        owners: findedRoom.owners,
+        participants: findedRoom.participants
+      }
+  
+      return curatedRoom;
+      
+    } catch (error) {
+      throw error
+    }
+    
   }
 }
