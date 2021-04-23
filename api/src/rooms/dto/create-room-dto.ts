@@ -1,6 +1,6 @@
 export class CreateRoomDto {
   name: string;
   password: string;
-  owners: string[];
+  owner: string[];
   participants: string[]
 }

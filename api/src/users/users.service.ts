@@ -20,6 +20,8 @@ export class UsersService {
         name: user.name,
         email: user.email,
         role: user.role,
+        ownedRooms: user.ownedRooms,
+        participantRooms: user.participantRooms,
       }
     });
 
@@ -41,6 +43,8 @@ export class UsersService {
       name: findedUser.name,
       email: findedUser.email,
       role: findedUser.role,
+      ownedRooms: findedUser.ownedRooms,
+      participantRooms: findedUser.participantRooms,
     }
   
   }
@@ -58,6 +62,8 @@ export class UsersService {
         name: createdUser.name,
         email: createdUser.email,
         role: createdUser.role,
+        ownedRooms: createdUser.ownedRooms,
+        participantRooms: createdUser.participantRooms,
       }
 
     } catch (error) {
@@ -70,12 +76,17 @@ export class UsersService {
 
     const findedUser = await this.userModel.findById(user.id);
     if (!findedUser) {
-      return
+      return { msg: 'User not exist.' };
     }
 
     try {
 
-      await this.userModel.updateOne(user);
+      await this.userModel.updateOne({ _id: user.id }, {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
+      });
 
       const editedUser = await this.userModel.findById(user.id);
 
@@ -84,6 +95,8 @@ export class UsersService {
         name: editedUser.name,
         email: editedUser.email,
         role: editedUser.role,
+        ownedRooms: editedUser.ownedRooms,
+        participantRooms: editedUser.participantRooms,
       }
       
     } catch (error) {
@@ -96,7 +109,7 @@ export class UsersService {
     try {
 
       await this.userModel.deleteOne({_id: id});
-      return { msg: 'User has been deleted.' };
+      return { msg: 'User deleted.' };
 
     } catch (error) {
       console.log(error);

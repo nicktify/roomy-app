@@ -24,15 +24,8 @@ export class UsersController {
   }
 
   @Put()
-  async editUser( @Body() user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
-    
-    const result = await this.usersService.editUser(user);
-
-    if (!result) {
-      return { msg: 'User not exist.'};
-    }
-
-    return result;
+  editUser( @Body() user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
+    return this.usersService.editUser(user);
   }
 
   @Delete()

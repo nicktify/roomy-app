@@ -3,4 +3,6 @@ export class ReturnUserDto {
   name: string;
   email: string;
   role: string;
+  ownedRooms: string[];
+  participantRooms: string[];
 }

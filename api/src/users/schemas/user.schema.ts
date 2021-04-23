@@ -22,7 +22,7 @@ export class User {
   ownedRooms: string[];
 
   @Prop()
-  rooms: string[];
+  participantRooms: string[];
 
 }
 

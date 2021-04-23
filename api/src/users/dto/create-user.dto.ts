@@ -13,4 +13,5 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   role: string;
+  
 }

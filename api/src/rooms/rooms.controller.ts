@@ -21,12 +21,12 @@ export class RoomsController {
   }
 
   @Post()
-  postRoom(@Body() { name, password, owners, participants }: CreateRoomDto): Promise<ReturnRoomDto> | { msg: string } {
+  postRoom(@Body() { name, password, owner, participants }: CreateRoomDto): Promise<ReturnRoomDto | { msg: string } > {
 
     const room = {
       name,
       password,
-      owners,
+      owner,
       participants
     }
 
