@@ -19,6 +19,7 @@ export class RoomsService {
 
     const curatedRooms = rooms.map(room => {
       return {
+        id: room._id,
         name: room.name,
         owners: room.owners,
         participants: room.participants,
@@ -29,6 +30,17 @@ export class RoomsService {
 
   }
 
+  async getRoom( id: string ): Promise<ReturnRoomDto | { msg: string }> {
+    const findedRoom = await this.roomModel.findById(id);
+    if (!findedRoom) return { msg: 'Room not exist.'}
+    return {
+      id: findedRoom._id,
+      name: findedRoom.name,
+      owners: findedRoom.owners,
+      participants: findedRoom.participants,
+    }
+  }
+
   async createRoom( room: CreateRoomDto ): Promise<ReturnRoomDto> {
 
     try {
@@ -36,6 +48,7 @@ export class RoomsService {
       const createdRoom = await this.roomModel.create(room);
       
       const curatedRoom = {
+        id: createdRoom._id,
         name: createdRoom.name,
         owners: createdRoom.owners,
         participants: createdRoom.participants,
@@ -45,7 +58,6 @@ export class RoomsService {
       
     } catch (error) {
       console.log(error);
-      throw 'Something went wrong, please try again.';
     }
 
   }
@@ -54,12 +66,14 @@ export class RoomsService {
 
     try {
       
-      await this.roomModel.updateOne({ _id: room.id, name: room.name, owners: room.owners, participants: room.participants });
+      await this.roomModel.updateOne(room);
+      
       const editedRoom = await this.roomModel.findById(room.id);
 
       console.log(editedRoom);
 
       const curatedRoom = {
+        id: editedRoom._id,
         name: editedRoom.name,
         owners: editedRoom.owners,
         participants: editedRoom.participants,
@@ -70,8 +84,20 @@ export class RoomsService {
     } catch (error) {
 
       console.log(error)
-      throw 'Something went wrong, please try again.'
 
+    }
+
+  }
+
+  async deleteRoom( id: string ): Promise<{ msg: string }> {
+
+    try {
+
+      await this.roomModel.deleteOne({ _id: id });
+      return { msg: 'Room has been deleted.' };
+
+    } catch (error) {
+      console.log(error);
     }
 
   }

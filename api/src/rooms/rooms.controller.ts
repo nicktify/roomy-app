@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
@@ -13,6 +13,11 @@ export class RoomsController {
   @Get()
   getRooms(): Promise<ReturnRoomDto[]> {
     return this.roomService.getRooms();
+  }
+
+  @Get(':id')
+  getRoom( @Body() { id }: { id: string }): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.getRoom(id);
   }
 
   @Post()
@@ -32,6 +37,11 @@ export class RoomsController {
   @Put()
   editRoom( @Body() room: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.editRoom(room);
+  }
+
+  @Delete()
+  deleteRoom( @Body() { id }: { id: string } ): Promise<{ msg: string }> {
+    return this.roomService.deleteRoom(id);
   }
 
 }

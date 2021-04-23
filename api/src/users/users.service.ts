@@ -62,7 +62,6 @@ export class UsersService {
 
     } catch (error) {
       console.log(error);
-      throw 'Something went wrong, pls try again';
     }
 
   }
@@ -89,7 +88,6 @@ export class UsersService {
       
     } catch (error) {
       console.log(error);
-      throw 'Something went wrong, pls try again';
     }
   }
 
@@ -102,7 +100,6 @@ export class UsersService {
 
     } catch (error) {
       console.log(error);
-      throw 'Something went wrong, pls try again';
     }
 
   }
