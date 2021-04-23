@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Body, Res } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Body } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { ReturnUserDto } from './dto/return-user.dto';
@@ -25,7 +25,7 @@ export class UsersController {
 
   @Put()
   editUser( @Body() user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
-    return this.usersService.editUser(user)
+    return this.usersService.editUser(user);
   }
 
   @Delete()

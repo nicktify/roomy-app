@@ -1,6 +1,5 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Room } from 'src/rooms/schemas/room.schema';
 
 export type UserDocument = User & Document;
 
@@ -20,7 +19,7 @@ export class User {
   role: string;
 
   @Prop()
-  rooms: Room[];
+  rooms: string[];
 
 }
 

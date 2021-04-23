@@ -5,6 +5,9 @@ import { Model } from 'mongoose';
 import { RoomDocument } from './schemas/room.schema';
 import { Room } from './interfaces/room-interface';
 import { UserDocument } from 'src/users/schemas/user.schema';
+import { EditRoomDto } from './dto/edit-room-dto';
+import { ReturnRoomDto } from './dto/return-room-dto';
+import { CreateRoomDto } from './dto/create-room-dto';
 
 @Injectable()
 export class RoomsService {
@@ -15,15 +18,34 @@ export class RoomsService {
     return await this.roomModel.find();
   }
 
-  async createRoom( room: Room, userId: string ): Promise<Room> {
+  async createRoom( room: CreateRoomDto, userId: string ): Promise<Room> {
     
-    const createdRoom = await this.roomModel.create(room);
-    
-    const user = await this.userModel.findById(userId);
-    user.rooms.push(createdRoom);
-    user.save();
 
-    return createdRoom;
+  }
+
+  async editRoom( room: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
+
+    try {
+
+      const user = await this.userModel.findById(room.userId);
+      
+
+      console.log(user)
+
+      // return {
+      //   name: editedRoom.name,
+      //   password: editedRoom.password,
+      //   participants: editedRoom.participants,
+      // }
+
+      return { msg: 'Hola' }
+
+    } catch (error) {
+
+      console.log(error)
+      throw 'Something went wrong'
+
+    }
 
   }
 }

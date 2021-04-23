@@ -1,16 +1,16 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { User } from 'src/users/interfaces/user.interface';
+import { User } from 'src/users/schemas/user.schema';
 
 export type RoomDocument = Room & Document;
 
 @Schema()
 export class Room {
 
-  @Prop({ required: true })
+  @Prop()
   name: string;
 
-  @Prop({ required: true })
+  @Prop()
   password: string;
 
   @Prop()
