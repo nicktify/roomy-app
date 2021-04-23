@@ -36,7 +36,7 @@ export class RoomsService {
 
     try {
 
-      const findedRoom = await this.roomModel.findById(id);
+      const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.'};
 
       return {
@@ -122,9 +122,9 @@ export class RoomsService {
 
   async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
 
-    if ( ! id ) return { msg: 'Id is missing.'}
-    if ( ! owner ) return { msg: 'Owner is missing.'}
-    if ( ! newOwner ) return { msg: 'New Owner is missing.'}
+    if ( ! id ) return { msg: 'Id is missing.' }
+    if ( ! owner ) return { msg: 'Owner is missing.' }
+    if ( ! newOwner ) return { msg: 'New Owner is missing.' }
 
     try {
 
@@ -161,9 +161,9 @@ export class RoomsService {
 
   async deleteOwner( { id, owner, ownerToDelete }: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
 
-    if ( ! id ) return { msg: 'Id is missing.'};
-    if ( ! owner ) return { msg: 'Owner is missing.'};
-    if ( ! ownerToDelete ) return { msg: 'Owner to delete is missing.'};
+    if ( ! id ) return { msg: 'Id is missing.' };
+    if ( ! owner ) return { msg: 'Owner is missing.' };
+    if ( ! ownerToDelete ) return { msg: 'Owner to delete is missing.' };
 
     try {
 

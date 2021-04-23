@@ -10,7 +10,7 @@ import { DeleteOwnerDto } from './dto/delete-owner-dto';
 @Controller('rooms')
 export class RoomsController {
 
-  constructor(private readonly roomService: RoomsService) {}
+  constructor( private readonly roomService: RoomsService ) {}
 
   @Get()
   getRooms(): Promise<ReturnRoomDto[]> {
@@ -18,12 +18,12 @@ export class RoomsController {
   }
 
   @Get(':id')
-  getRoom( @Body() { id }: { id: string }): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.getRoom(id);
+  getRoom( @Body() { id }: { id: string } ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.getRoom( id );
   }
 
   @Post()
-  postRoom(@Body() { name, password, owner, participants }: CreateRoomDto): Promise<ReturnRoomDto | { msg: string } > {
+  postRoom( @Body() { name, password, owner, participants }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
 
     const room = {
       name,
@@ -32,28 +32,28 @@ export class RoomsController {
       participants
     }
 
-    return this.roomService.createRoom(room);
+    return this.roomService.createRoom( room );
 
   }
 
   @Put()
   editRoom( @Body() room: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.editRoom(room);
+    return this.roomService.editRoom( room );
   }
 
   @Delete()
   deleteRoom( @Body() { id }: { id: string } ): Promise<{ msg: string }> {
-    return this.roomService.deleteRoom(id);
+    return this.roomService.deleteRoom( id );
   }
 
   @Post('newowner')
   addNewOwner( @Body() addNewOwnerDto: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.addNewOwner(addNewOwnerDto);
+    return this.roomService.addNewOwner( addNewOwnerDto );
   }
 
   @Delete('deleteowner')
   deleteOwner( @Body() deleteOwnerDto: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.deleteOwner(deleteOwnerDto);
+    return this.roomService.deleteOwner( deleteOwnerDto );
   }
 
 }
