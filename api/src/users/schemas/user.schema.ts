@@ -19,6 +19,9 @@ export class User {
   role: string;
 
   @Prop()
+  ownedRooms: string[];
+
+  @Prop()
   rooms: string[];
 
 }

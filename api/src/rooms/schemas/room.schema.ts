@@ -11,10 +11,13 @@ export class Room {
   name: string;
 
   @Prop()
+  owners: string[];
+
+  @Prop()
   password: string;
 
   @Prop()
-  participants: User[]
+  participants: string[];
 
 }
 

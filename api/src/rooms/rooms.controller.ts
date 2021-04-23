@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
-import { Room } from './interfaces/room-interface';
 import { ReturnRoomDto } from './dto/return-room-dto';
 import { EditRoomDto } from './dto/edit-room-dto';
 
@@ -12,20 +11,22 @@ export class RoomsController {
   constructor(private readonly roomService: RoomsService) {}
 
   @Get()
-  getRooms(): Promise<Room[]> {
+  getRooms(): Promise<ReturnRoomDto[]> {
     return this.roomService.getRooms();
   }
 
   @Post()
-  postRoom(@Body() { name, password, userId }: CreateRoomDto): Promise<Room> | { msg: string } {
+  postRoom(@Body() { name, password, owners, participants }: CreateRoomDto): Promise<ReturnRoomDto> | { msg: string } {
 
     const room = {
-      userId,
       name,
       password,
+      owners,
+      participants
     }
 
-    return this.roomService.createRoom(room, userId);
+    return this.roomService.createRoom(room);
+
   }
 
   @Put()

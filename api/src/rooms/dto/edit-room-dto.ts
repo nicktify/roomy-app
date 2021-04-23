@@ -1,3 +1,5 @@
 import { CreateRoomDto } from './create-room-dto';
 
-export class EditRoomDto extends CreateRoomDto {};
+export class EditRoomDto extends CreateRoomDto {
+  id: string;
+};

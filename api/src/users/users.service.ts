@@ -67,7 +67,12 @@ export class UsersService {
 
   }
 
-  async editUser( user: EditUserDto ): Promise<ReturnUserDto> {
+  async editUser( user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
+
+    const findedUser = await this.userModel.findById(user.id);
+    if (!findedUser) {
+      return
+    }
 
     try {
 
