@@ -25,17 +25,8 @@ export class RoomsController {
   }
 
   @Post()
-  postRoom( @Body() { name, password, owner, }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
-
-    // TODO: fix this
-    const room = {
-      name,
-      password,
-      owner,
-    }
-
-    return this.roomService.createRoom( room );
-
+  postRoom( @Body() createRoomDto: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
+    return this.roomService.createRoom( createRoomDto );
   }
 
   @Put()
