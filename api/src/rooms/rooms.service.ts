@@ -113,6 +113,24 @@ export class RoomsService {
 
     try {
 
+      const roomToDelete = await this.roomModel.findById( id );
+
+      for (let i = 0; i < roomToDelete.owners.length; i ++) {
+        const owner = await this.userModel.findById( roomToDelete.owners[i] );
+        if ( owner ) {
+          owner.ownedRooms = owner.ownedRooms.filter(room => room != id);
+          owner.save();
+        }
+      }
+      
+      for (let i = 0; i < roomToDelete.participants.length; i ++) {
+        const participant = await this.userModel.findById( roomToDelete.participants[i] );
+        if ( participant ) {
+          participant.participantRooms = participant.participantRooms.filter(room => room !== id);
+          participant.save();
+        }
+      }
+
       await this.roomModel.deleteOne({ _id: id });
       return { msg: 'Room has been deleted.' };
 
@@ -133,7 +151,7 @@ export class RoomsService {
       if ( ! findNewUser ) return { msg: 'New user not exists.' };
   
       const findOwner = await this.userModel.findById( owner );
-      if ( ! findOwner ) return { msg: 'You are not the owner of this room.' };
+      if ( ! findOwner ) return { msg: 'Owner user not exist' };
   
       if( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' }
 

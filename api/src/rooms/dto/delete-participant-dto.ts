@@ -4,14 +4,14 @@ export class DeleteParticipantDto {
 
   @IsString()
   @IsNotEmpty()
-  id: string
+  id: string;
 
   @IsString()
   @IsNotEmpty()
-  owner: string
+  owner: string;
 
   @IsString()
   @IsNotEmpty()
-  participantToDelete: string
+  participantToDelete: string;
 
 }
