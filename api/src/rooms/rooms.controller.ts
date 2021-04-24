@@ -6,6 +6,8 @@ import { ReturnRoomDto } from './dto/return-room-dto';
 import { EditRoomDto } from './dto/edit-room-dto';
 import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
+import { addNewParticipantDto } from './dto/add-new-participant-dto';
+import { DeleteParticipantDto } from './dto/delete-participant-dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -23,13 +25,13 @@ export class RoomsController {
   }
 
   @Post()
-  postRoom( @Body() { name, password, owner, participants }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
+  postRoom( @Body() { name, password, owner, }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
 
+    // TODO: fix this
     const room = {
       name,
       password,
       owner,
-      participants
     }
 
     return this.roomService.createRoom( room );
@@ -54,6 +56,16 @@ export class RoomsController {
   @Delete('deleteowner')
   deleteOwner( @Body() deleteOwnerDto: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.deleteOwner( deleteOwnerDto );
+  }
+
+  @Post('newparticipant')
+  addNewParticipant( @Body() addNewParticipantDto: addNewParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.addNewParticipant( addNewParticipantDto );
+  }
+
+  @Delete('deleteparticipant')
+  deleteParticipant( @Body() deleteParticipantDto: DeleteParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.deleteParticipant(deleteParticipantDto);
   }
 
 }

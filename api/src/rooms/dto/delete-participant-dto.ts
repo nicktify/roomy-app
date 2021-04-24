@@ -1,17 +1,17 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateRoomDto {
+export class DeleteParticipantDto {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  id: string
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  owner: string
 
   @IsString()
   @IsNotEmpty()
-  owner: string;
+  participantToDelete: string
 
 }

@@ -10,7 +10,7 @@ export class ReturnRoomDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
   owners: string[];
 

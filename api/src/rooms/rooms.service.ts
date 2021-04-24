@@ -9,6 +9,8 @@ import { ReturnRoomDto } from './dto/return-room-dto';
 import { CreateRoomDto } from './dto/create-room-dto';
 import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
+import { addNewParticipantDto } from './dto/add-new-participant-dto';
+import { DeleteParticipantDto } from './dto/delete-participant-dto';
 
 @Injectable()
 export class RoomsService {
@@ -122,10 +124,6 @@ export class RoomsService {
 
   async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
 
-    if ( ! id ) return { msg: 'Id is missing.' }
-    if ( ! owner ) return { msg: 'Owner is missing.' }
-    if ( ! newOwner ) return { msg: 'New Owner is missing.' }
-
     try {
 
       const findedRoom = await this.roomModel.findById( id );
@@ -135,7 +133,7 @@ export class RoomsService {
       if ( ! findNewUser ) return { msg: 'New user not exists.' };
   
       const findOwner = await this.userModel.findById( owner );
-      if ( ! findOwner ) return { msg: 'Owner user not exist' };
+      if ( ! findOwner ) return { msg: 'You are not the owner of this room.' };
   
       if( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' }
 
@@ -143,41 +141,55 @@ export class RoomsService {
   
       findedRoom.owners.push( newOwner );
       findedRoom.save();
+
+      /**
+       * Check if the room id is in the owned rooms of the new owner added. Just to be sure, so we don't add two id of the same room.
+       */
+      if ( ! findNewUser.ownedRooms.includes( id ) ) { 
+        findNewUser.ownedRooms.push(id);
+        findNewUser.save();
+      }
   
       const curatedRoom = {
         id: findedRoom._id,
         name: findedRoom.name,
         owners: findedRoom.owners,
-        participants: findedRoom.participants
+        participants: findedRoom.participants,
       }
   
       return curatedRoom;
       
     } catch (error) {
-      throw error
+      throw error;
     }
 
   }
 
   async deleteOwner( { id, owner, ownerToDelete }: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
 
-    if ( ! id ) return { msg: 'Id is missing.' };
-    if ( ! owner ) return { msg: 'Owner is missing.' };
-    if ( ! ownerToDelete ) return { msg: 'Owner to delete is missing.' };
-
     try {
 
-      const findedRoom = await this.roomModel.findById(id);
+      const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.' };
+
+      const findOwner = await this.userModel.findById( owner );
+      if( ! findOwner ) return { msg: 'Owner not exist.' };
+
+      const findOwnerToDelete = await this.userModel.findById( ownerToDelete );
+      if ( ! findOwnerToDelete ) return { msg: 'Owner to delete not exist' };
 
       if ( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' };
       
+      if ( ! findedRoom.owners.includes( ownerToDelete ) ) return { msg: 'Given user is not an owner of this room.' };
       const filteredOwners = findedRoom.owners.filter( owner => owner !== ownerToDelete );
-
-      if ( filteredOwners.length === findedRoom.owners.length ) return { msg: 'Given user is not an owner of this room.' };
-
       findedRoom.owners = filteredOwners;
       findedRoom.save();
+
+      if ( findOwnerToDelete.ownedRooms.includes( id ) ) {
+        const filteredRooms = findOwnerToDelete.ownedRooms.filter(room => room !== id);
+        findOwnerToDelete.ownedRooms = filteredRooms;
+        findOwnerToDelete.save();
+      }
 
       const curatedRoom: ReturnRoomDto = {
         id: findedRoom._id,
@@ -191,5 +203,86 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
+  }
+
+  async addNewParticipant( { id, owner, newParticipant }: addNewParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+
+    try {
+      
+      const findedRoom = await this.roomModel.findById( id );
+      if ( ! findedRoom ) return { msg: 'Room not exist.' };
+
+      const findOwner = await this.userModel.findById( owner );
+      if( ! findOwner ) return { msg: 'Owner not exists.' };
+
+      const findNewParticipant = await this.userModel.findById( newParticipant );
+      if ( ! findNewParticipant ) return { msg: 'New participant not exist.' };
+
+      if ( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room' };
+
+      if ( findedRoom.participants.includes( newParticipant ) ) return { msg: 'The user is already a participant of this room.' };
+      findedRoom.participants.push( newParticipant );
+      findedRoom.save();
+
+      if ( ! findNewParticipant.participantRooms.includes( id ) ) { 
+        findNewParticipant.participantRooms.push( id );
+        findNewParticipant.save();
+       };
+
+      const curatedRoom: ReturnRoomDto = {
+        id: findedRoom._id,
+        name: findedRoom.name,
+        owners: findedRoom.owners,
+        participants: findedRoom.participants,
+      }
+
+      return curatedRoom;
+
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
+  async deleteParticipant( { id, owner, participantToDelete }: DeleteParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+
+    try {
+      
+      const findedRoom = await this.roomModel.findById( id );
+      if ( ! findedRoom ) return { msg: 'The room not exists.' };
+  
+      const findParticipant = await this.userModel.findById( participantToDelete );
+      if ( ! findParticipant ) return { msg: 'Participant to delete not exists.' };
+  
+      const findOwner = await this.userModel.findById( owner );
+      if ( ! findOwner ) return { msg: 'Owner user not exist' };
+  
+      if( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' }
+
+      if ( ! findedRoom.participants.includes( participantToDelete ) ) return { msg: 'Given user is not a participant of this room.' };
+  
+      const filteredParticipants = findedRoom.participants.filter(participant => participant !== participantToDelete);
+      findedRoom.participants = filteredParticipants;
+      findedRoom.save();
+
+      if ( findParticipant.participantRooms.includes( id ) ) {
+        const filteredRooms = findParticipant.participantRooms.filter(room => room !== id);
+        findParticipant.participantRooms = filteredRooms;
+        findParticipant.save();
+      }
+  
+      const curatedRoom = {
+        id: findedRoom._id,
+        name: findedRoom.name,
+        owners: findedRoom.owners,
+        participants: findedRoom.participants,
+      }
+  
+      return curatedRoom;
+
+    } catch (error) {
+      throw error;
+    }
+
   }
 }
