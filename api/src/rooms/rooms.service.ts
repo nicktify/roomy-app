@@ -53,21 +53,15 @@ export class RoomsService {
     }
   }
 
-  async createRoom( room: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async createRoom( { name, password, owner }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
-      const findOwner = await this.userModel.findById( room.owner );
+      const findOwner = await this.userModel.findById( owner );
 
       if ( ! findOwner ) return { msg: 'User not exist.' };
 
-      const newRoom = {
-        name: room.name,
-        password: room.password,
-        owners: room.owner,
-      }
-
-      const createdRoom = await this.roomModel.create( newRoom );
+      const createdRoom = await this.roomModel.create({ name, password, owner });
       
       const curatedRoom = {
         id: createdRoom._id,
