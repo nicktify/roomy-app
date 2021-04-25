@@ -5,6 +5,7 @@ import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { UserDocument } from './schemas/user.schema';
+import { FindByEmailDto } from './dto/find-by-email-dto';
 
 @Injectable()
 export class UsersService {
@@ -53,7 +54,7 @@ export class UsersService {
     
     try {
 
-      const findedUser = await this.userModel.findOne({email: user.email});
+      const findedUser = await this.userModel.findOne({ email: user.email });
       if (findedUser) return { msg: 'User already exist.' };
       
       const createdUser = await this.userModel.create(user);
@@ -67,7 +68,7 @@ export class UsersService {
       }
 
     } catch (error) {
-      console.log(error);
+      throw error;
     }
 
   }
@@ -100,7 +101,7 @@ export class UsersService {
       }
       
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -112,7 +113,32 @@ export class UsersService {
       return { msg: 'User deleted.' };
 
     } catch (error) {
-      console.log(error);
+      throw error;
+    }
+
+  }
+
+  async getByEmail( email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
+    
+    try {
+      
+      const user = await this.userModel.findOne(email);
+
+      if ( !user ) return { msg: 'User not exist.' };
+
+      const curatedUser = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        ownedRooms: user.ownedRooms,
+        participantRooms: user.participantRooms,
+      }
+
+      return curatedUser;
+
+    } catch (error) {
+      throw error;
     }
 
   }
