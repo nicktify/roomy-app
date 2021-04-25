@@ -18,6 +18,25 @@ export class Room {
   @Prop()
   participants: string[];
 
+  @Prop()
+  links: [
+    {
+      name: string;
+      link: string;
+    }
+  ]
+
+  @Prop()
+  news: string;
+
+  @Prop()
+  posts: [
+    {
+      body: string;
+      date: Date;
+    }
+  ]
+
 }
 
 export const RoomSchema = SchemaFactory.createForClass(Room);
