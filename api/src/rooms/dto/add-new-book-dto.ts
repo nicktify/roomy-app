@@ -4,6 +4,10 @@ export class AddNewBookDto {
 
   @IsString()
   @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsString()
