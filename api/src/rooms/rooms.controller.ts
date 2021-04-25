@@ -10,6 +10,7 @@ import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
+import { AddNewLinkDto } from './dto/add-new-link-dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -69,6 +70,11 @@ export class RoomsController {
   @Post('books')
   addNewBook( @Body() addNewBookDto: AddNewBookDto ): Promise<{ msg: string }> {
     return this.roomService.addNewBook( addNewBookDto );
+  }
+
+  @Post('links')
+  addNewLink( @Body() addNewLinkDto: AddNewLinkDto ): Promise<{ msg: string }> {
+    return this.roomService.addNewLink( addNewLinkDto );
   }
 
 }

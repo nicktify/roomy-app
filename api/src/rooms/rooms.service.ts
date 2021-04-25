@@ -372,6 +372,7 @@ export class RoomsService {
       const newLink = { name, link };
 
       room.links.push( newLink );
+      room.save();
 
       return { msg: 'Link added successfully.' };
 
