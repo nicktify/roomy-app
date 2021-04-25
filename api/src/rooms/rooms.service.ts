@@ -13,6 +13,7 @@ import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
+import { AddNewLinkDto } from './dto/add-new-link-dto';
 
 @Injectable()
 export class RoomsService {
@@ -349,6 +350,30 @@ export class RoomsService {
       room.save();
 
       return { msg: 'Book added successfully' };
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async addNewLink( { id, ownerId, name, link }: AddNewLinkDto ): Promise<{ msg: string }> {
+    try {
+      
+      const room = await this.roomModel.findById( id );
+
+      if ( ! room ) return { msg: 'Room not exist.' };
+
+      const owner = await this.userModel.findById( ownerId );
+
+      if ( ! owner ) return { msg: 'Owner user not exist.' };
+
+      if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
+
+      const newLink = { name, link };
+
+      room.links.push( newLink );
+
+      return { msg: 'Link added successfully.' };
 
     } catch (error) {
       throw error;
