@@ -12,6 +12,7 @@ import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewPostDto } from './dto/add-new-post-dto';
+import { AddNewBookDto } from './dto/add-new-book-dto';
 
 @Injectable()
 export class RoomsService {
@@ -324,6 +325,34 @@ export class RoomsService {
       throw error;
     }
 
+  }
+
+  async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto ): Promise<{ msg: string }> {
+    try {
+
+      /**
+       * TODO: this is a pattern that is repeated over all the sevice files, so, find the way to optimize it.
+       */
+      const room = await this.roomModel.findById( id );
+
+      if ( ! room ) return { msg: 'Room not exist.' };
+
+      const owner = await this.userModel.findById( ownerId );
+
+      if ( ! owner ) return { msg: 'Owner user not exist.' };
+
+      if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
+
+      const book  = { ownerId, name, description, link };
+
+      await room.books.push( book );
+      room.save();
+
+      return { msg: 'Book added successfully' };
+
+    } catch (error) {
+      throw error;
+    }
   }
 
 }

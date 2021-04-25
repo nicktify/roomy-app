@@ -9,6 +9,7 @@ import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewPostDto } from './dto/add-new-post-dto';
+import { AddNewBookDto } from './dto/add-new-book-dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -63,6 +64,11 @@ export class RoomsController {
   @Post('posts')
   addNewPost( @Body() addNewPostDto: AddNewPostDto ): Promise<{ msg: string }> {
     return this.roomService.addNewPost( addNewPostDto )
+  }
+
+  @Post('books')
+  addNewBook( @Body() addNewBookDto: AddNewBookDto ): Promise<{ msg: string }> {
+    return this.roomService.addNewBook( addNewBookDto );
   }
 
 }

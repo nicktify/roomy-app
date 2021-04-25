@@ -8,6 +8,10 @@ export class AddNewBookDto {
 
   @IsString()
   @IsNotEmpty()
+  ownerId: string;
+
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsString()
