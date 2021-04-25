@@ -27,15 +27,27 @@ export class Room {
   ]
 
   @Prop()
-  news: string;
+  dates: {
+    date: Date;
+    name: string;
+    description: string;
+  }
 
   @Prop()
   posts: [
     {
+      author: string;
       body: string;
       date: Date;
     }
   ]
+
+  @Prop()
+  books: {
+    name: string;
+    description: string;
+    link: string;
+  }
 
 }
 
