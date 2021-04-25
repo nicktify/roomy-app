@@ -8,7 +8,7 @@ export class AddNewPostDto {
 
   @IsString()
   @IsNotEmpty()
-  author: string;
+  authorId: string;
 
   @IsString()
   @IsNotEmpty()
@@ -16,6 +16,6 @@ export class AddNewPostDto {
 
   @IsString()
   @IsNotEmpty()
-  date: string;
+  date: Date;
 
 }

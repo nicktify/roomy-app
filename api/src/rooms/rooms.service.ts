@@ -11,6 +11,7 @@ import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
+import { AddNewPostDto } from './dto/add-new-post-dto';
 
 @Injectable()
 export class RoomsService {
@@ -61,7 +62,7 @@ export class RoomsService {
 
       if ( ! findOwner ) return { msg: 'User not exist.' };
 
-      const createdRoom = await this.roomModel.create({ name, password, owner });
+      const createdRoom = await this.roomModel.create({ name, password, owners: owner });
       
       const curatedRoom = {
         id: createdRoom._id,
@@ -297,4 +298,32 @@ export class RoomsService {
     }
 
   }
+
+  async addNewPost( { id, authorId, body, date }: AddNewPostDto ): Promise<{ msg: string }> {
+
+    try {
+      
+      const room = await this.roomModel.findById( id );
+
+      if ( ! room ) return { msg: 'Room not exist.' };
+
+      const author = await this.userModel.findById( authorId );
+
+      if ( ! author ) return { msg: 'Author user not exist' };
+
+      if ( ! room.owners.includes( authorId ) ) return { msg: 'You are not the owner of this room.' };
+
+      const post = { authorId, body, date };
+      
+      room.posts.push( post );
+      room.save();
+
+      return { msg: 'Post created successfuly.' }
+
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
 }
