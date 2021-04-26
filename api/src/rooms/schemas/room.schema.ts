@@ -55,4 +55,4 @@ export class Room {
 
 }
 
-export const RoomSchema = SchemaFactory.createForClass(Room);
+export const RoomSchema = SchemaFactory.createForClass( Room );

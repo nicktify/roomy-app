@@ -33,13 +33,13 @@ export class UsersService {
   
   async getUser( id: string ): Promise<ReturnUserDto | { msg: string }> {
   
-    if (!id) return { msg: 'Id is mandatory.' };
+    if ( ! id ) return { msg: 'Id is mandatory.' };
   
-    const findedUser = await this.userModel.findById(id);
+    const findedUser = await this.userModel.findById( id );
 
     if (!findedUser) return { msg: 'User not exists.' }
   
-    return {
+    const curatedUser = {
       id: findedUser._id,
       name: findedUser.name,
       email: findedUser.email,
@@ -47,18 +47,22 @@ export class UsersService {
       ownedRooms: findedUser.ownedRooms,
       participantRooms: findedUser.participantRooms,
     }
+
+    return curatedUser;
   
   }
 
-  async createUser( user: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
+  async createUser( { name, email, password, role}: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
 
-      const findedUser = await this.userModel.findOne({ email: user.email });
-      if (findedUser) return { msg: 'User already exist.' };
+      const  user  = await this.userModel.findOne({ email: email });
       
-      const createdUser = await this.userModel.create(user);
-      return {
+      if ( user ) return { msg: 'User already exist.' };
+      
+      const createdUser = await this.userModel.create({ name, email, password, role });
+
+      const curatedUser = {
         id: createdUser._id,
         name: createdUser.name,
         email: createdUser.email,
@@ -67,31 +71,27 @@ export class UsersService {
         participantRooms: createdUser.participantRooms,
       }
 
+      return curatedUser;
+
     } catch (error) {
       throw error;
     }
 
   }
 
-  async editUser( user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
-
-    const findedUser = await this.userModel.findById(user.id);
-    if (!findedUser) {
-      return { msg: 'User not exist.' };
-    }
+  async editUser( { id, name, email, password, role}: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
 
     try {
+      
+      const user = await this.userModel.findById( id );
 
-      await this.userModel.updateOne({ _id: user.id }, {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        role: user.role,
-      });
+      if ( ! user ) return { msg: 'User not exist.' };
 
-      const editedUser = await this.userModel.findById(user.id);
+      await this.userModel.updateOne({ _id: id }, { name, email, password, role });
 
-      return {
+      const editedUser = await this.userModel.findById( id );
+
+      const curatedUser = {
         id: editedUser._id,
         name: editedUser.name,
         email: editedUser.email,
@@ -99,6 +99,8 @@ export class UsersService {
         ownedRooms: editedUser.ownedRooms,
         participantRooms: editedUser.participantRooms,
       }
+      
+      return curatedUser;
       
     } catch (error) {
       throw error;
