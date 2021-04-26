@@ -39,17 +39,21 @@ export class RoomsService {
 
   async getRoom( id: string ): Promise<ReturnRoomDto | { msg: string }> {
 
+    if ( ! id ) return { msg: 'Id should not be empty.' }
+
     try {
 
       const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.'};
 
-      return {
+      const curatedRoom = {
         id: findedRoom._id,
         name: findedRoom.name,
         owners: findedRoom.owners,
         participants: findedRoom.participants,
       }
+
+      return curatedRoom;
       
     } catch ( error ) {
       throw error;
@@ -81,15 +85,21 @@ export class RoomsService {
 
   }
 
-  async editRoom( room: EditRoomDto ): Promise<ReturnRoomDto> {
+  async editRoom( { id, name, owner }: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
-      
-      await this.roomModel.updateOne( room );
-      
-      const editedRoom = await this.roomModel.findById(room.id);
 
-      console.log( editedRoom );
+      const room = await this.roomModel.findById( id );
+
+      if ( ! room ) return { msg: 'Room not exist.' }
+
+      const user = await this.userModel.findById( owner );
+
+      if ( ! user ) return { msg: 'User not exist.' };
+      
+      await this.roomModel.updateOne( { _id: id }, { name } )
+      
+      const editedRoom = await this.roomModel.findById( id );
 
       const curatedRoom = {
         id: editedRoom._id,
@@ -115,7 +125,7 @@ export class RoomsService {
       for (let i = 0; i < roomToDelete.owners.length; i ++) {
         const owner = await this.userModel.findById( roomToDelete.owners[i] );
         if ( owner ) {
-          owner.ownedRooms = owner.ownedRooms.filter(room => room != id);
+          owner.ownedRooms = owner.ownedRooms.filter( room => room != id );
           owner.save();
         }
       }
@@ -123,7 +133,7 @@ export class RoomsService {
       for (let i = 0; i < roomToDelete.participants.length; i ++) {
         const participant = await this.userModel.findById( roomToDelete.participants[i] );
         if ( participant ) {
-          participant.participantRooms = participant.participantRooms.filter(room => room !== id);
+          participant.participantRooms = participant.participantRooms.filter( room => room !== id );
           participant.save();
         }
       }
@@ -161,7 +171,7 @@ export class RoomsService {
        * Check if the room id is in the owned rooms of the new owner added. Just to be sure, so we don't add two id of the same room.
        */
       if ( ! findNewUser.ownedRooms.includes( id ) ) { 
-        findNewUser.ownedRooms.push(id);
+        findNewUser.ownedRooms.push( id );
         findNewUser.save();
       }
   
@@ -174,7 +184,7 @@ export class RoomsService {
   
       return curatedRoom;
       
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -201,7 +211,7 @@ export class RoomsService {
       findedRoom.save();
 
       if ( findOwnerToDelete.ownedRooms.includes( id ) ) {
-        const filteredRooms = findOwnerToDelete.ownedRooms.filter(room => room !== id);
+        const filteredRooms = findOwnerToDelete.ownedRooms.filter( room => room !== id );
         findOwnerToDelete.ownedRooms = filteredRooms;
         findOwnerToDelete.save();
       }
@@ -253,7 +263,7 @@ export class RoomsService {
 
       return curatedRoom;
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -276,12 +286,12 @@ export class RoomsService {
 
       if ( ! findedRoom.participants.includes( participantToDelete ) ) return { msg: 'Given user is not a participant of this room.' };
   
-      const filteredParticipants = findedRoom.participants.filter(participant => participant !== participantToDelete);
+      const filteredParticipants = findedRoom.participants.filter( participant => participant !== participantToDelete );
       findedRoom.participants = filteredParticipants;
       findedRoom.save();
 
       if ( findParticipant.participantRooms.includes( id ) ) {
-        const filteredRooms = findParticipant.participantRooms.filter(room => room !== id);
+        const filteredRooms = findParticipant.participantRooms.filter( room => room !== id );
         findParticipant.participantRooms = filteredRooms;
         findParticipant.save();
       }
@@ -295,7 +305,7 @@ export class RoomsService {
   
       return curatedRoom;
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -322,7 +332,7 @@ export class RoomsService {
 
       return { msg: 'Post created successfuly.' }
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -351,7 +361,7 @@ export class RoomsService {
 
       return { msg: 'Book added successfully' };
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
   }
@@ -376,7 +386,7 @@ export class RoomsService {
 
       return { msg: 'Link added successfully.' };
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
   }

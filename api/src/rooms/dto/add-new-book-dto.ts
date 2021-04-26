@@ -2,24 +2,24 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewBookDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   ownerId: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   link: string;
 
 }

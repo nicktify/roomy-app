@@ -59,7 +59,7 @@ export class RoomsController {
 
   @Delete('deleteparticipant')
   deleteParticipant( @Body() deleteParticipantDto: DeleteParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.deleteParticipant(deleteParticipantDto);
+    return this.roomService.deleteParticipant( deleteParticipantDto );
   }
 
   @Post('posts')

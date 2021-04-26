@@ -2,15 +2,16 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewOwnerDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   owner: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   newOwner: string;
+  
 }

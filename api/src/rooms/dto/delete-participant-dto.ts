@@ -2,16 +2,16 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class DeleteParticipantDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   owner: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   participantToDelete: string;
 
 }

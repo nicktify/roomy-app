@@ -2,20 +2,20 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewPostDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   authorId: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   body: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   date: Date;
 
 }

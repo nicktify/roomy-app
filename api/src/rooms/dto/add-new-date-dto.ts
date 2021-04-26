@@ -2,20 +2,20 @@ import { IsDate, IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewDateDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
   
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @IsDate()
   @IsNotEmpty()
+  @IsDate()
   date: Date;
   
 }

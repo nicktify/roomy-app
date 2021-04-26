@@ -2,20 +2,20 @@ import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
 export class ReturnRoomDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsArray()
   @IsNotEmpty()
+  @IsArray()
   owners: string[];
 
-  @IsArray()
   @IsNotEmpty()
+  @IsArray()
   participants: string[];
   
 };

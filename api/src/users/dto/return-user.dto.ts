@@ -2,26 +2,28 @@ import { IsArray, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class ReturnUserDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string;
 
+  @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   role: string;
 
-  @IsArray()
   @IsNotEmpty()
+  @IsArray()
   ownedRooms: string[];
 
-  @IsArray()
   @IsNotEmpty()
+  @IsArray()
   participantRooms: string[];
+  
 }

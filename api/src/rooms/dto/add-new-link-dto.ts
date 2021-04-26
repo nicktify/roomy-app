@@ -2,20 +2,20 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewLinkDto {
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   id: string
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   ownerId: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   link: string
 
 }
