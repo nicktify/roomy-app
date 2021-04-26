@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
+
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
@@ -59,8 +61,12 @@ export class UsersService {
       const  user  = await this.userModel.findOne({ email: email });
       
       if ( user ) return { msg: 'User already exist.' };
+
+      const saltOrRounds = 10;
+
+      const hash = await bcrypt.hash( password, saltOrRounds );
       
-      const createdUser = await this.userModel.create({ name, email, password, role });
+      const createdUser = await this.userModel.create({ name, email, password: hash, role });
 
       const curatedUser = {
         id: createdUser._id,
