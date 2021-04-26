@@ -39,7 +39,7 @@ export class UsersService {
   
     const findedUser = await this.userModel.findById( id );
 
-    if (!findedUser) return { msg: 'User not exists.' }
+    if ( ! findedUser ) return { msg: 'User not exists.' }
   
     const curatedUser = {
       id: findedUser._id,
@@ -79,7 +79,7 @@ export class UsersService {
 
       return curatedUser;
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -108,7 +108,7 @@ export class UsersService {
       
       return curatedUser;
       
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
   }
@@ -117,10 +117,10 @@ export class UsersService {
 
     try {
 
-      await this.userModel.deleteOne({_id: id});
+      await this.userModel.deleteOne({ _id: id });
       return { msg: 'User deleted.' };
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
 
@@ -145,10 +145,34 @@ export class UsersService {
 
       return curatedUser;
 
-    } catch (error) {
+    } catch ( error ) {
       throw error;
     }
+  }
 
+  async login( { email, password } ): Promise<ReturnUserDto | { msg: string }> {
+    try {
+
+      const user = await this.userModel.findOne({ email });
+
+      const result = await bcrypt.compare( password, user.password );
+
+      if ( ! result ) return { msg: 'Email or password incorrect.' };
+
+      const curatedUser = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        ownedRooms: user.ownedRooms,
+        participantRooms: user.participantRooms
+      }
+
+      return curatedUser;
+      
+    } catch ( error ) {
+      throw error;
+    }
   }
 
 }
