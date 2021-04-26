@@ -11,7 +11,7 @@ export class AuthService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
     private jwtService: JwtService
-     ) {}
+    ) {}
   
   async validateUser( { username, password } ): Promise<any> {
     
