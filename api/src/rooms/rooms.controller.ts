@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Request, UseGuards } from '@nestjs/common';
 
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
@@ -11,6 +11,7 @@ import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('rooms')
 export class RoomsController {
@@ -27,54 +28,64 @@ export class RoomsController {
     return this.roomService.getRoom( id );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post()
-  postRoom( @Body() createRoomDto: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string } > {
-    return this.roomService.createRoom( createRoomDto );
+  postRoom( @Body() createRoomDto: CreateRoomDto, @Request() req ): Promise<ReturnRoomDto | { msg: string } > {
+    return this.roomService.createRoom( createRoomDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Put()
-  editRoom( @Body() room: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.editRoom( room );
+  editRoom( @Body() room: EditRoomDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.editRoom( room, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Delete()
-  deleteRoom( @Body() { id }: { id: string } ): Promise<{ msg: string }> {
-    return this.roomService.deleteRoom( id );
+  deleteRoom( @Body() { id, owner }: { id: string, owner: string }, @Request() req ): Promise<{ msg: string }> {
+    return this.roomService.deleteRoom( id, owner, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post('newowner')
-  addNewOwner( @Body() addNewOwnerDto: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.addNewOwner( addNewOwnerDto );
+  addNewOwner( @Body() addNewOwnerDto: AddNewOwnerDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.addNewOwner( addNewOwnerDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Delete('deleteowner')
-  deleteOwner( @Body() deleteOwnerDto: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.deleteOwner( deleteOwnerDto );
+  deleteOwner( @Body() deleteOwnerDto: DeleteOwnerDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.deleteOwner( deleteOwnerDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post('newparticipant')
-  addNewParticipant( @Body() addNewParticipantDto: addNewParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.addNewParticipant( addNewParticipantDto );
+  addNewParticipant( @Body() addNewParticipantDto: addNewParticipantDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.addNewParticipant( addNewParticipantDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Delete('deleteparticipant')
-  deleteParticipant( @Body() deleteParticipantDto: DeleteParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.deleteParticipant( deleteParticipantDto );
+  deleteParticipant( @Body() deleteParticipantDto: DeleteParticipantDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
+    return this.roomService.deleteParticipant( deleteParticipantDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post('posts')
-  addNewPost( @Body() addNewPostDto: AddNewPostDto ): Promise<{ msg: string }> {
-    return this.roomService.addNewPost( addNewPostDto )
+  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req ): Promise<{ msg: string }> {
+    return this.roomService.addNewPost( addNewPostDto, req.user )
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post('books')
-  addNewBook( @Body() addNewBookDto: AddNewBookDto ): Promise<{ msg: string }> {
-    return this.roomService.addNewBook( addNewBookDto );
+  addNewBook( @Body() addNewBookDto: AddNewBookDto, @Request() req ): Promise<{ msg: string }> {
+    return this.roomService.addNewBook( addNewBookDto, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Post('links')
-  addNewLink( @Body() addNewLinkDto: AddNewLinkDto ): Promise<{ msg: string }> {
-    return this.roomService.addNewLink( addNewLinkDto );
+  addNewLink( @Body() addNewLinkDto: AddNewLinkDto, @Request() req ): Promise<{ msg: string }> {
+    return this.roomService.addNewLink( addNewLinkDto, req.user );
   }
 
 }

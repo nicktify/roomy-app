@@ -60,13 +60,15 @@ export class RoomsService {
     }
   }
 
-  async createRoom( { name, password, owner }: CreateRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async createRoom( { name, password, owner }: CreateRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
       const findOwner = await this.userModel.findById( owner );
 
       if ( ! findOwner ) return { msg: 'User not exist.' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       const createdRoom = await this.roomModel.create({ name, password, owners: owner });
       
@@ -85,7 +87,7 @@ export class RoomsService {
 
   }
 
-  async editRoom( { id, name, owner }: EditRoomDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async editRoom( { id, name, owner }: EditRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
@@ -96,6 +98,8 @@ export class RoomsService {
       const user = await this.userModel.findById( owner );
 
       if ( ! user ) return { msg: 'User not exist.' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
       
       await this.roomModel.updateOne( { _id: id }, { name } )
       
@@ -116,9 +120,15 @@ export class RoomsService {
 
   }
 
-  async deleteRoom( id: string ): Promise<{ msg: string }> {
+  async deleteRoom( id: string, owner: string, authenticatedUser ): Promise<{ msg: string }> {
 
     try {
+
+      const user = await this.userModel.findById( owner );
+
+      if ( ! user ) return { msg: 'User not exist.' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       const roomToDelete = await this.roomModel.findById( id );
 
@@ -147,7 +157,7 @@ export class RoomsService {
 
   }
 
-  async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
@@ -159,6 +169,8 @@ export class RoomsService {
   
       const findOwner = await this.userModel.findById( owner );
       if ( ! findOwner ) return { msg: 'Owner user not exist' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
   
       if( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' }
 
@@ -190,7 +202,7 @@ export class RoomsService {
 
   }
 
-  async deleteOwner( { id, owner, ownerToDelete }: DeleteOwnerDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async deleteOwner( { id, owner, ownerToDelete }: DeleteOwnerDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
@@ -199,6 +211,8 @@ export class RoomsService {
 
       const findOwner = await this.userModel.findById( owner );
       if( ! findOwner ) return { msg: 'Owner not exist.' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       const findOwnerToDelete = await this.userModel.findById( ownerToDelete );
       if ( ! findOwnerToDelete ) return { msg: 'Owner to delete not exist' };
@@ -230,7 +244,7 @@ export class RoomsService {
     }
   }
 
-  async addNewParticipant( { id, owner, newParticipant }: addNewParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async addNewParticipant( { id, owner, newParticipant }: addNewParticipantDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
       
@@ -239,6 +253,8 @@ export class RoomsService {
 
       const findOwner = await this.userModel.findById( owner );
       if( ! findOwner ) return { msg: 'Owner not exists.' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       const findNewParticipant = await this.userModel.findById( newParticipant );
       if ( ! findNewParticipant ) return { msg: 'New participant not exist.' };
@@ -269,7 +285,7 @@ export class RoomsService {
 
   }
 
-  async deleteParticipant( { id, owner, participantToDelete }: DeleteParticipantDto ): Promise<ReturnRoomDto | { msg: string }> {
+  async deleteParticipant( { id, owner, participantToDelete }: DeleteParticipantDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
       
@@ -281,6 +297,8 @@ export class RoomsService {
   
       const findOwner = await this.userModel.findById( owner );
       if ( ! findOwner ) return { msg: 'Owner user not exist' };
+
+      if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
   
       if( ! findedRoom.owners.includes( owner ) ) return { msg: 'You are not the owner of this room.' }
 
@@ -311,7 +329,7 @@ export class RoomsService {
 
   }
 
-  async addNewPost( { id, authorId, body, date }: AddNewPostDto ): Promise<{ msg: string }> {
+  async addNewPost( { id, authorId, body, date }: AddNewPostDto, authenticatedUser ): Promise<{ msg: string }> {
 
     try {
       
@@ -322,6 +340,8 @@ export class RoomsService {
       const author = await this.userModel.findById( authorId );
 
       if ( ! author ) return { msg: 'Author user not exist' };
+
+      if ( authorId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       if ( ! room.owners.includes( authorId ) ) return { msg: 'You are not the owner of this room.' };
 
@@ -338,7 +358,7 @@ export class RoomsService {
 
   }
 
-  async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto ): Promise<{ msg: string }> {
+  async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser ): Promise<{ msg: string }> {
     try {
 
       /**
@@ -351,6 +371,8 @@ export class RoomsService {
       const owner = await this.userModel.findById( ownerId );
 
       if ( ! owner ) return { msg: 'Owner user not exist.' };
+
+      if ( ownerId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
 
@@ -366,7 +388,7 @@ export class RoomsService {
     }
   }
 
-  async addNewLink( { id, ownerId, name, link }: AddNewLinkDto ): Promise<{ msg: string }> {
+  async addNewLink( { id, ownerId, name, link }: AddNewLinkDto, authenticatedUser ): Promise<{ msg: string }> {
     try {
       
       const room = await this.roomModel.findById( id );
@@ -376,6 +398,8 @@ export class RoomsService {
       const owner = await this.userModel.findById( ownerId );
 
       if ( ! owner ) return { msg: 'Owner user not exist.' };
+
+      if ( ownerId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
 
