@@ -1,6 +1,8 @@
 import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+
 import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { FindByEmailDto } from './dto/find-by-email-dto';
@@ -11,6 +13,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor( private usersService: UsersService, private authService: AuthService ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   getUsers(): Promise<ReturnUserDto[]> | { msg: string } {
     return this.usersService.getUsers();
@@ -44,6 +47,7 @@ export class UsersController {
   @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   async login( @Request() req ) {
+    console.log(req.user)
     return this.authService.login(req.user);
   }
 
