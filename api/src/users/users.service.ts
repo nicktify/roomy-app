@@ -17,19 +17,14 @@ export class UsersService {
 
     const users = await this.userModel.find();
 
-    const curatedUsers: ReturnUserDto[] = users.map(user => {
-      return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        ownedRooms: user.ownedRooms,
-        participantRooms: user.participantRooms,
-      }
-    });
-
-    return curatedUsers;
-
+    return users.map(user => ({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      ownedRooms: user.ownedRooms,
+      participantRooms: user.participantRooms
+    }));
   }
 
   async getUser( id: string ): Promise<ReturnUserDto | { msg: string }> {
@@ -37,20 +32,16 @@ export class UsersService {
     if ( ! id ) return { msg: 'Id is mandatory.' };
   
     const findedUser = await this.userModel.findById( id );
-
     if ( ! findedUser ) return { msg: 'User not exists.' }
   
-    const curatedUser = {
+    return { 
       id: findedUser._id,
       name: findedUser.name,
       email: findedUser.email,
       role: findedUser.role,
       ownedRooms: findedUser.ownedRooms,
-      participantRooms: findedUser.participantRooms,
-    }
-
-    return curatedUser;
-  
+      participantRooms: findedUser.participantRooms
+    };
   }
 
   async createUser( { name, email, password, role }: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
@@ -58,25 +49,21 @@ export class UsersService {
     try {
 
       const  user  = await this.userModel.findOne({ email: email });
-      
       if ( user ) return { msg: 'User already exist.' };
 
       const saltOrRounds = 10;
-
       const hash = await bcrypt.hash( password, saltOrRounds );
       
       const createdUser = await this.userModel.create({ name, email, password: hash, role });
 
-      const curatedUser = {
+      return {
         id: createdUser._id,
         name: createdUser.name,
         email: createdUser.email,
         role: createdUser.role,
         ownedRooms: createdUser.ownedRooms,
         participantRooms: createdUser.participantRooms,
-      }
-
-      return curatedUser;
+      };
 
     } catch ( error ) {
       throw error;
@@ -89,7 +76,6 @@ export class UsersService {
     try {
       
       const user = await this.userModel.findById( id );
-
       if ( ! user ) return { msg: 'User not exist.' };
 
       /**
@@ -98,10 +84,9 @@ export class UsersService {
       if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the rights to do this action.' };
 
       await this.userModel.updateOne({ _id: id }, { name, email, role });
-
       const editedUser = await this.userModel.findById( id );
 
-      const curatedUser = {
+      return {
         id: editedUser._id,
         name: editedUser.name,
         email: editedUser.email,
@@ -109,8 +94,6 @@ export class UsersService {
         ownedRooms: editedUser.ownedRooms,
         participantRooms: editedUser.participantRooms,
       }
-      
-      return curatedUser;
       
     } catch ( error ) {
       throw error;
@@ -140,19 +123,16 @@ export class UsersService {
     try {
 
       const user = await this.userModel.findOne(email);
-
       if ( !user ) return { msg: 'User not exist.' };
 
-      const curatedUser = {
+      return {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
-      }
-
-      return curatedUser;
+      };
 
     } catch ( error ) {
       throw error;

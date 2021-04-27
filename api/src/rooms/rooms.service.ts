@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 
 import { RoomDocument } from './schemas/room.schema';
 import { UserDocument } from 'src/users/schemas/user.schema';
+
 import { EditRoomDto } from './dto/edit-room-dto';
 import { ReturnRoomDto } from './dto/return-room-dto';
 import { CreateRoomDto } from './dto/create-room-dto';
@@ -17,23 +18,12 @@ import { AddNewLinkDto } from './dto/add-new-link-dto';
 
 @Injectable()
 export class RoomsService {
-
   constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>, @InjectModel('User') private userModel: Model<UserDocument> ) {}
 
   async getRooms(): Promise<ReturnRoomDto[]> {
 
     const rooms = await this.roomModel.find();
-
-    const curatedRooms = rooms.map(room => {
-      return {
-        id: room._id,
-        name: room.name,
-        owners: room.owners,
-        participants: room.participants,
-      }
-    })
-
-    return curatedRooms;
+    return rooms.map(room =>  ({ id: room._id, name: room.name, owners: room.owners, participants: room.participants }))
 
   }
 
@@ -46,15 +36,8 @@ export class RoomsService {
       const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.'};
 
-      const curatedRoom = {
-        id: findedRoom._id,
-        name: findedRoom.name,
-        owners: findedRoom.owners,
-        participants: findedRoom.participants,
-      }
+      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
 
-      return curatedRoom;
-      
     } catch ( error ) {
       throw error;
     }
@@ -65,21 +48,13 @@ export class RoomsService {
     try {
 
       const findOwner = await this.userModel.findById( owner );
-
       if ( ! findOwner ) return { msg: 'User not exist.' };
 
       if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
       const createdRoom = await this.roomModel.create({ name, password, owners: owner });
       
-      const curatedRoom = {
-        id: createdRoom._id,
-        name: createdRoom.name,
-        owners: createdRoom.owners,
-        participants: createdRoom.participants,
-      }
-  
-      return curatedRoom;
+      return { id: createdRoom._id, name: createdRoom.name, owners: createdRoom.owners, participants: createdRoom.participants };
       
     } catch ( error ) {
       throw error;
@@ -92,27 +67,16 @@ export class RoomsService {
     try {
 
       const room = await this.roomModel.findById( id );
-
       if ( ! room ) return { msg: 'Room not exist.' }
 
       const user = await this.userModel.findById( owner );
-
       if ( ! user ) return { msg: 'User not exist.' };
 
       if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
       
-      await this.roomModel.updateOne( { _id: id }, { name } )
-      
+      await this.roomModel.updateOne( { _id: id }, { name } );
       const editedRoom = await this.roomModel.findById( id );
-
-      const curatedRoom = {
-        id: editedRoom._id,
-        name: editedRoom.name,
-        owners: editedRoom.owners,
-        participants: editedRoom.participants,
-      }
-
-      return curatedRoom;
+      return { id: editedRoom._id, name: editedRoom.name, owners: editedRoom.owners, participants: editedRoom.participants };
 
     } catch ( error ) {
       throw error;
@@ -125,7 +89,6 @@ export class RoomsService {
     try {
 
       const user = await this.userModel.findById( owner );
-
       if ( ! user ) return { msg: 'User not exist.' };
 
       if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
@@ -187,14 +150,7 @@ export class RoomsService {
         findNewUser.save();
       }
   
-      const curatedRoom = {
-        id: findedRoom._id,
-        name: findedRoom.name,
-        owners: findedRoom.owners,
-        participants: findedRoom.participants,
-      }
-  
-      return curatedRoom;
+      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
       
     } catch ( error ) {
       throw error;
@@ -230,14 +186,7 @@ export class RoomsService {
         findOwnerToDelete.save();
       }
 
-      const curatedRoom: ReturnRoomDto = {
-        id: findedRoom._id,
-        name: findedRoom.name,
-        owners: findedRoom.owners,
-        participants: findedRoom.participants,
-      }
-
-      return curatedRoom;
+      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
       
     } catch ( error ) {
       throw error;
@@ -270,14 +219,7 @@ export class RoomsService {
         findNewParticipant.save();
        };
 
-      const curatedRoom: ReturnRoomDto = {
-        id: findedRoom._id,
-        name: findedRoom.name,
-        owners: findedRoom.owners,
-        participants: findedRoom.participants,
-      }
-
-      return curatedRoom;
+      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
 
     } catch ( error ) {
       throw error;
@@ -314,14 +256,7 @@ export class RoomsService {
         findParticipant.save();
       }
   
-      const curatedRoom = {
-        id: findedRoom._id,
-        name: findedRoom.name,
-        owners: findedRoom.owners,
-        participants: findedRoom.participants,
-      }
-  
-      return curatedRoom;
+      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
 
     } catch ( error ) {
       throw error;
@@ -334,11 +269,9 @@ export class RoomsService {
     try {
       
       const room = await this.roomModel.findById( id );
-
       if ( ! room ) return { msg: 'Room not exist.' };
 
       const author = await this.userModel.findById( authorId );
-
       if ( ! author ) return { msg: 'Author user not exist' };
 
       if ( authorId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
@@ -361,15 +294,10 @@ export class RoomsService {
   async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser ): Promise<{ msg: string }> {
     try {
 
-      /**
-       * TODO: this is a pattern that is repeated over all the sevice files, so, find the way to optimize it.
-       */
       const room = await this.roomModel.findById( id );
-
       if ( ! room ) return { msg: 'Room not exist.' };
 
       const owner = await this.userModel.findById( ownerId );
-
       if ( ! owner ) return { msg: 'Owner user not exist.' };
 
       if ( ownerId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
@@ -377,7 +305,6 @@ export class RoomsService {
       if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
 
       const book  = { ownerId, name, description, link };
-
       await room.books.push( book );
       room.save();
 
@@ -392,11 +319,9 @@ export class RoomsService {
     try {
       
       const room = await this.roomModel.findById( id );
-
       if ( ! room ) return { msg: 'Room not exist.' };
 
       const owner = await this.userModel.findById( ownerId );
-
       if ( ! owner ) return { msg: 'Owner user not exist.' };
 
       if ( ownerId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
@@ -404,7 +329,6 @@ export class RoomsService {
       if ( ! room.owners.includes( ownerId ) ) return { msg: 'You are not the owner of this room.' };
 
       const newLink = { name, link };
-
       room.links.push( newLink );
       room.save();
 
