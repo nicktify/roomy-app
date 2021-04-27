@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor( private usersService: UsersService, private authService: AuthService ) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards( JwtAuthGuard )
   @Get()
   getUsers(): Promise<ReturnUserDto[]> | { msg: string } {
     return this.usersService.getUsers();
@@ -44,10 +44,9 @@ export class UsersController {
     return this.usersService.getByEmail( email );
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards( AuthGuard('local') )
   @Post('auth/login')
   async login( @Request() req ) {
-    console.log(req.user)
     return this.authService.login(req.user);
   }
 

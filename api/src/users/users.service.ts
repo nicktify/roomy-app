@@ -16,7 +16,6 @@ export class UsersService {
   async getUsers(): Promise<ReturnUserDto[]> {
 
     const users = await this.userModel.find();
-
     const curatedUsers: ReturnUserDto[] = users.map(user => {
       return {
         id: user._id,
