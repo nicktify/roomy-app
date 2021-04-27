@@ -12,10 +12,11 @@ import { FindByEmailDto } from './dto/find-by-email-dto';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
-  
-  async getUsers(): Promise<ReturnUserDto[]> {
+
+    async getUsers(): Promise<ReturnUserDto[]> {
 
     const users = await this.userModel.find();
+
     const curatedUsers: ReturnUserDto[] = users.map(user => {
       return {
         id: user._id,
@@ -30,8 +31,7 @@ export class UsersService {
     return curatedUsers;
 
   }
-  
-  
+
   async getUser( id: string ): Promise<ReturnUserDto | { msg: string }> {
   
     if ( ! id ) return { msg: 'Id is mandatory.' };
@@ -53,7 +53,7 @@ export class UsersService {
   
   }
 
-  async createUser( { name, email, password, role}: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
+  async createUser( { name, email, password, role }: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
 
@@ -84,7 +84,7 @@ export class UsersService {
 
   }
 
-  async editUser( { id, name, email, password, role}: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
+  async editUser( { id, name, email, role}: EditUserDto, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
 
     try {
       
@@ -92,7 +92,12 @@ export class UsersService {
 
       if ( ! user ) return { msg: 'User not exist.' };
 
-      await this.userModel.updateOne({ _id: id }, { name, email, password, role });
+      /**
+       * Check if the @body ID match the @req (authenticatedUser) userId from the authenticated user from passport JWT
+       */
+      if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the rights to do this action.' };
+
+      await this.userModel.updateOne({ _id: id }, { name, email, role });
 
       const editedUser = await this.userModel.findById( id );
 
@@ -112,9 +117,14 @@ export class UsersService {
     }
   }
 
-  async deleteUser( id: string ): Promise<{ msg: string }> {
+  async deleteUser( id: string, authenticatedUser ): Promise<{ msg: string }> {
 
     try {
+
+      /**
+       * Check if the @body ID match the @req (authenticatedUser) userId from the authenticated user from passport JWT
+       */
+      if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' }
 
       await this.userModel.deleteOne({ _id: id });
       return { msg: 'User deleted.' };
@@ -128,7 +138,7 @@ export class UsersService {
   async getByEmail( email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
-      
+
       const user = await this.userModel.findOne(email);
 
       if ( !user ) return { msg: 'User not exist.' };
@@ -144,31 +154,6 @@ export class UsersService {
 
       return curatedUser;
 
-    } catch ( error ) {
-      throw error;
-    }
-  }
-
-  async login( { email, password } ): Promise<ReturnUserDto | { msg: string }> {
-    try {
-
-      const user = await this.userModel.findOne({ email });
-
-      const result = await bcrypt.compare( password, user.password );
-
-      if ( ! result ) return { msg: 'Email or password incorrect.' };
-
-      const curatedUser = {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        ownedRooms: user.ownedRooms,
-        participantRooms: user.participantRooms
-      }
-
-      return curatedUser;
-      
     } catch ( error ) {
       throw error;
     }

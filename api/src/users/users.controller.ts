@@ -29,14 +29,17 @@ export class UsersController {
     return this.usersService.createUser( createUserDto );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Put()
-  editUser( @Body() user: EditUserDto ): Promise<ReturnUserDto | { msg: string }> {
-    return this.usersService.editUser( user );
+  editUser( @Body() user: EditUserDto, @Request() req ): Promise<ReturnUserDto | { msg: string }> | { msg: string } {
+    console.log(req)
+    return this.usersService.editUser( user, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Delete()
-  deleteUser( @Body() { id }: { id: string } ): Promise<{ msg: string }> {
-    return this.usersService.deleteUser( id );
+  deleteUser( @Body() { id }: { id: string }, @Request() req ): Promise<{ msg: string }> {
+    return this.usersService.deleteUser( id, req.user );
   }
 
   @Get('email')
