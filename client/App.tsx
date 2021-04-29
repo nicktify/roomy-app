@@ -1,38 +1,14 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React from 'react';
 
-interface User {
-  name: string;
-  email: string;
-  age: number;
-  birthDate?: string;
-}
+import Login from './src/Login';
 
 const App = (): JSX.Element => {
-  const [ state, setState ] = useState<User | null>(null);
-  const handlePress = (): string => {
-    console.log(state);
-    setState(null);
-    return 'here';
-  };
 
   return (
-    <View style={ styles.root }>
-      <View>
-        <Text style={ styles.text }>Hello</Text>
-        <Button title="Press" onPress={ handlePress } />
-      </View>
-    </View>
+    <>
+      <Login />
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: '#000000',
-  },
-  text: {
-    color: '#FFFFFF',
-  },
-});
 
 export default App;

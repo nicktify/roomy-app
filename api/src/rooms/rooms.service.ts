@@ -142,9 +142,6 @@ export class RoomsService {
       findedRoom.owners.push( newOwner );
       findedRoom.save();
 
-      /**
-       * Check if the room id is in the owned rooms of the new owner added. Just to be sure, so we don't add two id of the same room.
-       */
       if ( ! findNewUser.ownedRooms.includes( id ) ) { 
         findNewUser.ownedRooms.push( id );
         findNewUser.save();
