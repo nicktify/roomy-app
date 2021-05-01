@@ -10,6 +10,13 @@ const Login = () => {
     <>
       <View style={style.root}>
         <View style={style.formContainer}>
+          <View
+            style={style.loginTextContainer}
+          >
+            <Text
+              style={style.loginText}
+            >Login</Text>
+          </View>
           <View>
             <Text style={style.textLabel}>Enter your email:</Text>
             <TextInput
@@ -32,7 +39,9 @@ const Login = () => {
               <View
                 style={style.registerContainer}
               >
-                <Text>Don't have an account?</Text>
+                <Text
+                  style={style.dontHaveAnAccountText}
+                >Don't have an account?</Text>
                 <TouchableOpacity>
                   <Text
                     style={style.registerLink}
@@ -61,6 +70,15 @@ const style = StyleSheet.create({
   root: {
     flex: 1,
   },
+  loginTextContainer: {
+    minWidth: '80%',
+  },
+  loginText: {
+    color: '#69C1AC',
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
   formContainer: {
     flex: 1,
     flexDirection: 'column',
@@ -79,6 +97,7 @@ const style = StyleSheet.create({
   textLabel: {
     marginBottom: 10,
     fontSize: 20,
+    opacity: 0.6,
   },
   loginButton: {
     backgroundColor: '#69C1AC',
@@ -98,9 +117,13 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20
   },
+  dontHaveAnAccountText: {
+    opacity: 0.6,
+  },
   registerLink: {
     color: '#69C1AC',
     fontWeight: 'bold',
-    marginLeft: 10
+    marginLeft: 10,
+    opacity: 0.6,
   }
 });
