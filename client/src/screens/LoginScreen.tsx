@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
-const Login = () => {
+const LoginScreen = () => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -66,7 +66,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;
 
 const style = StyleSheet.create({
   root: {
