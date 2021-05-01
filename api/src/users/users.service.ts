@@ -34,7 +34,7 @@ export class UsersService {
     const findedUser = await this.userModel.findById( id );
     if ( ! findedUser ) return { msg: 'User not exists.' }
   
-    return { 
+    return {
       id: findedUser._id,
       name: findedUser.name,
       email: findedUser.email,

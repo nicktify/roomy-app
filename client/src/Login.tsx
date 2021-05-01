@@ -7,34 +7,36 @@ const Login = () => {
   const [ password, setPassword ] = useState('');
 
   return (
-    <>
-      <View style={style.root}>
-        <View style={style.formContainer}>
-          <View
-            style={style.loginTextContainer}
-          >
-            <Text
-              style={style.loginText}
-            >Login</Text>
-          </View>
-          <View>
-            <Text style={style.textLabel}>Enter your email:</Text>
-            <TextInput
-              style={style.textInput}
-              placeholder="example@gmail.com"
-              onChangeText={ email => setEmail( email ) }
-              defaultValue={ email }
-              value={ email }
-              keyboardType='email-address'
+    <> 
+        <View style={style.root}>
+          <View style={style.formContainer}>
+            <View
+              style={style.loginTextContainer}
+            >
+              <Text
+                style={style.loginText}
+              >Login</Text>
+            </View>
+            <View>
+              <Text style={style.textLabel}>Enter your email:</Text>
+              <TextInput
+                style={style.textInput}
+                placeholder="example@gmail.com"
+                placeholderTextColor="#9a9b9c"
+                onChangeText={email => setEmail(email)}
+                defaultValue={email}
+                value={email}
+                keyboardType='email-address'
               />
-            <Text style={style.textLabel}>Enter your password:</Text>
-            <TextInput
-              style={style.textInput}
-              placeholder="******"
-              onChangeText={ password => setPassword(password) }
-              defaultValue={ password }
-              value={ password }
-              secureTextEntry
+              <Text style={style.textLabel}>Enter your password:</Text>
+              <TextInput
+                style={style.textInput}
+                placeholder="******"
+                placeholderTextColor="#9a9b9c"
+                onChangeText={password => setPassword(password)}
+                defaultValue={password}
+                value={password}
+                secureTextEntry
               />
               <View
                 style={style.registerContainer}
@@ -57,9 +59,9 @@ const Login = () => {
                   Login
                 </Text>
               </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
     </>
   );
 };
@@ -69,6 +71,7 @@ export default Login;
 const style = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'white'
   },
   loginTextContainer: {
     minWidth: '80%',
@@ -88,6 +91,7 @@ const style = StyleSheet.create({
   textInput: {
     fontSize: 18,
     width: 200,
+    color: 'black',
     backgroundColor: '#E8E8E8',
     padding: 15,
     borderRadius: 10,
