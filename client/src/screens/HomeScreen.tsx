@@ -47,38 +47,11 @@ const HomeScreen = () => {
             </View>
           </View>
         </View>
-        <View style={style.navigationBottom}>
-          <Icon
-            style={style.navigationBottomIcon}
-            name="home"
-            color="black"
-            size={30}
-          />
-          <Icon 
-            style={style.navigationBottomIcon}
-            name="calendar-today"
-            color="black"
-            size={25}
-          />
-          <Icon 
-            style={style.navigationBottomIcon}
-            name="notifications-none"
-            color="black"
-            size={30}
-          />
-          <Icon 
-            style={style.navigationBottomIcon}
-            name="search"
-            color="black"
-            size={30}
-          />
-        </View>
       </View>
     </>
   );
 };
 
-export default HomeScreen;
 
 const style = StyleSheet.create({
   root: {
@@ -159,14 +132,6 @@ const style = StyleSheet.create({
     fontWeight: '500',
     opacity: 0.8
   },
-  navigationBottom: {
-    height: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  navigationBottomIcon: {
-    opacity: 0.7,
-  },
 });
+
+export default HomeScreen;
