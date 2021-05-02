@@ -25,21 +25,26 @@ const HomeScreen = () => {
               style={style.profileImage}
               name="account-circle"
               size={50}
+              color="#69C1AC"
             />
           </View>
         </View>
         <View style={style.bottomContainer}>
-          <View style={style.roomContainer}>
-            <Text style={style.roomName}>Room name</Text>
-            <Text style={style.roomDescription}>Room description</Text>
-          </View>
-          <View style={style.roomContainer}>
-            <Text style={style.roomName}>Room name</Text>
-            <Text style={style.roomDescription}>Room description</Text>
-          </View>
-          <View style={style.roomContainer}>
-            <Text style={style.roomName}>Room name</Text>
-            <Text style={style.roomDescription}>Room description</Text>
+          <View
+            style={style.innetButtomContainer}
+          >
+            <View style={style.roomContainer}>
+              <Text style={style.roomName}>Room name</Text>
+              <Text style={style.roomDescription}>Room description</Text>
+            </View>
+            <View style={style.roomContainer}>
+              <Text style={style.roomName}>Room name</Text>
+              <Text style={style.roomDescription}>Room description</Text>
+            </View>
+            <View style={style.roomContainer}>
+              <Text style={style.roomName}>Room name</Text>
+              <Text style={style.roomDescription}>Room description</Text>
+            </View>
           </View>
         </View>
         <View style={style.navigationBottom}>
@@ -92,10 +97,15 @@ const style = StyleSheet.create({
   },
   bottomContainer: {
     flex: 0.7,
-    backgroundColor: '#f1f1f1',
-    borderTopLeftRadius: 60,
-    borderTopRightRadius: 60,
-    alignItems: 'center'
+    backgroundColor: '#69C1AC',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    justifyContent: 'center'
+  },
+  innetButtomContainer: {
+    width: '100%',
+    height: '90%',
+    alignItems: 'center',
   },
   toggleIcon: {
     marginLeft: 30,
@@ -145,7 +155,7 @@ const style = StyleSheet.create({
     opacity: 0.8
   },
   roomDescription: {
-    fontSize: 10,
+    fontSize: 15,
     fontWeight: '500',
     opacity: 0.8
   },
