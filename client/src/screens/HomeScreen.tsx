@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const HomeScreen = () => {
   return (
@@ -7,9 +8,11 @@ const HomeScreen = () => {
       <View style={style.root}>
         <View style={style.topContainer}>
           <View style={style.leftTopContainer}>
-            <Image
-              source={require('../assets/draw-indicator.png')}
+            <Icon
               style={style.toggleIcon}
+              name="menu"
+              size={30}
+              color="black"
             />
             <View style={style.welcomeMessage}>
               <Text style={style.helloText}>Hello, </Text>
@@ -18,9 +21,10 @@ const HomeScreen = () => {
             <Text style={style.happyLearningText}>Happy learning !</Text>
           </View>
           <View style={style.rightTopContainer}>
-            <Image 
+          <Icon 
               style={style.profileImage}
-              source={require('../assets/user-avatar.png')}
+              name="account-circle"
+              size={50}
             />
           </View>
         </View>
@@ -39,21 +43,29 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={style.navigationBottom}>
-          <Image 
+          <Icon
             style={style.navigationBottomIcon}
-            source={require('../assets/home-icon.png')}
+            name="home"
+            color="black"
+            size={30}
           />
-          <Image 
-            style={style.navigationBottomIconCalendar}
-            source={require('../assets/calendar-icon.png')}
-          />
-          <Image 
-            style={style.navigationBottomIconNotification}
-            source={require('../assets/notification-icon.png')}
-          />
-          <Image 
+          <Icon 
             style={style.navigationBottomIcon}
-            source={require('../assets/search-icon.png')}
+            name="calendar-today"
+            color="black"
+            size={25}
+          />
+          <Icon 
+            style={style.navigationBottomIcon}
+            name="notifications-none"
+            color="black"
+            size={30}
+          />
+          <Icon 
+            style={style.navigationBottomIcon}
+            name="search"
+            color="black"
+            size={30}
           />
         </View>
       </View>
@@ -86,10 +98,9 @@ const style = StyleSheet.create({
     alignItems: 'center'
   },
   toggleIcon: {
-    width: 40,
-    height: 40,
-    margin: 20,
+    marginLeft: 30,
     marginTop: 40,
+    marginBottom: 30,
     opacity: 0.8
   },
   welcomeMessage: {
@@ -113,11 +124,9 @@ const style = StyleSheet.create({
     opacity: 0.3
   },
   profileImage: {
-    width: 70,
-    height: 70,
     alignSelf: 'flex-end',
-    marginRight: 30,
-    marginTop: 20,
+    marginRight: 40,
+    marginTop: 30,
     opacity: 0.8,
   },
   roomContainer: {
@@ -145,21 +154,9 @@ const style = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   navigationBottomIcon: {
-    width: 40,
-    height: 40,
     opacity: 0.7,
   },
-  navigationBottomIconCalendar: {
-    width: 30,
-    height: 30,
-    opacity: 0.7,
-  },
-  navigationBottomIconNotification: {
-    width: 38,
-    height: 38,
-    opacity: 0.7,
-  }
-})
+});
