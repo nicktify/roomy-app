@@ -2,14 +2,14 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
-import DrawerNavigation from './src/navigation/DrawerNavigation';
+import AppNavigation from './src/navigation/AppNavigation';
 
 const App = (): JSX.Element => {
 
   return (
     <>
     <NavigationContainer>
-      <DrawerNavigation />
+      <AppNavigation />
     </NavigationContainer>
     </>
   );
