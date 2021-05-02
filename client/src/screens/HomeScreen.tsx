@@ -1,19 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <>
       <View style={style.root}>
         <View style={style.topContainer}>
           <View style={style.leftTopContainer}>
-            <Icon
-              style={style.toggleIcon}
-              name="menu"
-              size={30}
-              color="black"
-            />
+            <TouchableOpacity
+              onPress={ () => navigation.openDrawer() }
+            >
+              <Icon
+                style={style.toggleIcon}
+                name="menu"
+                size={30}
+                color="black"
+              />
+            </TouchableOpacity>
             <View style={style.welcomeMessage}>
               <Text style={style.helloText}>Hello, </Text>
               <Text style={style.nameText}>Name!</Text>

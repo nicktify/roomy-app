@@ -7,8 +7,11 @@ import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Tab = createBottomTabNavigator();
+
+// const Drawer = createDrawerNavigator();
 
 const TabBar = ({ navigation }: any) => {
   return (
@@ -70,7 +73,7 @@ const style = StyleSheet.create({
   },
 });
 
-function ButtomTabNavigation() {
+export const HomeTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
       <Tab.Screen name="Home" component={ HomeScreen } />
@@ -81,4 +84,27 @@ function ButtomTabNavigation() {
   );
 }
 
-export default ButtomTabNavigation;
+export const CalendarTabNavigation = () => {
+  return (
+    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+      <Tab.Screen name="Calendar" component={ CalendarScreen } />
+    </Tab.Navigator>
+  );
+}
+
+export const NotificationsTabNavigation = () => {
+  return (
+    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
+    </Tab.Navigator>
+  );
+}
+
+
+export const SearchTabNavigation = () => {
+  return (
+    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+      <Tab.Screen name="Search" component={ SearchScreen } />
+    </Tab.Navigator>
+  );
+}
