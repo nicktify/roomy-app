@@ -7,11 +7,8 @@ import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Tab = createBottomTabNavigator();
-
-// const Drawer = createDrawerNavigator();
 
 const TabBar = ({ navigation }: any) => {
   return (
@@ -77,9 +74,6 @@ export const HomeTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
       <Tab.Screen name="Home" component={ HomeScreen } />
-      <Tab.Screen name="Calendar" component={ CalendarScreen } />
-      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
-      <Tab.Screen name="Search" component={ SearchScreen } />
     </Tab.Navigator>
   );
 }

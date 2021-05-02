@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={style.bottomContainer}>
           <View
-            style={style.innetButtomContainer}
+            style={style.innerButtomContainer}
           >
             <View style={style.roomContainer}>
               <Text style={style.roomName}>Room name</Text>
@@ -74,12 +74,12 @@ const style = StyleSheet.create({
   },
   bottomContainer: {
     flex: 0.7,
-    backgroundColor: '#69C1AC',
+    backgroundColor: '#f1f1f1',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     justifyContent: 'center'
   },
-  innetButtomContainer: {
+  innerButtomContainer: {
     width: '100%',
     height: '90%',
     alignItems: 'center',
