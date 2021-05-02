@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
-const LoginScreen = () => {
+const LoginScreen = ( { navigation }: any ) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
 
   return (
     <> 
-        <View style={style.root}>
-          <View style={style.formContainer}>
+        <View style={ style.root }>
+          <View style={ style.formContainer }>
             <View
-              style={style.loginTextContainer}
+              style={ style.loginTextContainer }
             >
               <Text
-                style={style.loginText}
+                style={ style.loginText }
               >Login</Text>
             </View>
             <View>
@@ -23,9 +23,9 @@ const LoginScreen = () => {
                 style={style.textInput}
                 placeholder="example@gmail.com"
                 placeholderTextColor="#9a9b9c"
-                onChangeText={email => setEmail(email)}
-                defaultValue={email}
-                value={email}
+                onChangeText={ email => setEmail( email ) }
+                defaultValue={ email }
+                value={ email }
                 keyboardType='email-address'
               />
               <Text style={style.textLabel}>Enter your password:</Text>
@@ -33,28 +33,31 @@ const LoginScreen = () => {
                 style={style.textInput}
                 placeholder="******"
                 placeholderTextColor="#9a9b9c"
-                onChangeText={password => setPassword(password)}
-                defaultValue={password}
-                value={password}
+                onChangeText={ password => setPassword( password ) }
+                defaultValue={ password }
+                value={ password }
                 secureTextEntry
               />
               <View
-                style={style.registerContainer}
+                style={ style.registerContainer }
               >
                 <Text
-                  style={style.dontHaveAnAccountText}
+                  style={ style.dontHaveAnAccountText }
                 >Don't have an account?</Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={ () => navigation.navigate('RegisterScreen') }
+                >
                   <Text
-                    style={style.registerLink}
+                    style={ style.registerLink }
                   >REGISTER</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                style={style.loginButton}
+                style={ style.loginButton }
+                onPress={ () => navigation.navigate('HomeScreen') }
               >
                 <Text
-                  style={style.textButton}
+                  style={ style.textButton }
                 >
                   Login
                 </Text>

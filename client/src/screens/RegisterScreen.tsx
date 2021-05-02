@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }: any) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -65,10 +65,12 @@ const RegisterScreen = () => {
                 >
                   Arleady have an account?
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={ () => navigation.navigate('LoginScreen') }
+                >
                   <Text
                     style={style.registerLink}
-                  >REGISTER</Text>
+                  >LOGIN</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
