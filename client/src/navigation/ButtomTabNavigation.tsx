@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -7,6 +7,8 @@ import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
+
+import style from '../styles/navigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,19 +58,6 @@ const TabBar = ({ navigation }: any) => {
   </View>
   )
 }
-
-const style = StyleSheet.create({
-  navigationBottom: {
-    height: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  navigationBottomIcon: {
-    opacity: 0.7,
-  },
-});
 
 export const HomeTabNavigation = () => {
   return (
