@@ -20,7 +20,8 @@ const style = StyleSheet.create({
     width: '100%',
     height: '90%',
     alignItems: 'center',
-  },
+    padding: 20,
+  }
 });
 
 export default style;

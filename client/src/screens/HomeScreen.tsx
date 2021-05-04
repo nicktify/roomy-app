@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import AddRoomButtom from '../components/AddRoomButtom';
 
 import HomeLeftTopComponent from '../components/HomeLeftTopComponent';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
@@ -17,6 +18,9 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={style.bottomContainer}>
           <View style={style.innerButtomContainer} >
+            <View style={{width: '100%'}}>
+              <AddRoomButtom />
+            </View>
             <Room />
           </View>
         </View>
@@ -24,8 +28,5 @@ const HomeScreen = ({ navigation }: any) => {
     </>
   );
 };
-
-
-
 
 export default HomeScreen;

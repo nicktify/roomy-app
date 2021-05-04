@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { principalColor } from "../../config/colors";
 
 const style = StyleSheet.create({
   root: {
@@ -36,7 +37,7 @@ const style = StyleSheet.create({
     opacity: 0.6,
   },
   loginButton: {
-    backgroundColor: '#69C1AC',
+    backgroundColor: principalColor,
     borderRadius: 20,
     height: 55,
     display: 'flex',

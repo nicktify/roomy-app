@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { API } from '../config/constants';
+import { API } from '../config/environment/constants';
 
 import style from '../styles/screens/login';
 
@@ -72,7 +72,6 @@ const LoginScreen = ({ navigation }: any) => {
             </View>
             <TouchableOpacity
               style={style.loginButton}
-              // onPress={() => navigation.navigate('HomeNavigation')}
               onPress={handleLogin}
             >
               <Text

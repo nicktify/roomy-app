@@ -2,10 +2,10 @@ import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   roomContainer: {
-    width: '90%',
+    width: '100%',
     height: 100,
     backgroundColor: 'white',
-    marginTop: 40,
+    marginTop: 20,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'flex-start',
