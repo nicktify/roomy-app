@@ -3,15 +3,15 @@ import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigation from './src/navigation/AppNavigation';
-import MainContext from './src/context/MainContext';
+import AppContext from './src/context/MainContext';
 
 const App = (): JSX.Element => {
 
   return (
     <NavigationContainer>
-      <MainContext>
+      <AppContext>
         <AppNavigation />
-      </MainContext>
+      </AppContext>
     </NavigationContainer>
   );
 };

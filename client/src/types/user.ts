@@ -7,6 +7,14 @@ export class User {
   role: string;
 }
 
-export class InitialState {
-  user: User;
+class InitialState {
+  user: User | null;
+  token: string | null;
 }
+
+export class LoginData {
+  email: string;
+  password: string;
+}
+
+export default InitialState;

@@ -1,36 +1,48 @@
+import axios from 'axios';
 import React, { createContext, useReducer } from 'react';
-import { InitialState } from '../types/user';
-import UserReducer from './reducers/UserReducer';
+import { API } from '../config/environment/constants';
+import InitialState, { User, LoginData } from '../types/user';
+import userReducer from './reducers/UserReducer';
 
 const initialState: InitialState = {
-  user: {
-    email: '',
-    id: '',
-    name: '',
-    ownedRooms: [],
-    participantRooms: [],
-    role: '',
-  }
+  user: null,
+  token: null
 }
 
 interface ContextProps {
-  state: InitialState;
-  dispatch: React.DispatchWithoutAction;
+  user: User;
+  token: string;
+  signIn: ( loginData: LoginData ) => void;
 }
 
 export const Context = createContext({} as ContextProps);
 
-const MainContext = ({ children }: any) => {
-  const [ state, dispatch ] = useReducer(UserReducer, initialState);
+const AppContext = ({ children }: any) => {
+
+  const [ state, dispatch ] = useReducer(userReducer, initialState);
+
+  const signIn = ({ email, password }: LoginData ) => {
+    axios.post(`${ API }/users/auth/login`, {
+        email,
+        password
+      })
+      .then(response => {
+        dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
+      })
+      .catch(error => {
+        console.log( error );
+      })
+  }
 
   return (
     <Context.Provider value={{
-      state,
-      dispatch
+      user: state.user,
+      token: state.token,
+      signIn,
     }}>
     {children}
     </Context.Provider>
   )
 }
 
-export default MainContext;
+export default AppContext;
