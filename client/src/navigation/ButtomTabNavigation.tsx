@@ -1,67 +1,18 @@
 import * as React from 'react';
-import { View, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
 
-import style from '../styles/navigation';
+import TabBarNavigation from '../components/TabBarNavigation';
 
 const Tab = createBottomTabNavigator();
 
-const TabBar = ({ navigation }: any) => {
-  return (
-    <View style={style.navigationBottom}>
-      <TouchableOpacity
-        onPress={ () => navigation.navigate('Home') }
-      >
-        <Icon
-          style={style.navigationBottomIcon}
-          name="home"
-          color="black"
-          size={30}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={ () => navigation.navigate('Calendar') }
-      >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="calendar-today"
-          color="black"
-          size={25}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={ () => navigation.navigate('Notifications') }
-      >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="notifications-none"
-          color="black"
-          size={30}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={ () => navigation.navigate('Search') }
-      >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="search"
-          color="black"
-          size={30}
-        />
-      </TouchableOpacity>
-  </View>
-  )
-}
-
 export const HomeTabNavigation = () => {
   return (
-    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Home" component={ HomeScreen } />
     </Tab.Navigator>
   );
@@ -69,7 +20,7 @@ export const HomeTabNavigation = () => {
 
 export const CalendarTabNavigation = () => {
   return (
-    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Calendar" component={ CalendarScreen } />
     </Tab.Navigator>
   );
@@ -77,16 +28,15 @@ export const CalendarTabNavigation = () => {
 
 export const NotificationsTabNavigation = () => {
   return (
-    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Notifications" component={ NotificationsScreen } />
     </Tab.Navigator>
   );
 }
 
-
 export const SearchTabNavigation = () => {
   return (
-    <Tab.Navigator tabBar={ props => <TabBar { ...props } /> }>
+    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Search" component={ SearchScreen } />
     </Tab.Navigator>
   );

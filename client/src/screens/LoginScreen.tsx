@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { API } from '../config/constants';
 
 import style from '../styles/screens/login';
 
@@ -7,6 +9,20 @@ const LoginScreen = ({ navigation }: any) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
+
+  const handleLogin = () => {
+      axios.post(`${ API }/users/auth/login`, {
+          email,
+          password,
+        })
+        .then(response => {
+          console.log(response.data)
+          navigation.navigate('HomeNavigation');
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  }
 
   return (
     <>
@@ -56,7 +72,8 @@ const LoginScreen = ({ navigation }: any) => {
             </View>
             <TouchableOpacity
               style={style.loginButton}
-              onPress={() => navigation.navigate('HomeNavigation')}
+              // onPress={() => navigation.navigate('HomeNavigation')}
+              onPress={handleLogin}
             >
               <Text
                 style={style.textButton}
