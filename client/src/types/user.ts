@@ -11,6 +11,7 @@ class InitialState {
   user: User | null;
   token: string | null;
   userDidRegister: boolean;
+  validationCompleted: boolean;
 }
 
 export class LoginData {

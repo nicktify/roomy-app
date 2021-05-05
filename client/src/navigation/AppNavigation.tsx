@@ -1,4 +1,5 @@
 import * as React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoginScreen from '../screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,10 +9,22 @@ import { Context } from '../context/MainContext';
 
 const Stack = createStackNavigator();
 
-
 const AppNavigation = () => {
 
-  const { user } = React.useContext( Context );
+  const { user, validateToken } = React.useContext( Context );
+
+  React.useEffect(() => {
+    validateUser();
+  }, [])
+
+  const validateUser = async () => {
+    
+    const token = await AsyncStorage.getItem('token');
+    if ( ! token ) return;
+
+    validateToken(JSON.parse(token));
+
+  }
 
   const navigation = () => {
     return (
