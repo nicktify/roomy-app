@@ -1,27 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Context } from '../context/MainContext';
 
 import style from '../styles/screens/register';
 
 const RegisterScreen = ({ navigation }: any) => {
 
   const [ email, setEmail ] = useState('');
+  const [ name, setName ] = useState('');
   const [ password, setPassword ] = useState('');
+  const [ passwordValidation, setPasswordValidation ] = useState('');
   const [ keyboardState, setKeyboardState ] = useState(false);
 
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', () => { _keyboardDidShow });
-    Keyboard.addListener('keyboardDidHide', () => { _keyboardDidHide });
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow );
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide );
 
     return () => {
-      Keyboard.removeListener('keyboardDidShow', () => { _keyboardDidShow });
-      Keyboard.removeListener('keyboardDidHide', () => { _keyboardDidHide });
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow );
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide );
     }
   }, [])
 
+  const { userDidRegister, singUp } = useContext( Context );
+
+  useEffect(() => {
+    if (userDidRegister) navigation.navigate('Login');
+  }, [userDidRegister])
+
   const _keyboardDidShow = () => setKeyboardState(true);
   const _keyboardDidHide = () => setKeyboardState(false);
+
+  const handleRegister = () => {
+    singUp({
+      name,
+      email,
+      password,
+      role: 'student',
+    })
+  }
 
   return (
     
@@ -50,9 +68,9 @@ const RegisterScreen = ({ navigation }: any) => {
                   style={style.textInput}
                   placeholder="Brad Pitt"
                   placeholderTextColor="#9a9b9c"
-                  onChangeText={email => setEmail(email)}
-                  defaultValue={email}
-                  value={email}
+                  onChangeText={name => setName(name)}
+                  defaultValue={name}
+                  value={name}
                 />
                 <Text style={style.textLabel}>Enter your email:</Text>
                 <TextInput
@@ -79,9 +97,9 @@ const RegisterScreen = ({ navigation }: any) => {
                   style={style.textInput}
                   placeholder="******"
                   placeholderTextColor="#9a9b9c"
-                  onChangeText={password => setPassword(password)}
-                  defaultValue={password}
-                  value={password}
+                  onChangeText={passwordValidation => setPasswordValidation(passwordValidation)}
+                  defaultValue={passwordValidation}
+                  value={passwordValidation}
                   secureTextEntry
                 />
                 <View
@@ -102,7 +120,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 </View>
                 <TouchableOpacity
                   style={style.loginButton}
-                  onPress={() => navigation.navigate('HomeNavigation')}
+                  onPress={handleRegister}
                 >
                   <Text
                     style={style.textButton}

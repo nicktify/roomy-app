@@ -1,13 +1,8 @@
-import { User } from "../../types/user";
+import InitialState, { User } from "../../types/user";
 
-type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
+type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } } | { type: 'SIGN_UP' }
 
-type TypeState = {
-  user: User,
-  token: string
-}
-
-const userReducer = ( state, action: TypeAction) => {
+const userReducer = ( state: InitialState, action: TypeAction) => {
   
   switch(action.type) {
 
@@ -16,6 +11,14 @@ const userReducer = ( state, action: TypeAction) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user
+      }
+
+    case 'SIGN_UP':
+      return {
+        ...state,
+        token: null,
+        user: null,
+        userDidRegister: true,
       }
 
     default:
