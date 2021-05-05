@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor( private usersService: UsersService, private authService: AuthService ) {}
 
-  @UseGuards( JwtAuthGuard )
+  // @UseGuards( JwtAuthGuard )
   @Get()
   getUsers(): Promise<ReturnUserDto[]> | { msg: string } {
     return this.usersService.getUsers();
