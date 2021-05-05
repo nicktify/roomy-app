@@ -44,7 +44,7 @@ export class UsersService {
     };
   }
 
-  async createUser( { name, email, password, role }: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
+  async createUser( { name, email, password }: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
 
@@ -54,7 +54,7 @@ export class UsersService {
       const saltOrRounds = 10;
       const hash = await bcrypt.hash( password, saltOrRounds );
       
-      const createdUser = await this.userModel.create({ name, email, password: hash, role });
+      const createdUser = await this.userModel.create({ name, email, password: hash });
 
       return {
         id: createdUser._id,
