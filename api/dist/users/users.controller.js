@@ -48,6 +48,9 @@ let UsersController = class UsersController {
     async login(req) {
         return this.authService.login(req.user);
     }
+    async validateToken(req) {
+        return this.usersService.validateUser(req.user);
+    }
 };
 __decorate([
     common_1.Get(),
@@ -100,6 +103,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "login", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Post('auth/validate-token'),
+    __param(0, common_1.Request()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "validateToken", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])

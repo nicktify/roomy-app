@@ -139,4 +139,22 @@ export class UsersService {
     }
   }
 
+
+  async validateUser( user ) {
+
+    try {
+
+      const findById = await this.userModel.findById( user.userId );
+      if ( ! findById ) return { msg: 'Invalid user', validToken: false };
+
+      const findByEmail = await this.userModel.findOne({ email: user.email });
+      if ( ! findByEmail ) return { msg: 'Invalid user', validToken: false };
+
+      return { msg: 'Token authenticated', validToken: true }
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }

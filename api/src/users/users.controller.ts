@@ -53,4 +53,10 @@ export class UsersController {
     return this.authService.login(req.user);
   }
 
+  @UseGuards( JwtAuthGuard )
+  @Post('auth/validate-token')
+  async validateToken( @Request() req ) {
+    return this.usersService.validateUser(req.user);
+  }
+
 }

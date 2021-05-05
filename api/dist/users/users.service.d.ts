@@ -23,4 +23,8 @@ export declare class UsersService {
     getByEmail(email: FindByEmailDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
+    validateUser(user: any): Promise<{
+        msg: string;
+        validToken: boolean;
+    }>;
 }
