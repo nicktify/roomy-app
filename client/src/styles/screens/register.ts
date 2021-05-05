@@ -4,7 +4,10 @@ import { principalColor } from "../../config/colors";
 const style = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   loginTextContainer: {
     minWidth: '80%',
