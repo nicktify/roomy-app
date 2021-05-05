@@ -150,7 +150,7 @@ export class UsersService {
       const findByEmail = await this.userModel.findOne({ email: user.email });
       if ( ! findByEmail ) return { msg: 'Invalid user', validToken: false };
 
-      return { msg: 'Token authenticated', validToken: true }
+      return { msg: 'Token authenticated', validToken: true, user: findById };
 
     } catch (error) {
       throw error;
