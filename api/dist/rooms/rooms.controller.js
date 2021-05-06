@@ -73,8 +73,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "getRooms", null);
 __decorate([
-    common_1.Get('user-room'),
-    __param(0, common_1.Body()),
+    common_1.Get('user-room/:id'),
+    __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
