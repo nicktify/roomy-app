@@ -16,11 +16,6 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     opacity: 0.8
   },
-  roomDescription: {
-    fontSize: 15,
-    fontWeight: '500',
-    opacity: 0.8
-  },
 });
 
 export default style;

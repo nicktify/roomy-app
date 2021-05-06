@@ -1,9 +1,12 @@
+import { AxiosResponse } from "axios";
+import { Room } from "../../types/Room";
 import InitialState, { User } from "../../types/user";
 
 type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } } 
                 | { type: 'SIGN_UP' }
                 | { type: 'LOGOUT' }
                 | { type: 'VALIDATION_COMPLETED' }
+                | { type: 'SET_ROOMS', payload: { participantRooms: Room[], ownedRooms: Room[] } }
 
 const userReducer = ( state: InitialState, action: TypeAction) => {
   
@@ -13,7 +16,7 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
       return {
         ...state,
         token: action.payload.token,
-        user: action.payload.user
+        user: action.payload.user,
       }
 
     case 'SIGN_UP':
@@ -29,13 +32,20 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
         ...state,
         token: null,
         user: null,
-        userDidRegister: false
+        userDidRegister: false,
       }
 
     case 'VALIDATION_COMPLETED':
       return {
         ...state,
         validationCompleted: true,
+      }
+
+    case 'SET_ROOMS':
+      return {
+        ...state,
+        participantRooms: action.payload.participantRooms,
+        ownedRooms: action.payload.ownedRooms,
       }
 
     default:

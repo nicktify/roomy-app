@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import style from '../styles/components/AddRoomButtom';
+import style from '../../styles/components/AddRoomButtom';
 
 const AddRoomButtom = () => {
   return (

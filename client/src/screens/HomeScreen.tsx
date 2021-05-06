@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import AddRoomButtom from '../components/AddRoomButtom';
+import AddRoomButtom from '../components/buttoms/AddRoomButtom';
+import SelectRooms from '../components/buttoms/SelecRooms';
 
 import HomeLeftTopComponent from '../components/HomeLeftTopComponent';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
-import Room from '../components/Room';
+import Rooms from '../components/rooms/Rooms';
 
 import style from '../styles/screens/home';
 
 const HomeScreen = ({ navigation }: any) => {
+
+  const [ selectedRooms, setSelectedRooms ] = useState('createdRooms');
+
+  const selectedRoomsProps = {
+    selectedRooms,
+    setSelectedRooms
+  }
+
+  const roomsProps = {
+    selectedRooms
+  }
+
   return (
     <>
       <View style={style.root}>
@@ -18,10 +31,15 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={style.bottomContainer}>
           <View style={style.innerButtomContainer} >
-            <View style={{width: '100%'}}>
+            <View style={{width: '100%', alignItems: 'center' }}>
               <AddRoomButtom />
+              <SelectRooms
+                {...selectedRoomsProps}
+              />
             </View>
-            <Room />
+            <Rooms 
+              {...roomsProps}
+            />
           </View>
         </View>
       </View>
