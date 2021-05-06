@@ -23,7 +23,7 @@ export class RoomsController {
     return this.roomService.getRooms();
   }
 
-  @Get(':id')
+  @Get('user-room')
   getRoom( @Body() { id }: { id: string } ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.getRoom( id );
   }

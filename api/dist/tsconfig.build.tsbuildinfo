@@ -2387,7 +2387,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.controller.ts": {
-        "version": "6915720669e0411a1782427c7eb838f57e73488349d05f7b23772e38593d2931",
+        "version": "24c8eaccd023cfe89b9e557a717c217050936c5fe99a96dd17d7fc8e0b1186c6",
         "signature": "ab210d0700374398179dd0e2f8384bcbaff21dc96146a7732e301352ec0c2c20",
         "affectsGlobalScope": false
       },
