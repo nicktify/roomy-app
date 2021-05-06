@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { API } from '../config/environment/constants';
@@ -21,7 +21,6 @@ interface ContextProps {
   userDidRegister: boolean;
   validationCompleted: boolean;
   validateToken: (token: string) => Promise<void>;
-  resolveValidation: () => void;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -30,18 +29,18 @@ const AppContext = ({ children }: any) => {
 
   const [ state, dispatch ] = useReducer(userReducer, initialState);
 
+  useEffect(() => {
+    validateToken();
+  }, [])
+
   const signIn = ({ email, password }: LoginData ) => {
     axios.post(`${ API }/users/auth/login`, {
         email,
         password
       })
       .then( async response => {
-        try {
-          await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-          dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-        } catch (error) {
-          console.log(error);
-        }
+        await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
+        dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
       })
       .catch(error => {
         console.log( error );
@@ -49,7 +48,6 @@ const AppContext = ({ children }: any) => {
   }
 
   const singUp = ({ name, email, password, role = '' }: RegisterData) => {
-    console.log(name, email, password, role)
     axios.post(`${ API }/users`, {
         name,
         email,
@@ -57,7 +55,6 @@ const AppContext = ({ children }: any) => {
         role,
       })
       .then(response => {
-        console.log(response)
         dispatch({ type: 'SIGN_UP' })
       })
       .catch(error => {
@@ -65,24 +62,27 @@ const AppContext = ({ children }: any) => {
       })
   }
 
-  const validateToken = async (token: string) => {
+  const validateToken = async () => {
+
+    const token = await AsyncStorage.getItem('token');
+    
+    if ( ! token ) {
+      dispatch({ type: 'VALIDATION_COMPLETED' });
+      return;
+    }
+
     axios.post(`${ API }/users/auth/validate-token`,
         undefined,
-        {headers: { Authorization: `Bearer ${token}` }}
+        {headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
       )
       .then(response => {
-        console.log(response.data)
-        if (response.data.validToken) {
-          return dispatch({ type: 'SIGN_USER_ON_VALIDATION', payload: { token, user: response.data.user } });
-        }
+        dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
+        dispatch({ type: 'VALIDATION_COMPLETED' });
       })
       .catch(error => {
-        console.log(error);
+        console.log(error)
+        dispatch({ type: 'VALIDATION_COMPLETED' });
       })
-  }
-
-  const resolveValidation = () => {
-    dispatch({ type: 'VALIDATION_COMPLETED' })
   }
 
   return (
@@ -94,7 +94,6 @@ const AppContext = ({ children }: any) => {
       signIn,
       singUp,
       validateToken,
-      resolveValidation
     }}>
     {children}
     </Context.Provider>
