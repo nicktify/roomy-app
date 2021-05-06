@@ -6,7 +6,7 @@ const style = StyleSheet.create({
   },
   profileImage: {
     alignSelf: 'flex-end',
-    marginRight: 40,
+    marginRight: 10,
     marginTop: 30,
     opacity: 0.8,
   },

@@ -1,11 +1,18 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const LoadingScreen = () => {
   return (
     <>
-      <View>
-        <Text>Loading...</Text>
+      <View
+        style={{ flex: 1, alignItems: 'center' }}
+      >
+        <Image
+          style={{ flex: 1, resizeMode: 'contain' }}
+          source={require('../assets/roomy.png')}
+          width={250}
+          height={250}
+        />
       </View>
     </>
   );

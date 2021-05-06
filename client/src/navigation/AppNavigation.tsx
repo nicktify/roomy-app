@@ -13,7 +13,7 @@ const AppNavigation = () => {
   const { validationCompleted, user } = React.useContext( Context );
 
   if ( ! validationCompleted ) return <LoadingScreen />
-
+  
   return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {
