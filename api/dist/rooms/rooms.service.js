@@ -47,6 +47,8 @@ let RoomsService = class RoomsService {
             if (owner !== authenticatedUser.userId)
                 return { msg: 'You don\'t have the authorization to do this action.' };
             const createdRoom = await this.roomModel.create({ name, password, owners: owner });
+            findOwner.ownedRooms.push(createdRoom._id);
+            findOwner.save();
             return { id: createdRoom._id, name: createdRoom.name, owners: createdRoom.owners, participants: createdRoom.participants };
         }
         catch (error) {

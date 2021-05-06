@@ -2282,7 +2282,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.service.ts": {
-        "version": "07b8825ec94688a1bf99bb35d02a0bd1a35178b5645d8d1aa6eef91a61f1e29f",
+        "version": "c79516ae9417810f4f7107872f6f7c1429ea0a0436bdf8245d6192044f160018",
         "signature": "26a6786a4022b35a7c80cd289f3a10b7c6908cc9b718de5f9b0debf851ac1057",
         "affectsGlobalScope": false
       },
