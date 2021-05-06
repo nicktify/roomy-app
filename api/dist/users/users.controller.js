@@ -49,7 +49,7 @@ let UsersController = class UsersController {
         return this.authService.login(req.user);
     }
     async validateToken(req) {
-        return this.usersService.validateUser(req.user);
+        return this.authService.validateToken(req.user);
     }
 };
 __decorate([

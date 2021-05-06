@@ -2442,8 +2442,8 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "ef5d43f0b499ce34032784925d3a2d03d856a4b176b1e716ab0bb50c6319f040",
-        "signature": "aeac2af7a865e8268186d2cdb75bdd8a066415aec0671f04028e75c834147917",
+        "version": "7b653a18204662f1226a65328f60e658ad6ed08d333adfd30c8491814b15701e",
+        "signature": "fab66681d0a5f23f5b922f43941e3e36985e989c4956896cf435e0880d706eec",
         "affectsGlobalScope": false
       },
       "../src/users/dto/create-user.dto.ts": {
@@ -2462,13 +2462,13 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "809687d4b78ed0f84df1f3b492ae61a354c75895651f9f05f5c61e8031a8ec25",
-        "signature": "4e570200f01d5abe866f5e942aedef476ed21e75649c9218b0a7610e9d0dc2ed",
+        "version": "1a4b9142f044968db5e3db9ff7fd609982674dfb6e77a06c196a2929b91583d7",
+        "signature": "0c6f70afb1719478cb3c52e9be3cee897646bf0c43c778abb64f089a368a5aaf",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "7a5726740e29a03ecc4187aeceb7d4866e71b3705b87853159ea15f86d39a537",
-        "signature": "8978df13a5dcfc5c31f7d24c80c3cae1ecbcfe6e5e8621c87a274b2b873091aa",
+        "version": "4c6d877fc8b5158a6d78630d81b6e21e2455a0e3c6e71fcd9499c8ad59656223",
+        "signature": "80d5e926b875e609105e669faeee3adcd849443b69eb627430ffe66a37cd53d4",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {

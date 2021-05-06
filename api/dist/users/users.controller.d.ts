@@ -37,7 +37,9 @@ export declare class UsersController {
         user: ReturnUserDto;
     }>;
     validateToken(req: any): Promise<{
+        access_token: string;
+        user: ReturnUserDto;
+    } | {
         msg: string;
-        validToken: boolean;
     }>;
 }

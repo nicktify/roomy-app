@@ -26,5 +26,10 @@ export declare class UsersService {
     validateUser(user: any): Promise<{
         msg: string;
         validToken: boolean;
+        user?: undefined;
+    } | {
+        msg: string;
+        validToken: boolean;
+        user: UserDocument;
     }>;
 }

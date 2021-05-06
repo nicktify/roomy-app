@@ -14,4 +14,13 @@ export declare class AuthService {
         access_token: string;
         user: ReturnUserDto;
     }>;
+    validateToken({ email, userId }: {
+        email: string;
+        userId: string;
+    }): Promise<{
+        access_token: string;
+        user: ReturnUserDto;
+    } | {
+        msg: string;
+    }>;
 }

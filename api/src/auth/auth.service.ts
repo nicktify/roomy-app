@@ -45,4 +45,23 @@ export class AuthService {
     };
   }
 
+  async validateToken( { email, userId }: { email: string, userId: string } ): Promise<{ access_token: string, user: ReturnUserDto } | { msg: string }> {
+    
+    const user = await this.userModel.findOne({email});
+
+    const payload = { email: user.email, sub: user._id };
+
+    return {
+      access_token: this.jwtService.sign( payload ),
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        ownedRooms: user.ownedRooms,
+        participantRooms: user.participantRooms
+      }
+    }
+  }
+
 }
