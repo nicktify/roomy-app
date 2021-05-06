@@ -1,12 +1,29 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { CalendarTabNavigation, HomeTabNavigation, NotificationsTabNavigation, SearchTabNavigation } from './ButtomTabNavigation';
+import { Context } from '../context/MainContext';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
+
+  const { logout } = React.useContext( Context );
+
+  const handleLogout = () => {
+    logout();
+  }
+
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="Home"
+      drawerContent={ props => {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label="Logout" onPress={ handleLogout } />
+          </DrawerContentScrollView>
+        )
+      }}
+    >
       <Drawer.Screen name="Home" component={ HomeTabNavigation } />
       <Drawer.Screen name="Calendar" component={ CalendarTabNavigation } />
       <Drawer.Screen name="Notifications" component={ NotificationsTabNavigation } />

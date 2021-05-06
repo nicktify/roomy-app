@@ -21,6 +21,7 @@ interface ContextProps {
   userDidRegister: boolean;
   validationCompleted: boolean;
   validateToken: (token: string) => Promise<void>;
+  logout: () => void;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -85,6 +86,10 @@ const AppContext = ({ children }: any) => {
       })
   }
 
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' })
+  }
+
   return (
     <Context.Provider value={{
       user: state.user,
@@ -94,6 +99,7 @@ const AppContext = ({ children }: any) => {
       signIn,
       singUp,
       validateToken,
+      logout
     }}>
     {children}
     </Context.Provider>
