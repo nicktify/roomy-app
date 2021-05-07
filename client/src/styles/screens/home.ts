@@ -10,18 +10,20 @@ const style = StyleSheet.create({
     flexDirection: 'row'
   },
   bottomContainer: {
-    flex: 0.7,
+    flex: 1,
     backgroundColor: '#f1f1f1',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: 20,
   },
   innerButtomContainer: {
+    flex: 1,
     width: '100%',
     height: '90%',
     alignItems: 'center',
     padding: 0,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   }
 });
 

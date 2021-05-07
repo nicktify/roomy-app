@@ -3,13 +3,12 @@ import { StyleSheet } from "react-native";
 const style = StyleSheet.create({
   roomContainer: {
     width: '100%',
-    height: 100,
+    height: 75,
     backgroundColor: 'white',
-    marginTop: 20,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingLeft: 20,
+    paddingLeft: 10,
   },
   roomName: {
     fontSize: 30,

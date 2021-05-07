@@ -9,7 +9,7 @@ const SelectRooms = ({ selectedRooms, setSelectedRooms }: any) => {
   return (
     <>
       <View
-        style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 30, marginBottom: 20 }}
+        style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 30 }}
       >
         <TouchableOpacity
           style={[styles.root, { backgroundColor: selectedRooms === 'createdRooms' ? '#bacfca' : principalColor }]}

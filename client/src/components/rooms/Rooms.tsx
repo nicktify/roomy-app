@@ -5,7 +5,7 @@ import { Context } from '../../context/MainContext';
 import style from '../../styles/components/room';
 import Room from './Room';
 
-const Rooms = ({ selectedRooms }) => {
+const Rooms = ({ selectedRooms }: any) => {
 
   const { ownedRooms, participantRooms } = useContext( Context );
 
@@ -16,7 +16,7 @@ const Rooms = ({ selectedRooms }) => {
       selectedRooms === 'createdRooms' ?
         ownedRooms?.map(room => (
           <View 
-            style={{ width: '100%' }}
+            style={{ width: '100%', flex: 1 }}
             key={room.id}
             >
             <Room

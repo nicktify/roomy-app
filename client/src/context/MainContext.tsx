@@ -35,9 +35,11 @@ const AppContext = ({ children }: any) => {
 
   const [ state, dispatch ] = useReducer(userReducer, initialState);
 
+
   useEffect(() => {
     validateToken();
   }, [])
+
 
   const signIn = ({ email, password }: LoginData ) => {
     axios.post(`${ API }/users/auth/login`, {
@@ -45,18 +47,15 @@ const AppContext = ({ children }: any) => {
         password
       })
       .then( async response => {
-
         await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-      
         getRooms(response.data.user);
-        
         dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-
       })
       .catch(error => {
         console.log( error );
       })
   }
+
 
   const singUp = ({ name, email, password, role = '' }: RegisterData) => {
     axios.post(`${ API }/users`, {
@@ -73,8 +72,8 @@ const AppContext = ({ children }: any) => {
       })
   }
 
-  const validateToken = async () => {
 
+  const validateToken = async () => {
     const token = await AsyncStorage.getItem('token');
     
     if ( ! token ) {
@@ -88,64 +87,57 @@ const AppContext = ({ children }: any) => {
       )
       .then(response => {
         dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-        
         getRooms( response.data.user )
-        
         dispatch({ type: 'VALIDATION_COMPLETED' });
       })
       .catch(error => {
         console.log(error)
         dispatch({ type: 'VALIDATION_COMPLETED' });
       })
+
   }
+
 
   const logout = async () => {
     await AsyncStorage.setItem('token', '');
-    dispatch({ type: 'LOGOUT' })
+    dispatch({ type: 'LOGOUT' });
   }
 
-  const getRooms = async (user: User) => {
 
+  const getRooms = async (user: User) => {
     let ownedRooms = [];
     let participantRooms = [];
 
     for (let i = 0; i < user.ownedRooms.length; i ++) {
-
       const id: string = user.ownedRooms[i];
-
       const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`)
-
-      ownedRooms.push(room)
-
+      ownedRooms.push(room);
     }
 
     for (let i = 0; i < user.participantRooms.length; i ++) {
-
       const id: string = user.participantRooms[i];
-
-      const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`)
-
-      participantRooms.push(room)
-
+      const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`);
+      participantRooms.push(room);
     }
 
     dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
 
-  } 
+  }
 
   return (
     <Context.Provider value={{
-      user: state.user,
-      token: state.token,
-      userDidRegister: state.userDidRegister,
-      validationCompleted: state.validationCompleted,
-      ownedRooms: state.ownedRooms,
-      participantRooms: state.participantRooms,
-      signIn,
-      singUp,
-      validateToken,
-      logout,
-    }}>
+        user: state.user,
+        token: state.token,
+        userDidRegister: state.userDidRegister,
+        validationCompleted: state.validationCompleted,
+        ownedRooms: state.ownedRooms,
+        participantRooms: state.participantRooms,
+        signIn,
+        singUp,
+        validateToken,
+        logout,
+      }}
+    >
     {children}
     </Context.Provider>
   )

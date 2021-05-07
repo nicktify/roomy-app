@@ -31,7 +31,7 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={style.bottomContainer}>
           <View style={style.innerButtomContainer} >
-            <View style={{width: '100%', alignItems: 'center' }}>
+            <View style={{ width: '100%', alignItems: 'center' }}>
               <AddRoomButtom />
               <SelectRooms
                 {...selectedRoomsProps}

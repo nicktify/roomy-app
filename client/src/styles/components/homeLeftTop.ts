@@ -5,14 +5,14 @@ const style = StyleSheet.create({
     flex: 1,
   },
   toggleIcon: {
-    marginLeft: 30,
-    marginTop: 40,
+    marginLeft: 10,
+    marginTop: 10,
     marginBottom: 30,
     opacity: 0.8
   },
   welcomeMessage: {
     flexDirection: 'row',
-    marginLeft: 30,
+    marginLeft: 10,
   },
   helloText: {
     fontSize: 20,
@@ -25,7 +25,7 @@ const style = StyleSheet.create({
     opacity: 0.8
   },
   happyLearningText: {
-    marginLeft: 30,
+    marginLeft: 10,
     marginTop: 10,
     fontWeight: '100',
     opacity: 0.3
