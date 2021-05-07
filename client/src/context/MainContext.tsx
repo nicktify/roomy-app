@@ -27,6 +27,7 @@ interface ContextProps {
   singUp: ( registerData: RegisterData ) => void;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
+  createRoom: ( name: string, password: string ) => Promise<void>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -124,6 +125,30 @@ const AppContext = ({ children }: any) => {
 
   }
 
+  const createRoom = async (name: string, password: string) => {
+
+    const token = await AsyncStorage.getItem('token');
+
+    if ( ! token ) return;
+
+    axios.post(`${ API }/rooms`, {
+        name,
+        password,
+        owner: state.user?.id
+      }, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then( response => {
+        if (state.user) {
+          // TODO: make a proper route for this task, you only need to fetch the new user data, and not revalidate the token
+          validateToken()
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
   return (
     <Context.Provider value={{
         user: state.user,
@@ -136,6 +161,7 @@ const AppContext = ({ children }: any) => {
         singUp,
         validateToken,
         logout,
+        createRoom,
       }}
     >
     {children}

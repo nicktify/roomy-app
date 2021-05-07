@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Context } from '../context/MainContext';
 
 import style from '../styles/components/homeLeftTop';
 
 const HomeLeftTopComponent = ({ navigation }: any) => {
+
+  const { user } = useContext( Context );
+
   return (
     <>
       <View style={style.leftTopContainer}>
@@ -20,7 +24,7 @@ const HomeLeftTopComponent = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={style.welcomeMessage}>
           <Text style={style.helloText}>Hello, </Text>
-          <Text style={style.nameText}>Name!</Text>
+          <Text style={style.nameText}>{ user?.name }!</Text>
         </View>
         <Text style={style.happyLearningText}>Happy learning !</Text>
       </View>

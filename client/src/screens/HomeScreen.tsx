@@ -13,15 +13,6 @@ const HomeScreen = ({ navigation }: any) => {
 
   const [ selectedRooms, setSelectedRooms ] = useState('createdRooms');
 
-  const selectedRoomsProps = {
-    selectedRooms,
-    setSelectedRooms
-  }
-
-  const roomsProps = {
-    selectedRooms
-  }
-
   return (
     <>
       <View style={style.root}>
@@ -32,13 +23,14 @@ const HomeScreen = ({ navigation }: any) => {
         <View style={style.bottomContainer}>
           <View style={style.innerButtomContainer} >
             <View style={{ width: '100%', alignItems: 'center' }}>
-              <AddRoomButtom />
+              <AddRoomButtom navigation={ navigation } />
               <SelectRooms
-                {...selectedRoomsProps}
+                selectedRooms={ selectedRooms }
+                setSelectedRooms={ setSelectedRooms }
               />
             </View>
-            <Rooms 
-              {...roomsProps}
+            <Rooms
+              selectedRooms={ selectedRooms }
             />
           </View>
         </View>

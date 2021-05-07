@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
-import { CalendarTabNavigation, HomeTabNavigation, NotificationsTabNavigation, SearchTabNavigation } from './ButtomTabNavigation';
+import { CalendarTabNavigation, CreateRoomNavigation, HomeTabNavigation, NotificationsTabNavigation, SearchTabNavigation } from './ButtomTabNavigation';
 import { Context } from '../context/MainContext';
 
 const Drawer = createDrawerNavigator();
@@ -28,6 +28,7 @@ const DrawerNavigation = () => {
       <Drawer.Screen name="Calendar" component={ CalendarTabNavigation } />
       <Drawer.Screen name="Notifications" component={ NotificationsTabNavigation } />
       <Drawer.Screen name="Search" component={ SearchTabNavigation } />
+      <Drawer.Screen name="CreateRoom" component={ CreateRoomNavigation } />
     </Drawer.Navigator>
   );
 }

@@ -7,8 +7,8 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     justifyContent: 'center',
-    alignItems: 'flex-start',
     paddingLeft: 10,
+    marginBottom: 20,
   },
   roomName: {
     fontSize: 30,

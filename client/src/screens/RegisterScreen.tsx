@@ -42,18 +42,17 @@ const RegisterScreen = ({ navigation }: any) => {
   }
 
   return (
-    
     <View style={style.root}>
-    <KeyboardAwareScrollView
-      style={{ flex: 1, backgroundColor: 'white' }}
-    >
-      <KeyboardAvoidingView
-        style={{flex:1, marginBottom: keyboardState ? 50 : 0 }}
+      <KeyboardAwareScrollView
+        style={{ flex: 1, backgroundColor: 'white' }}
       >
-        <TouchableWithoutFeedback
-          style={{ flex: 1 }}
-          onPress={Keyboard.dismiss}
+        <KeyboardAvoidingView
+          style={{ flex: 1, marginBottom: keyboardState ? 50 : 0 }}
         >
+          <TouchableWithoutFeedback
+            style={{ flex: 1 }}
+            onPress={Keyboard.dismiss}
+          >
             <View style={style.formContainer}>
               <View
                 style={style.loginTextContainer}
@@ -130,10 +129,10 @@ const RegisterScreen = ({ navigation }: any) => {
                 </TouchableOpacity>
               </View>
             </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </KeyboardAwareScrollView>
-          </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

@@ -7,6 +7,7 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import SearchScreen from '../screens/SearchScreen';
 
 import TabBarNavigation from '../components/TabBarNavigation';
+import CreateRoomScreen from '../screens/CreateRoomScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +39,14 @@ export const SearchTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Search" component={ SearchScreen } />
+    </Tab.Navigator>
+  );
+}
+
+export const CreateRoomNavigation = () => {
+  return (
+    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
+      <Tab.Screen name="CreateRooom" component={ CreateRoomScreen } />
     </Tab.Navigator>
   );
 }
