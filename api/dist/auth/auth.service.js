@@ -60,7 +60,8 @@ let AuthService = class AuthService {
                 email: user.email,
                 role: user.role,
                 ownedRooms: user.ownedRooms,
-                participantRooms: user.participantRooms
+                participantRooms: user.participantRooms,
+                profilePicture: user.profilePicture,
             }
         };
     }

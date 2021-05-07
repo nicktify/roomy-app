@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const platform_express_1 = require("@nestjs/platform-express");
 const auth_service_1 = require("../auth/auth.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const create_user_dto_1 = require("./dto/create-user.dto");
@@ -32,11 +33,10 @@ let UsersController = class UsersController {
     getUser({ id }) {
         return this.usersService.getUser(id);
     }
-    postUser(createUserDto) {
-        return this.usersService.createUser(createUserDto);
+    postUser(createUserDto, file) {
+        return this.usersService.createUser(createUserDto, file);
     }
     editUser(user, req) {
-        console.log(req);
         return this.usersService.editUser(user, req.user);
     }
     deleteUser({ id }, req) {
@@ -67,9 +67,10 @@ __decorate([
 ], UsersController.prototype, "getUser", null);
 __decorate([
     common_1.Post(),
-    __param(0, common_1.Body()),
+    common_1.UseInterceptors(platform_express_1.FileInterceptor('file')),
+    __param(0, common_1.Body()), __param(1, common_1.UploadedFile()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "postUser", null);
 __decorate([

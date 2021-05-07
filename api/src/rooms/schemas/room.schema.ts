@@ -33,7 +33,7 @@ export class Room {
       name: string;
       description: string;
     }
-]
+  ]
 
   @Prop()
   posts: [

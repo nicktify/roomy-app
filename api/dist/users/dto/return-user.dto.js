@@ -43,5 +43,10 @@ __decorate([
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
 ], ReturnUserDto.prototype, "participantRooms", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], ReturnUserDto.prototype, "profilePicture", void 0);
 exports.ReturnUserDto = ReturnUserDto;
 //# sourceMappingURL=return-user.dto.js.map

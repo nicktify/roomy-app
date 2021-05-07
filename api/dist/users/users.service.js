@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
+let cloudinary = require("cloudinary").v2;
+let streamifier = require('streamifier');
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -29,7 +31,8 @@ let UsersService = class UsersService {
             email: user.email,
             role: user.role,
             ownedRooms: user.ownedRooms,
-            participantRooms: user.participantRooms
+            participantRooms: user.participantRooms,
+            profilePicture: user.profilePicture,
         }));
     }
     async getUser(id) {
@@ -44,10 +47,11 @@ let UsersService = class UsersService {
             email: findedUser.email,
             role: findedUser.role,
             ownedRooms: findedUser.ownedRooms,
-            participantRooms: findedUser.participantRooms
+            participantRooms: findedUser.participantRooms,
+            profilePicture: findedUser.profilePicture,
         };
     }
-    async createUser({ name, email, password, role }) {
+    async createUser({ name, email, password, role }, file) {
         try {
             const user = await this.userModel.findOne({ email: email });
             if (user)
@@ -55,14 +59,25 @@ let UsersService = class UsersService {
             const saltOrRounds = 10;
             const hash = await bcrypt.hash(password, saltOrRounds);
             const createdUser = await this.userModel.create({ name, email, password: hash, role });
-            return {
-                id: createdUser._id,
-                name: createdUser.name,
-                email: createdUser.email,
-                role: createdUser.role,
-                ownedRooms: createdUser.ownedRooms,
-                participantRooms: createdUser.participantRooms,
-            };
+            return new Promise((resolve, reject) => {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                    if (error)
+                        reject(error);
+                    createdUser.profilePicture = result.secure_url;
+                    createdUser.save();
+                    const curatedUser = {
+                        id: createdUser._id,
+                        name: createdUser.name,
+                        email: createdUser.email,
+                        role: createdUser.role,
+                        ownedRooms: createdUser.ownedRooms,
+                        participantRooms: createdUser.participantRooms,
+                        profilePicture: createdUser.profilePicture,
+                    };
+                    resolve(curatedUser);
+                });
+                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+            });
         }
         catch (error) {
             throw error;
@@ -84,6 +99,7 @@ let UsersService = class UsersService {
                 role: editedUser.role,
                 ownedRooms: editedUser.ownedRooms,
                 participantRooms: editedUser.participantRooms,
+                profilePicture: editedUser.profilePicture,
             };
         }
         catch (error) {
@@ -113,6 +129,7 @@ let UsersService = class UsersService {
                 role: user.role,
                 ownedRooms: user.ownedRooms,
                 participantRooms: user.participantRooms,
+                profilePicture: user.profilePicture,
             };
         }
         catch (error) {

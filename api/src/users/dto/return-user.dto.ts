@@ -25,5 +25,9 @@ export class ReturnUserDto {
   @IsNotEmpty()
   @IsArray()
   participantRooms: string[];
+
+  @IsNotEmpty()
+  @IsString()
+  profilePicture: string;
   
 }

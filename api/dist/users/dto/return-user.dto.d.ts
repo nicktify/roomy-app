@@ -5,4 +5,5 @@ export declare class ReturnUserDto {
     role: string;
     ownedRooms: string[];
     participantRooms: string[];
+    profilePicture: string;
 }

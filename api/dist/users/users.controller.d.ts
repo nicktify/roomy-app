@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
@@ -16,7 +17,7 @@ export declare class UsersController {
     }): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    postUser(createUserDto: CreateUserDto): Promise<ReturnUserDto | {
+    postUser(createUserDto: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
         msg: string;
     }>;
     editUser(user: EditUserDto, req: any): Promise<ReturnUserDto | {

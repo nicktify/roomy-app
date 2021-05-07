@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
+let cloudinary = require("cloudinary").v2;
+let streamifier = require('streamifier');
 
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,7 +25,8 @@ export class UsersService {
       email: user.email,
       role: user.role,
       ownedRooms: user.ownedRooms,
-      participantRooms: user.participantRooms
+      participantRooms: user.participantRooms,
+      profilePicture: user.profilePicture,
     }));
   }
 
@@ -40,32 +43,47 @@ export class UsersService {
       email: findedUser.email,
       role: findedUser.role,
       ownedRooms: findedUser.ownedRooms,
-      participantRooms: findedUser.participantRooms
+      participantRooms: findedUser.participantRooms,
+      profilePicture: findedUser.profilePicture,
     };
   }
 
-  async createUser( { name, email, password, role }: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
+  async createUser( { name, email, password, role }: CreateUserDto, file ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
-
-      const  user  = await this.userModel.findOne({ email: email });
-      if ( user ) return { msg: 'User already exist.' };
+      const user = await this.userModel.findOne({ email: email });
+      if (user) return { msg: 'User already exist.' };
 
       const saltOrRounds = 10;
-      const hash = await bcrypt.hash( password, saltOrRounds );
-      
+      const hash = await bcrypt.hash(password, saltOrRounds);
       const createdUser = await this.userModel.create({ name, email, password: hash, role });
 
-      return {
-        id: createdUser._id,
-        name: createdUser.name,
-        email: createdUser.email,
-        role: createdUser.role,
-        ownedRooms: createdUser.ownedRooms,
-        participantRooms: createdUser.participantRooms,
-      };
+      return new Promise((resolve, reject) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+          function (error, result) {
 
-    } catch ( error ) {
+            if (error) reject(error);
+
+            createdUser.profilePicture = result.secure_url;
+            createdUser.save();
+
+            const curatedUser = {
+              id: createdUser._id,
+              name: createdUser.name,
+              email: createdUser.email,
+              role: createdUser.role,
+              ownedRooms: createdUser.ownedRooms,
+              participantRooms: createdUser.participantRooms,
+              profilePicture: createdUser.profilePicture,
+            };
+
+            resolve(curatedUser);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      });
+
+    } catch (error) {
       throw error;
     }
 
@@ -93,6 +111,7 @@ export class UsersService {
         role: editedUser.role,
         ownedRooms: editedUser.ownedRooms,
         participantRooms: editedUser.participantRooms,
+        profilePicture: editedUser.profilePicture,
       }
       
     } catch ( error ) {
@@ -119,7 +138,7 @@ export class UsersService {
   }
 
   async getByEmail( email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
-    
+
     try {
 
       const user = await this.userModel.findOne(email);
@@ -132,6 +151,7 @@ export class UsersService {
         role: user.role,
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
+        profilePicture: user.profilePicture,
       };
 
     } catch ( error ) {

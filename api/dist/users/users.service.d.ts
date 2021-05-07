@@ -11,7 +11,7 @@ export declare class UsersService {
     getUser(id: string): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    createUser({ name, email, password, role }: CreateUserDto): Promise<ReturnUserDto | {
+    createUser({ name, email, password, role }: CreateUserDto, file: any): Promise<ReturnUserDto | {
         msg: string;
     }>;
     editUser({ id, name, email, role }: EditUserDto, authenticatedUser: any): Promise<ReturnUserDto | {

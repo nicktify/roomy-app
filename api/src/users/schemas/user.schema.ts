@@ -24,6 +24,9 @@ export class User {
   @Prop()
   participantRooms: string[];
 
+  @Prop()
+  profilePicture: string;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass( User );

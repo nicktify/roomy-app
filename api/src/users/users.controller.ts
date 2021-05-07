@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -25,14 +26,15 @@ export class UsersController {
   }
 
   @Post()
-  postUser( @Body() createUserDto: CreateUserDto ): Promise<ReturnUserDto | { msg: string }> {
-    return this.usersService.createUser( createUserDto );
+  @UseInterceptors(FileInterceptor('file'))
+  postUser( @Body() createUserDto: CreateUserDto,  @UploadedFile() file: Express.Multer.File): Promise<ReturnUserDto | { msg: string }> {
+    // console.log(file);
+    return this.usersService.createUser( createUserDto, file );
   }
 
   @UseGuards( JwtAuthGuard )
   @Put()
   editUser( @Body() user: EditUserDto, @Request() req ): Promise<ReturnUserDto | { msg: string }> | { msg: string } {
-    console.log(req)
     return this.usersService.editUser( user, req.user );
   }
 
