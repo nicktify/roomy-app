@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context } from '../../context/MainContext';
 
 import Room from './Room';
@@ -10,24 +12,21 @@ const Rooms = ({ selectedRooms }: any) => {
 
   useEffect(() => {}, [ownedRooms, participantRooms])
 
+  const renderItem = ({ item }: any) => (
+    <View style={{ width: '100%' }} key={item.id} >
+      <Room name={item.name} />
+    </View>
+  )
+
+
   return (
-    <>
-      { 
-        selectedRooms === 'createdRooms' 
-          ?
-            ownedRooms?.map(room => (
-              <View style={{ width: '100%' }} key={room.id} >
-                <Room name={room.name} />
-              </View>
-            ))
-          : 
-            participantRooms?.map(room => (
-              <View style={{ width: '100%' }} key={room.id} >
-                <Room name={room.name} />
-              </View>
-            ))
-      }
-    </>
+      <SafeAreaView style={{ width: '100%' }}>
+      <FlatList
+        data={selectedRooms === 'createdRooms' ? ownedRooms : participantRooms}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
   );
 };
 

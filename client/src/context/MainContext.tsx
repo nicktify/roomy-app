@@ -106,24 +106,31 @@ const AppContext = ({ children }: any) => {
 
 
   const getRooms = async (user: User) => {
-    let ownedRooms = [];
-    let participantRooms = [];
+
+    let ownedRooms: Room[] = [];
+    let participantRooms: Room[] = [];
+
+    const insert = ( arr: Room[], room: Room ) => [
+      room,
+      ...arr
+    ]
 
     for (let i = 0; i < user.ownedRooms.length; i ++) {
       const id: string = user.ownedRooms[i];
       const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`)
-      ownedRooms.push(room);
+      ownedRooms = insert(ownedRooms, room)
     }
 
     for (let i = 0; i < user.participantRooms.length; i ++) {
       const id: string = user.participantRooms[i];
       const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`);
-      participantRooms.push(room);
+      participantRooms = insert(participantRooms, room)
     }
 
     dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
 
   }
+
 
   const createRoom = async (name: string, password: string) => {
 
@@ -149,6 +156,7 @@ const AppContext = ({ children }: any) => {
       })
   }
 
+  
   return (
     <Context.Provider value={{
         user: state.user,
