@@ -20,7 +20,7 @@ const Rooms = ({ selectedRooms }: any) => {
 
 
   return (
-      <SafeAreaView style={{ width: '100%' }}>
+      <SafeAreaView style={{ width: '100%', flex: 1 }}>
       <FlatList
         data={selectedRooms === 'createdRooms' ? ownedRooms : participantRooms}
         renderItem={renderItem}

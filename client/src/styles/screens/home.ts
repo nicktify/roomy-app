@@ -18,12 +18,9 @@ const style = StyleSheet.create({
     paddingTop: 20,
   },
   innerButtomContainer: {
-    width: '100%',
-    height: '90%',
+    height: '100%',
     alignItems: 'center',
-    padding: 0,
     paddingHorizontal: 10,
-    paddingBottom: 80,
   }
 });
 
