@@ -2242,8 +2242,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/dto/return-room-dto.ts": {
-        "version": "ca021b4450c388616feedbf83a4a8e109b9274e9e328bb680a211428b0ec4140",
-        "signature": "15630ed84be4e01174f7b87dae4b2a50792d7c41d088ca96f669c78dd8fffcab",
+        "version": "7b97ee0a2563ae5e1dab04584d417522d19de6c52a393eed8afa067b502023ce",
+        "signature": "601a3e4731c38a5bbb3b5069bf0a6a97d5e15f3de0eb52decf1749971e34ee4f",
         "affectsGlobalScope": false
       },
       "../src/rooms/dto/add-new-owner-dto.ts": {
@@ -2282,7 +2282,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.service.ts": {
-        "version": "c79516ae9417810f4f7107872f6f7c1429ea0a0436bdf8245d6192044f160018",
+        "version": "5a7b62e0d169c023a86b5b2096cfa9aa8bb32434b954c5060b809eb041a875dc",
         "signature": "26a6786a4022b35a7c80cd289f3a10b7c6908cc9b718de5f9b0debf851ac1057",
         "affectsGlobalScope": false
       },

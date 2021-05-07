@@ -23,7 +23,16 @@ export class RoomsService {
   async getRooms(): Promise<ReturnRoomDto[]> {
 
     const rooms = await this.roomModel.find();
-    return rooms.map(room =>  ({ id: room._id, name: room.name, owners: room.owners, participants: room.participants }))
+    return rooms.map(room =>  ({ 
+      id: room._id, 
+      name: room.name, 
+      owners: room.owners, 
+      participants: room.participants ,
+      links: room.links,
+      dates: room.dates,
+      posts: room.posts,
+      books: room.books,
+    }))
 
   }
 
@@ -36,7 +45,16 @@ export class RoomsService {
       const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.'};
 
-      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
+      return {
+        id: findedRoom._id,
+        name: findedRoom.name, 
+        owners: findedRoom.owners, 
+        participants: findedRoom.participants,
+        links: findedRoom.links,
+        dates: findedRoom.dates,
+        posts: findedRoom.posts,
+        books: findedRoom.books,
+      };
 
     } catch ( error ) {
       throw error;
@@ -57,7 +75,16 @@ export class RoomsService {
       findOwner.ownedRooms.push(createdRoom._id);
       findOwner.save();
       
-      return { id: createdRoom._id, name: createdRoom.name, owners: createdRoom.owners, participants: createdRoom.participants };
+      return { 
+        id: createdRoom._id, 
+        name: createdRoom.name, 
+        owners: createdRoom.owners, 
+        participants: createdRoom.participants,
+        links: createdRoom.links,
+        dates: createdRoom.dates,
+        posts: createdRoom.posts,
+        books: createdRoom.books,
+      };
       
     } catch ( error ) {
       throw error;
@@ -79,7 +106,16 @@ export class RoomsService {
       
       await this.roomModel.updateOne( { _id: id }, { name } );
       const editedRoom = await this.roomModel.findById( id );
-      return { id: editedRoom._id, name: editedRoom.name, owners: editedRoom.owners, participants: editedRoom.participants };
+      return { 
+        id: editedRoom._id, 
+        name: editedRoom.name, 
+        owners: editedRoom.owners, 
+        participants: editedRoom.participants,
+        links: editedRoom.links,
+        dates: editedRoom.dates,
+        posts: editedRoom.posts,
+        books: editedRoom.books,
+      };
 
     } catch ( error ) {
       throw error;
@@ -150,7 +186,16 @@ export class RoomsService {
         findNewUser.save();
       }
   
-      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
+      return { 
+        id: findedRoom._id, 
+        name: findedRoom.name, 
+        owners: findedRoom.owners, 
+        participants: findedRoom.participants,
+        links: findedRoom.links,
+        dates: findedRoom.dates,
+        posts: findedRoom.posts,
+        books: findedRoom.books,
+      };
       
     } catch ( error ) {
       throw error;
@@ -186,7 +231,16 @@ export class RoomsService {
         findOwnerToDelete.save();
       }
 
-      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
+      return { 
+        id: findedRoom._id, 
+        name: findedRoom.name, 
+        owners: findedRoom.owners, 
+        participants: findedRoom.participants,
+        links: findedRoom.links,
+        dates: findedRoom.dates,
+        posts: findedRoom.posts,
+        books: findedRoom.books,
+      };
       
     } catch ( error ) {
       throw error;
@@ -219,7 +273,16 @@ export class RoomsService {
         findNewParticipant.save();
        };
 
-      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
+      return { 
+        id: findedRoom._id, 
+        name: findedRoom.name, 
+        owners: findedRoom.owners, 
+        participants: findedRoom.participants,
+        links: findedRoom.links,
+        dates: findedRoom.dates,
+        posts: findedRoom.posts,
+        books: findedRoom.books,
+      };
 
     } catch ( error ) {
       throw error;
@@ -256,7 +319,16 @@ export class RoomsService {
         findParticipant.save();
       }
   
-      return { id: findedRoom._id, name: findedRoom.name, owners: findedRoom.owners, participants: findedRoom.participants };
+      return {
+        id: findedRoom._id, 
+        name: findedRoom.name, 
+        owners: findedRoom.owners, 
+        participants: findedRoom.participants,
+        links: findedRoom.links,
+        dates: findedRoom.dates,
+        posts: findedRoom.posts,
+        books: findedRoom.books,
+      };
 
     } catch ( error ) {
       throw error;
