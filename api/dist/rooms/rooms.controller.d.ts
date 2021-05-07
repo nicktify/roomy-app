@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
 import { ReturnRoomDto } from './dto/return-room-dto';
@@ -42,7 +43,7 @@ export declare class RoomsController {
     deleteParticipant(deleteParticipantDto: DeleteParticipantDto, req: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
-    addNewPost(addNewPostDto: AddNewPostDto, req: any): Promise<{
+    addNewPost(addNewPostDto: AddNewPostDto, req: any, file: Express.Multer.File): Promise<{
         msg: string;
     }>;
     addNewBook(addNewBookDto: AddNewBookDto, req: any): Promise<{

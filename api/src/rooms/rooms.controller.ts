@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
@@ -12,6 +12,7 @@ import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('rooms')
 export class RoomsController {
@@ -72,8 +73,9 @@ export class RoomsController {
 
   @UseGuards( JwtAuthGuard )
   @Post('posts')
-  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req ): Promise<{ msg: string }> {
-    return this.roomService.addNewPost( addNewPostDto, req.user )
+  @UseInterceptors(FileInterceptor('file'))
+  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<{ msg: string }> {
+    return this.roomService.addNewPost( addNewPostDto, req.user, file )
   }
 
   @UseGuards( JwtAuthGuard )

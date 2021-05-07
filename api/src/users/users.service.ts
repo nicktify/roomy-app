@@ -48,7 +48,7 @@ export class UsersService {
     };
   }
 
-  async createUser( { name, email, password, role }: CreateUserDto, file ): Promise<ReturnUserDto | { msg: string }> {
+  async createUser( { name, email, password, role }: CreateUserDto, file: Express.Multer.File ): Promise<ReturnUserDto | { msg: string }> {
     
     try {
       const user = await this.userModel.findOne({ email: email });
@@ -57,6 +57,20 @@ export class UsersService {
       const saltOrRounds = 10;
       const hash = await bcrypt.hash(password, saltOrRounds);
       const createdUser = await this.userModel.create({ name, email, password: hash, role });
+
+      console.log(createdUser.profilePicture)
+
+      const newUser = {
+        id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        role: createdUser.role,
+        ownedRooms: createdUser.ownedRooms,
+        participantRooms: createdUser.participantRooms,
+        profilePicture: createdUser.profilePicture,
+      };
+
+      if ( ! file ) return newUser;
 
       return new Promise((resolve, reject) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
@@ -82,6 +96,45 @@ export class UsersService {
         );
         streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
       });
+
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
+  async addProfilePicture( { userId }: { userId: string }, file: Express.Multer.File, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
+
+    try {
+      const user = await this.userModel.findById( userId );
+      if ( ! user ) return { msg: 'User not exist.' };
+
+      if ( userId !== authenticatedUser.userId ) return { msg: 'You don\'t have the rights to do this action.' };
+
+      return new Promise(( resolve, reject ) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+          function (error, result) {
+
+            if (error) reject({ msg: 'Error uploading image.' });
+
+            user.profilePicture = result.secure_url;
+            user.save();
+
+            const curatedUser = {
+              id: user._id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              ownedRooms: user.ownedRooms,
+              participantRooms: user.participantRooms,
+              profilePicture: user.profilePicture,
+            }
+
+            resolve(curatedUser);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      })
 
     } catch (error) {
       throw error;

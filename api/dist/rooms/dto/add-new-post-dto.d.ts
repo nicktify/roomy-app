@@ -3,4 +3,5 @@ export declare class AddNewPostDto {
     authorId: string;
     body: string;
     date: Date;
+    image: string;
 }

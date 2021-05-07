@@ -25,6 +25,7 @@ const add_new_post_dto_1 = require("./dto/add-new-post-dto");
 const add_new_book_dto_1 = require("./dto/add-new-book-dto");
 const add_new_link_dto_1 = require("./dto/add-new-link-dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let RoomsController = class RoomsController {
     constructor(roomService) {
         this.roomService = roomService;
@@ -56,8 +57,8 @@ let RoomsController = class RoomsController {
     deleteParticipant(deleteParticipantDto, req) {
         return this.roomService.deleteParticipant(deleteParticipantDto, req.user);
     }
-    addNewPost(addNewPostDto, req) {
-        return this.roomService.addNewPost(addNewPostDto, req.user);
+    addNewPost(addNewPostDto, req, file) {
+        return this.roomService.addNewPost(addNewPostDto, req.user, file);
     }
     addNewBook(addNewBookDto, req) {
         return this.roomService.addNewBook(addNewBookDto, req.user);
@@ -138,9 +139,10 @@ __decorate([
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post('posts'),
-    __param(0, common_1.Body()), __param(1, common_1.Request()),
+    common_1.UseInterceptors(platform_express_1.FileInterceptor('file')),
+    __param(0, common_1.Body()), __param(1, common_1.Request()), __param(2, common_1.UploadedFile()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [add_new_post_dto_1.AddNewPostDto, Object]),
+    __metadata("design:paramtypes", [add_new_post_dto_1.AddNewPostDto, Object, Object]),
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "addNewPost", null);
 __decorate([

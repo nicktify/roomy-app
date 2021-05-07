@@ -20,6 +20,11 @@ export declare class UsersController {
     postUser(createUserDto: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
         msg: string;
     }>;
+    addPicture(userId: {
+        userId: string;
+    }, file: Express.Multer.File, req: any): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
     editUser(user: EditUserDto, req: any): Promise<ReturnUserDto | {
         msg: string;
     }> | {

@@ -41,6 +41,7 @@ export class Room {
       authorId: string;
       body: string;
       date: Date;
+      image: string;
     }
   ]
 

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+let cloudinary = require("cloudinary").v2;
+let streamifier = require('streamifier');
 
 import { RoomDocument } from './schemas/room.schema';
 import { UserDocument } from 'src/users/schemas/user.schema';
@@ -336,7 +338,7 @@ export class RoomsService {
 
   }
 
-  async addNewPost( { id, authorId, body, date }: AddNewPostDto, authenticatedUser ): Promise<{ msg: string }> {
+  async addNewPost( { id, authorId, body, date }: AddNewPostDto, authenticatedUser, file ): Promise<{ msg: string }> {
 
     try {
       
@@ -347,15 +349,23 @@ export class RoomsService {
       if ( ! author ) return { msg: 'Author user not exist' };
 
       if ( authorId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
-
       if ( ! room.owners.includes( authorId ) ) return { msg: 'You are not the owner of this room.' };
 
-      const post = { authorId, body, date };
-      
-      room.posts.push( post );
-      room.save();
+      return new Promise(( resolve, reject ) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+          function (error, result) {
 
-      return { msg: 'Post created successfuly.' }
+            if (error) reject(error);
+
+            const post = { authorId, body, date, image: result.secure_url };
+            room.posts.push( post );
+            room.save();
+            
+            resolve({ msg: 'Post created successfuly.' });
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      })
 
     } catch ( error ) {
       throw error;

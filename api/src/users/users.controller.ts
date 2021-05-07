@@ -27,9 +27,15 @@ export class UsersController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  postUser( @Body() createUserDto: CreateUserDto,  @UploadedFile() file: Express.Multer.File): Promise<ReturnUserDto | { msg: string }> {
-    // console.log(file);
+  postUser( @Body() createUserDto: CreateUserDto, @UploadedFile() file: Express.Multer.File): Promise<ReturnUserDto | { msg: string }> {
     return this.usersService.createUser( createUserDto, file );
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Post('/add-profile-picture')
+  @UseInterceptors(FileInterceptor('file'))
+  addPicture( @Body() userId: { userId: string }, @UploadedFile() file: Express.Multer.File,  @Request() req ): Promise<ReturnUserDto | { msg: string }> {
+    return this.usersService.addProfilePicture( userId, file, req.user );
   }
 
   @UseGuards( JwtAuthGuard )

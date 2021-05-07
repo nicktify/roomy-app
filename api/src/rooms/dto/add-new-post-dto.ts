@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsString } from "class-validator";
 
 export class AddNewPostDto {
 
@@ -15,7 +15,11 @@ export class AddNewPostDto {
   body: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsDate()
   date: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  image: string;
 
 }

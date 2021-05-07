@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { Model } from 'mongoose';
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -11,7 +12,12 @@ export declare class UsersService {
     getUser(id: string): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    createUser({ name, email, password, role }: CreateUserDto, file: any): Promise<ReturnUserDto | {
+    createUser({ name, email, password, role }: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    addProfilePicture({ userId }: {
+        userId: string;
+    }, file: Express.Multer.File, authenticatedUser: any): Promise<ReturnUserDto | {
         msg: string;
     }>;
     editUser({ id, name, email, role }: EditUserDto, authenticatedUser: any): Promise<ReturnUserDto | {
