@@ -6,6 +6,7 @@ import { API } from '../config/environment/constants';
 import InitialState, { User, LoginData, RegisterData } from '../types/user';
 import userReducer from './reducers/UserReducer';
 import { Room } from '../types/Room';
+import { ImagePickerResponse } from 'react-native-image-picker';
 
 const initialState: InitialState = {
   user: null,
@@ -28,6 +29,7 @@ interface ContextProps {
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
   createRoom: ( name: string, password: string ) => Promise<void>;
+  updateProfilePicture: (data: ImagePickerResponse) => void;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -71,6 +73,35 @@ const AppContext = ({ children }: any) => {
       .catch(error => {
         console.log(error);
       })
+  }
+
+  const updateProfilePicture = async ( data: ImagePickerResponse ) => {
+
+    const token = await AsyncStorage.getItem('token');
+    if ( ! token ) return;
+
+    const fileToUpload = {
+      uri: data.uri,
+      type: data.type,
+      name: data.fileName
+    };
+
+    const formData = new FormData();
+
+    formData.append('file', fileToUpload);
+    formData.append('userId', state.user?.id);
+
+    axios.post(`${ API }/users/add-profile-picture`,
+        formData,
+        { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
+      )
+      .then(response => {
+        validateToken();
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
   }
 
 
@@ -170,6 +201,7 @@ const AppContext = ({ children }: any) => {
         validateToken,
         logout,
         createRoom,
+        updateProfilePicture,
       }}
     >
     {children}

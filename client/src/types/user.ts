@@ -7,6 +7,7 @@ export class User {
   ownedRooms: [string];
   participantRooms: [string];
   role: string;
+  profilePicture: string | null;
 }
 
 class InitialState {
