@@ -17,7 +17,7 @@ const AppNavigation = () => {
   return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {
-          user ? 
+          user ?
                   <Stack.Screen name="HomeNavigation" component={ DrawerNavigation } />
                :
                   <Stack.Screen name="AuthNavigation" component={ AuthNavigation } />
