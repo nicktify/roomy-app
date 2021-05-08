@@ -14,12 +14,4 @@ export class AddNewPostDto {
   @IsString()
   body: string;
 
-  @IsNotEmpty()
-  @IsDate()
-  date: Date;
-
-  @IsNotEmpty()
-  @IsString()
-  image: string;
-
 }

@@ -2267,8 +2267,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/dto/add-new-post-dto.ts": {
-        "version": "918054fc83afce1e3a5d70a0fada40cdf3e50b5f069f59b11599d8c7ffe1b2df",
-        "signature": "4de3b6332f0b8f955fc3a14b55b79df6a7dc3e2fd0f72d349a9152469d1173a8",
+        "version": "ff116512d0231aefb388fc37c2321b68008e2d8e9acd8b7bbba7d1aaf3b87f67",
+        "signature": "5eec8be1ac7fbe956f51f04c4e6c26192f66c14833e4b9b484641a2dda0c130d",
         "affectsGlobalScope": false
       },
       "../src/rooms/dto/add-new-book-dto.ts": {
@@ -2282,8 +2282,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.service.ts": {
-        "version": "091766fd241281b268dac67921a1a3ec85d655ae069eeaf39c79c2949b0a4f27",
-        "signature": "8e4e3ccce1c0ac912313cf736900707fb5c5af2227f0092d7b881e136e76a80f",
+        "version": "96df6dd3be71c03698c05813c520f43182d8dc77c63e63596b1f0e4268de2e71",
+        "signature": "6c7ecbecfbacc5f00952caa1878f26cb6bef1a70ca20fa5da7a06c9a720c0fad",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -2472,8 +2472,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.controller.ts": {
-        "version": "6dedc60013f81a4e7765f3a289be58e021b3e8d265ecf89410779197fdad3a1d",
-        "signature": "e162f5a13b79efe816e65640e141fe4f97105040cb7d262223b80a71417e7423",
+        "version": "ae863160ea777e655df9e014ac8894ad0d1848f4cdc4b168037d9bb2b59af5d0",
+        "signature": "a8c70392222c3479131974f03832e21a399c1ae9920ceb29fda7bc3a317d111a",
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {

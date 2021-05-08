@@ -28,15 +28,5 @@ __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
 ], AddNewPostDto.prototype, "body", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsDate(),
-    __metadata("design:type", Date)
-], AddNewPostDto.prototype, "date", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], AddNewPostDto.prototype, "image", void 0);
 exports.AddNewPostDto = AddNewPostDto;
 //# sourceMappingURL=add-new-post-dto.js.map

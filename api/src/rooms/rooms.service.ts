@@ -338,7 +338,7 @@ export class RoomsService {
 
   }
 
-  async addNewPost( { id, authorId, body, date }: AddNewPostDto, authenticatedUser, file ): Promise<{ msg: string }> {
+  async addNewPost( { id, authorId, body }: AddNewPostDto, authenticatedUser, file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
       
@@ -357,11 +357,24 @@ export class RoomsService {
 
             if (error) reject(error);
 
+            const date = new Date();
+
             const post = { authorId, body, date, image: result.secure_url };
             room.posts.push( post );
             room.save();
+
+            const returnedRoom = {
+              id: room._id, 
+              name: room.name, 
+              owners: room.owners, 
+              participants: room.participants,
+              links: room.links,
+              dates: room.dates,
+              posts: room.posts,
+              books: room.books,
+            };
             
-            resolve({ msg: 'Post created successfuly.' });
+            resolve(returnedRoom);
           }
         );
         streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);

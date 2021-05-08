@@ -43,7 +43,7 @@ export declare class RoomsController {
     deleteParticipant(deleteParticipantDto: DeleteParticipantDto, req: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
-    addNewPost(addNewPostDto: AddNewPostDto, req: any, file: Express.Multer.File): Promise<{
+    addNewPost(addNewPostDto: AddNewPostDto, req: any, file: Express.Multer.File): Promise<ReturnRoomDto | {
         msg: string;
     }>;
     addNewBook(addNewBookDto: AddNewBookDto, req: any): Promise<{

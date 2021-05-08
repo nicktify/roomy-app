@@ -297,7 +297,7 @@ let RoomsService = class RoomsService {
             throw error;
         }
     }
-    async addNewPost({ id, authorId, body, date }, authenticatedUser, file) {
+    async addNewPost({ id, authorId, body }, authenticatedUser, file) {
         try {
             const room = await this.roomModel.findById(id);
             if (!room)
@@ -313,10 +313,21 @@ let RoomsService = class RoomsService {
                 let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject(error);
+                    const date = new Date();
                     const post = { authorId, body, date, image: result.secure_url };
                     room.posts.push(post);
                     room.save();
-                    resolve({ msg: 'Post created successfuly.' });
+                    const returnedRoom = {
+                        id: room._id,
+                        name: room.name,
+                        owners: room.owners,
+                        participants: room.participants,
+                        links: room.links,
+                        dates: room.dates,
+                        posts: room.posts,
+                        books: room.books,
+                    };
+                    resolve(returnedRoom);
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });

@@ -75,7 +75,7 @@ export class RoomsController {
   @UseGuards( JwtAuthGuard )
   @Post('posts')
   @UseInterceptors(FileInterceptor('file'))
-  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<{ msg: string }> {
+  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.addNewPost( addNewPostDto, req.user, file )
   }
 

@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { Model } from 'mongoose';
 import { RoomDocument } from './schemas/room.schema';
 import { UserDocument } from 'src/users/schemas/user.schema';
@@ -40,7 +41,7 @@ export declare class RoomsService {
     deleteParticipant({ id, owner, participantToDelete }: DeleteParticipantDto, authenticatedUser: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
-    addNewPost({ id, authorId, body, date }: AddNewPostDto, authenticatedUser: any, file: any): Promise<{
+    addNewPost({ id, authorId, body }: AddNewPostDto, authenticatedUser: any, file: Express.Multer.File): Promise<ReturnRoomDto | {
         msg: string;
     }>;
     addNewBook({ id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser: any): Promise<{
