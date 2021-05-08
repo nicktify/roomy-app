@@ -141,27 +141,42 @@ const AppContext = ({ children }: any) => {
 
   const getRooms = async (user: User) => {
 
-    let ownedRooms: Room[] = [];
-    let participantRooms: Room[] = [];
+    try {
 
-    const insert = ( arr: Room[], room: Room ) => [
-      room,
-      ...arr
-    ]
 
-    for (let i = 0; i < user.ownedRooms.length; i ++) {
-      const id: string = user.ownedRooms[i];
-      const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`)
-      ownedRooms = insert(ownedRooms, room)
+      const token = await AsyncStorage.getItem('token');
+
+      if ( ! token ) return;
+
+      let ownedRooms: Room[] = [];
+      let participantRooms: Room[] = [];
+  
+      const insert = ( arr: Room[], room: Room ) => [
+        room,
+        ...arr
+      ]
+  
+      for (let i = 0; i < user.ownedRooms.length; i ++) {
+        const id: string = user.ownedRooms[i];
+        const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`, {
+          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+        })
+        ownedRooms = insert(ownedRooms, room)
+      }
+  
+      for (let i = 0; i < user.participantRooms.length; i ++) {
+        const id: string = user.participantRooms[i];
+        const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`, {
+          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+        });
+        participantRooms = insert(participantRooms, room)
+      }
+  
+      dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
+      
+    } catch (error) {
+      console.log(error)
     }
-
-    for (let i = 0; i < user.participantRooms.length; i ++) {
-      const id: string = user.participantRooms[i];
-      const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`);
-      participantRooms = insert(participantRooms, room)
-    }
-
-    dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
 
   }
 
@@ -192,22 +207,28 @@ const AppContext = ({ children }: any) => {
 
   const getCurrentRoomInformation = async ( id: string ) => {
 
-    const token = await AsyncStorage.getItem('token');
-    if ( ! token ) return;
-
-    return new Promise((resolve, reject) => {
-
-      let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
-      if ( ! selectedRoom ) {
-        selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
-      }
-
-      if ( ! selectedRoom ) return reject('Can\'t find room')
-
-      dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom })
-
-      resolve(selectedRoom);
-    })
+    try {
+      
+          const token = await AsyncStorage.getItem('token');
+          if ( ! token ) return;
+      
+          return new Promise((resolve, reject) => {
+      
+            let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
+            if ( ! selectedRoom ) {
+              selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
+            }
+      
+            if ( ! selectedRoom ) return reject('Can\'t find room')
+      
+            dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom })
+      
+            resolve(selectedRoom);
+          })
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   
