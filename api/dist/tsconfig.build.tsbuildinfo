@@ -2527,8 +2527,8 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "2007505a50ed14117b363afb8e22cdf860c0229c58b6268e789146a6b77b6803",
-        "signature": "fab66681d0a5f23f5b922f43941e3e36985e989c4956896cf435e0880d706eec",
+        "version": "95d3ee174eac335ba7c9dd27e76e789ec9ab435fdb6cd6eb9b9ce8a81ff8ea4d",
+        "signature": "d86b045ae59a9baf51383d155ff92afe59e89027785bda36d481ed248744da6a",
         "affectsGlobalScope": false
       },
       "../src/users/dto/create-user.dto.ts": {
@@ -2547,7 +2547,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "07fdd1d408200fdaee8c69de7b3bc29e5b481828233f043bae6af5a46ab0198e",
+        "version": "9c70259c6501351e54b85d576af798126af519f0422d0fd39d906eff655d3b11",
         "signature": "0d48ef687ed73fee35bc3ce779e02c7f0cfcb95fa707f91200b69f26827337af",
         "affectsGlobalScope": false
       },

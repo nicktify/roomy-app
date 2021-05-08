@@ -102,6 +102,8 @@ let UsersService = class UsersService {
                 return { msg: 'User not exist.' };
             if (userId !== authenticatedUser.userId)
                 return { msg: 'You don\'t have the rights to do this action.' };
+            if (!file)
+                return { msg: 'Image is required.' };
             return new Promise((resolve, reject) => {
                 let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)

@@ -9,7 +9,9 @@ export declare class AuthService {
     validateUser({ username, password }: {
         username: any;
         password: any;
-    }): Promise<any>;
+    }): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
     login(user: ReturnUserDto): Promise<{
         access_token: string;
         user: ReturnUserDto;

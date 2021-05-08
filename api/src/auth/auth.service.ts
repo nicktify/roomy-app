@@ -14,7 +14,7 @@ export class AuthService {
     private jwtService: JwtService
     ) {}
   
-  async validateUser( { username, password } ): Promise<any> {
+  async validateUser( { username, password } ): Promise<ReturnUserDto | { msg: string }> {
     
     const user = await this.userModel.findOne({ email: username });
 
@@ -22,7 +22,7 @@ export class AuthService {
 
     const result = await bcrypt.compare( password, user.password );
 
-    if ( ! result ) return null;
+    if ( ! result ) return { msg: 'Authentication failed.' };
 
     const curatedUser = {
       id: user._id,
@@ -30,7 +30,8 @@ export class AuthService {
       email: user.email,
       role: user.role,
       ownedRooms: user.ownedRooms,
-      participantRooms: user.participantRooms
+      participantRooms: user.participantRooms,
+      profilePicture: user.profilePicture,
     }
 
     return curatedUser;

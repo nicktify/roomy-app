@@ -31,14 +31,15 @@ let AuthService = class AuthService {
             return null;
         const result = await bcrypt.compare(password, user.password);
         if (!result)
-            return null;
+            return { msg: 'Authentication failed.' };
         const curatedUser = {
             id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,
             ownedRooms: user.ownedRooms,
-            participantRooms: user.participantRooms
+            participantRooms: user.participantRooms,
+            profilePicture: user.profilePicture,
         };
         return curatedUser;
     }
