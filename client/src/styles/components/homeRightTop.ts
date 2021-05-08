@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { principalColor } from "../../config/colors";
 
 const styles = StyleSheet.create({
   rightTopContainer: {
@@ -20,35 +21,37 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: principalColor,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 1,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 100
   },
   button: {
+    width: 200,
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     margin: 10,
-    backgroundColor: "#2196F3",
+    backgroundColor: 'white',
   },
   buttonCancel: {
+    width: 200,
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     margin: 10,
-    backgroundColor: "#F194FF",
+    backgroundColor: "black",
   },
   textStyle: {
-    color: "white",
+    color: principalColor,
     fontWeight: "bold",
     textAlign: "center"
   },
