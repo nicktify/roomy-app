@@ -14,7 +14,7 @@ const DrawerNavigation = () => {
   }
 
   return (
-    <Drawer.Navigator initialRouteName="Room"
+    <Drawer.Navigator initialRouteName="Home"
       drawerContent={ props => {
         return (
           <DrawerContentScrollView {...props}>

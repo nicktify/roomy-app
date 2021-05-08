@@ -17,6 +17,7 @@ class InitialState {
   validationCompleted: boolean;
   ownedRooms: Room[] | null;
   participantRooms: Room[] | null;
+  selectedRoom: Room | null;
 }
 
 export class LoginData {

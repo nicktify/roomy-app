@@ -30,6 +30,7 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </View>
             <Rooms
+              navigation={ navigation }
               selectedRooms={ selectedRooms }
             />
           </View>

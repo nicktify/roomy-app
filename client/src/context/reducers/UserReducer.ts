@@ -7,6 +7,7 @@ type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
                 | { type: 'LOGOUT' }
                 | { type: 'VALIDATION_COMPLETED' }
                 | { type: 'SET_ROOMS', payload: { participantRooms: Room[], ownedRooms: Room[] } }
+                | { type: 'SET_SELECTED_ROOM', payload: Room }
 
 const userReducer = ( state: InitialState, action: TypeAction) => {
   
@@ -46,6 +47,12 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
         ...state,
         participantRooms: action.payload.participantRooms,
         ownedRooms: action.payload.ownedRooms,
+      }
+
+    case 'SET_SELECTED_ROOM':
+      return {
+        ...state,
+        selectedRoom: action.payload,
       }
 
     default:

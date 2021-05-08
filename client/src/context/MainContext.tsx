@@ -15,6 +15,7 @@ const initialState: InitialState = {
   validationCompleted: false,
   ownedRooms: null,
   participantRooms: null,
+  selectedRoom: null,
 }
 
 interface ContextProps {
@@ -24,12 +25,14 @@ interface ContextProps {
   validationCompleted: boolean;
   ownedRooms: Room[] | null;
   participantRooms: Room[] | null;
+  selectedRoom: Room | null;
   signIn: ( loginData: LoginData ) => void;
   singUp: ( registerData: RegisterData ) => void;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
   createRoom: ( name: string, password: string ) => Promise<void>;
   updateProfilePicture: (data: ImagePickerResponse) => void;
+  getCurrentRoomInformation: ( id: string ) => Promise<any>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -176,7 +179,7 @@ const AppContext = ({ children }: any) => {
       }, {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
-      .then( response => {
+      .then(() => {
         if (state.user) {
           // TODO: make a proper route for this task, you only need to fetch the new user data, and not revalidate the token
           validateToken()
@@ -185,6 +188,26 @@ const AppContext = ({ children }: any) => {
       .catch(error => {
         console.log(error);
       })
+  }
+
+  const getCurrentRoomInformation = async ( id: string ) => {
+
+    const token = await AsyncStorage.getItem('token');
+    if ( ! token ) return;
+
+    return new Promise((resolve, reject) => {
+
+      let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
+      if ( ! selectedRoom ) {
+        selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
+      }
+
+      if ( ! selectedRoom ) return reject('Can\'t find room')
+
+      dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom })
+
+      resolve(selectedRoom);
+    })
   }
 
   
@@ -196,12 +219,14 @@ const AppContext = ({ children }: any) => {
         validationCompleted: state.validationCompleted,
         ownedRooms: state.ownedRooms,
         participantRooms: state.participantRooms,
+        selectedRoom: state.selectedRoom,
         signIn,
         singUp,
         validateToken,
         logout,
         createRoom,
         updateProfilePicture,
+        getCurrentRoomInformation,
       }}
     >
     {children}

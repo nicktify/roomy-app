@@ -1,54 +1,34 @@
 import * as React from 'react';
-import { TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import style from '../styles/navigation';
+import style from '../styles/navigationTop';
 
-const TabBarNavigation = ({ navigation }: any) => {
+const TabBarRoomNavigation = ({ navigation }: any) => {
   return (
-    <View style={style.navigationBottom}>
+    <View style={style.navigationTop}>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Home') }
+        onPress={ () => navigation.navigate('HomeRoomScreen') }
       >
-        <Icon
-          style={style.navigationBottomIcon}
-          name="home"
-          color="black"
-          size={30}
-        />
+        <Text style={style.text}>POSTS</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Calendar') }
+        onPress={ () => navigation.navigate('LinksRoomScreen') }
       >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="calendar-today"
-          color="black"
-          size={25}
-        />
+        <Text style={style.text}>LINKS</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Notifications') }
+        onPress={ () => navigation.navigate('BooksRoomScreen') }
       >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="notifications-none"
-          color="black"
-          size={30}
-        />
+        <Text style={style.text}>BOOKS</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Search') }
+        onPress={ () => navigation.navigate('DatesRoomScreen') }
       >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="search"
-          color="black"
-          size={30}
-        />
+        <Text style={style.text}>DATES</Text>
       </TouchableOpacity>
   </View>
   )
 }
 
-export default TabBarNavigation;
+export default TabBarRoomNavigation;
