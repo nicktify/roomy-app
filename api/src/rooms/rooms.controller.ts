@@ -24,6 +24,7 @@ export class RoomsController {
     return this.roomService.getRooms();
   }
 
+  @UseGuards( JwtAuthGuard )
   @Get('user-room/:id')
   getRoom( @Param() { id }: { id: string } ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.getRoom( id );
