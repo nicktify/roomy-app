@@ -359,7 +359,7 @@ export class RoomsService {
 
             const date = new Date();
 
-            const post = { authorId, body, date, image: result.secure_url };
+            const post = { authorId, authorProfilePicture: author.profilePicture, authorName: author.name, body, date, image: result.secure_url };
             room.posts.push( post );
             room.save();
 

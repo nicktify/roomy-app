@@ -62,8 +62,8 @@ __decorate([
     __metadata("design:returntype", Object)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
-    common_1.Get('/id'),
-    __param(0, common_1.Body()),
+    common_1.Get('/:id'),
+    __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

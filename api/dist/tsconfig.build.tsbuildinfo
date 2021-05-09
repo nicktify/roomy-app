@@ -2232,8 +2232,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/schemas/room.schema.ts": {
-        "version": "2fa089060e1c4df5a800c0da9bd75a9f9351ec72153d7f97721cb86c17f2383a",
-        "signature": "f6e11f39f15d07948decafb7f1ad03a50533eda894073c94fa8019d5e20ee511",
+        "version": "066419ed8aaa7f43df92a233f8188aa39912b9aff1f3010310718e7ebbb7faa6",
+        "signature": "927904004775955abe69ea916895999206bf47a744131c6b7e26b005bb605fc2",
         "affectsGlobalScope": false
       },
       "../src/rooms/dto/edit-room-dto.ts": {
@@ -2282,7 +2282,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.service.ts": {
-        "version": "96df6dd3be71c03698c05813c520f43182d8dc77c63e63596b1f0e4268de2e71",
+        "version": "4c3dd0611aad6a2a21dfb669613a2d7419cd0b063fa908557b68f7c429728fe5",
         "signature": "6c7ecbecfbacc5f00952caa1878f26cb6bef1a70ca20fa5da7a06c9a720c0fad",
         "affectsGlobalScope": false
       },
@@ -2552,7 +2552,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "425a169deeefa455197d706770c95239545dabd3b8bfaabb028366cd47311048",
+        "version": "d2a0c3ceb698310256c8461914c5755fdbfa88e660478a301a91c9cc335c1626",
         "signature": "5e46c998e3d7bf26e492c56c7dd713c70a1095f8764e38ba0f7ca7366d20fa4e",
         "affectsGlobalScope": false
       },

@@ -21,6 +21,8 @@ export declare class Room {
     posts: [
         {
             authorId: string;
+            authorProfilePicture: string;
+            authorName: string;
             body: string;
             date: Date;
             image: string;

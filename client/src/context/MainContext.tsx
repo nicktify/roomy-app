@@ -34,6 +34,7 @@ interface ContextProps {
   updateProfilePicture: (data: ImagePickerResponse) => void;
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
   addNewPost: (body: string, data: ImagePickerResponse) => void;
+  getUserById: ( id: string ) => Promise<User | string>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -42,7 +43,6 @@ const AppContext = ({ children }: any) => {
 
   const [ state, dispatch ] = useReducer(userReducer, initialState);
 
-
   useEffect(() => {
     validateToken();
   }, [])
@@ -50,7 +50,7 @@ const AppContext = ({ children }: any) => {
 
   const signIn = ({ email, password }: LoginData ) => {
     axios.post(`${ API }/users/auth/login`, {
-        email,
+        email: email.toLowerCase(),
         password
       })
       .then( async response => {
@@ -269,6 +269,17 @@ const AppContext = ({ children }: any) => {
 
   }
 
+  const getUserById = (id: string): Promise<User | string> => {
+    return new Promise( async (resolve, reject) => {
+      const user = await axios.get(`${ API }/users/${ id }`);
+      
+      if ( ! user ) reject('User not found');
+
+      resolve(user.data);
+
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -287,6 +298,7 @@ const AppContext = ({ children }: any) => {
         updateProfilePicture,
         getCurrentRoomInformation,
         addNewPost,
+        getUserById
       }}
     >
     {children}

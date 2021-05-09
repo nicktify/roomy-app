@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request, UseInterceptors, UploadedFile, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -20,8 +20,8 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
-  @Get('/id')
-  getUser( @Body() { id }: { id: string } ): Promise<ReturnUserDto | { msg: string }> {
+  @Get('/:id')
+  getUser( @Param() { id }: { id: string } ): Promise<ReturnUserDto | { msg: string }> {
     return this.usersService.getUser( id );
   }
 
