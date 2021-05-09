@@ -33,6 +33,7 @@ interface ContextProps {
   createRoom: ( name: string, password: string ) => Promise<void>;
   updateProfilePicture: (data: ImagePickerResponse) => void;
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
+  addNewPost: (body: string, data: ImagePickerResponse) => void;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -231,6 +232,43 @@ const AppContext = ({ children }: any) => {
     }
   }
 
+  const addNewPost = async (body: string, data: ImagePickerResponse | undefined) => {
+
+    try {
+      
+      const token = await AsyncStorage.getItem('token');
+      if ( ! token ) return;
+
+      const fileToUpload = {
+        uri: data?.uri,
+        type: data?.type,
+        name: data?.fileName
+      };
+  
+      const formData = new FormData();
+  
+      data && formData.append('file', fileToUpload);
+      formData.append('id', state.selectedRoom?.id);
+      formData.append('authorId', state.user?.id);
+      formData.append('body', body);
+  
+      axios.post(`${ API }/rooms/posts`,
+          formData,
+          { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
+        )
+        .then(() => {
+          validateToken();
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
   
   return (
     <Context.Provider value={{
@@ -248,6 +286,7 @@ const AppContext = ({ children }: any) => {
         createRoom,
         updateProfilePicture,
         getCurrentRoomInformation,
+        addNewPost,
       }}
     >
     {children}

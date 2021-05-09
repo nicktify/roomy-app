@@ -14,9 +14,11 @@ import { style as modalStyles } from '../../styles/components/modal'
 const RoomPostsScreen = () => {
 
   const [ activeForm, setActiveForm ] = useState(false);
+  const [ bodyPost, setBodyPost ] = useState('');
   const [ modalVisible, setModalVisible ] = useState(false);
+  const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
-  const { selectedRoom, user } = useContext( Context );
+  const { selectedRoom, user, addNewPost } = useContext( Context );
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
@@ -56,7 +58,7 @@ const RoomPostsScreen = () => {
 
       if (resp.didCancel) return;
       if (!resp.uri) return;
-
+      setImageUri(resp)
     });
   };
 
@@ -68,8 +70,14 @@ const RoomPostsScreen = () => {
 
       if (resp.didCancel) return;
       if (!resp.uri) return;
+      setImageUri(resp)
 
     });
+  }
+
+  const handlePublish = () => {
+
+    addNewPost(bodyPost, imageUri!);
   }
 
   return (
@@ -96,6 +104,9 @@ const RoomPostsScreen = () => {
               multiline
               placeholder="what's new?"
               style={style.textInput}
+              onChangeText={bodyPost => setBodyPost(bodyPost)}
+              defaultValue={bodyPost}
+              value={bodyPost}
             />
             <TouchableOpacity
                 style={style.uploadImageButton}
@@ -106,7 +117,7 @@ const RoomPostsScreen = () => {
             <View style={style.buttonsFormContainer}>
               <TouchableOpacity
                 style={style.publishFormButton}
-                onPress={() => setActiveForm(false)}
+                onPress={handlePublish}
               >
                 <Text style={style.cancelFormText}>Publish</Text>
               </TouchableOpacity>
