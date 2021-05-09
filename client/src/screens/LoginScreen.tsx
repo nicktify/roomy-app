@@ -26,7 +26,8 @@ const LoginScreen = ({ navigation }: any) => {
         >
           <TouchableWithoutFeedback
             style={{ flex: 1 }}
-            onPress={Keyboard.dismiss}>
+            onPress={Keyboard.dismiss}
+          >
 
             <View style={style.formContainer}>
               <View

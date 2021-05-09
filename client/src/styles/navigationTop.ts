@@ -1,15 +1,22 @@
 import { StyleSheet } from "react-native";
-import { principalColor } from "../config/colors";
 
 const style = StyleSheet.create({
   navigationTop: {
     height: 60,
     width: '100%',
     flexDirection: 'row',
+    backgroundColor: 'white',
     justifyContent: 'space-around',
     alignItems: 'center',
-    borderBottomColor: '#d9d9d9',
-    borderBottomWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    
+    elevation: 11,
   },
   text: {
     fontSize: 18,

@@ -5,7 +5,7 @@ const LoadingScreen = () => {
   return (
     <>
       <View
-        style={{ flex: 1, alignItems: 'center' }}
+        style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}
       >
         <Image
           style={{ flex: 1, resizeMode: 'contain' }}

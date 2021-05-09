@@ -14,7 +14,7 @@ const TabBarNavigation = ({ navigation }: any) => {
           style={style.navigationBottomIcon}
           name="home"
           color="black"
-          size={30}
+          size={25}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -24,7 +24,7 @@ const TabBarNavigation = ({ navigation }: any) => {
           style={style.navigationBottomIcon}
           name="calendar-today"
           color="black"
-          size={25}
+          size={20}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -34,7 +34,7 @@ const TabBarNavigation = ({ navigation }: any) => {
           style={style.navigationBottomIcon}
           name="notifications-none"
           color="black"
-          size={30}
+          size={25}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -44,7 +44,7 @@ const TabBarNavigation = ({ navigation }: any) => {
           style={style.navigationBottomIcon}
           name="search"
           color="black"
-          size={30}
+          size={25}
         />
       </TouchableOpacity>
   </View>
