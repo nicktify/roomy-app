@@ -13,7 +13,7 @@ const Rooms = ({ selectedRooms, navigation }: any) => {
   useEffect(() => {}, [ownedRooms, participantRooms])
 
   const renderItem = ({ item }: any) => (
-    <View style={{ width: '100%' }} key={item.id} >
+    <View style={{ width: '100%' }}>
       <Room name={item.name} id={item.id} navigation={ navigation }/>
     </View>
   )

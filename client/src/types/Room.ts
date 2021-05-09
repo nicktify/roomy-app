@@ -3,4 +3,5 @@ export class Room {
   name: string;
   owners: string[];
   participants: string[];
+  posts: [{ authorId: string, body: string, date: Date, image: string }]
 }

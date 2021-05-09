@@ -54,57 +54,57 @@ const HomeRightTopComponent = () => {
         />
         {
           user?.profilePicture ?
-          <TouchableWithoutFeedback
-            style={{flex: 1}}
-            onPress={() => setModalVisible(true)}
-          >
-            <Image
-              source={{
-                uri: user.profilePicture,
-              }}
-              style={styles.profileImage}
-            />
-          </TouchableWithoutFeedback>
-            :
-              <Icon
+            <TouchableWithoutFeedback
+              style={{ flex: 1 }}
+              onPress={() => setModalVisible(true)}
+            >
+              <Image
+                source={{
+                  uri: user.profilePicture,
+                }}
                 style={styles.profileImage}
-                name="account-circle"
-                size={80}
-                color={principalColor}
-                onPress={() => setModalVisible(true)}
               />
+            </TouchableWithoutFeedback>
+            :
+            <Icon
+              style={styles.profileImage}
+              name="account-circle"
+              size={80}
+              color={principalColor}
+              onPress={() => setModalVisible(true)}
+            />
         }
         <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Pressable
-              style={styles.button}
-              onPress={handleUploadImage}
-            >
-              <Text style={styles.textStyle}>Select from galery</Text>
-            </Pressable>
-            <Pressable
-              style={styles.button}
-              onPress={handleTakePicture}
-            >
-              <Text style={styles.textStyle}>Take picture</Text>
-            </Pressable>
-            <Pressable
-              style={styles.buttonCancel}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Cancel</Text>
-            </Pressable>
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable
+                style={styles.button}
+                onPress={handleUploadImage}
+              >
+                <Text style={styles.textStyle}>Select from galery</Text>
+              </Pressable>
+              <Pressable
+                style={styles.button}
+                onPress={handleTakePicture}
+              >
+                <Text style={styles.textStyle}>Take picture</Text>
+              </Pressable>
+              <Pressable
+                style={styles.buttonCancel}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Cancel</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
       </View>
     </>
   );
