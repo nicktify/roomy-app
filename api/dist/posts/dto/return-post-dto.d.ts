@@ -6,4 +6,5 @@ export declare class ReturnPostDto {
     authorName: string;
     body: string;
     date: Date;
+    image: string;
 }

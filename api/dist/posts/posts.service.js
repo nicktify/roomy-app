@@ -35,6 +35,7 @@ let PostsService = class PostsService {
                 authorName: post.authorName,
                 body: post.body,
                 date: post.date,
+                image: post.image,
             };
             return returnedPost;
         }

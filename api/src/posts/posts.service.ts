@@ -17,7 +17,8 @@ export class PostsService {
   async getPost( id: string ): Promise<ReturnPostDto> {
     try {
       const post = await this.postModel.findById(id);
-      const returnedPost = {
+      
+      const returnedPost: ReturnPostDto = {
         id: post._id,
         roomId: post.roomId,
         authorId: post.authorId,
@@ -25,6 +26,7 @@ export class PostsService {
         authorName: post.authorName,
         body: post.body,
         date: post.date,
+        image: post.image,
       }
       return returnedPost;
     } catch (error) {
@@ -51,7 +53,7 @@ export class PostsService {
             room.posts.push(post._id);
             room.save();
 
-            const returnedPost = {
+            const returnedPost: ReturnPostDto = {
               id: post._id,
               authorId: post.authorId,
               authorProfilePicture: post.authorProfilePicture,

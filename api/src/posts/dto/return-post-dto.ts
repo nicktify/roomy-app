@@ -30,4 +30,8 @@ export class ReturnPostDto {
   @IsDate()
   date: Date;
 
+  @IsNotEmpty()
+  @IsString()
+  image: string;
+
 }
