@@ -27,7 +27,7 @@ const RoomPostsScreen = () => {
   const [ activeForm, setActiveForm ] = useState(false);
   const [ bodyPost, setBodyPost ] = useState('');
   const [ modalPictureVisible, setModalPictureVisible ] = useState(false);
-  const [ activeSelectedPostOptions, setActiveSelectedPostOptions] = useState<SelectedPost>({ body: '', image: '', authorProfilePicture: '', authorName: '' });
+  const [ activeSelectedPostOptions, setActiveSelectedPostOptions] = useState<SelectedPost>({ id: '',  body: '', image: '', authorProfilePicture: '', authorName: '' });
   const [ modalPostOptionVisible, setModalPostOptionVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
