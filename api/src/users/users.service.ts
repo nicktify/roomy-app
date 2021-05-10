@@ -11,10 +11,11 @@ import { EditUserDto } from './dto/edit-user.dto';
 import { UserDocument } from './schemas/user.schema';
 import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { PostDocument } from 'src/posts/schemas/post.schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel('User') private userModel: Model<UserDocument>, @InjectModel('Post') private postModel: Model<PostDocument>) {}
 
     async getUsers(): Promise<ReturnUserDto[]> {
 
@@ -136,6 +137,8 @@ export class UsersService {
 
       if ( ! file ) return { msg: 'Image is required.' };
 
+      const userPosts = await this.postModel.find({ authorId: userId });
+
       return new Promise(( resolve, reject ) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
           function (error, result) {
@@ -144,6 +147,12 @@ export class UsersService {
 
             user.profilePicture = result.secure_url;
             user.save();
+
+            for (let i = 0; i < userPosts.length; i ++) {
+              let post = userPosts[i];
+              post.authorProfilePicture = result.secure_url;
+              post.save();
+            }
 
             const curatedUser = {
               id: user._id,

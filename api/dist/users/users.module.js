@@ -14,11 +14,12 @@ const users_service_1 = require("./users.service");
 const user_schema_1 = require("./schemas/user.schema");
 const auth_service_1 = require("../auth/auth.service");
 const auth_module_1 = require("../auth/auth.module");
+const post_schema_1 = require("../posts/schemas/post.schema");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     common_1.Module({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'User', schema: user_schema_1.UserSchema }]), auth_module_1.AuthModule],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'User', schema: user_schema_1.UserSchema }, { name: 'Post', schema: post_schema_1.PostSchema }]), auth_module_1.AuthModule],
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService, auth_service_1.AuthService],
     })

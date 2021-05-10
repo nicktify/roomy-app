@@ -6,9 +6,11 @@ import { EditUserDto } from './dto/edit-user.dto';
 import { UserDocument } from './schemas/user.schema';
 import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { PostDocument } from 'src/posts/schemas/post.schema';
 export declare class UsersService {
     private userModel;
-    constructor(userModel: Model<UserDocument>);
+    private postModel;
+    constructor(userModel: Model<UserDocument>, postModel: Model<PostDocument>);
     getUsers(): Promise<ReturnUserDto[]>;
     getUser(id: string): Promise<ReturnUserDto | {
         msg: string;

@@ -2546,9 +2546,14 @@
         "signature": "db19db3391eff67990bc86ba1e6207a445cf7404892ec8be95341256b31e7adb",
         "affectsGlobalScope": false
       },
+      "../src/posts/schemas/post.schema.ts": {
+        "version": "c6a8a8b78c831630bc5bf6420cb6530a2e478851111e013518d2a29840c514fe",
+        "signature": "267403b0fe7ec1b78b847233dbe1564d3de5fa2a06140d4af6c0b61f26f12eb0",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "68665371835be60631ba58fe9de3de9da2da062c48d9404855c0c6587ec4b286",
-        "signature": "1345532c7ddcc1cf732135ffac6e0bb8b0033e1455e2ba47df4d4291d7244ad1",
+        "version": "1edbb352a00f725e39cba8d09db397b7e4ad7e24de7c4ebb1e9912797b2f7cce",
+        "signature": "83faaf75c47e25197dcdb943071b35c6d7240a593f0da2ad95682ebc7207e270",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
@@ -2587,7 +2592,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.module.ts": {
-        "version": "74c3a8a74df8f4a8a688a2c9230e841032847ce31155167fddeea50251e3f8e2",
+        "version": "9d90e1b1b32b4b61be5b34516f6fb54f73e13a558bab3d4a9311f76e147d4138",
         "signature": "aa1725e38b5a0b4009f6a74f296f173e7926c119a60454dbd2e523861735df69",
         "affectsGlobalScope": false
       },
@@ -2604,11 +2609,6 @@
       "../src/posts/dto/return-post-dto.ts": {
         "version": "2730aa0c5045718f39e7a5fd4e84fb3af15a920ec40c010e3930f1602529fa8c",
         "signature": "3160de7d1a3ff67416698142ccbaab775c642b20e0821af9e36d030f30505376",
-        "affectsGlobalScope": false
-      },
-      "../src/posts/schemas/post.schema.ts": {
-        "version": "c6a8a8b78c831630bc5bf6420cb6530a2e478851111e013518d2a29840c514fe",
-        "signature": "267403b0fe7ec1b78b847233dbe1564d3de5fa2a06140d4af6c0b61f26f12eb0",
         "affectsGlobalScope": false
       },
       "../src/posts/types/post.ts": {
@@ -5243,6 +5243,7 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../src/auth/auth.module.ts",
         "../src/auth/auth.service.ts",
+        "../src/posts/schemas/post.schema.ts",
         "../src/users/schemas/user.schema.ts",
         "../src/users/users.controller.ts",
         "../src/users/users.service.ts"
@@ -5252,6 +5253,7 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
+        "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
@@ -7347,6 +7349,7 @@
       ],
       "../src/users/users.service.ts": [
         "../node_modules/mongoose/index.d.ts",
+        "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",

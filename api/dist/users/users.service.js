@@ -19,9 +19,11 @@ const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
+const post_schema_1 = require("../posts/schemas/post.schema");
 let UsersService = class UsersService {
-    constructor(userModel) {
+    constructor(userModel, postModel) {
         this.userModel = userModel;
+        this.postModel = postModel;
     }
     async getUsers() {
         const users = await this.userModel.find();
@@ -122,12 +124,18 @@ let UsersService = class UsersService {
                 return { msg: 'You don\'t have the rights to do this action.' };
             if (!file)
                 return { msg: 'Image is required.' };
+            const userPosts = await this.postModel.find({ authorId: userId });
             return new Promise((resolve, reject) => {
                 let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject({ msg: 'Error uploading image.' });
                     user.profilePicture = result.secure_url;
                     user.save();
+                    for (let i = 0; i < userPosts.length; i++) {
+                        let post = userPosts[i];
+                        post.authorProfilePicture = result.secure_url;
+                        post.save();
+                    }
                     const curatedUser = {
                         id: user._id,
                         name: user.name,
@@ -216,8 +224,8 @@ let UsersService = class UsersService {
 };
 UsersService = __decorate([
     common_1.Injectable(),
-    __param(0, mongoose_2.InjectModel('User')),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __param(0, mongoose_2.InjectModel('User')), __param(1, mongoose_2.InjectModel('Post')),
+    __metadata("design:paramtypes", [mongoose_1.Model, mongoose_1.Model])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map
