@@ -10,6 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { UserDocument } from './schemas/user.schema';
 import { FindByEmailDto } from './dto/find-by-email-dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -54,8 +55,8 @@ export class UsersService {
       const user = await this.userModel.findOne({ email: email });
       if (user) return { msg: 'User already exist.' };
 
-      const saltOrRounds = 10;
-      const hash = await bcrypt.hash(password, saltOrRounds);
+      const rounds = 10;
+      const hash = await bcrypt.hash(password, rounds);
       const createdUser = await this.userModel.create({ name, email, password: hash, role });
 
       console.log(createdUser.profilePicture)
@@ -101,6 +102,28 @@ export class UsersService {
       throw error;
     }
 
+  }
+
+  async changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user): Promise<{msg: string}> {
+    try {
+      
+      const user = await this.userModel.findById( userId );
+      if ( ! user ) return {msg: 'User not exist.'};
+
+      const isCorrectPassword = await bcrypt.compare(oldPassword, user.password);
+      if (! isCorrectPassword ) return { msg: 'Authentication failed.' }
+
+      const rounds = 10;
+      const newHashedPassword = await bcrypt.hash(newPassword, rounds);
+
+      user.password = newHashedPassword;
+      user.save()
+      
+      return { msg: 'Password changed.' };
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   async addProfilePicture( { userId }: { userId: string }, file: Express.Multer.File, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {

@@ -1,5 +1,6 @@
 /// <reference types="multer" />
 import { AuthService } from 'src/auth/auth.service';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { FindByEmailDto } from './dto/find-by-email-dto';
@@ -46,6 +47,9 @@ export declare class UsersController {
         access_token: string;
         user: ReturnUserDto;
     } | {
+        msg: string;
+    }>;
+    changePassword(changePasswordDto: ChangePasswordDto, req: any): Promise<{
         msg: string;
     }>;
 }

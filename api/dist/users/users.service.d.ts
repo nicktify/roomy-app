@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { UserDocument } from './schemas/user.schema';
 import { FindByEmailDto } from './dto/find-by-email-dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 export declare class UsersService {
     private userModel;
     constructor(userModel: Model<UserDocument>);
@@ -13,6 +14,9 @@ export declare class UsersService {
         msg: string;
     }>;
     createUser({ name, email, password, role }: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{
         msg: string;
     }>;
     addProfilePicture({ userId }: {

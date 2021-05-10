@@ -18,6 +18,7 @@ const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
 const auth_service_1 = require("../auth/auth.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const change_password_dto_1 = require("./dto/change-password.dto");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const edit_user_dto_1 = require("./dto/edit-user.dto");
 const find_by_email_dto_1 = require("./dto/find-by-email-dto");
@@ -53,6 +54,9 @@ let UsersController = class UsersController {
     }
     async validateToken(req) {
         return this.authService.validateToken(req.user);
+    }
+    async changePassword(changePasswordDto, req) {
+        return this.usersService.changePassword(changePasswordDto, req.user);
     }
 };
 __decorate([
@@ -124,6 +128,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "validateToken", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Post('change-password'),
+    __param(0, common_1.Body()), __param(1, common_1.Request()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [change_password_dto_1.ChangePasswordDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "changePassword", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])

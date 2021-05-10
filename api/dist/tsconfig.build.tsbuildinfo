@@ -2526,6 +2526,11 @@
         "signature": "d86b045ae59a9baf51383d155ff92afe59e89027785bda36d481ed248744da6a",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/change-password.dto.ts": {
+        "version": "4a3116bca7d7eed26b8eaad8e31e8253d9356130d6e67ab2655d3cac65755195",
+        "signature": "ba9a130b86d027c01ba8250e7d53bb41fa7a1e011b471d22429d0ffe94e69abd",
+        "affectsGlobalScope": false
+      },
       "../src/users/dto/create-user.dto.ts": {
         "version": "2e8be131149f7d1310cb788e21f92efb9dd8e52bf75b22b32fb6c1e3619560c2",
         "signature": "329546f1a58a44a739e492bbafea4e1eeda1d983af5172a74b0ba20e52219dc0",
@@ -2542,13 +2547,13 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "9c70259c6501351e54b85d576af798126af519f0422d0fd39d906eff655d3b11",
-        "signature": "0d48ef687ed73fee35bc3ce779e02c7f0cfcb95fa707f91200b69f26827337af",
+        "version": "68665371835be60631ba58fe9de3de9da2da062c48d9404855c0c6587ec4b286",
+        "signature": "1345532c7ddcc1cf732135ffac6e0bb8b0033e1455e2ba47df4d4291d7244ad1",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "d2a0c3ceb698310256c8461914c5755fdbfa88e660478a301a91c9cc335c1626",
-        "signature": "5e46c998e3d7bf26e492c56c7dd713c70a1095f8764e38ba0f7ca7366d20fa4e",
+        "version": "02df864c2932272c4630ecb542fa4753f7a56d8738a2ec4fd8dc87956a69fdeb",
+        "signature": "0cd8fabd4d22ab01a3a2ed1137d1499501ca86c7282df871e46be08fd49c8d98",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5198,6 +5203,9 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/mongoose/index.d.ts"
       ],
+      "../src/users/dto/change-password.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/create-user.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5223,6 +5231,7 @@
         "../node_modules/@nestjs/platform-express/index.d.ts",
         "../src/auth/auth.service.ts",
         "../src/auth/jwt-auth.guard.ts",
+        "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
@@ -5243,6 +5252,7 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
+        "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
@@ -7328,6 +7338,7 @@
       ],
       "../src/users/users.controller.ts": [
         "../src/auth/auth.service.ts",
+        "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
@@ -7336,6 +7347,7 @@
       ],
       "../src/users/users.service.ts": [
         "../node_modules/mongoose/index.d.ts",
+        "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
@@ -7935,6 +7947,7 @@
       "../src/rooms/rooms.module.ts",
       "../src/rooms/rooms.service.ts",
       "../src/rooms/schemas/room.schema.ts",
+      "../src/users/dto/change-password.dto.ts",
       "../src/users/dto/create-user.dto.ts",
       "../src/users/dto/edit-user.dto.ts",
       "../src/users/dto/find-by-email-dto.ts",

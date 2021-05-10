@@ -4,6 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { FindByEmailDto } from './dto/find-by-email-dto';
@@ -65,6 +66,12 @@ export class UsersController {
   @Post('auth/validate-token')
   async validateToken( @Request() req ) {
     return this.authService.validateToken( req.user )
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Post('change-password')
+  async changePassword( @Body() changePasswordDto: ChangePasswordDto, @Request() req ): Promise<{msg: string}> {
+    return this.usersService.changePassword(changePasswordDto, req.user );
   }
 
 }
