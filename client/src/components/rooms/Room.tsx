@@ -9,14 +9,11 @@ const Room = ( { name, id, navigation }: { name: string, id: string, navigation:
   const { getCurrentRoomInformation } = useContext( Context );
 
   const handlePress = () => {
-
-
     getCurrentRoomInformation(id)
     .then(() => {
       navigation.navigate('Room')
     })
     .catch(error => console.log(error))
-
   }
 
   return (

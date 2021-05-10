@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Keyboard, KeyboardAvoidingView, Modal, Pressable, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -25,7 +25,7 @@ const RoomPostsScreen = () => {
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
-
+  useEffect(() => {}, [selectedRoomPosts]);
 
   
   const renderItem = ({ item }: {item: Post}) => (
@@ -80,10 +80,10 @@ const RoomPostsScreen = () => {
       mediaType: 'photo',
       quality: 0.5
     }, (resp: ImagePickerResponse) => {
-
+      setModalVisible(false);
       if (resp.didCancel) return;
       if (!resp.uri) return;
-      setImageUri(resp)
+      setImageUri(resp);
     });
   };
 
@@ -92,17 +92,15 @@ const RoomPostsScreen = () => {
       mediaType: 'photo',
       quality: 0.5
     }, (resp: ImagePickerResponse) => {
-
+      setModalVisible(false);
       if (resp.didCancel) return;
       if (!resp.uri) return;
       setImageUri(resp)
-
     });
   }
 
   const handlePublish = () => {
-
-    addNewPost(bodyPost, imageUri!);
+    addNewPost(bodyPost, imageUri ? imageUri : undefined);
   }
 
   return (

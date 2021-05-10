@@ -36,7 +36,7 @@ interface ContextProps {
   createRoom: ( name: string, password: string ) => Promise<void>;
   updateProfilePicture: (data: ImagePickerResponse) => void;
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
-  addNewPost: (body: string, data: ImagePickerResponse) => void;
+  addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
 }
 
@@ -113,8 +113,8 @@ const AppContext = ({ children }: any) => {
 
 
   const validateToken = async () => {
+
     const token = await AsyncStorage.getItem('token');
-    
     if ( ! token ) {
       dispatch({ type: 'VALIDATION_COMPLETED' });
       return;
@@ -147,7 +147,6 @@ const AppContext = ({ children }: any) => {
 
     try {
 
-
       const token = await AsyncStorage.getItem('token');
 
       if ( ! token ) return;
@@ -175,7 +174,7 @@ const AppContext = ({ children }: any) => {
         });
         participantRooms = insert(participantRooms, room)
       }
-  
+      
       dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
       
     } catch (error) {
@@ -209,81 +208,88 @@ const AppContext = ({ children }: any) => {
       })
   }
 
-  const getCurrentRoomInformation = async ( id: string ) => {
-
+  const getCurrentRoomInformation = async (id: string | undefined): Promise<any> => {
+    if (!id) return;
     try {
-      
-          const token = await AsyncStorage.getItem('token');
-          if ( ! token ) return;
-      
-          return new Promise(async (resolve, reject) => {
-      
-            let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
-            if ( ! selectedRoom ) {
-              selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
-            }
-      
-            if ( ! selectedRoom ) return reject('Can\'t find room')
-      
-            dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom })
+      const token = await AsyncStorage.getItem('token');
+      if (!token) return;
 
-            const insert = ( arr: Post[], post: Post ) => [
-              post,
-              ...arr
-            ]
+      return new Promise(async (resolve, reject) => {
 
-            let posts: Post[] = [];
+        let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
+        if (!selectedRoom) {
+          selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
+        }
 
-            for (let i = 0; i < selectedRoom.posts.length; i ++) {
-              const { data: post } = await axios.get(`${ API }/posts/get-post/${ selectedRoom.posts[i] }`, {
-                headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-              });
+        if (!selectedRoom) return reject('Can\'t find room');
 
-              posts = insert(posts, post);
+        dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
 
-            }
+        const insert = (arr: Post[], post: Post) => [
+          post,
+          ...arr
+        ];
 
-            dispatch({ type: 'SET_ROOM_POSTS', payload: posts });
+        let posts: Post[] = [];
 
-      
-            resolve(selectedRoom);
-          })
-      
+        for (let i = 0; i < selectedRoom.posts.length; i++) {
+          const { data: post } = await axios.get(`${API}/posts/get-post/${selectedRoom.posts[i]}`, {
+            headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+          });
+
+          posts = insert(posts, post);
+
+        }
+
+        dispatch({ type: 'SET_ROOM_POSTS', payload: posts });
+
+
+        resolve(selectedRoom);
+      });
+
     } catch (error) {
       console.log(error);
     }
   }
 
-  const addNewPost = async (body: string, data: ImagePickerResponse | undefined) => {
+  const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
 
     try {
-      
-      const token = await AsyncStorage.getItem('token');
-      if ( ! token ) return;
 
-      const fileToUpload = {
-        uri: data?.uri,
-        type: data?.type,
-        name: data?.fileName
-      };
+      return new Promise( async ( resolve, reject ) => {
+        const token = await AsyncStorage.getItem('token');
+        if ( ! token ) return;
   
-      const formData = new FormData();
-  
-      data && formData.append('file', fileToUpload);
-      formData.append('id', state.selectedRoom?.id);
-      formData.append('authorId', state.user?.id);
-      formData.append('body', body);
-  
-      axios.post(`${ API }/rooms/posts`,
-          formData,
-          { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
-        )
-        .then(() => {
-          validateToken();
-        })
-        .catch(error => {
-          console.log(error)
-        })
+        const fileToUpload = {
+          uri: data?.uri,
+          type: data?.type,
+          name: data?.fileName
+        };
+    
+        const formData = new FormData();
+    
+        data && formData.append('file', fileToUpload);
+        formData.append('roomId', state.selectedRoom?.id);
+        formData.append('authorId', state.user?.id);
+        formData.append('authorProfilePicture', state.user?.profilePicture);
+        formData.append('authorName', state.user?.name);
+        formData.append('body', body);
+    
+        axios.post(`${ API }/posts/add`,
+            formData,
+            { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
+          )
+          .then((response) => {
+            validateToken();
+            getCurrentRoomInformation(state.selectedRoom?.id);
+            resolve(response.data)
+          })
+          .catch(error => {
+            reject(error);
+          })
+
+      })
+      
 
     } catch (error) {
       console.log(error);
