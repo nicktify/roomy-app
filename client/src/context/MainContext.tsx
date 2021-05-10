@@ -29,7 +29,7 @@ interface ContextProps {
   participantRooms: Room[] | null;
   selectedRoom: Room | null;
   selectedRoomPosts: Post[] | null;
-  signIn: ( loginData: LoginData ) => void;
+  signIn: ( loginData: LoginData ) => Promise<{ msg: string }>;
   singUp: ( registerData: RegisterData ) => void;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
@@ -52,19 +52,26 @@ const AppContext = ({ children }: any) => {
   }, [])
 
 
-  const signIn = ({ email, password }: LoginData ) => {
-    axios.post(`${ API }/users/auth/login`, {
-        email: email.toLowerCase(),
-        password
-      })
-      .then( async response => {
-        await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-        getRooms(response.data.user);
-        dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-      })
-      .catch(error => {
-        console.log( error );
-      })
+  const signIn = ({ email, password }: LoginData ): Promise<{ msg: string}> => {
+
+    return new Promise((resolve, reject) => {
+      axios.post(`${ API }/users/auth/login`, {
+          email: email.toLowerCase(),
+          password
+        })
+        .then( async response => {
+          await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
+          getRooms(response.data.user);
+          dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
+          resolve({ msg: 'Authenticated' })
+        })
+        .catch(error => {
+          console.log( error );
+          reject(error)
+        })
+
+    })
+
   }
 
 

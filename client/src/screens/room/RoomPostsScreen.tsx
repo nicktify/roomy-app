@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Modal, Pressable, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Keyboard, KeyboardAvoidingView, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -21,6 +21,9 @@ class SelectedPost {
   authorName: string;
   id: string;
 }
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const RoomPostsScreen = () => {
 
@@ -220,6 +223,10 @@ const RoomPostsScreen = () => {
             setModalPictureVisible(!modalPictureVisible);
           }}
         >
+          <View
+            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
+          >
+          </View>
           <View style={modalStyles.centeredView}>
             <View style={modalStyles.modalView}>
               <Pressable
@@ -251,6 +258,10 @@ const RoomPostsScreen = () => {
             setModalPictureVisible(!modalPictureVisible);
           }}
         >
+          <View
+            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
+          >
+          </View>
           <View style={modalStyles.centeredView}>
             <View style={modalStyles.modalView}>
               <View
