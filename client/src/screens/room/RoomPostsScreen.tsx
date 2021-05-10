@@ -19,6 +19,7 @@ class SelectedPost {
   image: string;
   authorProfilePicture: string;
   authorName: string;
+  id: string;
 }
 
 const RoomPostsScreen = () => {
@@ -30,7 +31,7 @@ const RoomPostsScreen = () => {
   const [ modalPostOptionVisible, setModalPostOptionVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
-  const { selectedRoom, user, addNewPost, selectedRoomPosts } = useContext( Context );
+  const { selectedRoom, user, addNewPost, selectedRoomPosts, deletePost } = useContext( Context );
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
@@ -74,7 +75,8 @@ const RoomPostsScreen = () => {
               name='more-vert'
               size={25}
               onPress={() => {
-                handlePostOption({ body: item.body,
+                handlePostOption({id: item.id, 
+                                  body: item.body,
                                   image: item.image,
                                   authorProfilePicture: item.authorProfilePicture, 
                                   authorName: item.authorName })}}
@@ -124,10 +126,13 @@ const RoomPostsScreen = () => {
 
   const handlePublish = () => {
     addNewPost(bodyPost, imageUri ? imageUri : undefined);
+    setActiveForm(false);
   }
 
   const handleDeletePost = () => {
-
+    if (! selectedRoom?.id ) return console.log('roomId is missing');
+    deletePost(selectedRoom.id, activeSelectedPostOptions.id);
+    setModalPostOptionVisible(false);
   }
 
   return (
@@ -258,6 +263,7 @@ const RoomPostsScreen = () => {
               >
               <View
                 style={{
+                  width: 280,
                   backgroundColor: 'white',
                   padding: 10,
                   borderRadius: 10,
@@ -290,19 +296,19 @@ const RoomPostsScreen = () => {
                       width={40}
                       height={40}
                     />
-                    <Text style={{fontSize: 15, fontWeight: 'bold', opacity: 0.7, marginLeft: 10,}}>{activeSelectedPostOptions.authorName}</Text>
+                    <Text style={{fontSize: 15, fontWeight: 'bold', opacity: 0.7, marginLeft: 10, }}>{activeSelectedPostOptions.authorName}</Text>
                   </View>
-                  <Text style={{ fontSize: 15, color: 'black', marginBottom: 10, opacity: 0.8}}>
+                  <Text style={{ fontSize: 15, color: 'black', margin: 10, opacity: 0.8 }}>
                     {`${activeSelectedPostOptions.body.slice(0, 100)}${activeSelectedPostOptions.body.length > 99 ? '...' : ''}`}
                   </Text>
                   {activeSelectedPostOptions.image  &&
-                  <View style={{alignItems: 'center'}}>
+                  <View style={{alignItems: 'center' }}>
                       <Image 
                         style={{ width: '100%', height: 100, borderRadius: 5, }}
                         source={{
                           uri: activeSelectedPostOptions.image
                         }}
-                        width={150}
+                        width={250}
                         height={150}
                     />
                   </View>

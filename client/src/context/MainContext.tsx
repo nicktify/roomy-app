@@ -38,6 +38,7 @@ interface ContextProps {
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
+  deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -301,6 +302,41 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const deletePost = async (roomId: string, postId: string): Promise<{ msg: string }> => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if ( ! token ) return { msg: 'No token found'};
+
+      if (!roomId || !postId) return { msg: 'RoomId or PostId is missing' };
+
+      return new Promise(( resolve, reject ) => {
+        axios.delete(`${ API }/posts/delete-post`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
+          },
+          data: {
+            roomId,
+            postId
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          return state?.user && getRooms(state?.user);
+        })
+        .then(() => {
+          getCurrentRoomInformation(state.selectedRoom?.id);
+          resolve({ msg: 'Post delted' });
+        })
+        .catch(error => {
+          console.log(error);
+          reject({ msg: 'Something went bad' });
+        })
+      })
+    } catch (error) {
+      return {msg: 'Something went bad'}
+    }
+  }
+
   
   return (
     <Context.Provider value={{
@@ -320,7 +356,8 @@ const AppContext = ({ children }: any) => {
         updateProfilePicture,
         getCurrentRoomInformation,
         addNewPost,
-        getUserById
+        getUserById,
+        deletePost
       }}
     >
     {children}
