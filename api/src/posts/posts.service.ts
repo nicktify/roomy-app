@@ -40,34 +40,52 @@ export class PostsService {
       const room = await this.roomModel.findById(roomId);
       const post = await this.postModel.create({ authorId, authorProfilePicture, authorName, roomId, body, date: new Date() });
 
-      return new Promise(( resolve, reject ) => {
-
-          let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
-          function (error, result) {
-
-            if (error) reject(error);
-
-            post.image = result.secure_url;
-            post.save();
-            
-            room.posts.push(post._id);
-            room.save();
-
-            const returnedPost: ReturnPostDto = {
-              id: post._id,
-              authorId: post.authorId,
-              authorProfilePicture: post.authorProfilePicture,
-              authorName: post.authorName,
-              roomId: post.roomId,
-              body: post.body,
-              image: post.image,
-              date: post.date
+      if (file) {
+        return new Promise(( resolve, reject ) => {
+  
+            let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+            function (error, result) {
+  
+              if (error) reject(error);
+  
+              post.image = result.secure_url;
+              post.save();
+              
+              room.posts.push(post._id);
+              room.save();
+  
+              const returnedPost: ReturnPostDto = {
+                id: post._id,
+                authorId: post.authorId,
+                authorProfilePicture: post.authorProfilePicture,
+                authorName: post.authorName,
+                roomId: post.roomId,
+                body: post.body,
+                image: post.image,
+                date: post.date
+              }
+              resolve(returnedPost);
             }
-            resolve(returnedPost);
-          }
-        );
-        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-      })
+          );
+          streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+        })
+      } else {
+
+        room.posts.push(post._id);
+        room.save();
+
+        const returnedPost: ReturnPostDto = {
+          id: post._id,
+          authorId: post.authorId,
+          authorProfilePicture: post.authorProfilePicture,
+          authorName: post.authorName,
+          roomId: post.roomId,
+          body: post.body,
+          image: post.image,
+          date: post.date
+        }
+        return returnedPost;
+      }
       
     } catch (error) {
       throw error;

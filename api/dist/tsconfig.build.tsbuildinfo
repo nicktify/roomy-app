@@ -2602,7 +2602,7 @@
         "affectsGlobalScope": false
       },
       "../src/posts/posts.service.ts": {
-        "version": "309d2ee93b393cad53714cbb8a5633efce4586e5878321e2a3f6a34c6fdd8fff",
+        "version": "be72a4742f0d23ad3596c4cdeb6e015cc89d3840f7b2716d0a2171b140ec87c1",
         "signature": "5ac9c1919142af3fc0adb0f90662136ce229bed1de8c8b7a68fe838c3aef5432",
         "affectsGlobalScope": false
       },
