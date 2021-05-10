@@ -138,7 +138,7 @@ const AppContext = ({ children }: any) => {
 
 
   const logout = async () => {
-    await AsyncStorage.setItem('token', '');
+    await AsyncStorage.removeItem('token');
     dispatch({ type: 'LOGOUT' });
   }
 
@@ -209,7 +209,9 @@ const AppContext = ({ children }: any) => {
   }
 
   const getCurrentRoomInformation = async (id: string | undefined): Promise<any> => {
+
     if (!id) return;
+    
     try {
       const token = await AsyncStorage.getItem('token');
       if (!token) return;
@@ -225,21 +227,12 @@ const AppContext = ({ children }: any) => {
 
         dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
 
-        const insert = (arr: Post[], post: Post) => [
-          post,
-          ...arr
-        ];
 
-        let posts: Post[] = [];
+        const fetchPost = await axios.get(`${ API }/posts/get-all-posts/${id}`, {
+          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+        })
 
-        for (let i = 0; i < selectedRoom.posts.length; i++) {
-          const { data: post } = await axios.get(`${API}/posts/get-post/${selectedRoom.posts[i]}`, {
-            headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-          });
-
-          posts = insert(posts, post);
-
-        }
+        const posts = fetchPost.data;
 
         dispatch({ type: 'SET_ROOM_POSTS', payload: posts });
 
