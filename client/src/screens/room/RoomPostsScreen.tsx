@@ -12,6 +12,7 @@ import style from '../../styles/screens/roomPostScreen';
 
 import { style as modalStyles } from '../../styles/components/modal'
 import { principalColor } from '../../config/colors';
+import { Post } from '../../types/Post';
 
 const RoomPostsScreen = () => {
 
@@ -20,18 +21,14 @@ const RoomPostsScreen = () => {
   const [ modalVisible, setModalVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
-  const { selectedRoom, user, addNewPost } = useContext( Context );
-  console.log(selectedRoom)
+  const { selectedRoom, user, addNewPost, selectedRoomPosts } = useContext( Context );
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
-  const sortedPosts = selectedRoom?.posts.sort((a, b) => {
-    if (a.date > b.date) return -1;
-    if (a.date < b.date) return 1;
-    return 0;
-  })
+
+
   
-  const renderItem = ({ item }: any) => (
+  const renderItem = ({ item }: {item: Post}) => (
     <View
       style={style.postContainer}
     >
@@ -40,7 +37,7 @@ const RoomPostsScreen = () => {
       >
         <View style={style.postTopContainer}>
           <View style={style.authorInfoContainer}>
-            {user?.profilePicture ?
+            {item.authorProfilePicture.length > 10 ?
               <Image
                 source={{
                   uri: item.authorProfilePicture
@@ -111,7 +108,7 @@ const RoomPostsScreen = () => {
   return (
     <SafeAreaView style={style.root}>
           <FlatList
-            data={sortedPosts}
+            data={selectedRoomPosts}
             renderItem={renderItem}
             keyExtractor={item => `${item.body}${item.date}`}
             ListFooterComponent={<View style={{width: '100%', height: 60}}></View>}

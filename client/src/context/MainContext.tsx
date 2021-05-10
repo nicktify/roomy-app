@@ -7,6 +7,7 @@ import InitialState, { User, LoginData, RegisterData } from '../types/user';
 import userReducer from './reducers/UserReducer';
 import { Room } from '../types/Room';
 import { ImagePickerResponse } from 'react-native-image-picker';
+import { Post } from '../types/Post';
 
 const initialState: InitialState = {
   user: null,
@@ -16,6 +17,7 @@ const initialState: InitialState = {
   ownedRooms: null,
   participantRooms: null,
   selectedRoom: null,
+  selectedRoomPosts: null,
 }
 
 interface ContextProps {
@@ -26,6 +28,7 @@ interface ContextProps {
   ownedRooms: Room[] | null;
   participantRooms: Room[] | null;
   selectedRoom: Room | null;
+  selectedRoomPosts: Post[] | null;
   signIn: ( loginData: LoginData ) => void;
   singUp: ( registerData: RegisterData ) => void;
   validateToken: (token: string) => Promise<void>;
@@ -213,7 +216,7 @@ const AppContext = ({ children }: any) => {
           const token = await AsyncStorage.getItem('token');
           if ( ! token ) return;
       
-          return new Promise((resolve, reject) => {
+          return new Promise(async (resolve, reject) => {
       
             let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
             if ( ! selectedRoom ) {
@@ -223,6 +226,25 @@ const AppContext = ({ children }: any) => {
             if ( ! selectedRoom ) return reject('Can\'t find room')
       
             dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom })
+
+            const insert = ( arr: Post[], post: Post ) => [
+              post,
+              ...arr
+            ]
+
+            let posts: Post[] = [];
+
+            for (let i = 0; i < selectedRoom.posts.length; i ++) {
+              const { data: post } = await axios.get(`${ API }/posts/get-post/${ selectedRoom.posts[i] }`, {
+                headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+              });
+
+              posts = insert(posts, post);
+
+            }
+
+            dispatch({ type: 'SET_ROOM_POSTS', payload: posts });
+
       
             resolve(selectedRoom);
           })
@@ -290,6 +312,7 @@ const AppContext = ({ children }: any) => {
         ownedRooms: state.ownedRooms,
         participantRooms: state.participantRooms,
         selectedRoom: state.selectedRoom,
+        selectedRoomPosts: state.selectedRoomPosts,
         signIn,
         singUp,
         validateToken,

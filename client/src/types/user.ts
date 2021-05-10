@@ -1,3 +1,4 @@
+import { Post } from "./Post";
 import { Room } from "./Room";
 
 export class User {
@@ -18,6 +19,7 @@ class InitialState {
   ownedRooms: Room[] | null;
   participantRooms: Room[] | null;
   selectedRoom: Room | null;
+  selectedRoomPosts: Post[] | null;
 }
 
 export class LoginData {

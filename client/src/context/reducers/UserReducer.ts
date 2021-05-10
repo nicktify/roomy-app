@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { Post } from "../../types/Post";
 import { Room } from "../../types/Room";
 import InitialState, { User } from "../../types/user";
 
@@ -8,6 +9,7 @@ type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
                 | { type: 'VALIDATION_COMPLETED' }
                 | { type: 'SET_ROOMS', payload: { participantRooms: Room[], ownedRooms: Room[] } }
                 | { type: 'SET_SELECTED_ROOM', payload: Room }
+                | { type: 'SET_ROOM_POSTS', payload: Post[] }
 
 const userReducer = ( state: InitialState, action: TypeAction) => {
   
@@ -53,6 +55,12 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
       return {
         ...state,
         selectedRoom: action.payload,
+      }
+
+    case 'SET_ROOM_POSTS':
+      return {
+        ...state,
+        selectedRoomPosts: action.payload,
       }
 
     default:
