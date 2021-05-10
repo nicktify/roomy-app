@@ -29,6 +29,22 @@ const style = StyleSheet.create({
   postTopContainer: {
     height: 50,
     marginTop: 10,
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  authorInfoContainer: {
+    flexDirection: 'row'
+  },
+  authorName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    opacity: 0.8,
+  },
+  authorNameContainer: {
+    justifyContent: 'center'
   },
   image: {
     borderRadius: 5,
@@ -107,8 +123,8 @@ const style = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-  }
-
+    marginRight: 10,
+  },
 });
 
 export default style;

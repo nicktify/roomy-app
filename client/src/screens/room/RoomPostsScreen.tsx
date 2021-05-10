@@ -21,6 +21,7 @@ const RoomPostsScreen = () => {
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
   const { selectedRoom, user, addNewPost } = useContext( Context );
+  console.log(selectedRoom)
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
@@ -38,22 +39,26 @@ const RoomPostsScreen = () => {
         style={style.postInnerContainer}
       >
         <View style={style.postTopContainer}>
-        { user?.profilePicture ? <Image
-          source={{
-            uri: user?.profilePicture 
-          }}
-          style={style.authorProfileImage}
-        />
-          : 
+          <View style={style.authorInfoContainer}>
+            {user?.profilePicture ?
+              <Image
+                source={{
+                  uri: item.authorProfilePicture
+                }}
+                style={style.authorProfileImage}
+              />
+              :
+              <Icon
+                style={style.authorProfileImage}
+                name="account-circle"
+                size={80}
+                color={principalColor}
+                onPress={() => setModalVisible(true)}
+              />
+            }
+            <View style={style.authorNameContainer}><Text style={style.authorName}>{item.authorName}</Text></View>
+          </View>
           <Icon
-          style={style.authorProfileImage}
-          name="account-circle"
-          size={80}
-          color={principalColor}
-          onPress={() => setModalVisible(true)}
-        />
-      }
-          <Icon 
             name='more-vert'
             size={25}
           />
