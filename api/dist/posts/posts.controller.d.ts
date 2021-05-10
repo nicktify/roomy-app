@@ -5,7 +5,8 @@ import { PostsService } from './posts.service';
 export declare class PostsController {
     private readonly postsService;
     constructor(postsService: PostsService);
-    addNewPost(createPostDto: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto | {
-        msg: string;
-    }>;
+    getPost({ id }: {
+        id: any;
+    }): Promise<ReturnPostDto>;
+    addNewPost(createPostDto: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto>;
 }

@@ -8,5 +8,6 @@ export declare class PostsService {
     private postModel;
     private roomModel;
     constructor(postModel: Model<PostDocument>, roomModel: Model<RoomDocument>);
+    getPost(id: string): Promise<ReturnPostDto>;
     addNewPost({ authorId, authorProfilePicture, authorName, roomId, body }: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto>;
 }

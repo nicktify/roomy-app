@@ -22,10 +22,21 @@ let PostsController = class PostsController {
     constructor(postsService) {
         this.postsService = postsService;
     }
+    getPost({ id }) {
+        return this.postsService.getPost(id);
+    }
     addNewPost(createPostDto, file) {
         return this.postsService.addNewPost(createPostDto, file);
     }
 };
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-post/:id'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PostsController.prototype, "getPost", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post('add'),

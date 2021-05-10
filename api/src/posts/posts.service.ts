@@ -14,6 +14,24 @@ export class PostsService {
 
   constructor( @InjectModel('Post') private postModel: Model<PostDocument>, @InjectModel('Room') private roomModel: Model<RoomDocument> ) {}
 
+  async getPost( id: string ): Promise<ReturnPostDto> {
+    try {
+      const post = await this.postModel.findById(id);
+      const returnedPost = {
+        id: post._id,
+        roomId: post.roomId,
+        authorId: post.authorId,
+        authorProfilePicture: post.authorProfilePicture,
+        authorName: post.authorName,
+        body: post.body,
+        date: post.date,
+      }
+      return returnedPost;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async addNewPost( { authorId, authorProfilePicture, authorName, roomId, body }: CreatePostDto, file: Express.Multer.File ): Promise<ReturnPostDto> {
     try {
 

@@ -24,6 +24,24 @@ let PostsService = class PostsService {
         this.postModel = postModel;
         this.roomModel = roomModel;
     }
+    async getPost(id) {
+        try {
+            const post = await this.postModel.findById(id);
+            const returnedPost = {
+                id: post._id,
+                roomId: post.roomId,
+                authorId: post.authorId,
+                authorProfilePicture: post.authorProfilePicture,
+                authorName: post.authorName,
+                body: post.body,
+                date: post.date,
+            };
+            return returnedPost;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     async addNewPost({ authorId, authorProfilePicture, authorName, roomId, body }, file) {
         try {
             const room = await this.roomModel.findById(roomId);
