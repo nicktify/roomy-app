@@ -2601,14 +2601,19 @@
         "signature": "267403b0fe7ec1b78b847233dbe1564d3de5fa2a06140d4af6c0b61f26f12eb0",
         "affectsGlobalScope": false
       },
+      "../src/posts/types/post.ts": {
+        "version": "38588f438e8347cf110c9df26f503dd94db62ba1fe054e91ca608fbb09c68c98",
+        "signature": "1ac12d96ddaa41395b105394817c1055a82ed0d204af318a73bdb528ead277fb",
+        "affectsGlobalScope": false
+      },
       "../src/posts/posts.service.ts": {
-        "version": "be72a4742f0d23ad3596c4cdeb6e015cc89d3840f7b2716d0a2171b140ec87c1",
-        "signature": "5ac9c1919142af3fc0adb0f90662136ce229bed1de8c8b7a68fe838c3aef5432",
+        "version": "3a2926e08ea71ba9d31a060c04e62f88c8db61e807810392992828f3f94b0ace",
+        "signature": "d1c313a5d18ab7c0db5c566ed3c95661e042da9f5b72c359cd8c0af662c10fe7",
         "affectsGlobalScope": false
       },
       "../src/posts/posts.controller.ts": {
-        "version": "f422a4d724c4eb0da8907c453ff31ace79995743b6ad64b95940a2c1805eba03",
-        "signature": "eb8ca001b888582ff64c440164230e15b8e9c49241dae558e8f0c13a79c74e26",
+        "version": "2d1039f99221f674bfa19a7e35eeb46dcef3d921e5c97703c263fb43a0ec1af7",
+        "signature": "d495e871fd3418c5b91fdcc72bbba705678cc34484fa8c1105c0c401b95397e0",
         "affectsGlobalScope": false
       },
       "../src/posts/posts.module.ts": {
@@ -5104,6 +5109,7 @@
         "../src/posts/dto/create-post.dto.ts",
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/schemas/post.schema.ts",
+        "../src/posts/types/post.ts",
         "../src/rooms/schemas/room.schema.ts"
       ],
       "../src/posts/schemas/post.schema.ts": [
@@ -7902,6 +7908,7 @@
       "../src/posts/posts.module.ts",
       "../src/posts/posts.service.ts",
       "../src/posts/schemas/post.schema.ts",
+      "../src/posts/types/post.ts",
       "../src/rooms/dto/add-new-book-dto.ts",
       "../src/rooms/dto/add-new-date-dto.ts",
       "../src/rooms/dto/add-new-link-dto.ts",

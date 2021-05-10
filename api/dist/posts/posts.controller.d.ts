@@ -5,6 +5,11 @@ import { PostsService } from './posts.service';
 export declare class PostsController {
     private readonly postsService;
     constructor(postsService: PostsService);
+    getAllRoomPosts({ id }: {
+        id: any;
+    }): Promise<ReturnPostDto[] | {
+        msg: string;
+    }>;
     getPost({ id }: {
         id: any;
     }): Promise<ReturnPostDto>;

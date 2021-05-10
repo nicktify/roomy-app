@@ -8,11 +8,50 @@ import { RoomDocument } from 'src/rooms/schemas/room.schema';
 import { PostDocument } from './schemas/post.schema';
 import { ReturnPostDto } from './dto/return-post-dto';
 import { CreatePostDto } from './dto/create-post.dto';
+import { Post } from './types/post';
 
 @Injectable()
 export class PostsService {
 
   constructor( @InjectModel('Post') private postModel: Model<PostDocument>, @InjectModel('Room') private roomModel: Model<RoomDocument> ) {}
+
+  async getAllRoomPost(id: string): Promise<ReturnPostDto[] | { msg: string }> {
+    try {
+      const room = await this.roomModel.findById( id );
+
+      if ( ! room ) return { msg: 'Room not exist.' }
+
+      let posts = [];
+
+      const insert = (arr: ReturnPostDto[], post: Post) => [
+        post,
+        ...arr
+      ]
+
+      for (let i = 0; i < room.posts.length; i ++) {
+        const post = await this.postModel.findById( room.posts[i] );
+
+        const curatedPost: Post = {
+          id: post._id,
+          authorId: post.authorId,
+          authorName: post.authorName,
+          authorProfilePicture: post.authorProfilePicture,
+          roomId: post.roomId,
+          body: post.body,
+          date: post.date,
+          image: post.image,
+        }
+
+        posts = insert(posts, curatedPost);
+
+      }
+
+      return posts;
+
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async getPost( id: string ): Promise<ReturnPostDto> {
     try {

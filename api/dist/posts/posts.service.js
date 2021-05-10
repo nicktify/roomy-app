@@ -24,6 +24,36 @@ let PostsService = class PostsService {
         this.postModel = postModel;
         this.roomModel = roomModel;
     }
+    async getAllRoomPost(id) {
+        try {
+            const room = await this.roomModel.findById(id);
+            if (!room)
+                return { msg: 'Room not exist.' };
+            let posts = [];
+            const insert = (arr, post) => [
+                post,
+                ...arr
+            ];
+            for (let i = 0; i < room.posts.length; i++) {
+                const post = await this.postModel.findById(room.posts[i]);
+                const curatedPost = {
+                    id: post._id,
+                    authorId: post.authorId,
+                    authorName: post.authorName,
+                    authorProfilePicture: post.authorProfilePicture,
+                    roomId: post.roomId,
+                    body: post.body,
+                    date: post.date,
+                    image: post.image,
+                };
+                posts = insert(posts, curatedPost);
+            }
+            return posts;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     async getPost(id) {
         try {
             const post = await this.postModel.findById(id);

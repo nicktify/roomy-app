@@ -11,6 +11,13 @@ export class PostsController {
   constructor( private readonly postsService: PostsService ) {}
 
   @UseGuards( JwtAuthGuard )
+  @Get('get-all-posts/:id')
+  getAllRoomPosts( @Param() { id } ): Promise<ReturnPostDto[] | { msg: string }> {
+    return this.postsService.getAllRoomPost( id )
+  }
+
+
+  @UseGuards( JwtAuthGuard )
   @Get('get-post/:id')
   getPost( @Param() { id } ): Promise<ReturnPostDto> {
     return this.postsService.getPost( id )
