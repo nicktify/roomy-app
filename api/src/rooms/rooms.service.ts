@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-let cloudinary = require("cloudinary").v2;
-let streamifier = require('streamifier');
 
 import { RoomDocument } from './schemas/room.schema';
 import { UserDocument } from 'src/users/schemas/user.schema';
@@ -14,7 +12,6 @@ import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
-import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 
@@ -335,55 +332,6 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
-  }
-
-  async addNewPost( { id, authorId, body }: AddNewPostDto, authenticatedUser, file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
-
-    try {
-      
-      const room = await this.roomModel.findById( id );
-      if ( ! room ) return { msg: 'Room not exist.' };
-
-      const author = await this.userModel.findById( authorId );
-      if ( ! author ) return { msg: 'Author user not exist' };
-
-      if ( authorId !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
-      if ( ! room.owners.includes( authorId ) ) return { msg: 'You are not the owner of this room.' };
-
-      return new Promise(( resolve, reject ) => {
-        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
-          function (error, result) {
-
-            if (error) reject(error);
-
-            const date = new Date();
-
-            const post = { authorId, authorProfilePicture: author.profilePicture, authorName: author.name, body, date, image: result.secure_url };
-            room.posts.push( post );
-            room.save();
-
-            const returnedRoom = {
-              id: room._id, 
-              name: room.name, 
-              owners: room.owners, 
-              participants: room.participants,
-              links: room.links,
-              dates: room.dates,
-              posts: room.posts,
-              books: room.books,
-            };
-            
-            resolve(returnedRoom);
-          }
-        );
-        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-      })
-
-    } catch ( error ) {
-      throw error;
-    }
-
   }
 
   async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser ): Promise<{ msg: string }> {

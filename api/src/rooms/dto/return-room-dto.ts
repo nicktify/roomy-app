@@ -39,13 +39,7 @@ export class ReturnRoomDto {
 
   @IsNotEmpty()
   @IsArray()
-  posts: [
-    {
-      authorId: string;
-      body: string;
-      date: Date;
-    }
-  ]
+  posts: string[]
 
   @IsNotEmpty()
   @IsArray()

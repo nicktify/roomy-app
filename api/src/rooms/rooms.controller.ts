@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+// import { FileInterceptor } from '@nestjs/platform-express';
 
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
@@ -8,11 +9,10 @@ import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
-import { AddNewPostDto } from './dto/add-new-post-dto';
+// import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('rooms')
 export class RoomsController {
@@ -72,12 +72,12 @@ export class RoomsController {
     return this.roomService.deleteParticipant( deleteParticipantDto, req.user );
   }
 
-  @UseGuards( JwtAuthGuard )
-  @Post('posts')
-  @UseInterceptors(FileInterceptor('file'))
-  addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
-    return this.roomService.addNewPost( addNewPostDto, req.user, file )
-  }
+  // @UseGuards( JwtAuthGuard )
+  // @Post('posts')
+  // @UseInterceptors(FileInterceptor('file'))
+  // addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
+  //   return this.roomService.addNewPost( addNewPostDto, req.user, file )
+  // }
 
   @UseGuards( JwtAuthGuard )
   @Post('books')

@@ -1,4 +1,3 @@
-/// <reference types="multer" />
 import { Model } from 'mongoose';
 import { RoomDocument } from './schemas/room.schema';
 import { UserDocument } from 'src/users/schemas/user.schema';
@@ -9,7 +8,6 @@ import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
-import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 export declare class RoomsService {
@@ -39,9 +37,6 @@ export declare class RoomsService {
         msg: string;
     }>;
     deleteParticipant({ id, owner, participantToDelete }: DeleteParticipantDto, authenticatedUser: any): Promise<ReturnRoomDto | {
-        msg: string;
-    }>;
-    addNewPost({ id, authorId, body }: AddNewPostDto, authenticatedUser: any, file: Express.Multer.File): Promise<ReturnRoomDto | {
         msg: string;
     }>;
     addNewBook({ id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser: any): Promise<{

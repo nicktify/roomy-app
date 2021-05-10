@@ -18,16 +18,7 @@ export declare class Room {
             description: string;
         }
     ];
-    posts: [
-        {
-            authorId: string;
-            authorProfilePicture: string;
-            authorName: string;
-            body: string;
-            date: Date;
-            image: string;
-        }
-    ];
+    posts: string[];
     books: [
         {
             name: string;

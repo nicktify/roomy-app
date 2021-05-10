@@ -16,8 +16,6 @@ exports.RoomsService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let cloudinary = require("cloudinary").v2;
-let streamifier = require('streamifier');
 const user_schema_1 = require("../users/schemas/user.schema");
 let RoomsService = class RoomsService {
     constructor(roomModel, userModel) {
@@ -292,45 +290,6 @@ let RoomsService = class RoomsService {
                 posts: findedRoom.posts,
                 books: findedRoom.books,
             };
-        }
-        catch (error) {
-            throw error;
-        }
-    }
-    async addNewPost({ id, authorId, body }, authenticatedUser, file) {
-        try {
-            const room = await this.roomModel.findById(id);
-            if (!room)
-                return { msg: 'Room not exist.' };
-            const author = await this.userModel.findById(authorId);
-            if (!author)
-                return { msg: 'Author user not exist' };
-            if (authorId !== authenticatedUser.userId)
-                return { msg: 'You don\'t have the authorization to do this action.' };
-            if (!room.owners.includes(authorId))
-                return { msg: 'You are not the owner of this room.' };
-            return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
-                    if (error)
-                        reject(error);
-                    const date = new Date();
-                    const post = { authorId, authorProfilePicture: author.profilePicture, authorName: author.name, body, date, image: result.secure_url };
-                    room.posts.push(post);
-                    room.save();
-                    const returnedRoom = {
-                        id: room._id,
-                        name: room.name,
-                        owners: room.owners,
-                        participants: room.participants,
-                        links: room.links,
-                        dates: room.dates,
-                        posts: room.posts,
-                        books: room.books,
-                    };
-                    resolve(returnedRoom);
-                });
-                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-            });
         }
         catch (error) {
             throw error;

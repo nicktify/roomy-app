@@ -16,13 +16,7 @@ export declare class ReturnRoomDto {
             description: string;
         }
     ];
-    posts: [
-        {
-            authorId: string;
-            body: string;
-            date: Date;
-        }
-    ];
+    posts: string[];
     books: [
         {
             name: string;

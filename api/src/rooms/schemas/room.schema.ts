@@ -36,16 +36,7 @@ export class Room {
   ]
 
   @Prop()
-  posts: [
-    {
-      authorId: string;
-      authorProfilePicture: string;
-      authorName: string;
-      body: string;
-      date: Date;
-      image: string;
-    }
-  ]
+  posts: string[];
 
   @Prop()
   books: [

@@ -1,4 +1,3 @@
-/// <reference types="multer" />
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
 import { ReturnRoomDto } from './dto/return-room-dto';
@@ -7,7 +6,6 @@ import { AddNewOwnerDto } from './dto/add-new-owner-dto';
 import { DeleteOwnerDto } from './dto/delete-owner-dto';
 import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
-import { AddNewPostDto } from './dto/add-new-post-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 export declare class RoomsController {
@@ -41,9 +39,6 @@ export declare class RoomsController {
         msg: string;
     }>;
     deleteParticipant(deleteParticipantDto: DeleteParticipantDto, req: any): Promise<ReturnRoomDto | {
-        msg: string;
-    }>;
-    addNewPost(addNewPostDto: AddNewPostDto, req: any, file: Express.Multer.File): Promise<ReturnRoomDto | {
         msg: string;
     }>;
     addNewBook(addNewBookDto: AddNewBookDto, req: any): Promise<{
