@@ -17,6 +17,8 @@ import { Post } from '../../types/Post';
 class SelectedPost {
   body: string;
   image: string;
+  authorProfilePicture: string;
+  authorName: string;
 }
 
 const RoomPostsScreen = () => {
@@ -24,7 +26,7 @@ const RoomPostsScreen = () => {
   const [ activeForm, setActiveForm ] = useState(false);
   const [ bodyPost, setBodyPost ] = useState('');
   const [ modalPictureVisible, setModalPictureVisible ] = useState(false);
-  const [ activeSelectedPostOptions, setActiveSelectedPostOptions] = useState<SelectedPost>({body: '', image: ''});
+  const [ activeSelectedPostOptions, setActiveSelectedPostOptions] = useState<SelectedPost>({ body: '', image: '', authorProfilePicture: '', authorName: '' });
   const [ modalPostOptionVisible, setModalPostOptionVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
 
@@ -34,9 +36,9 @@ const RoomPostsScreen = () => {
 
   useEffect(() => {}, [selectedRoomPosts]);
 
-  const handlePostOption = (body: string, image: string) => {
+  const handlePostOption = (post: SelectedPost) => {
     setModalPostOptionVisible(true)
-    setActiveSelectedPostOptions({body, image});
+    setActiveSelectedPostOptions(post);
   }
 
   
@@ -67,11 +69,17 @@ const RoomPostsScreen = () => {
             }
             <View style={style.authorNameContainer}><Text style={style.authorName}>{item.authorName}</Text></View>
           </View>
-          <Icon
-            name='more-vert'
-            size={25}
-            onPress={() => handlePostOption(item.body, item.image)}
-          />
+          { user?.id === item.authorId &&
+            <Icon
+              name='more-vert'
+              size={25}
+              onPress={() => {
+                handlePostOption({ body: item.body,
+                                  image: item.image,
+                                  authorProfilePicture: item.authorProfilePicture, 
+                                  authorName: item.authorName })}}
+            />
+          }
         </View>
         <View style={style.textContainer}>
           <Text style={style.text}>{item.body}</Text>
@@ -118,6 +126,10 @@ const RoomPostsScreen = () => {
     addNewPost(bodyPost, imageUri ? imageUri : undefined);
   }
 
+  const handleDeletePost = () => {
+
+  }
+
   return (
     <SafeAreaView style={style.root}>
           <FlatList
@@ -153,7 +165,18 @@ const RoomPostsScreen = () => {
                   defaultValue={bodyPost}
                   value={bodyPost}
                 />
-                <View style={{width: '100%', alignItems: 'center'}}>
+                <View style={{width: '100%', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 10,}}>
+                  {
+                    imageUri &&
+                    <Image 
+                      style={{ width: 100, height: 100, borderRadius: 5, }}
+                      source={{
+                        uri: imageUri.uri
+                      }}
+                      width={100}
+                      height={100}
+                    />
+                  }
                   <TouchableOpacity
                     style={style.uploadImageButton}
                     onPress={() => setModalPictureVisible(true)}
@@ -171,7 +194,11 @@ const RoomPostsScreen = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={style.cancelFormButton}
-                    onPress={() => setActiveForm(false)}
+                    onPress={() => {
+                      setActiveForm(false)
+                      setImageUri(undefined);
+                      setBodyPost('');
+                    }}
                   >
                     <Text style={style.cancelFormText}>Cancel</Text>
                   </TouchableOpacity>
@@ -203,7 +230,7 @@ const RoomPostsScreen = () => {
                 <Text style={modalStyles.textStyle}>Take picture</Text>
               </Pressable>
               <Pressable
-                style={modalStyles.buttonCancel}
+                style={modalStyles.button}
                 onPress={() => setModalPictureVisible(!modalPictureVisible)}
               >
                 <Text style={modalStyles.textStyle}>Cancel</Text>
@@ -224,39 +251,73 @@ const RoomPostsScreen = () => {
               <View
                 style={{
                   backgroundColor: 'white',
-                  padding: 20,
+                  padding: 10,
                   alignItems: 'center',
                   borderRadius: 5,
                 }}
               >
-                <Text style={{ fontSize: 18, color: 'black', marginBottom: 10, }}>
-                  {`${activeSelectedPostOptions.body.slice(0, 100)}${activeSelectedPostOptions.body.length > 99 ? '...' : ''}`}
-                </Text>
-                {activeSelectedPostOptions.image  &&
-                  <Image 
-                    style={{ width: 100, height: 100, borderRadius: 5, }}
-                    source={{
-                      uri: activeSelectedPostOptions.image
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  padding: 10,
+                  borderRadius: 10,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.23,
+                  shadowRadius: 2.62,
+                  
+                  elevation: 4,
+                }}
+              >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}
-                    width={100}
-                    height={100}
-                />
-                }
+                  >
+                    <Image 
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 50,
+                      }}
+                      source={{
+                        uri: activeSelectedPostOptions.authorProfilePicture
+                      }}
+                      width={40}
+                      height={40}
+                    />
+                    <Text style={{fontSize: 15, fontWeight: 'bold', opacity: 0.7, marginLeft: 10,}}>{activeSelectedPostOptions.authorName}</Text>
+                  </View>
+                  <Text style={{ fontSize: 15, color: 'black', marginBottom: 10, opacity: 0.8}}>
+                    {`${activeSelectedPostOptions.body.slice(0, 100)}${activeSelectedPostOptions.body.length > 99 ? '...' : ''}`}
+                  </Text>
+                  {activeSelectedPostOptions.image  &&
+                  <View style={{alignItems: 'center'}}>
+                      <Image 
+                        style={{ width: '100%', height: 100, borderRadius: 5, }}
+                        source={{
+                          uri: activeSelectedPostOptions.image
+                        }}
+                        width={150}
+                        height={150}
+                    />
+                  </View>
+                  }
+
+                </View>
               </View>
               <Pressable
                 style={modalStyles.button}
-                onPress={handleUploadImage}
+                onPress={handleDeletePost}
               >
-                <Text style={modalStyles.textStyle}>Select from galery</Text>
+                <Text style={modalStyles.textStyle}>Delete post</Text>
               </Pressable>
               <Pressable
                 style={modalStyles.button}
-                onPress={handleTakePicture}
-              >
-                <Text style={modalStyles.textStyle}>Take picture</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.buttonCancel}
                 onPress={() => setModalPostOptionVisible(!modalPostOptionVisible)}
               >
                 <Text style={modalStyles.textStyle}>Cancel</Text>

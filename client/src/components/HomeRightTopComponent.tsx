@@ -5,7 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
+
 import styles from '../styles/components/homeRightTop';
+
+import { style as modalStyles } from '../styles/components/modal';
 
 const HomeRightTopComponent = () => {
 
@@ -82,25 +85,25 @@ const HomeRightTopComponent = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+          <View style={modalStyles.centeredView}>
+            <View style={modalStyles.modalView}>
               <Pressable
-                style={styles.button}
+                style={modalStyles.button}
                 onPress={handleUploadImage}
               >
-                <Text style={styles.textStyle}>Select from galery</Text>
+                <Text style={modalStyles.textStyle}>Select from galery</Text>
               </Pressable>
               <Pressable
-                style={styles.button}
+                style={modalStyles.button}
                 onPress={handleTakePicture}
               >
-                <Text style={styles.textStyle}>Take picture</Text>
+                <Text style={modalStyles.textStyle}>Take picture</Text>
               </Pressable>
               <Pressable
-                style={styles.buttonCancel}
+                style={modalStyles.button}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.textStyle}>Cancel</Text>
+                <Text style={modalStyles.textStyle}>Cancel</Text>
               </Pressable>
             </View>
           </View>
