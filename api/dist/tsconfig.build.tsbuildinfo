@@ -2591,8 +2591,23 @@
         "signature": "aa1725e38b5a0b4009f6a74f296f173e7926c119a60454dbd2e523861735df69",
         "affectsGlobalScope": false
       },
+      "../src/posts/posts.controller.ts": {
+        "version": "7d0c7a28af4e5b66a0c9f811d3b24cf0b4f48b6e2a4e6714e4baa61967f9b13f",
+        "signature": "79883fde7bef705090fcc70f013b9f1a550352154b9e1ad34b88766fb8df3c84",
+        "affectsGlobalScope": false
+      },
+      "../src/posts/posts.service.ts": {
+        "version": "a316ad533cb9da6e2640a959d8f7749390642a74b50543fdb41fe9086bf73dbc",
+        "signature": "865c77648c40c70ccc34481b74bb616e88d0fc440d5d5add245f03ce0d551ccd",
+        "affectsGlobalScope": false
+      },
+      "../src/posts/posts.module.ts": {
+        "version": "eeca16b3e4cc139316a5c7b87246966b73e44fb9b7b056e6432dc266acd6fcea",
+        "signature": "d73d1be1edc2a3da3bf5a4272781d7c793d79993a6f261bb91fa64bb4ad5b57b",
+        "affectsGlobalScope": false
+      },
       "../src/app.module.ts": {
-        "version": "c99cce6f0d1564bab96e4fc3c5d2a54dc3d557b01ebed38af663bb2346ea58ca",
+        "version": "1849388a9685e091d0b34cacee9abe9d8c39ec1ec6318671369b234c794f7acf",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
@@ -5003,6 +5018,8 @@
         "../src/app.controller.ts",
         "../src/app.service.ts",
         "../src/auth/auth.module.ts",
+        "../src/posts/posts.controller.ts",
+        "../src/posts/posts.module.ts",
         "../src/rooms/rooms.module.ts",
         "../src/users/users.module.ts"
       ],
@@ -5048,6 +5065,16 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/core/index.d.ts",
         "../src/app.module.ts"
+      ],
+      "../src/posts/posts.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts"
+      ],
+      "../src/posts/posts.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/posts/posts.service.ts"
+      ],
+      "../src/posts/posts.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts"
       ],
       "../src/rooms/dto/add-new-book-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
@@ -7828,6 +7855,9 @@
       "../src/auth/jwt.strategy.ts",
       "../src/auth/local.strategy.ts",
       "../src/main.ts",
+      "../src/posts/posts.controller.ts",
+      "../src/posts/posts.module.ts",
+      "../src/posts/posts.service.ts",
       "../src/rooms/dto/add-new-book-dto.ts",
       "../src/rooms/dto/add-new-date-dto.ts",
       "../src/rooms/dto/add-new-link-dto.ts",
