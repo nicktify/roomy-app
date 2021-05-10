@@ -31,18 +31,20 @@ export class PostsService {
       for (let i = 0; i < room.posts.length; i ++) {
         const post = await this.postModel.findById( room.posts[i] );
 
-        const curatedPost: Post = {
-          id: post._id,
-          authorId: post.authorId,
-          authorName: post.authorName,
-          authorProfilePicture: post.authorProfilePicture,
-          roomId: post.roomId,
-          body: post.body,
-          date: post.date,
-          image: post.image,
-        }
+        if (post) {
+          const curatedPost: Post = {
+            id: post._id,
+            authorId: post.authorId,
+            authorName: post.authorName,
+            authorProfilePicture: post.authorProfilePicture,
+            roomId: post.roomId,
+            body: post.body,
+            date: post.date,
+            image: post.image,
+          }
 
-        posts = insert(posts, curatedPost);
+          posts = insert(posts, curatedPost);
+        }
 
       }
 
@@ -53,9 +55,11 @@ export class PostsService {
     }
   }
 
-  async getPost( id: string ): Promise<ReturnPostDto> {
+  async getPost( id: string ): Promise<ReturnPostDto | { msg: string }> {
     try {
       const post = await this.postModel.findById(id);
+
+      if ( ! post ) return { msg: 'Post not exist.' }
       
       const returnedPost: ReturnPostDto = {
         id: post._id,
@@ -126,6 +130,24 @@ export class PostsService {
         return returnedPost;
       }
       
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletePost( postId, roomId ): Promise<{ msg: string }> {
+    try {
+
+      const room = await this.roomModel.findById( roomId );
+
+      if ( ! room  ) return { msg: 'Room not exist.' }
+
+      room.posts = room.posts.filter(post => post !== postId);
+      room.save();
+
+      await this.postModel.deleteOne({ _id: postId });
+
+      return { msg: 'Post deleted.' }
     } catch (error) {
       throw error;
     }

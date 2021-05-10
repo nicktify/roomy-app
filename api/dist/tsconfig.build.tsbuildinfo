@@ -2591,6 +2591,11 @@
         "signature": "765cfde76453b8c4eb8647cedd9f2f83e301b4b856ac9772f3481ae1423f1205",
         "affectsGlobalScope": false
       },
+      "../src/posts/dto/delete-post.dto.ts": {
+        "version": "8aa2b0d96734cefd34034923e6bde11ad014ac90a446e341e5a64862bfcda52f",
+        "signature": "966875b8feed68b3ce3910f9fe3068d6e1ade5d31e6b4053136009ab48b30a16",
+        "affectsGlobalScope": false
+      },
       "../src/posts/dto/return-post-dto.ts": {
         "version": "2730aa0c5045718f39e7a5fd4e84fb3af15a920ec40c010e3930f1602529fa8c",
         "signature": "3160de7d1a3ff67416698142ccbaab775c642b20e0821af9e36d030f30505376",
@@ -2607,13 +2612,13 @@
         "affectsGlobalScope": false
       },
       "../src/posts/posts.service.ts": {
-        "version": "3a2926e08ea71ba9d31a060c04e62f88c8db61e807810392992828f3f94b0ace",
-        "signature": "d1c313a5d18ab7c0db5c566ed3c95661e042da9f5b72c359cd8c0af662c10fe7",
+        "version": "a29074cff558db6625dc9f9dd9273619834050f1ad7543e58f78e4002904865f",
+        "signature": "76708f969b52313d0e362769f221bb0a92266ba7e126ea1f99f8cf2add7273e4",
         "affectsGlobalScope": false
       },
       "../src/posts/posts.controller.ts": {
-        "version": "2d1039f99221f674bfa19a7e35eeb46dcef3d921e5c97703c263fb43a0ec1af7",
-        "signature": "d495e871fd3418c5b91fdcc72bbba705678cc34484fa8c1105c0c401b95397e0",
+        "version": "46e57037125f7213a24f7e2cff0993d135c062dc1d7e05023277c7b6c492ba40",
+        "signature": "2808e3c54a6bdddc4645b24e7fc138de1f9c069095db97fdd7ee218dcbd2667c",
         "affectsGlobalScope": false
       },
       "../src/posts/posts.module.ts": {
@@ -5083,6 +5088,9 @@
       "../src/posts/dto/create-post.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/posts/dto/delete-post.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/posts/dto/return-post-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5091,6 +5099,7 @@
         "../node_modules/@nestjs/platform-express/index.d.ts",
         "../src/auth/jwt-auth.guard.ts",
         "../src/posts/dto/create-post.dto.ts",
+        "../src/posts/dto/delete-post.dto.ts",
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/posts.service.ts"
       ],
@@ -7268,6 +7277,7 @@
       ],
       "../src/posts/posts.controller.ts": [
         "../src/posts/dto/create-post.dto.ts",
+        "../src/posts/dto/delete-post.dto.ts",
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/posts.service.ts"
       ],
@@ -7903,6 +7913,7 @@
       "../src/auth/local.strategy.ts",
       "../src/main.ts",
       "../src/posts/dto/create-post.dto.ts",
+      "../src/posts/dto/delete-post.dto.ts",
       "../src/posts/dto/return-post-dto.ts",
       "../src/posts/posts.controller.ts",
       "../src/posts/posts.module.ts",

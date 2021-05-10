@@ -1,5 +1,6 @@
 /// <reference types="multer" />
 import { CreatePostDto } from './dto/create-post.dto';
+import { DeletePostDto } from './dto/delete-post.dto';
 import { ReturnPostDto } from './dto/return-post-dto';
 import { PostsService } from './posts.service';
 export declare class PostsController {
@@ -12,6 +13,11 @@ export declare class PostsController {
     }>;
     getPost({ id }: {
         id: any;
-    }): Promise<ReturnPostDto>;
+    }): Promise<ReturnPostDto | {
+        msg: string;
+    }>;
     addNewPost(createPostDto: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto>;
+    deletePost({ postId, roomId }: DeletePostDto): Promise<{
+        msg: string;
+    }>;
 }

@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const create_post_dto_1 = require("./dto/create-post.dto");
+const delete_post_dto_1 = require("./dto/delete-post.dto");
 const posts_service_1 = require("./posts.service");
 let PostsController = class PostsController {
     constructor(postsService) {
@@ -30,6 +31,9 @@ let PostsController = class PostsController {
     }
     addNewPost(createPostDto, file) {
         return this.postsService.addNewPost(createPostDto, file);
+    }
+    deletePost({ postId, roomId }) {
+        return this.postsService.deletePost(postId, roomId);
     }
 };
 __decorate([
@@ -57,6 +61,14 @@ __decorate([
     __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto, Object]),
     __metadata("design:returntype", Promise)
 ], PostsController.prototype, "addNewPost", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Delete('delete-post/'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_post_dto_1.DeletePostDto]),
+    __metadata("design:returntype", Promise)
+], PostsController.prototype, "deletePost", null);
 PostsController = __decorate([
     common_1.Controller('posts'),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
