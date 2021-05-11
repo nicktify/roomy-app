@@ -30,7 +30,7 @@ interface ContextProps {
   selectedRoom: Room | null;
   selectedRoomPosts: Post[] | null;
   signIn: ( loginData: LoginData ) => Promise<{ msg: string }>;
-  singUp: ( registerData: RegisterData ) => void;
+  singUp: ( registerData: RegisterData ) => Promise<{ msg: string }>;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
   createRoom: ( name: string, password: string ) => Promise<void>;
@@ -73,19 +73,24 @@ const AppContext = ({ children }: any) => {
   }
 
 
-  const singUp = ({ name, email, password, role = '' }: RegisterData) => {
-    axios.post(`${ API }/users`, {
-        name,
-        email,
-        password,
-        role,
-      })
-      .then(response => {
-        dispatch({ type: 'SIGN_UP' })
-      })
-      .catch(error => {
-        console.log(error);
-      })
+  const singUp = ({ name, email, password, role = '' }: RegisterData): Promise<{msg: string}> => {
+    return new Promise((resolve, reject) => {
+      axios.post(`${ API }/users`, {
+          name,
+          email,
+          password,
+          role,
+        })
+        .then(response => {
+          dispatch({ type: 'SIGN_UP' })
+          resolve({ msg: response.data.msg });
+        })
+        .catch(error => {
+          console.log(error);
+          reject({ msg: 'Register failure.' });
+        })
+
+    })
   }
 
   const updateProfilePicture = async ( data: ImagePickerResponse ) => {

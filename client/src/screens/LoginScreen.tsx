@@ -5,43 +5,14 @@ import { principalColor } from '../config/colors';
 
 import { Context } from '../context/MainContext';
 import style from '../styles/screens/login';
-
-const validations = (formValues: {email: string, password: string}) => {
-  let errors = {
-    email: "",
-    password: "",
-  };
-
-  if (!formValues.email) {
-    errors.email = "Email is required";
-  } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(formValues.email)) {
-    errors.email = "Not a well formed email adress.";
-  }
-
-  if (!formValues.password) {
-    errors.password = "Password is required";
-  } 
-  // else if (
-  //   formValues.password.length > 20 ||
-  //   formValues.password.length < 6 ||
-  //   !/[a-z]/.test(formValues.password) ||
-  //   !/[A-Z]/.test(formValues.password) ||
-  //   !/[1-9]/.test(formValues.password)
-  // ) {
-  //   errors.password = "Password is invalid";
-  // }
-
-  return errors;
-};
-
-
+import { signInValidation } from '../validations/signin';
 
 const LoginScreen = ({ navigation }: any) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ loginDisabled, setLoginDisabled ] = useState(false);
-  const [ errors, setErrors ] = useState(validations({email, password}));
+  const [ errors, setErrors ] = useState(signInValidation({ email, password }));
   const [ fetchErrorMessage, setFetchErrorMessage ] = useState('');
   const [ badEmailMessage, setBadEmailMessage ] = useState('')
   const [ badPasswordMessage, setBadPasswordMessage ] = useState('');
@@ -51,7 +22,7 @@ const LoginScreen = ({ navigation }: any) => {
   const onChange = (email: string, password: string) => {
     setEmail(email);
     setPassword(password);
-    setErrors(validations({email, password}));
+    setErrors(signInValidation({email, password}));
     if (errors.password.length === 0) setBadPasswordMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
   }

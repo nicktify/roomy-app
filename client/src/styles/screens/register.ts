@@ -39,14 +39,6 @@ const style = StyleSheet.create({
     fontSize: 20,
     opacity: 0.6,
   },
-  loginButton: {
-    backgroundColor: principalColor,
-    borderRadius: 20,
-    height: 55,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   textButton: {
     fontSize: 28,
     fontWeight: 'bold',
