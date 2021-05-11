@@ -63,13 +63,11 @@ const AppContext = ({ children }: any) => {
           await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
           getRooms(response.data.user);
           dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-          resolve({ msg: 'Authenticated' })
+          resolve({ msg: 'Authenticated' });
         })
         .catch(error => {
-          console.log( error );
           reject(error)
         })
-
     })
 
   }

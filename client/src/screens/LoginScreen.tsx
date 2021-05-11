@@ -15,22 +15,21 @@ const validations = (formValues: {email: string, password: string}) => {
   if (!formValues.email) {
     errors.email = "Email is required";
   } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(formValues.email)) {
-    errors.email = "Email is invalid";
+    errors.email = "Not a well formed email adress.";
   }
-
-  let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
   if (!formValues.password) {
     errors.password = "Password is required";
-  } else if (
-    formValues.password.length > 20 ||
-    formValues.password.length < 6 ||
-    !/[a-z]/.test(formValues.password) ||
-    !/[A-Z]/.test(formValues.password) ||
-    !/[1-9]/.test(formValues.password)
-  ) {
-    errors.password = "Password is invalid";
-  }
+  } 
+  // else if (
+  //   formValues.password.length > 20 ||
+  //   formValues.password.length < 6 ||
+  //   !/[a-z]/.test(formValues.password) ||
+  //   !/[A-Z]/.test(formValues.password) ||
+  //   !/[1-9]/.test(formValues.password)
+  // ) {
+  //   errors.password = "Password is invalid";
+  // }
 
   return errors;
 };
@@ -41,8 +40,11 @@ const LoginScreen = ({ navigation }: any) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
-  const [ loginDisabled, setLoginDisabled ] = useState(true);
+  const [ loginDisabled, setLoginDisabled ] = useState(false);
   const [ errors, setErrors ] = useState(validations({email, password}));
+  const [ fetchErrorMessage, setFetchErrorMessage ] = useState('');
+  const [ badEmailMessage, setBadEmailMessage ] = useState('')
+  const [ badPasswordMessage, setBadPasswordMessage ] = useState('');
 
   const { signIn } = useContext( Context );
 
@@ -50,21 +52,14 @@ const LoginScreen = ({ navigation }: any) => {
     setEmail(email);
     setPassword(password);
     setErrors(validations({email, password}));
+    if (errors.password.length === 0) setBadPasswordMessage('');
+    if (errors.email.length === 0) setBadEmailMessage('');
   }
 
-  useEffect(() => {
-
-    setErrors({email, password});
-    if (errors.email.length === 0 && errors.password.length === 0) {
-      setLoginDisabled(false)
-    } else {
-      setLoginDisabled(true);
-    }
-    console.log(errors)
-  }, [password, email])
+  useEffect(() => {}, [email, password])
 
   const handleLogin = () => {
-    if (!loginDisabled) {
+    if (errors.email.length === 0 && errors.password.length === 0) {
       setLoginDisabled(true)
       signIn( { email, password } )
       .then((response) => {
@@ -72,9 +67,13 @@ const LoginScreen = ({ navigation }: any) => {
         setLoginDisabled(false);
       })
       .catch(error => {
-        console.log(error);
+        console.log('screen', error)
+        setFetchErrorMessage('Email or password is invalid.');
         setLoginDisabled(false)
       })
+    } else {
+      setBadEmailMessage(errors.email)
+      setBadPasswordMessage(errors.password)
     }
   }
 
@@ -101,6 +100,10 @@ const LoginScreen = ({ navigation }: any) => {
               </View>
               <View>
                 <Text style={style.textLabel}>Enter your email:</Text>
+                {
+                  fetchErrorMessage.length > 1 &&
+                  <Text style={{color: 'red', fontStyle: 'italic'}}>{fetchErrorMessage}</Text>
+                }
                 <TextInput
                   style={style.textInput}
                   placeholder="example@gmail.com"
@@ -110,6 +113,10 @@ const LoginScreen = ({ navigation }: any) => {
                   value={email}
                   keyboardType='email-address'
                 />
+                {
+                  badEmailMessage.length > 1 &&
+                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badEmailMessage}</Text>
+                }
                 <Text style={style.textLabel}>Enter your password:</Text>
                 <TextInput
                   style={style.textInput}
@@ -120,20 +127,30 @@ const LoginScreen = ({ navigation }: any) => {
                   value={password}
                   secureTextEntry
                 />
-                <View
-                  style={style.registerContainer}
-                >
-                  <Text
-                    style={style.dontHaveAnAccountText}
-                  >Don't have an account?</Text>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}
+                {
+                  badPasswordMessage.length > 1 &&
+                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badPasswordMessage}</Text>
+                }
+                {
+                  !loginDisabled ?
+                  <View
+                    style={style.registerContainer}
                   >
                     <Text
-                      style={style.registerLink}
-                    >REGISTER</Text>
-                  </TouchableOpacity>
-                </View>
+                      style={style.dontHaveAnAccountText}
+                    >Don't have an account?</Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Register')}
+                    >
+                      <Text
+                        style={style.registerLink}
+                      >REGISTER</Text>
+                    </TouchableOpacity>
+                  </View>
+                  : 
+                  <View style={style.registerContainer}></View>
+
+                }
                 <Pressable
                   style={{
                     backgroundColor: principalColor,
@@ -143,6 +160,7 @@ const LoginScreen = ({ navigation }: any) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: loginDisabled ? 0.5 : 1,
+                    marginTop: 10,
                   }}
                   onPress={handleLogin}
                 >
