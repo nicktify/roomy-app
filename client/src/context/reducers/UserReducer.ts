@@ -1,10 +1,8 @@
-import { AxiosResponse } from "axios";
 import { Post } from "../../types/Post";
 import { Room } from "../../types/Room";
 import InitialState, { User } from "../../types/user";
 
-type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } } 
-                | { type: 'SIGN_UP' }
+type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
                 | { type: 'LOGOUT' }
                 | { type: 'VALIDATION_COMPLETED' }
                 | { type: 'SET_ROOMS', payload: { participantRooms: Room[], ownedRooms: Room[] } }
@@ -20,14 +18,6 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
-      }
-
-    case 'SIGN_UP':
-      return {
-        ...state,
-        token: null,
-        user: null,
-        userDidRegister: true,
       }
 
     case 'LOGOUT':

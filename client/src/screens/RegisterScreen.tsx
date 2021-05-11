@@ -13,7 +13,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const RegisterScreen = ({ navigation }: any) => {
 
-  const { userDidRegister, singUp } = useContext( Context );
+  const { singUp } = useContext( Context );
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow );
@@ -62,7 +62,6 @@ const RegisterScreen = ({ navigation }: any) => {
     if (errors.name.length === 0) setBadNameMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
     if (errors.password.length === 0) setBadPasswordMessage('');
-    // if (errors.name.length > 0 || errors.email.length > 0 || errors.password.length > 0) setRegisterDisabled(true);
   }, [name, email, password, repeatedPassword, errors])
 
   const _keyboardDidShow = () => setKeyboardState(true);

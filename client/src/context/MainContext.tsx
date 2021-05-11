@@ -23,7 +23,6 @@ const initialState: InitialState = {
 interface ContextProps {
   user: User | null;
   token: string | null;
-  userDidRegister: boolean;
   validationCompleted: boolean;
   ownedRooms: Room[] | null;
   participantRooms: Room[] | null;
@@ -82,7 +81,6 @@ const AppContext = ({ children }: any) => {
           role,
         })
         .then(response => {
-          dispatch({ type: 'SIGN_UP' })
           resolve({ msg: response.data.msg });
         })
         .catch(error => {
@@ -352,7 +350,6 @@ const AppContext = ({ children }: any) => {
     <Context.Provider value={{
         user: state.user,
         token: state.token,
-        userDidRegister: state.userDidRegister,
         validationCompleted: state.validationCompleted,
         ownedRooms: state.ownedRooms,
         participantRooms: state.participantRooms,
