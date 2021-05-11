@@ -2,12 +2,13 @@ import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   roomContainer: {
-    borderRadius: 10,
+    borderRadius: 2,
     borderColor: '#e3e3e3',
-    width: '95%',
+    width: '100%',
     height: 60,
     backgroundColor: 'white',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: 10,
     marginBottom: 8,
     shadowColor: "#000",
@@ -18,13 +19,8 @@ const style = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  roomName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    opacity: 0.7,
-    color: 'black'
-  },
+    flexDirection: 'row'
+  }
 });
 
 export default style;

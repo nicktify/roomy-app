@@ -38,6 +38,7 @@ interface ContextProps {
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
   deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
+  deleteRoom: (id: string) => Promise<{msg: string}>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -348,6 +349,33 @@ const AppContext = ({ children }: any) => {
     }
   }
 
+  const deleteRoom = (id: string): Promise<{msg: string}> => {
+    return new Promise( async(resolve, reject) => {
+
+      const token = await AsyncStorage.getItem('token');
+      if (!token) return {msg: 'User not authenticated.'}
+
+      if ( ! id ) return {msg: 'Id is missing.'}
+
+      axios.delete(`${ API }/rooms/delete-room`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+        data: {
+          id,
+          owner: state.user?.id
+        }
+      })
+      .then(response => {
+        validateToken();
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -367,7 +395,8 @@ const AppContext = ({ children }: any) => {
         getCurrentRoomInformation,
         addNewPost,
         getUserById,
-        deletePost
+        deletePost,
+        deleteRoom
       }}
     >
     {children}

@@ -6,7 +6,7 @@ import { Context } from '../../context/MainContext';
 
 import Room from './Room';
 
-const Rooms = ({ selectedRooms, navigation }: any) => {
+const Rooms = ({ selectedRooms, navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
 
   const { ownedRooms, participantRooms } = useContext( Context );
 
@@ -14,7 +14,7 @@ const Rooms = ({ selectedRooms, navigation }: any) => {
 
   const renderItem = ({ item }: any) => (
     <View style={{ width: '100%' , alignItems: 'center'}}>
-      <Room name={item.name} id={item.id} navigation={ navigation }/>
+      <Room name={item.name} id={item.id} navigation={ navigation } setModalRoomOptions={setModalRoomOptions} setSelectedRoomId={setSelectedRoomId}/>
     </View>
   )
 

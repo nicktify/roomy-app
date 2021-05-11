@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, KeyboardAvoidingView, Pressable, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
@@ -60,7 +60,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
       setPasswordError(errors.password);
       setRepeatedPasswordError(errors.repeatedPassword);
     }
-
   };
 
   return (

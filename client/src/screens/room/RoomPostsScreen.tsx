@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Image, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -400,10 +400,6 @@ const RoomPostsScreen = () => {
           <View
             style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
           >
-          <Pressable
-            onPress={() => console.log('here')}
-          >
-          </Pressable>
           </View>
             <View style={{
               flex: 1,
