@@ -32,7 +32,7 @@ const style = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     minWidth: '80%',
-    marginBottom: 30,
+    marginBottom: 10,
   },
   textLabel: {
     marginBottom: 10,
@@ -47,7 +47,7 @@ const style = StyleSheet.create({
   registerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20
+    height: 30,
   },
   dontHaveAnAccountText: {
     opacity: 0.6,

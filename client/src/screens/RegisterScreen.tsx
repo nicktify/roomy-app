@@ -58,14 +58,11 @@ const RegisterScreen = ({ navigation }: any) => {
     console.log(errors)
   }
 
-  // useEffect(() => {
-  //   if (userDidRegister) navigation.navigate('Login');
-  // }, [userDidRegister])
-
   useEffect(() => {
     if (errors.name.length === 0) setBadNameMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
     if (errors.password.length === 0) setBadPasswordMessage('');
+    // if (errors.name.length > 0 || errors.email.length > 0 || errors.password.length > 0) setRegisterDisabled(true);
   }, [name, email, password, repeatedPassword, errors])
 
   const _keyboardDidShow = () => setKeyboardState(true);
@@ -73,7 +70,7 @@ const RegisterScreen = ({ navigation }: any) => {
 
   const handleRegister = () => {
     if (password !== repeatedPassword) setPasswordMatchError(true)
-    if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0) {
+    if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError) {
       setRegisterDisabled(true);
       singUp({
         name,
@@ -171,25 +168,31 @@ const RegisterScreen = ({ navigation }: any) => {
                   passwordMatchError &&
                   <Text style={{color: 'red', fontStyle: 'italic'}}>Password needs to be equal.</Text>
                 }
-                <View
-                  style={style.registerContainer}
-                >
-                  <Text
-                    style={style.dontHaveAnAccountText}
-                  >
-                    Arleady have an account?
-                </Text>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
-                  >
-                    <Text
-                      style={style.registerLink}
-                    >LOGIN</Text>
-                  </TouchableOpacity>
-                </View>
+                {
+                  !registerDisabled ?
+                    <View
+                      style={style.registerContainer}
+                    >
+                      <Text
+                        style={style.dontHaveAnAccountText}
+                      >
+                        Arleady have an account?
+                    </Text>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('Login')}
+                      >
+                        <Text
+                          style={style.registerLink}
+                        >LOGIN</Text>
+                      </TouchableOpacity>
+                    </View>
+                    : 
+                    <View style={{width: 10, height: 30}}></View>
+                }
                 <Pressable
                   style={{
                     backgroundColor: principalColor,
+                    marginTop: 20,
                     borderRadius: 20,
                     height: 55,
                     display: 'flex',
