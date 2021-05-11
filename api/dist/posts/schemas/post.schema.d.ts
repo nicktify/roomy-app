@@ -7,6 +7,12 @@ export declare class Post {
     authorName: string;
     body: string;
     date: Date;
-    image: string;
+    image: {
+        url: string;
+        size: {
+            width: number;
+            height: number;
+        };
+    };
 }
 export declare const PostSchema: import("mongoose").Schema<Document<Post, {}>, import("mongoose").Model<any, any>, undefined>;

@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsJSON, IsNotEmpty, IsObject, IsString } from "class-validator";
 
 export class ReturnPostDto {
 
@@ -31,7 +31,10 @@ export class ReturnPostDto {
   date: Date;
 
   @IsNotEmpty()
-  @IsString()
-  image: string;
+  @IsObject()
+  image: {
+    url: string,
+    size: { width: number, height: number }
+  };
 
 }

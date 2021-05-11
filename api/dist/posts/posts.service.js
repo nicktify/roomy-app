@@ -86,7 +86,7 @@ let PostsService = class PostsService {
                     let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                         if (error)
                             reject(error);
-                        post.image = result.secure_url;
+                        post.image = { url: result.secure_url, size: { width: result.width, height: result.height } };
                         post.save();
                         room.posts.push(post._id);
                         room.save();

@@ -91,7 +91,7 @@ export class PostsService {
   
               if (error) reject(error);
   
-              post.image = result.secure_url;
+              post.image = { url: result.secure_url, size: { width: result.width, height: result.height }}
               post.save();
               
               room.posts.push(post._id);

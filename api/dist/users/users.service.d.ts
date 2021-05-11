@@ -15,7 +15,7 @@ export declare class UsersService {
     getUser(id: string): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    createUser({ name, email, password, role }: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
+    createUser({ name, email, password, role }: CreateUserDto, file: Express.Multer.File): Promise<{
         msg: string;
     }>;
     changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{

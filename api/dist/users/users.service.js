@@ -61,34 +61,15 @@ let UsersService = class UsersService {
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
             const createdUser = await this.userModel.create({ name, email, password: hash, role });
-            console.log(createdUser.profilePicture);
-            const newUser = {
-                id: createdUser._id,
-                name: createdUser.name,
-                email: createdUser.email,
-                role: createdUser.role,
-                ownedRooms: createdUser.ownedRooms,
-                participantRooms: createdUser.participantRooms,
-                profilePicture: createdUser.profilePicture,
-            };
             if (!file)
-                return newUser;
+                return { msg: 'User register success.' };
             return new Promise((resolve, reject) => {
                 let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject(error);
                     createdUser.profilePicture = result.secure_url;
                     createdUser.save();
-                    const curatedUser = {
-                        id: createdUser._id,
-                        name: createdUser.name,
-                        email: createdUser.email,
-                        role: createdUser.role,
-                        ownedRooms: createdUser.ownedRooms,
-                        participantRooms: createdUser.participantRooms,
-                        profilePicture: createdUser.profilePicture,
-                    };
-                    resolve(curatedUser);
+                    resolve({ msg: 'User register success.' });
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });

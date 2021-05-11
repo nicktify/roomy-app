@@ -24,8 +24,11 @@ export class Post {
   @Prop()
   date: Date;
 
-  @Prop()
-  image: string;
+  @Prop({ type: Object })
+  image: {
+    url: string,
+    size: { width: number, height: number }
+  };
 
 }
 

@@ -31,7 +31,7 @@ let AuthService = class AuthService {
             return null;
         const result = await bcrypt.compare(password, user.password);
         if (!result)
-            return { msg: 'Authentication failed.' };
+            return null;
         const curatedUser = {
             id: user._id,
             name: user.name,

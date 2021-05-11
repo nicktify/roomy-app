@@ -2522,7 +2522,7 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "95d3ee174eac335ba7c9dd27e76e789ec9ab435fdb6cd6eb9b9ce8a81ff8ea4d",
+        "version": "b3ae01d8b52c77ba1d118fd171eb428351d5de0197bcebf910f4490d6ff65c41",
         "signature": "d86b045ae59a9baf51383d155ff92afe59e89027785bda36d481ed248744da6a",
         "affectsGlobalScope": false
       },
@@ -2547,13 +2547,13 @@
         "affectsGlobalScope": false
       },
       "../src/posts/schemas/post.schema.ts": {
-        "version": "c6a8a8b78c831630bc5bf6420cb6530a2e478851111e013518d2a29840c514fe",
-        "signature": "267403b0fe7ec1b78b847233dbe1564d3de5fa2a06140d4af6c0b61f26f12eb0",
+        "version": "5d6971b40cf80f232254621623b9b550bebe6a2b7b311cbfa3bd2e0f27fc95e1",
+        "signature": "0961d38416bf6b69360fdfa89c7c4131e27eab90c4c9d77c0070f129057e45d7",
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "1edbb352a00f725e39cba8d09db397b7e4ad7e24de7c4ebb1e9912797b2f7cce",
-        "signature": "83faaf75c47e25197dcdb943071b35c6d7240a593f0da2ad95682ebc7207e270",
+        "version": "ff2e14732372796ef2e03591f2407c0038ce5a2863b053a25d52b69fcca87034",
+        "signature": "51fb5eb6cee257d9d6fee4d26f4f4d31779ee29072ed8fa9d3cdb00e6805af51",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
@@ -2607,17 +2607,17 @@
         "affectsGlobalScope": false
       },
       "../src/posts/dto/return-post-dto.ts": {
-        "version": "2730aa0c5045718f39e7a5fd4e84fb3af15a920ec40c010e3930f1602529fa8c",
-        "signature": "3160de7d1a3ff67416698142ccbaab775c642b20e0821af9e36d030f30505376",
+        "version": "f878fe482f79a7fa3784759892372825954c3bfe32723a2be220f1701da28f10",
+        "signature": "a5ddce1c5261e401110e86e75050b671b8f8a2b5ab7946b4d38f18163187e8e9",
         "affectsGlobalScope": false
       },
       "../src/posts/types/post.ts": {
-        "version": "38588f438e8347cf110c9df26f503dd94db62ba1fe054e91ca608fbb09c68c98",
-        "signature": "1ac12d96ddaa41395b105394817c1055a82ed0d204af318a73bdb528ead277fb",
+        "version": "03a7a732996a528a4403341c845aa777fe298e3b28e5ff80e27badc8afded036",
+        "signature": "beaa73c03a8928b1b92fb401742c1bf78e09d44fbf1764c1a10dedad4b83fe35",
         "affectsGlobalScope": false
       },
       "../src/posts/posts.service.ts": {
-        "version": "a29074cff558db6625dc9f9dd9273619834050f1ad7543e58f78e4002904865f",
+        "version": "81e0f4ac21e0ee4bb6f7871aaeb366b39ee9cc2801ca34cecfe1bb67cd27f991",
         "signature": "76708f969b52313d0e362769f221bb0a92266ba7e126ea1f99f8cf2add7273e4",
         "affectsGlobalScope": false
       },

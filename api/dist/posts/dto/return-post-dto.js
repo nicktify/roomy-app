@@ -50,8 +50,8 @@ __decorate([
 ], ReturnPostDto.prototype, "date", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
+    class_validator_1.IsObject(),
+    __metadata("design:type", Object)
 ], ReturnPostDto.prototype, "image", void 0);
 exports.ReturnPostDto = ReturnPostDto;
 //# sourceMappingURL=return-post-dto.js.map
