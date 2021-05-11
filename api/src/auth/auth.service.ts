@@ -22,7 +22,7 @@ export class AuthService {
 
     const result = await bcrypt.compare( password, user.password );
 
-    if ( ! result ) return { msg: 'Authentication failed.' };
+    if ( ! result ) return null;
 
     const curatedUser = {
       id: user._id,
