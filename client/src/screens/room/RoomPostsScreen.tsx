@@ -26,6 +26,8 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const RoomPostsScreen = () => {
+  
+  const { selectedRoom, user, addNewPost, selectedRoomPosts, deletePost } = useContext( Context );
 
   const [ activeForm, setActiveForm ] = useState(false);
   const [ bodyPost, setBodyPost ] = useState('');
@@ -37,7 +39,6 @@ const RoomPostsScreen = () => {
   const [ bodyPostFormError, setBodyPostFormError ] = useState('');
   const [ disabledPublishPostButton, setDisabledPublishPostButton ] = useState(false)
 
-  const { selectedRoom, user, addNewPost, selectedRoomPosts, deletePost } = useContext( Context );
 
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
