@@ -6,5 +6,8 @@ export class Post {
   authorName: string;
   body: string;
   date: Date;
-  image: string;
+  image: {
+    url: string,
+    size: { width: number, height: number }
+  };
 }

@@ -16,7 +16,6 @@ const style = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     width: '90%',
-    alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -36,26 +35,29 @@ const style = StyleSheet.create({
     marginBottom: 10,
   },
   authorInfoContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  authorName: {
-    fontSize: 20,
+  authorNameText: {
+    fontSize: 15,
     fontWeight: 'bold',
     opacity: 0.8,
   },
   authorNameContainer: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
-    borderRadius: 5,
-    height: '100%'
+    borderRadius: 2,
+    maxHeight: '100%',
+    maxWidth: '100%',
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 10,
   },
   textContainer: {
-    width: '90%'
+    width: '100%',
+    paddingHorizontal: 20,
   },
   addIcon: {
     position: 'absolute',
@@ -120,8 +122,8 @@ const style = StyleSheet.create({
     opacity: 0.8,
   },
   authorProfileImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
     marginRight: 10,
   },

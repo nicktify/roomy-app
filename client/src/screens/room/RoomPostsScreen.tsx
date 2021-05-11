@@ -33,6 +33,7 @@ const RoomPostsScreen = () => {
   const [ activeSelectedPostOptions, setActiveSelectedPostOptions] = useState<SelectedPost>({ id: '',  body: '', image: '', authorProfilePicture: '', authorName: '' });
   const [ modalPostOptionVisible, setModalPostOptionVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
+  const [ selectedImagePostUrl, setSelectedImagePostUrl ] = useState('');
 
   const { selectedRoom, user, addNewPost, selectedRoomPosts, deletePost } = useContext( Context );
 
@@ -44,64 +45,78 @@ const RoomPostsScreen = () => {
     setModalPostOptionVisible(true)
     setActiveSelectedPostOptions(post);
   }
-
   
   const renderItem = ({ item }: {item: Post}) => (
-    <View
-      style={style.postContainer}
-    >
       <View
-        style={style.postInnerContainer}
+        style={style.postContainer}
       >
-        <View style={style.postTopContainer}>
-          <View style={style.authorInfoContainer}>
-            {item.authorProfilePicture.length > 10 ?
-              <Image
-                source={{
-                  uri: item.authorProfilePicture
-                }}
-                style={style.authorProfileImage}
-              />
-              :
+        <View
+          style={style.postInnerContainer}
+        >
+          <View style={style.postTopContainer}>
+            <View style={style.authorInfoContainer}>
+              {item.authorProfilePicture.length > 10 ?
+                <Image
+                  source={{
+                    uri: item.authorProfilePicture
+                  }}
+                  style={style.authorProfileImage}
+                />
+                :
+                <Icon
+                  style={style.authorProfileImage}
+                  name="account-circle"
+                  size={80}
+                  color={principalColor}
+                  onPress={() => setModalPictureVisible(true)}
+                />
+              }
+              <View style={style.authorNameContainer}><Text style={style.authorNameText}>{item.authorName}</Text></View>
+            </View>
+            { user?.id === item.authorId &&
               <Icon
-                style={style.authorProfileImage}
-                name="account-circle"
-                size={80}
-                color={principalColor}
-                onPress={() => setModalPictureVisible(true)}
+                name='more-vert'
+                size={25}
+                onPress={() => {
+                  handlePostOption({id: item.id, 
+                                    body: item.body,
+                                    image: item.image.url,
+                                    authorProfilePicture: item.authorProfilePicture, 
+                                    authorName: item.authorName })}}
               />
             }
-            <View style={style.authorNameContainer}><Text style={style.authorName}>{item.authorName}</Text></View>
           </View>
-          { user?.id === item.authorId &&
-            <Icon
-              name='more-vert'
-              size={25}
-              onPress={() => {
-                handlePostOption({id: item.id, 
-                                  body: item.body,
-                                  image: item.image,
-                                  authorProfilePicture: item.authorProfilePicture, 
-                                  authorName: item.authorName })}}
-            />
-          }
-        </View>
-        <View style={style.textContainer}>
-          <Text style={style.text}>{item.body}</Text>
-        </View>
-        { item.image &&
-          <Image
-            source={{
-              uri: item.image,
+          <View style={style.textContainer}>
+            <Text style={style.text}>{item.body.trim()}</Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'center', 
+              marginBottom: 5, 
+              backgroundColor: '#f1f1f1',
             }}
-            style={style.image}
-            height={300}
-            width={350}
-          />
-        }
+
+          >
+            { item.image &&
+            <Pressable
+              onPress={() => {
+                setSelectedImagePostUrl(item.image.url);
+              }}
+            >
+              <Image
+                source={{
+                  uri: item.image.url,
+                }}
+                style={style.image}
+                width={350}
+                height={350}
+              />
+            </Pressable>
+            }
+          </View>
+        </View>
       </View>
-    </View>
-  )
+    )
 
   const handleUploadImage = () => {
     launchImageLibrary({
@@ -191,7 +206,6 @@ const RoomPostsScreen = () => {
                   >
                     <Text style={style.uploadImageButtonText}>Upload image</Text>
                   </TouchableOpacity>
-
                 </View>
                 <View style={style.buttonsFormContainer}>
                   <TouchableOpacity
@@ -324,7 +338,6 @@ const RoomPostsScreen = () => {
                     />
                   </View>
                   }
-
                 </View>
               </View>
               <Pressable
@@ -341,6 +354,45 @@ const RoomPostsScreen = () => {
               </Pressable>
             </View>
           </View>
+        </Modal>
+
+        {/* Post Image modal */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={selectedImagePostUrl.length > 0}
+          onRequestClose={() => {
+            setSelectedImagePostUrl('')
+          }}
+        >
+          <View
+            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
+          >
+          <Pressable
+            onPress={() => console.log('here')}
+          >
+          </Pressable>
+          </View>
+            <View style={{
+              flex: 1,
+              width: windowWidth,
+              height: windowHeight,
+              position: 'absolute',
+              justifyContent: 'center'
+            }}>
+              <Image
+              style={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute'
+              }}
+                source={{
+                  uri: selectedImagePostUrl
+                }}
+                width={windowWidth}
+                height={windowWidth}
+              />
+            </View>
         </Modal>
     </SafeAreaView>
   );
