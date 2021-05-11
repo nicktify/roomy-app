@@ -94,7 +94,7 @@ __decorate([
 ], RoomsController.prototype, "editRoom", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Delete(),
+    common_1.Delete('delete-room'),
     __param(0, common_1.Body()), __param(1, common_1.Request()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),

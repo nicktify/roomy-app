@@ -43,7 +43,7 @@ export class RoomsController {
   }
 
   @UseGuards( JwtAuthGuard )
-  @Delete()
+  @Delete('delete-room')
   deleteRoom( @Body() { id, owner }: { id: string, owner: string }, @Request() req ): Promise<{ msg: string }> {
     return this.roomService.deleteRoom( id, owner, req.user );
   }
