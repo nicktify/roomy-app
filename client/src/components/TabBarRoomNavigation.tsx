@@ -20,12 +20,12 @@ const TabBarRoomNavigation = ({ navigation }: any) => {
       <TouchableOpacity
         onPress={ () => navigation.navigate('BooksRoomScreen') }
       >
-        <Text style={style.text}>BOOKS</Text>
+        <Text style={style.text}>FORUM</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={ () => navigation.navigate('DatesRoomScreen') }
       >
-        <Text style={style.text}>DATES</Text>
+        <Text style={style.text}>PEOPLE</Text>
       </TouchableOpacity>
   </View>
   )
