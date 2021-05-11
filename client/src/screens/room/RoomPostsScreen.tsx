@@ -34,6 +34,8 @@ const RoomPostsScreen = () => {
   const [ modalPostOptionVisible, setModalPostOptionVisible ] = useState(false);
   const [ imageUri, setImageUri ] = useState<undefined | ImagePickerResponse>();
   const [ selectedImagePostUrl, setSelectedImagePostUrl ] = useState('');
+  const [ bodyPostFormError, setBodyPostFormError ] = useState('');
+  const [ disabledPublishPostButton, setDisabledPublishPostButton ] = useState(false)
 
   const { selectedRoom, user, addNewPost, selectedRoomPosts, deletePost } = useContext( Context );
 
@@ -80,7 +82,7 @@ const RoomPostsScreen = () => {
                 onPress={() => {
                   handlePostOption({id: item.id, 
                                     body: item.body,
-                                    image: item.image.url,
+                                    image: item.image?.url,
                                     authorProfilePicture: item.authorProfilePicture, 
                                     authorName: item.authorName })}}
               />
@@ -143,8 +145,23 @@ const RoomPostsScreen = () => {
   }
 
   const handlePublish = () => {
-    addNewPost(bodyPost, imageUri ? imageUri : undefined);
-    setActiveForm(false);
+    if (bodyPost.length > 1 && !disabledPublishPostButton) {
+      setDisabledPublishPostButton(true)
+      addNewPost(bodyPost, imageUri ? imageUri : undefined)
+      .then(() => {
+        setActiveForm(false)
+        setImageUri(undefined);
+        setBodyPost('');
+        setBodyPostFormError('');
+        setDisabledPublishPostButton(false)
+      })
+      .catch(error => {
+        console.log(error)
+        setBodyPostFormError('Something went bad. Please try again.')
+      })
+    } else {
+      setBodyPostFormError('This should not be empty.')
+    }
   }
 
   const handleDeletePost = () => {
@@ -188,6 +205,10 @@ const RoomPostsScreen = () => {
                   defaultValue={bodyPost}
                   value={bodyPost}
                 />
+                {
+                  bodyPostFormError.length > 0 &&
+                    <Text style={{color: 'red'}}>{bodyPostFormError}</Text>
+                }
                 <View style={{width: '100%', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 10,}}>
                   {
                     imageUri &&
@@ -208,18 +229,26 @@ const RoomPostsScreen = () => {
                   </TouchableOpacity>
                 </View>
                 <View style={style.buttonsFormContainer}>
-                  <TouchableOpacity
-                    style={style.publishFormButton}
+                  <Pressable
+                    style={{
+                      backgroundColor: principalColor,
+                      borderRadius: 30,
+                      width: 150,
+                      padding: 10,
+                      alignItems: 'center',
+                      opacity: disabledPublishPostButton ? 0.5 : 1,
+                    }}
                     onPress={handlePublish}
                   >
                     <Text style={style.cancelFormText}>Publish</Text>
-                  </TouchableOpacity>
+                  </Pressable>
                   <TouchableOpacity
                     style={style.cancelFormButton}
                     onPress={() => {
                       setActiveForm(false)
                       setImageUri(undefined);
                       setBodyPost('');
+                      setBodyPostFormError('')
                     }}
                   >
                     <Text style={style.cancelFormText}>Cancel</Text>
@@ -229,6 +258,7 @@ const RoomPostsScreen = () => {
               </View>
 
       }
+      {/* Select image modal for post form */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -264,6 +294,8 @@ const RoomPostsScreen = () => {
             </View>
           </View>
         </Modal>
+
+        {/* Post option modal */}
         <Modal
           animationType="slide"
           transparent={true}
