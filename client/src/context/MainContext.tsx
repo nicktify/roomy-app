@@ -32,7 +32,7 @@ interface ContextProps {
   singUp: ( registerData: RegisterData ) => Promise<{ msg: string }>;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
-  createRoom: ( name: string, password: string ) => Promise<void>;
+  createRoom: ( name: string, password: string ) => Promise<{msg: string}>;
   updateProfilePicture: (data: ImagePickerResponse) => void;
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
@@ -193,28 +193,31 @@ const AppContext = ({ children }: any) => {
   }
 
 
-  const createRoom = async (name: string, password: string) => {
+  const createRoom = (name: string, password: string): Promise<{msg: string}> => {
 
-    const token = await AsyncStorage.getItem('token');
+    return new Promise( async (resolve, reject) => {
 
-    if ( ! token ) return;
-
-    axios.post(`${ API }/rooms`, {
-        name,
-        password,
-        owner: state.user?.id
-      }, {
-        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-      })
-      .then(() => {
-        if (state.user) {
-          // TODO: make a proper route for this task, you only need to fetch the new user data, and not revalidate the token
-          validateToken()
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      })
+          if (!name || !password) reject({ msg: 'Missing information.' });
+      
+          const token = await AsyncStorage.getItem('token');
+      
+          if ( ! token ) return;
+      
+          axios.post(`${ API }/rooms`, {
+              name,
+              password,
+              owner: state.user?.id
+            }, {
+              headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+            })
+            .then(() => {
+              validateToken()
+              resolve({msg: 'Room created.'})
+            })
+            .catch(error => {
+              reject(error)
+            })
+    })
   }
 
   const getCurrentRoomInformation = async (id: string | undefined): Promise<any> => {
