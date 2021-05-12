@@ -28,21 +28,21 @@ const TabBarNavigation = ({ navigation }: any) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Notifications') }
+        onPress={ () => navigation.navigate('Profile') }
       >
         <Icon 
           style={style.navigationBottomIcon}
-          name="people"
+          name="person"
           color="black"
           size={25}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Search') }
+        onPress={ () => navigation.navigate('Notifications') }
       >
         <Icon 
           style={style.navigationBottomIcon}
-          name="search"
+          name="notifications"
           color="black"
           size={25}
         />

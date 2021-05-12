@@ -2,9 +2,8 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/HomeScreen';
-import CalendarScreen from '../screens/CalendarScreen';
-import NotificationsScreen from '../screens/UsersScreen';
-import SearchScreen from '../screens/SearchScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 
 import TabBarNavigation from '../components/TabBarNavigation';
 import CreateRoomScreen from '../screens/CreateRoomScreen';
@@ -28,18 +27,18 @@ export const CreateRoomTabNavigation = () => {
   );
 }
 
-export const NotificationsTabNavigation = () => {
+export const ProfileTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
+      <Tab.Screen name="Notifications" component={ ProfileScreen } />
     </Tab.Navigator>
   );
 }
 
-export const SearchTabNavigation = () => {
+export const NotificationsTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Search" component={ SearchScreen } />
+      <Tab.Screen name="Search" component={ NotificationsScreen } />
     </Tab.Navigator>
   );
 }

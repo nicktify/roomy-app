@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const UsersScreen = () => {
+const NotificationsScreen = () => {
   return (
     <>
       <View>
-        <Text>Users Screen</Text>
+        <Text>Notifications Screen</Text>
       </View>
     </>
   );
 };
 
-export default UsersScreen;
+export default NotificationsScreen;
