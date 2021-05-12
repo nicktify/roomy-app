@@ -32,7 +32,7 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], ReturnUserDto.prototype, "role", void 0);
+], ReturnUserDto.prototype, "about", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsArray(),

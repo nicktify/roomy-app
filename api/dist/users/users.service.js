@@ -31,7 +31,7 @@ let UsersService = class UsersService {
             id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role,
+            about: user.about,
             ownedRooms: user.ownedRooms,
             participantRooms: user.participantRooms,
             profilePicture: user.profilePicture,
@@ -49,7 +49,7 @@ let UsersService = class UsersService {
             id: findedUser._id,
             name: findedUser.name,
             email: findedUser.email,
-            role: findedUser.role,
+            about: findedUser.about,
             ownedRooms: findedUser.ownedRooms,
             participantRooms: findedUser.participantRooms,
             profilePicture: findedUser.profilePicture,
@@ -57,14 +57,14 @@ let UsersService = class UsersService {
             socialMediaLinks: findedUser.socialMediaLinks,
         };
     }
-    async createUser({ name, email, password, role }, file) {
+    async createUser({ name, email, password }, file) {
         try {
             const user = await this.userModel.findOne({ email: email });
             if (user)
                 return { msg: 'User already exist.' };
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            const createdUser = await this.userModel.create({ name, email, password: hash, role });
+            const createdUser = await this.userModel.create({ name, email, password: hash, about: '' });
             if (!file)
                 return { msg: 'User register success.' };
             return new Promise((resolve, reject) => {
@@ -125,7 +125,7 @@ let UsersService = class UsersService {
                         id: user._id,
                         name: user.name,
                         email: user.email,
-                        role: user.role,
+                        about: user.about,
                         ownedRooms: user.ownedRooms,
                         participantRooms: user.participantRooms,
                         profilePicture: user.profilePicture,
@@ -154,7 +154,7 @@ let UsersService = class UsersService {
                 id: editedUser._id,
                 name: editedUser.name,
                 email: editedUser.email,
-                role: editedUser.role,
+                about: editedUser.about,
                 ownedRooms: editedUser.ownedRooms,
                 participantRooms: editedUser.participantRooms,
                 profilePicture: editedUser.profilePicture,
@@ -186,7 +186,7 @@ let UsersService = class UsersService {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                role: user.role,
+                about: user.about,
                 ownedRooms: user.ownedRooms,
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
@@ -227,7 +227,7 @@ let UsersService = class UsersService {
                         id: user._id,
                         name: user.name,
                         email: user.email,
-                        role: user.role,
+                        about: user.about,
                         ownedRooms: user.ownedRooms,
                         participantRooms: user.participantRooms,
                         profilePicture: user.profilePicture,
@@ -273,7 +273,7 @@ let UsersService = class UsersService {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                role: user.role,
+                about: user.about,
                 ownedRooms: user.ownedRooms,
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
@@ -316,7 +316,7 @@ let UsersService = class UsersService {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                role: user.role,
+                about: user.about,
                 ownedRooms: user.ownedRooms,
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
@@ -326,6 +326,31 @@ let UsersService = class UsersService {
         }
         catch (error) {
             throw error;
+        }
+    }
+    async changeAbout({ userId, about }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist.' };
+            user.about = about;
+            user.save();
+            return { msg: 'About changed.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async clearAbout({ userId }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist.' };
+            user.about = '';
+            user.save();
+            return { msg: 'About cleaned' };
+        }
+        catch (error) {
         }
     }
 };

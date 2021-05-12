@@ -9,6 +9,8 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
+import { ChangeAboutDto } from './dto/change-about.tdo';
+import { UserIdDto } from './dto/user-id.dto';
 export declare class UsersService {
     private userModel;
     private postModel;
@@ -17,7 +19,7 @@ export declare class UsersService {
     getUser(id: string): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    createUser({ name, email, password, role }: CreateUserDto, file: Express.Multer.File): Promise<{
+    createUser({ name, email, password }: CreateUserDto, file: Express.Multer.File): Promise<{
         msg: string;
     }>;
     changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{
@@ -55,6 +57,12 @@ export declare class UsersService {
         msg: string;
     }>;
     deleteSocialMediaLink({ userId, type }: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    changeAbout({ userId, about }: ChangeAboutDto): Promise<{
+        msg: string;
+    }>;
+    clearAbout({ userId }: UserIdDto): Promise<{
         msg: string;
     }>;
 }

@@ -1597,8 +1597,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/schemas/user.schema.ts": {
-        "version": "f2c0af995dcc420cc4b265c9700a824a30d470a6555e3966ec420a3fea63b937",
-        "signature": "06f34cae8ac686b4e7062c6df8377a22e0a01f9210aa941f68c14290854a3926",
+        "version": "168afbbb22a6db234888166882ec7a710d006f6079e926a532665ed813d39cd6",
+        "signature": "520deb5d899f5966dd76ef42ef74804a6d857b048176f30282fdc395c3279686",
         "affectsGlobalScope": false
       },
       "../node_modules/class-validator/types/validation/ValidationError.d.ts": {
@@ -2517,12 +2517,12 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/return-user.dto.ts": {
-        "version": "e4d63e45ee0a8361a096875320c3db331aabfefff2ea8d9038bcbf89a69a3286",
-        "signature": "b42f2a17440b0121551fd490214e4f3f9a5ae46313278794f3db6ecddff4ac6e",
+        "version": "ac7b38af8683344a1f672ebb246a0ec51f881af9b0d4363b252fd96ad9cfe2a1",
+        "signature": "14670849e55958db125501d7017056d02ab1ad65918b6ab94a8abe0f21771fd7",
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "70cac7f34279cc3e456e3b723c32fbd39e65e1ccde2f59e6ab21edaaa5faa0fa",
+        "version": "b9433159ae997aaeead968647b6efef44185e60acc49e3cd69b2771bc9e3f650",
         "signature": "d86b045ae59a9baf51383d155ff92afe59e89027785bda36d481ed248744da6a",
         "affectsGlobalScope": false
       },
@@ -2532,8 +2532,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/create-user.dto.ts": {
-        "version": "2e8be131149f7d1310cb788e21f92efb9dd8e52bf75b22b32fb6c1e3619560c2",
-        "signature": "329546f1a58a44a739e492bbafea4e1eeda1d983af5172a74b0ba20e52219dc0",
+        "version": "6be3ebcefc5b2e55e22b88ea151cf44152cf8ffdaf8bf16c425a21d998278adc",
+        "signature": "b47b4b0c2b7d205945c545c1cf2ddaf243b755c434b535c499552c9f64fb3ea8",
         "affectsGlobalScope": false
       },
       "../src/users/dto/edit-user.dto.ts": {
@@ -2566,14 +2566,24 @@
         "signature": "9fc9f2ee60c3b6a215fc771735154928cee12c967a137606813fe89ed75cdd48",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/change-about.tdo.ts": {
+        "version": "4cacbff83fb8041b722e7356859c084999cabb4f84677c6d897a6c9c54ca1a81",
+        "signature": "ea010208c29de2dd016b652fcb1a3c2f427a4fd871c85c0dc7d0660f014e2702",
+        "affectsGlobalScope": false
+      },
+      "../src/users/dto/user-id.dto.ts": {
+        "version": "f54cbd4a02acc375cca4de0d5e5f8a695705ba7323c662c0318497ba003a7586",
+        "signature": "b975a93449faa23e413ab3d414bf16dc5dea17d50fb6683b12ee65564686fa65",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "953af8e7c58a21f150c95356e80daf0b49608e82f9cfa63dd9007f3a360e175b",
-        "signature": "dd14f34bfcbb98be34535095a00f4b600fbb81e00c47e7f49c7227de6c03d8ba",
+        "version": "29339e5d0b2d34465cbf88e6036873b352028bc39d6f6b58d947dada5a4cf582",
+        "signature": "77cda8149daf5779e609688065499576d2070bcc87ffc0562a6b3b2e4bf2b9f7",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "7e2705989696c6b5d3b49619da49ddae48858d8086de39e3bfb8a42b7eaa082e",
-        "signature": "2a044f921a1ce587a1e6d4c3340c250e5643edca872e9dbc4f069df92ad923fb",
+        "version": "14a4ffacc1170cd8341657f2e11cf1cb6dbb1d43bd653ca24f850041a0735d78",
+        "signature": "a51b147db79a6a745521c588372f729e7b2bfb714e9926761f6d59ed8e76b691",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5218,6 +5228,9 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/mongoose/index.d.ts"
       ],
+      "../src/users/dto/change-about.tdo.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/change-background.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5245,6 +5258,9 @@
       "../src/users/dto/return-user.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/users/dto/user-id.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/schemas/user.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/mongoose/index.d.ts"
@@ -5255,6 +5271,7 @@
         "../node_modules/@nestjs/platform-express/index.d.ts",
         "../src/auth/auth.service.ts",
         "../src/auth/jwt-auth.guard.ts",
+        "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-background.dto.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
@@ -5263,6 +5280,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
+        "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
       ],
       "../src/users/users.module.ts": [
@@ -5281,6 +5299,7 @@
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/posts/schemas/post.schema.ts",
+        "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
@@ -5288,6 +5307,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
+        "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
       ]
     },
@@ -7369,6 +7389,7 @@
       ],
       "../src/users/users.controller.ts": [
         "../src/auth/auth.service.ts",
+        "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-background.dto.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
@@ -7377,11 +7398,13 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
+        "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
       ],
       "../src/users/users.service.ts": [
         "../node_modules/mongoose/index.d.ts",
         "../src/posts/schemas/post.schema.ts",
+        "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
@@ -7389,6 +7412,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
+        "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
       ]
     },
@@ -7984,6 +8008,7 @@
       "../src/rooms/rooms.module.ts",
       "../src/rooms/rooms.service.ts",
       "../src/rooms/schemas/room.schema.ts",
+      "../src/users/dto/change-about.tdo.ts",
       "../src/users/dto/change-background.dto.ts",
       "../src/users/dto/change-password.dto.ts",
       "../src/users/dto/change-social-media-link.dto.ts",
@@ -7993,6 +8018,7 @@
       "../src/users/dto/find-by-email-dto.ts",
       "../src/users/dto/login-dto.ts",
       "../src/users/dto/return-user.dto.ts",
+      "../src/users/dto/user-id.dto.ts",
       "../src/users/interfaces/user.interface.ts",
       "../src/users/schemas/user.schema.ts",
       "../src/users/users.controller.ts",

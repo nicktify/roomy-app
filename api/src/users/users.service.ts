@@ -14,6 +14,8 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
+import { ChangeAboutDto } from './dto/change-about.tdo';
+import { UserIdDto } from './dto/user-id.dto';
 
 @Injectable()
 export class UsersService {
@@ -27,7 +29,7 @@ export class UsersService {
       id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
+      about: user.about,
       ownedRooms: user.ownedRooms,
       participantRooms: user.participantRooms,
       profilePicture: user.profilePicture,
@@ -47,7 +49,7 @@ export class UsersService {
       id: findedUser._id,
       name: findedUser.name,
       email: findedUser.email,
-      role: findedUser.role,
+      about: findedUser.about,
       ownedRooms: findedUser.ownedRooms,
       participantRooms: findedUser.participantRooms,
       profilePicture: findedUser.profilePicture,
@@ -56,7 +58,7 @@ export class UsersService {
     };
   }
 
-  async createUser( { name, email, password, role }: CreateUserDto, file: Express.Multer.File ): Promise<{ msg: string }> {
+  async createUser( { name, email, password }: CreateUserDto, file: Express.Multer.File ): Promise<{ msg: string }> {
     
     try {
       const user = await this.userModel.findOne({ email: email });
@@ -64,7 +66,7 @@ export class UsersService {
 
       const rounds = 10;
       const hash = await bcrypt.hash(password, rounds);
-      const createdUser = await this.userModel.create({ name, email, password: hash, role });
+      const createdUser = await this.userModel.create({ name, email, password: hash, about: '' });
 
       if ( ! file ) return { msg: 'User register success.'};
 
@@ -142,7 +144,7 @@ export class UsersService {
               id: user._id,
               name: user.name,
               email: user.email,
-              role: user.role,
+              about: user.about,
               ownedRooms: user.ownedRooms,
               participantRooms: user.participantRooms,
               profilePicture: user.profilePicture,
@@ -181,7 +183,7 @@ export class UsersService {
         id: editedUser._id,
         name: editedUser.name,
         email: editedUser.email,
-        role: editedUser.role,
+        about: editedUser.about,
         ownedRooms: editedUser.ownedRooms,
         participantRooms: editedUser.participantRooms,
         profilePicture: editedUser.profilePicture,
@@ -223,7 +225,7 @@ export class UsersService {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        about: user.about,
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
         profilePicture: user.profilePicture,
@@ -273,7 +275,7 @@ export class UsersService {
               id: user._id,
               name: user.name,
               email: user.email,
-              role: user.role,
+              about: user.about,
               ownedRooms: user.ownedRooms,
               participantRooms: user.participantRooms,
               profilePicture: user.profilePicture,
@@ -324,7 +326,7 @@ export class UsersService {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        about: user.about,
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
         profilePicture: user.profilePicture,
@@ -372,7 +374,7 @@ export class UsersService {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        about: user.about,
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
         profilePicture: user.profilePicture,
@@ -382,6 +384,37 @@ export class UsersService {
       
     } catch (error) {
       throw error;
+    }
+  }
+
+  async changeAbout( { userId, about }:ChangeAboutDto ): Promise<{msg: string}> {
+    try {
+      const user = await this.userModel.findById(userId);
+      if (!user) return {msg: 'User not exist.'}
+
+      user.about = about;
+      user.save();
+
+      return {msg: 'About changed.'}
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async clearAbout({ userId }: UserIdDto ): Promise<{msg: string}> {
+    try {
+      const user = await this.userModel.findById(userId);
+      if (!user) return {msg: 'User not exist.'}
+
+      user.about = '';
+
+      user.save();
+
+      return {msg: 'About cleaned'};
+
+    } catch (error) {
+      
     }
   }
 

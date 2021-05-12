@@ -28,7 +28,7 @@ __decorate([
 __decorate([
     mongoose_1.Prop(),
     __metadata("design:type", String)
-], User.prototype, "role", void 0);
+], User.prototype, "about", void 0);
 __decorate([
     mongoose_1.Prop(),
     __metadata("design:type", Array)

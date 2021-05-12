@@ -2,7 +2,7 @@ export declare class ReturnUserDto {
     id: string;
     name: string;
     email: string;
-    role: string;
+    about: string;
     ownedRooms: string[];
     participantRooms: string[];
     profilePicture: string;

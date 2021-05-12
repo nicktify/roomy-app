@@ -16,7 +16,7 @@ export class User {
   password: string;
 
   @Prop()
-  role: string;
+  about: string;
 
   @Prop()
   ownedRooms: string[];

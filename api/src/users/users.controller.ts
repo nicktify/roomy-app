@@ -13,6 +13,8 @@ import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
+import { ChangeAboutDto } from './dto/change-about.tdo';
+import { UserIdDto } from './dto/user-id.dto';
 
 @Controller('users')
 export class UsersController {
@@ -94,6 +96,18 @@ export class UsersController {
   @Delete('delete-social-media-link')
   async deleteSocialMediaLink(@Body() deleteSocialMediaLinkDto: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.deleteSocialMediaLink(deleteSocialMediaLinkDto);
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Put('change-about')
+  async changeAbout(@Body() changeAboutDto: ChangeAboutDto): Promise<{msg: string}> {
+    return this.usersService.changeAbout(changeAboutDto);
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Put('clean-about')
+  async deleteAbout(@Body() userIdDto: UserIdDto): Promise<{msg: string}> {
+    return this.usersService.clearAbout(userIdDto);
   }
 
 }

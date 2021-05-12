@@ -4,7 +4,7 @@ export declare class User {
     name: string;
     email: string;
     password: string;
-    role: string;
+    about: string;
     ownedRooms: string[];
     participantRooms: string[];
     profilePicture: string;

@@ -9,6 +9,8 @@ import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
+import { ChangeAboutDto } from './dto/change-about.tdo';
+import { UserIdDto } from './dto/user-id.dto';
 export declare class UsersController {
     private usersService;
     private authService;
@@ -62,6 +64,12 @@ export declare class UsersController {
         msg: string;
     }>;
     deleteSocialMediaLink(deleteSocialMediaLinkDto: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    changeAbout(changeAboutDto: ChangeAboutDto): Promise<{
+        msg: string;
+    }>;
+    deleteAbout(userIdDto: UserIdDto): Promise<{
         msg: string;
     }>;
 }

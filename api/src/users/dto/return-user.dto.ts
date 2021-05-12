@@ -16,7 +16,7 @@ export class ReturnUserDto {
 
   @IsNotEmpty()
   @IsString()
-  role: string;
+  about: string;
 
   @IsNotEmpty()
   @IsArray()

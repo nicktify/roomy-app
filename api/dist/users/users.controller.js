@@ -26,6 +26,8 @@ const change_background_dto_1 = require("./dto/change-background.dto");
 const users_service_1 = require("./users.service");
 const change_social_media_link_dto_1 = require("./dto/change-social-media-link.dto");
 const delete_social_media_link_dto_1 = require("./dto/delete-social-media-link.dto");
+const change_about_tdo_1 = require("./dto/change-about.tdo");
+const user_id_dto_1 = require("./dto/user-id.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -69,6 +71,12 @@ let UsersController = class UsersController {
     }
     async deleteSocialMediaLink(deleteSocialMediaLinkDto) {
         return this.usersService.deleteSocialMediaLink(deleteSocialMediaLinkDto);
+    }
+    async changeAbout(changeAboutDto) {
+        return this.usersService.changeAbout(changeAboutDto);
+    }
+    async deleteAbout(userIdDto) {
+        return this.usersService.clearAbout(userIdDto);
     }
 };
 __decorate([
@@ -173,6 +181,22 @@ __decorate([
     __metadata("design:paramtypes", [delete_social_media_link_dto_1.DeleteSocialMediaLinkDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteSocialMediaLink", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('change-about'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [change_about_tdo_1.ChangeAboutDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "changeAbout", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('clean-about'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_id_dto_1.UserIdDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteAbout", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
