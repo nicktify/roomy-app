@@ -285,6 +285,49 @@ let UsersService = class UsersService {
             throw error;
         }
     }
+    async deleteSocialMediaLink({ userId, type }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist' };
+            if (type === 'facebook') {
+                user.socialMediaLinks = {
+                    facebook: null,
+                    twitter: user.socialMediaLinks.twitter,
+                    instagram: user.socialMediaLinks.instagram
+                };
+            }
+            if (type === 'twitter') {
+                user.socialMediaLinks = {
+                    facebook: user.socialMediaLinks.facebook,
+                    twitter: null,
+                    instagram: user.socialMediaLinks.instagram
+                };
+            }
+            if (type === 'instagram') {
+                user.socialMediaLinks = {
+                    facebook: user.socialMediaLinks.facebook,
+                    twitter: user.socialMediaLinks.twitter,
+                    instagram: null
+                };
+            }
+            user.save();
+            return {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                ownedRooms: user.ownedRooms,
+                participantRooms: user.participantRooms,
+                profilePicture: user.profilePicture,
+                profileBackground: user.profileBackground,
+                socialMediaLinks: user.socialMediaLinks
+            };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 UsersService = __decorate([
     common_1.Injectable(),

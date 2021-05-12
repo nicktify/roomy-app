@@ -13,6 +13,7 @@ import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
+import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 
 @Injectable()
 export class UsersService {
@@ -315,6 +316,54 @@ export class UsersService {
           facebook: user.socialMediaLinks.facebook,
           twitter: user.socialMediaLinks.twitter,
           instagram: link};
+      }
+
+      user.save();
+
+      return {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        ownedRooms: user.ownedRooms,
+        participantRooms: user.participantRooms,
+        profilePicture: user.profilePicture,
+        profileBackground: user.profileBackground,
+        socialMediaLinks: user.socialMediaLinks
+      }
+      
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteSocialMediaLink({ userId, type }: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
+    try {
+      const user = await this.userModel.findById(userId);
+      if (!user) return {msg: 'User not exist'};
+
+      if (type === 'facebook') {
+        user.socialMediaLinks = {
+          facebook: null, 
+          twitter: user.socialMediaLinks.twitter,
+          instagram: user.socialMediaLinks.instagram
+        };
+      }
+
+      if (type === 'twitter') {
+        user.socialMediaLinks = {
+          facebook: user.socialMediaLinks.facebook,
+          twitter: null,
+          instagram: user.socialMediaLinks.instagram
+        };
+      }
+
+      if (type === 'instagram') {
+        user.socialMediaLinks = {
+          facebook: user.socialMediaLinks.facebook,
+          twitter: user.socialMediaLinks.twitter,
+          instagram: null
+        };
       }
 
       user.save();

@@ -8,6 +8,7 @@ import { ReturnUserDto } from './dto/return-user.dto';
 import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
 import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
+import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 export declare class UsersController {
     private usersService;
     private authService;
@@ -58,6 +59,9 @@ export declare class UsersController {
         msg: string;
     }>;
     changeSocialMediaLink(changeSocialMediaLinkDto: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    deleteSocialMediaLink(deleteSocialMediaLinkDto: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
 }

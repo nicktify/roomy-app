@@ -2561,14 +2561,19 @@
         "signature": "3f5ac13d5915eb37b7ad8ce4dc17e5d13de81f1173da2c920f7a8e55a69e2a39",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/delete-social-media-link.dto.ts": {
+        "version": "8c2c25b385a0a9f79c9d8d153e1d709c7c585f65e33f7303b0224b8936886b3d",
+        "signature": "9fc9f2ee60c3b6a215fc771735154928cee12c967a137606813fe89ed75cdd48",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "58856f1dcf343c72c42e946580db4a20b376d812bc21c5aeb66863a7eaa6fa83",
-        "signature": "4e93432253de297a46bac438001f4be20e8852cfc8dc19715f78f47f88d3347f",
+        "version": "953af8e7c58a21f150c95356e80daf0b49608e82f9cfa63dd9007f3a360e175b",
+        "signature": "dd14f34bfcbb98be34535095a00f4b600fbb81e00c47e7f49c7227de6c03d8ba",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "57f16155e00f28794e62f49da785c2f300cf5cb875c3523a574af2e58ff519e0",
-        "signature": "a1511c5e7162ef9882c391463985c99e6c4eea082b725e8481c2aeb2425ad4ce",
+        "version": "7e2705989696c6b5d3b49619da49ddae48858d8086de39e3bfb8a42b7eaa082e",
+        "signature": "2a044f921a1ce587a1e6d4c3340c250e5643edca872e9dbc4f069df92ad923fb",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5225,6 +5230,9 @@
       "../src/users/dto/create-user.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/users/dto/delete-social-media-link.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/edit-user.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5251,6 +5259,7 @@
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
+        "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
@@ -5275,6 +5284,7 @@
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
+        "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
@@ -7363,6 +7373,7 @@
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
+        "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
@@ -7374,6 +7385,7 @@
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/change-social-media-link.dto.ts",
         "../src/users/dto/create-user.dto.ts",
+        "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/return-user.dto.ts",
@@ -7976,6 +7988,7 @@
       "../src/users/dto/change-password.dto.ts",
       "../src/users/dto/change-social-media-link.dto.ts",
       "../src/users/dto/create-user.dto.ts",
+      "../src/users/dto/delete-social-media-link.dto.ts",
       "../src/users/dto/edit-user.dto.ts",
       "../src/users/dto/find-by-email-dto.ts",
       "../src/users/dto/login-dto.ts",

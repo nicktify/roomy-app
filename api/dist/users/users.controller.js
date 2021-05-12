@@ -25,6 +25,7 @@ const find_by_email_dto_1 = require("./dto/find-by-email-dto");
 const change_background_dto_1 = require("./dto/change-background.dto");
 const users_service_1 = require("./users.service");
 const change_social_media_link_dto_1 = require("./dto/change-social-media-link.dto");
+const delete_social_media_link_dto_1 = require("./dto/delete-social-media-link.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -65,6 +66,9 @@ let UsersController = class UsersController {
     }
     async changeSocialMediaLink(changeSocialMediaLinkDto) {
         return this.usersService.changeSocialMediaLink(changeSocialMediaLinkDto);
+    }
+    async deleteSocialMediaLink(deleteSocialMediaLinkDto) {
+        return this.usersService.deleteSocialMediaLink(deleteSocialMediaLinkDto);
     }
 };
 __decorate([
@@ -161,6 +165,14 @@ __decorate([
     __metadata("design:paramtypes", [change_social_media_link_dto_1.ChangeSocialMediaLinkDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "changeSocialMediaLink", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Delete('delete-social-media-link'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_social_media_link_dto_1.DeleteSocialMediaLinkDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteSocialMediaLink", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
