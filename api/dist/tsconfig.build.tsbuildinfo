@@ -1597,8 +1597,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/schemas/user.schema.ts": {
-        "version": "2eda03637f87912749356cf66212e620bd7e98033103b2310897961418770fff",
-        "signature": "b51106435b1fab11ad5d9504def3941eea4cb6729aa35a7196ca0a89e3348b92",
+        "version": "c1e5401c78620a5fac6cfd80381d3f55560f18c0b6bcc029c72d4f4cecbdcfe0",
+        "signature": "6b3bd1acdf8ae16607cf6310323ca7936053beea1eac3f1314e23983d9040443",
         "affectsGlobalScope": false
       },
       "../node_modules/class-validator/types/validation/ValidationError.d.ts": {
@@ -2517,12 +2517,12 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/return-user.dto.ts": {
-        "version": "2179575799735b5e072d36b1293cfd6c69cd3f828cd7a9db6838ab6a9765e03a",
-        "signature": "3cf3ba74e68dbf5176077c7bd4269ef514a90f6e991aaac9002b5f04e97a692d",
+        "version": "8a81ac6c54b839c54899801bb850cb3a36f41e7033e7585028b87440c027b1f6",
+        "signature": "564e2e5ff80645fd00c5ad051bf74ffdefb57ad9df186da75878222635be2bb1",
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "b3ae01d8b52c77ba1d118fd171eb428351d5de0197bcebf910f4490d6ff65c41",
+        "version": "a452126a79e08e159c047492370d73bc542615cb2be27d39174abfe9e15af940",
         "signature": "d86b045ae59a9baf51383d155ff92afe59e89027785bda36d481ed248744da6a",
         "affectsGlobalScope": false
       },
@@ -2546,19 +2546,24 @@
         "signature": "db19db3391eff67990bc86ba1e6207a445cf7404892ec8be95341256b31e7adb",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/change-background.dto.ts": {
+        "version": "ba358012d0c21eb89c9f9ab614c94d06a610141c7e9cf29ebd73fea834aa81d6",
+        "signature": "50e1873a2aa0c05c66dbe5218dcf90f0e9394f15bb139c234db64ceec480973b",
+        "affectsGlobalScope": false
+      },
       "../src/posts/schemas/post.schema.ts": {
         "version": "5d6971b40cf80f232254621623b9b550bebe6a2b7b311cbfa3bd2e0f27fc95e1",
         "signature": "0961d38416bf6b69360fdfa89c7c4131e27eab90c4c9d77c0070f129057e45d7",
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "ff2e14732372796ef2e03591f2407c0038ce5a2863b053a25d52b69fcca87034",
-        "signature": "51fb5eb6cee257d9d6fee4d26f4f4d31779ee29072ed8fa9d3cdb00e6805af51",
+        "version": "225d7f9724bb3b70dc094c03a05c9928fa5c776da8f1eb727ee06b4558129831",
+        "signature": "f69659634113b6e77fec3d9544d4bfdfb231b98fd364a4280d664bb324f2c683",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "02df864c2932272c4630ecb542fa4753f7a56d8738a2ec4fd8dc87956a69fdeb",
-        "signature": "0cd8fabd4d22ab01a3a2ed1137d1499501ca86c7282df871e46be08fd49c8d98",
+        "version": "2e9df4f51ef6741d8923040f2f2727720111caa04192f617019dff365ada8c55",
+        "signature": "8b89feb9f14657f27cb509f93c2664e008012441e5ab17a78b073df57648471d",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5203,6 +5208,9 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/mongoose/index.d.ts"
       ],
+      "../src/users/dto/change-background.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/change-password.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5231,6 +5239,7 @@
         "../node_modules/@nestjs/platform-express/index.d.ts",
         "../src/auth/auth.service.ts",
         "../src/auth/jwt-auth.guard.ts",
+        "../src/users/dto/change-background.dto.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
@@ -7340,6 +7349,7 @@
       ],
       "../src/users/users.controller.ts": [
         "../src/auth/auth.service.ts",
+        "../src/users/dto/change-background.dto.ts",
         "../src/users/dto/change-password.dto.ts",
         "../src/users/dto/create-user.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
@@ -7950,6 +7960,7 @@
       "../src/rooms/rooms.module.ts",
       "../src/rooms/rooms.service.ts",
       "../src/rooms/schemas/room.schema.ts",
+      "../src/users/dto/change-background.dto.ts",
       "../src/users/dto/change-password.dto.ts",
       "../src/users/dto/create-user.dto.ts",
       "../src/users/dto/edit-user.dto.ts",

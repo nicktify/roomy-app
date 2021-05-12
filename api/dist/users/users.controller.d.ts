@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ReturnUserDto } from './dto/return-user.dto';
+import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
 export declare class UsersController {
     private usersService;
@@ -50,6 +51,9 @@ export declare class UsersController {
         msg: string;
     }>;
     changePassword(changePasswordDto: ChangePasswordDto, req: any): Promise<{
+        msg: string;
+    }>;
+    editProfileBackground(changeBackgroundDto: ChangeBackgroundDto, file: Express.Multer.File): Promise<ReturnUserDto | {
         msg: string;
     }>;
 }

@@ -35,6 +35,7 @@ let UsersService = class UsersService {
             ownedRooms: user.ownedRooms,
             participantRooms: user.participantRooms,
             profilePicture: user.profilePicture,
+            profileBackground: user.profileBackground
         }));
     }
     async getUser(id) {
@@ -51,6 +52,7 @@ let UsersService = class UsersService {
             ownedRooms: findedUser.ownedRooms,
             participantRooms: findedUser.participantRooms,
             profilePicture: findedUser.profilePicture,
+            profileBackground: findedUser.profileBackground,
         };
     }
     async createUser({ name, email, password, role }, file) {
@@ -125,6 +127,7 @@ let UsersService = class UsersService {
                         ownedRooms: user.ownedRooms,
                         participantRooms: user.participantRooms,
                         profilePicture: user.profilePicture,
+                        profileBackground: user.profileBackground,
                     };
                     resolve(curatedUser);
                 });
@@ -152,6 +155,7 @@ let UsersService = class UsersService {
                 ownedRooms: editedUser.ownedRooms,
                 participantRooms: editedUser.participantRooms,
                 profilePicture: editedUser.profilePicture,
+                profileBackground: editedUser.profileBackground,
             };
         }
         catch (error) {
@@ -182,6 +186,7 @@ let UsersService = class UsersService {
                 ownedRooms: user.ownedRooms,
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
+                profileBackground: user.profileBackground,
             };
         }
         catch (error) {
@@ -197,6 +202,36 @@ let UsersService = class UsersService {
             if (!findByEmail)
                 return { msg: 'Invalid user', validToken: false };
             return { msg: 'Token authenticated', validToken: true, user: findById };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async changeProfileBackground({ userId }, file) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist' };
+            return new Promise((resolve, reject) => {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                    if (error)
+                        reject({ msg: 'Error uploading image.' });
+                    user.profileBackground = result.secure_url;
+                    user.save();
+                    const curatedUser = {
+                        id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                        ownedRooms: user.ownedRooms,
+                        participantRooms: user.participantRooms,
+                        profilePicture: user.profilePicture,
+                        profileBackground: user.profileBackground,
+                    };
+                    resolve(curatedUser);
+                });
+                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+            });
         }
         catch (error) {
             throw error;

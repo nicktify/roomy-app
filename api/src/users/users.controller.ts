@@ -9,6 +9,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ReturnUserDto } from './dto/return-user.dto';
+import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -72,6 +73,13 @@ export class UsersController {
   @Post('change-password')
   async changePassword( @Body() changePasswordDto: ChangePasswordDto, @Request() req ): Promise<{msg: string}> {
     return this.usersService.changePassword(changePasswordDto, req.user );
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @UseInterceptors(FileInterceptor('file'))
+  @Put('change-profile-background')
+  async editProfileBackground( @Body() changeBackgroundDto: ChangeBackgroundDto, @UploadedFile() file: Express.Multer.File ): Promise<ReturnUserDto | {msg: string}> {
+    return this.usersService.changeProfileBackground(changeBackgroundDto, file);
   }
 
 }

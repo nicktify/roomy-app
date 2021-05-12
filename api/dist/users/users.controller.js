@@ -22,6 +22,7 @@ const change_password_dto_1 = require("./dto/change-password.dto");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const edit_user_dto_1 = require("./dto/edit-user.dto");
 const find_by_email_dto_1 = require("./dto/find-by-email-dto");
+const change_background_dto_1 = require("./dto/change-background.dto");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
@@ -57,6 +58,9 @@ let UsersController = class UsersController {
     }
     async changePassword(changePasswordDto, req) {
         return this.usersService.changePassword(changePasswordDto, req.user);
+    }
+    async editProfileBackground(changeBackgroundDto, file) {
+        return this.usersService.changeProfileBackground(changeBackgroundDto, file);
     }
 };
 __decorate([
@@ -136,6 +140,15 @@ __decorate([
     __metadata("design:paramtypes", [change_password_dto_1.ChangePasswordDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "changePassword", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.UseInterceptors(platform_express_1.FileInterceptor('file')),
+    common_1.Put('change-profile-background'),
+    __param(0, common_1.Body()), __param(1, common_1.UploadedFile()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [change_background_dto_1.ChangeBackgroundDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "editProfileBackground", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])

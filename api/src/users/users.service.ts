@@ -29,6 +29,7 @@ export class UsersService {
       ownedRooms: user.ownedRooms,
       participantRooms: user.participantRooms,
       profilePicture: user.profilePicture,
+      profileBackground: user.profileBackground
     }));
   }
 
@@ -47,6 +48,7 @@ export class UsersService {
       ownedRooms: findedUser.ownedRooms,
       participantRooms: findedUser.participantRooms,
       profilePicture: findedUser.profilePicture,
+      profileBackground: findedUser.profileBackground,
     };
   }
 
@@ -140,6 +142,7 @@ export class UsersService {
               ownedRooms: user.ownedRooms,
               participantRooms: user.participantRooms,
               profilePicture: user.profilePicture,
+              profileBackground: user.profileBackground,
             }
 
             resolve(curatedUser);
@@ -177,6 +180,7 @@ export class UsersService {
         ownedRooms: editedUser.ownedRooms,
         participantRooms: editedUser.participantRooms,
         profilePicture: editedUser.profilePicture,
+        profileBackground: editedUser.profileBackground,
       }
       
     } catch ( error ) {
@@ -217,6 +221,7 @@ export class UsersService {
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
         profilePicture: user.profilePicture,
+        profileBackground: user.profileBackground,
       };
 
     } catch ( error ) {
@@ -239,6 +244,43 @@ export class UsersService {
 
     } catch (error) {
       throw error;
+    }
+  }
+
+  async changeProfileBackground( { userId }, file: Express.Multer.File): Promise<ReturnUserDto | {msg: string}> {
+    try {
+
+      const user = await this.userModel.findById( userId );
+      if (!user) return { msg: 'User not exist' };
+
+      return new Promise((resolve, reject) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+          function (error, result) {
+
+            if (error) reject({ msg: 'Error uploading image.' });
+
+            user.profileBackground = result.secure_url;
+            user.save();
+
+            const curatedUser = {
+              id: user._id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+              ownedRooms: user.ownedRooms,
+              participantRooms: user.participantRooms,
+              profilePicture: user.profilePicture,
+              profileBackground: user.profileBackground,
+            }
+
+            resolve(curatedUser);
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      })
+
+    } catch (error) {
+     throw error; 
     }
   }
 

@@ -32,6 +32,7 @@ export class AuthService {
       ownedRooms: user.ownedRooms,
       participantRooms: user.participantRooms,
       profilePicture: user.profilePicture,
+      profileBackground: user.profileBackground
     }
 
     return curatedUser;
@@ -62,6 +63,7 @@ export class AuthService {
         ownedRooms: user.ownedRooms,
         participantRooms: user.participantRooms,
         profilePicture: user.profilePicture,
+        profileBackground: user.profileBackground,
       }
     }
   }

@@ -29,5 +29,8 @@ export class ReturnUserDto {
   @IsNotEmpty()
   @IsString()
   profilePicture: string;
-  
+
+  @IsNotEmpty()
+  @IsString()
+  profileBackground: string;
 }

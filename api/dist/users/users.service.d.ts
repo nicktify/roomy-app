@@ -44,4 +44,9 @@ export declare class UsersService {
         validToken: boolean;
         user: UserDocument;
     }>;
+    changeProfileBackground({ userId }: {
+        userId: any;
+    }, file: Express.Multer.File): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
 }

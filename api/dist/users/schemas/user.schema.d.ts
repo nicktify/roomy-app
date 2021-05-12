@@ -8,5 +8,6 @@ export declare class User {
     ownedRooms: string[];
     participantRooms: string[];
     profilePicture: string;
+    profileBackground: string;
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, {}>, import("mongoose").Model<any, any>, undefined>;
