@@ -39,6 +39,7 @@ interface ContextProps {
   getUserById: ( id: string ) => Promise<User | string>;
   deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
   deleteRoom: (id: string) => Promise<{msg: string}>;
+  changeProfileBackground: (file: ImagePickerResponse) => Promise<{msg: string}>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -376,6 +377,43 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const changeProfileBackground = (file: ImagePickerResponse): Promise<{msg: string}> => {
+    return new Promise( async (resolve, reject) => {
+
+      const token = await AsyncStorage.getItem('token');
+
+      if ( ! token || !state.user ) return { msg: 'Not authenticated' };
+
+      if ( ! file ) return {msg: 'No file'}
+
+      const fileToUpload = {
+        uri: file.uri,
+        type: file.type,
+        name: file.fileName
+      };
+  
+      const formData = new FormData();
+  
+      formData.append('file', fileToUpload);
+      formData.append('userId', state.user.id);
+
+      axios.put(`${ API }/users/change-profile-background`, 
+        formData,
+        {
+          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+        }
+      )
+      .then((response) => {
+        validateToken()
+        console.log(response.data)
+        resolve({ msg: 'Background changed.' })
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -396,7 +434,8 @@ const AppContext = ({ children }: any) => {
         addNewPost,
         getUserById,
         deletePost,
-        deleteRoom
+        deleteRoom,
+        changeProfileBackground
       }}
     >
     {children}

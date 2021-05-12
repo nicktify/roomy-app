@@ -9,6 +9,7 @@ export class User {
   participantRooms: [string];
   role: string;
   profilePicture: string | null;
+  profileBackground: string | null;
 }
 
 class InitialState {

@@ -14,8 +14,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const HomeRightTopComponent = () => {
-
-
   const [ modalVisible, setModalVisible ] = useState(false);
 
   const { user, updateProfilePicture } = useContext( Context );
