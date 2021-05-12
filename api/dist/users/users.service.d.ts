@@ -7,6 +7,7 @@ import { UserDocument } from './schemas/user.schema';
 import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
+import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 export declare class UsersService {
     private userModel;
     private postModel;
@@ -47,6 +48,9 @@ export declare class UsersService {
     changeProfileBackground({ userId }: {
         userId: any;
     }, file: Express.Multer.File): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    changeSocialMediaLink({ userId, type, link }: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
 }

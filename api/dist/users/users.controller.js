@@ -24,6 +24,7 @@ const edit_user_dto_1 = require("./dto/edit-user.dto");
 const find_by_email_dto_1 = require("./dto/find-by-email-dto");
 const change_background_dto_1 = require("./dto/change-background.dto");
 const users_service_1 = require("./users.service");
+const change_social_media_link_dto_1 = require("./dto/change-social-media-link.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -61,6 +62,9 @@ let UsersController = class UsersController {
     }
     async editProfileBackground(changeBackgroundDto, file) {
         return this.usersService.changeProfileBackground(changeBackgroundDto, file);
+    }
+    async changeSocialMediaLink(changeSocialMediaLinkDto) {
+        return this.usersService.changeSocialMediaLink(changeSocialMediaLinkDto);
     }
 };
 __decorate([
@@ -149,6 +153,14 @@ __decorate([
     __metadata("design:paramtypes", [change_background_dto_1.ChangeBackgroundDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "editProfileBackground", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('change-social-media-link'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [change_social_media_link_dto_1.ChangeSocialMediaLinkDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "changeSocialMediaLink", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])

@@ -40,7 +40,8 @@ let AuthService = class AuthService {
             ownedRooms: user.ownedRooms,
             participantRooms: user.participantRooms,
             profilePicture: user.profilePicture,
-            profileBackground: user.profileBackground
+            profileBackground: user.profileBackground,
+            socialMediaLinks: user.socialMediaLinks,
         };
         return curatedUser;
     }
@@ -65,6 +66,7 @@ let AuthService = class AuthService {
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
                 profileBackground: user.profileBackground,
+                socialMediaLinks: user.socialMediaLinks,
             }
         };
     }

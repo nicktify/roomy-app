@@ -11,6 +11,7 @@ import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ReturnUserDto } from './dto/return-user.dto';
 import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
+import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 
 @Controller('users')
 export class UsersController {
@@ -80,6 +81,12 @@ export class UsersController {
   @Put('change-profile-background')
   async editProfileBackground( @Body() changeBackgroundDto: ChangeBackgroundDto, @UploadedFile() file: Express.Multer.File ): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.changeProfileBackground(changeBackgroundDto, file);
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Put('change-social-media-link')
+  async changeSocialMediaLink(@Body() changeSocialMediaLinkDto: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
+    return this.usersService.changeSocialMediaLink(changeSocialMediaLinkDto);
   }
 
 }

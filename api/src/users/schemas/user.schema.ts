@@ -30,6 +30,13 @@ export class User {
   @Prop()
   profileBackground: string;
 
+  @Prop({ type: Object })
+  socialMediaLinks: {
+    facebook: string,
+    instagram: string,
+    twitter: string,
+  }
+
 }
 
 export const UserSchema = SchemaFactory.createForClass( User );

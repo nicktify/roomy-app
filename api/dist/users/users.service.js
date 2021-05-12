@@ -35,7 +35,8 @@ let UsersService = class UsersService {
             ownedRooms: user.ownedRooms,
             participantRooms: user.participantRooms,
             profilePicture: user.profilePicture,
-            profileBackground: user.profileBackground
+            profileBackground: user.profileBackground,
+            socialMediaLinks: user.socialMediaLinks,
         }));
     }
     async getUser(id) {
@@ -53,6 +54,7 @@ let UsersService = class UsersService {
             participantRooms: findedUser.participantRooms,
             profilePicture: findedUser.profilePicture,
             profileBackground: findedUser.profileBackground,
+            socialMediaLinks: findedUser.socialMediaLinks,
         };
     }
     async createUser({ name, email, password, role }, file) {
@@ -128,6 +130,7 @@ let UsersService = class UsersService {
                         participantRooms: user.participantRooms,
                         profilePicture: user.profilePicture,
                         profileBackground: user.profileBackground,
+                        socialMediaLinks: user.socialMediaLinks,
                     };
                     resolve(curatedUser);
                 });
@@ -156,6 +159,7 @@ let UsersService = class UsersService {
                 participantRooms: editedUser.participantRooms,
                 profilePicture: editedUser.profilePicture,
                 profileBackground: editedUser.profileBackground,
+                socialMediaLinks: editedUser.socialMediaLinks,
             };
         }
         catch (error) {
@@ -187,6 +191,7 @@ let UsersService = class UsersService {
                 participantRooms: user.participantRooms,
                 profilePicture: user.profilePicture,
                 profileBackground: user.profileBackground,
+                socialMediaLinks: user.socialMediaLinks,
             };
         }
         catch (error) {
@@ -227,11 +232,54 @@ let UsersService = class UsersService {
                         participantRooms: user.participantRooms,
                         profilePicture: user.profilePicture,
                         profileBackground: user.profileBackground,
+                        socialMediaLinks: user.socialMediaLinks
                     };
                     resolve(curatedUser);
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async changeSocialMediaLink({ userId, type, link }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist' };
+            if (type === 'facebook') {
+                user.socialMediaLinks = { facebook: link,
+                    twitter: user.socialMediaLinks.twitter,
+                    instagram: user.socialMediaLinks.instagram
+                };
+            }
+            if (type === 'twitter') {
+                user.socialMediaLinks = {
+                    facebook: user.socialMediaLinks.facebook,
+                    twitter: link,
+                    instagram: user.socialMediaLinks.instagram
+                };
+            }
+            if (type === 'instagram') {
+                user.socialMediaLinks = {
+                    facebook: user.socialMediaLinks.facebook,
+                    twitter: user.socialMediaLinks.twitter,
+                    instagram: link
+                };
+            }
+            user.save();
+            return {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                ownedRooms: user.ownedRooms,
+                participantRooms: user.participantRooms,
+                profilePicture: user.profilePicture,
+                profileBackground: user.profileBackground,
+                socialMediaLinks: user.socialMediaLinks
+            };
         }
         catch (error) {
             throw error;

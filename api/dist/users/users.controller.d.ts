@@ -7,6 +7,7 @@ import { FindByEmailDto } from './dto/find-by-email-dto';
 import { ReturnUserDto } from './dto/return-user.dto';
 import { ChangeBackgroundDto } from './dto/change-background.dto';
 import { UsersService } from './users.service';
+import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 export declare class UsersController {
     private usersService;
     private authService;
@@ -54,6 +55,9 @@ export declare class UsersController {
         msg: string;
     }>;
     editProfileBackground(changeBackgroundDto: ChangeBackgroundDto, file: Express.Multer.File): Promise<ReturnUserDto | {
+        msg: string;
+    }>;
+    changeSocialMediaLink(changeSocialMediaLinkDto: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
 }

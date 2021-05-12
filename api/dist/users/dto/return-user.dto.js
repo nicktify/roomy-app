@@ -53,5 +53,10 @@ __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
 ], ReturnUserDto.prototype, "profileBackground", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsObject(),
+    __metadata("design:type", Object)
+], ReturnUserDto.prototype, "socialMediaLinks", void 0);
 exports.ReturnUserDto = ReturnUserDto;
 //# sourceMappingURL=return-user.dto.js.map

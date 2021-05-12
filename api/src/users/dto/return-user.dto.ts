@@ -1,4 +1,4 @@
-import { IsArray, IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsEmail, IsNotEmpty, IsObject, IsString } from "class-validator";
 
 export class ReturnUserDto {
 
@@ -33,4 +33,13 @@ export class ReturnUserDto {
   @IsNotEmpty()
   @IsString()
   profileBackground: string;
+
+  @IsNotEmpty()
+  @IsObject()
+  socialMediaLinks: {
+    facebook: string | null,
+    instagram: string | null,
+    twitter: string | null,
+  }
+
 }
