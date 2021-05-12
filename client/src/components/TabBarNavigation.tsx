@@ -18,13 +18,13 @@ const TabBarNavigation = ({ navigation }: any) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Calendar') }
+        onPress={ () => navigation.navigate('CreateRoom') }
       >
         <Icon 
-          style={style.navigationBottomIcon}
-          name="calendar-today"
+          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+          name="add"
           color="black"
-          size={20}
+          size={30}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -32,7 +32,7 @@ const TabBarNavigation = ({ navigation }: any) => {
       >
         <Icon 
           style={style.navigationBottomIcon}
-          name="notifications-none"
+          name="people"
           color="black"
           size={25}
         />

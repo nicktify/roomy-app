@@ -11,11 +11,6 @@ const TabBarRoomNavigation = ({ navigation }: any) => {
       >
         <Text style={style.text}>POSTS</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity
-        onPress={ () => navigation.navigate('LinksRoomScreen') }
-      >
-        <Text style={style.text}>LINKS</Text>
-      </TouchableOpacity> */}
       <TouchableOpacity
         onPress={ () => navigation.navigate('BooksRoomScreen') }
       >

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
-import NotificationsScreen from '../screens/NotificationsScreen';
+import NotificationsScreen from '../screens/UsersScreen';
 import SearchScreen from '../screens/SearchScreen';
 
 import TabBarNavigation from '../components/TabBarNavigation';
@@ -20,10 +20,10 @@ export const HomeTabNavigation = () => {
   );
 }
 
-export const CalendarTabNavigation = () => {
+export const CreateRoomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Calendar" component={ CalendarScreen } />
+      <Tab.Screen name="Calendar" component={ CreateRoomScreen } />
     </Tab.Navigator>
   );
 }

@@ -47,8 +47,7 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
         <View style={style.bottomContainer}>
           <View style={style.innerButtomContainer} >
-            <View style={{ width: '100%', alignItems: 'center' }}>
-              <AddRoomButtom navigation={ navigation } />
+            <View style={{ width: '100%', alignItems: 'center', marginBottom: 20, }}>
               <SelectRooms
                 selectedRooms={ selectedRooms }
                 setSelectedRooms={ setSelectedRooms }
