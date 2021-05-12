@@ -10,6 +10,11 @@ export class User {
   role: string;
   profilePicture: string | null;
   profileBackground: string | null;
+  socialMediaLinks: {
+    facebook: string | null,
+    instagram: string | null,
+    twitter: string | null,
+  }
 }
 
 class InitialState {

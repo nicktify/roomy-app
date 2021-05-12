@@ -33,13 +33,14 @@ interface ContextProps {
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
   createRoom: ( name: string, password: string ) => Promise<{msg: string}>;
-  updateProfilePicture: (data: ImagePickerResponse) => void;
+  updateProfilePicture: (data: ImagePickerResponse) => Promise<any>;
   getCurrentRoomInformation: ( id: string ) => Promise<any>;
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
   deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
   deleteRoom: (id: string) => Promise<{msg: string}>;
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{msg: string}>;
+  changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -93,33 +94,35 @@ const AppContext = ({ children }: any) => {
     })
   }
 
-  const updateProfilePicture = async ( data: ImagePickerResponse ) => {
+  const updateProfilePicture = async ( data: ImagePickerResponse ): Promise<any> => {
 
-    const token = await AsyncStorage.getItem('token');
-    if ( ! token ) return;
-
-    const fileToUpload = {
-      uri: data.uri,
-      type: data.type,
-      name: data.fileName
-    };
-
-    const formData = new FormData();
-
-    formData.append('file', fileToUpload);
-    formData.append('userId', state.user?.id);
-
-    axios.post(`${ API }/users/add-profile-picture`,
-        formData,
-        { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
-      )
-      .then(response => {
-        validateToken();
-      })
-      .catch(error => {
-        console.log(error)
-      })
-
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if ( ! token ) return;
+  
+      const fileToUpload = {
+        uri: data.uri,
+        type: data.type,
+        name: data.fileName
+      };
+  
+      const formData = new FormData();
+  
+      formData.append('file', fileToUpload);
+      formData.append('userId', state.user?.id);
+  
+      axios.post(`${ API }/users/add-profile-picture`,
+          formData,
+          { headers: { Authorization: `Bearer ${JSON.parse(token)}` }}
+        )
+        .then(response => {
+          validateToken();
+          resolve(response.data);
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   }
 
 
@@ -260,9 +263,6 @@ const AppContext = ({ children }: any) => {
   }
 
   const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
-
-    try {
-
       return new Promise( async ( resolve, reject ) => {
         const token = await AsyncStorage.getItem('token');
         if ( ! token ) return;
@@ -294,13 +294,7 @@ const AppContext = ({ children }: any) => {
           .catch(error => {
             reject(error);
           })
-
       })
-      
-
-    } catch (error) {
-      console.log(error);
-    }
 
   }
 
@@ -316,7 +310,6 @@ const AppContext = ({ children }: any) => {
   }
 
   const deletePost = async (roomId: string, postId: string): Promise<{ msg: string }> => {
-    try {
       const token = await AsyncStorage.getItem('token');
       if ( ! token ) return { msg: 'No token found'};
 
@@ -345,9 +338,6 @@ const AppContext = ({ children }: any) => {
           reject({ msg: 'Something went bad' });
         })
       })
-    } catch (error) {
-      return {msg: 'Something went bad'}
-    }
   }
 
   const deleteRoom = (id: string): Promise<{msg: string}> => {
@@ -414,6 +404,30 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const changeSocialMediaIcon = (type: string, link: string): Promise<any> => {
+      return new Promise(async (resolve, reject) => {
+
+        const token = await AsyncStorage.getItem('token');
+        if (!token || !state.user) return {msg: 'Not authenticated.'}
+        if (!type || !link) return {msg: 'Missing information'};
+
+        axios.put(`${ API }/users/change-social-media-link`, {
+          userId: state.user.id,
+          type,
+          link
+        }, {
+          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+        })
+        .then(response => {
+          validateToken();
+          resolve(response.data);
+        })
+        .catch(error => {
+          reject(error)
+        })
+      })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -435,7 +449,8 @@ const AppContext = ({ children }: any) => {
         getUserById,
         deletePost,
         deleteRoom,
-        changeProfileBackground
+        changeProfileBackground,
+        changeSocialMediaIcon
       }}
     >
     {children}

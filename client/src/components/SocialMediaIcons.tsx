@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SocialMediaIcons = ({ handleSocialMediaPress }: any) => {
 
-
-
   return (
     <View
       style={{
