@@ -24,6 +24,8 @@ const delete_participant_dto_1 = require("./dto/delete-participant-dto");
 const add_new_book_dto_1 = require("./dto/add-new-book-dto");
 const add_new_link_dto_1 = require("./dto/add-new-link-dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const return_user_dto_1 = require("../users/dto/return-user.dto");
+const get_all_users_from_room_dto_1 = require("./dto/get-all-users-from-room.dto");
 let RoomsController = class RoomsController {
     constructor(roomService) {
         this.roomService = roomService;
@@ -60,6 +62,9 @@ let RoomsController = class RoomsController {
     }
     addNewLink(addNewLinkDto, req) {
         return this.roomService.addNewLink(addNewLinkDto, req.user);
+    }
+    getAllUsersFromRoom({ roomId }) {
+        return this.roomService.getAllUsersFromRoom(roomId);
     }
 };
 __decorate([
@@ -148,6 +153,14 @@ __decorate([
     __metadata("design:paramtypes", [add_new_link_dto_1.AddNewLinkDto, Object]),
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "addNewLink", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-all-users-from-room/:roomId'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_all_users_from_room_dto_1.GetAllUsersFromRoomDto]),
+    __metadata("design:returntype", Promise)
+], RoomsController.prototype, "getAllUsersFromRoom", null);
 RoomsController = __decorate([
     common_1.Controller('rooms'),
     __metadata("design:paramtypes", [rooms_service_1.RoomsService])

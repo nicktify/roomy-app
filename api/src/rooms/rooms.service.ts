@@ -14,6 +14,8 @@ import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
+import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
+import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 
 @Injectable()
 export class RoomsService {
@@ -378,6 +380,43 @@ export class RoomsService {
       return { msg: 'Link added successfully.' };
 
     } catch ( error ) {
+      throw error;
+    }
+  }
+
+  async getAllUsersFromRoom( roomId: string ): Promise<ReturnUserDto[] | { msg: string }> {
+    try {
+      const room = await this.roomModel.findById( roomId );
+
+      if (!room) return {msg: 'Room not exist.'};
+
+      const users = [];
+
+      for (let i = 0; i < room.owners.length; i ++) {
+        const user = await this.userModel.findById(room.owners[i]);
+        if (user) {
+          users.push(user);
+        }
+      }
+
+      for (let i = 0; i < room.participants.length; i ++) {
+        const user = await this.userModel.findById(room.participants[i]);
+        if (user) {
+          users.push(user);
+        }
+      }
+
+      users.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+
+        return 0;
+      })
+      
+      return users;
+
+    } catch (error) {
       throw error;
     }
   }

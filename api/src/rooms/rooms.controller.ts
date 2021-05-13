@@ -13,6 +13,8 @@ import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ReturnUserDto } from 'src/users/dto/return-user.dto';
+import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -72,13 +74,6 @@ export class RoomsController {
     return this.roomService.deleteParticipant( deleteParticipantDto, req.user );
   }
 
-  // @UseGuards( JwtAuthGuard )
-  // @Post('posts')
-  // @UseInterceptors(FileInterceptor('file'))
-  // addNewPost( @Body() addNewPostDto: AddNewPostDto, @Request() req, @UploadedFile() file: Express.Multer.File ): Promise<ReturnRoomDto | { msg: string }> {
-  //   return this.roomService.addNewPost( addNewPostDto, req.user, file )
-  // }
-
   @UseGuards( JwtAuthGuard )
   @Post('books')
   addNewBook( @Body() addNewBookDto: AddNewBookDto, @Request() req ): Promise<{ msg: string }> {
@@ -89,6 +84,12 @@ export class RoomsController {
   @Post('links')
   addNewLink( @Body() addNewLinkDto: AddNewLinkDto, @Request() req ): Promise<{ msg: string }> {
     return this.roomService.addNewLink( addNewLinkDto, req.user );
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Get('get-all-users-from-room/:roomId')
+  getAllUsersFromRoom(@Param() { roomId }: GetAllUsersFromRoomDto): Promise<ReturnUserDto[] | {msg: string}> {
+    return this.roomService.getAllUsersFromRoom( roomId )
   }
 
 }

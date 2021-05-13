@@ -10,6 +10,7 @@ import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
+import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
@@ -43,6 +44,9 @@ export declare class RoomsService {
         msg: string;
     }>;
     addNewLink({ id, ownerId, name, link }: AddNewLinkDto, authenticatedUser: any): Promise<{
+        msg: string;
+    }>;
+    getAllUsersFromRoom(roomId: string): Promise<ReturnUserDto[] | {
         msg: string;
     }>;
 }

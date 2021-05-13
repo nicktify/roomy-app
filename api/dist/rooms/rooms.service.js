@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("../users/schemas/user.schema");
+const return_user_dto_1 = require("../users/dto/return-user.dto");
 let RoomsService = class RoomsService {
     constructor(roomModel, userModel) {
         this.roomModel = roomModel;
@@ -332,6 +333,37 @@ let RoomsService = class RoomsService {
             room.links.push(newLink);
             room.save();
             return { msg: 'Link added successfully.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async getAllUsersFromRoom(roomId) {
+        try {
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Room not exist.' };
+            const users = [];
+            for (let i = 0; i < room.owners.length; i++) {
+                const user = await this.userModel.findById(room.owners[i]);
+                if (user) {
+                    users.push(user);
+                }
+            }
+            for (let i = 0; i < room.participants.length; i++) {
+                const user = await this.userModel.findById(room.participants[i]);
+                if (user) {
+                    users.push(user);
+                }
+            }
+            users.sort((a, b) => {
+                if (a.name.toLowerCase() > b.name.toLowerCase())
+                    return 1;
+                if (a.name.toLowerCase() < b.name.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            return users;
         }
         catch (error) {
             throw error;
