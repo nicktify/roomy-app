@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { Image, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -173,6 +172,17 @@ const RoomPostsScreen = () => {
 
   return (
     <SafeAreaView style={style.root}>
+      <View>
+        <Text style={{
+          fontSize: 22,
+          fontWeight: 'bold',
+          opacity: 0.8,
+          alignSelf: 'center',
+          marginTop: 10,
+        }}>
+          {selectedRoom?.name}
+        </Text>
+      </View>
           <FlatList
             data={selectedRoomPosts}
             renderItem={renderItem}

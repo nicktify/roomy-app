@@ -17,7 +17,7 @@ const TabBarRoomNavigation = ({ navigation }: any) => {
         <Text style={style.text}>FORUM</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('DatesRoomScreen') }
+        onPress={ () => navigation.navigate('PeopleRoomScreen') }
       >
         <Text style={style.text}>PEOPLE</Text>
       </TouchableOpacity>

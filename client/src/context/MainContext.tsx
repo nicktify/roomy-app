@@ -42,6 +42,7 @@ interface ContextProps {
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{msg: string}>;
   changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
   changeAbout: (about: string) => Promise<{msg: string}>;
+  getAllUsersFromRoom: (roomId: string) => Promise<User[]>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -449,6 +450,23 @@ const AppContext = ({ children }: any) => {
     })
   } 
 
+  const getAllUsersFromRoom = (roomId: string): Promise<User[]> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return {msg: 'Not authenticated.'};
+
+      axios.get(`${ API }/rooms/get-all-users-from-room/${ roomId }`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -473,6 +491,7 @@ const AppContext = ({ children }: any) => {
         changeProfileBackground,
         changeSocialMediaIcon,
         changeAbout,
+        getAllUsersFromRoom
       }}
     >
     {children}

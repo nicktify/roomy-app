@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React from 'react';
 import TabBarRoomNavigation from '../components/TabBarRoomNavigation';
 import ForumScreen from '../screens/room/ForumScreen';
-import DatesScreen from '../screens/room/DatesScreen';
+import PeopleScreen from '../screens/room/PeopleScreen';
 import RoomPostsScreen from '../screens/room/RoomPostsScreen';
 
 const Tab = createMaterialTopTabNavigator();
@@ -15,7 +15,7 @@ const InsideRoomNavigation = () => {
       >
     <Tab.Screen name="HomeRoomScreen" component={ RoomPostsScreen } />
     <Tab.Screen name="BooksRoomScreen" component={ ForumScreen } />
-    <Tab.Screen name="DatesRoomScreen" component={ DatesScreen } />
+    <Tab.Screen name="PeopleRoomScreen" component={ PeopleScreen } />
   </Tab.Navigator>
   );
 };
