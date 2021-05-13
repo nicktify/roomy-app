@@ -10,29 +10,28 @@ const style = StyleSheet.create({
   postContainer: {
     width: '100%',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 8,
   },
   postInnerContainer: {
-    borderRadius: 10,
+    borderRadius: 5,
     backgroundColor: 'white',
-    width: '90%',
+    width: '95%',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   postTopContainer: {
     height: 50,
-    marginTop: 10,
+    marginTop: 5,
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: 10,
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
   authorInfoContainer: {
     flexDirection: 'row',
@@ -53,11 +52,11 @@ const style = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   textContainer: {
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   addIcon: {
     position: 'absolute',
@@ -122,8 +121,8 @@ const style = StyleSheet.create({
     opacity: 0.8,
   },
   authorProfileImage: {
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     borderRadius: 50,
     marginRight: 10,
   },

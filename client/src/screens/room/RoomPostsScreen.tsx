@@ -75,18 +75,23 @@ const RoomPostsScreen = () => {
               }
               <View style={style.authorNameContainer}><Text style={style.authorNameText}>{item.authorName}</Text></View>
             </View>
-            { user?.id === item.authorId &&
-              <Icon
-                name='more-vert'
-                size={25}
-                onPress={() => {
-                  handlePostOption({id: item.id, 
-                                    body: item.body,
-                                    image: item.image?.url,
-                                    authorProfilePicture: item.authorProfilePicture, 
-                                    authorName: item.authorName })}}
-              />
-            }
+            <View
+              style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}
+            >
+              { user?.id === item.authorId &&
+                <Icon
+                  name='more-vert'
+                  size={25}
+                  onPress={() => {
+                    handlePostOption({id: item.id, 
+                                      body: item.body,
+                                      image: item.image?.url,
+                                      authorProfilePicture: item.authorProfilePicture, 
+                                      authorName: item.authorName })}}
+                />
+              }
+
+            </View>
           </View>
           <View style={style.textContainer}>
             <Text style={style.text}>{item.body.trim()}</Text>
