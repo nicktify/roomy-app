@@ -16,6 +16,7 @@ import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
+import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 
 @Injectable()
 export class RoomsService {
@@ -395,14 +396,34 @@ export class RoomsService {
       for (let i = 0; i < room.owners.length; i ++) {
         const user = await this.userModel.findById(room.owners[i]);
         if (user) {
-          users.push(user);
+          users.push({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            about: user.about,
+            ownedRooms: user.ownedRooms,
+            participantRooms: user.participantRooms,
+            profilePicture: user.profilePicture,
+            profileBackground: user.profileBackground,
+            socialMediaLinks: user.socialMediaLinks,
+          });
         }
       }
 
       for (let i = 0; i < room.participants.length; i ++) {
         const user = await this.userModel.findById(room.participants[i]);
         if (user) {
-          users.push(user);
+          users.push({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            about: user.about,
+            ownedRooms: user.ownedRooms,
+            participantRooms: user.participantRooms,
+            profilePicture: user.profilePicture,
+            profileBackground: user.profileBackground,
+            socialMediaLinks: user.socialMediaLinks,
+          });
         }
       }
 
@@ -415,6 +436,25 @@ export class RoomsService {
       })
       
       return users;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteUserFromRoom({ roomId, userId }: DeleteUserFromRoomDto): Promise<{msg: string}> {
+    try {
+      const user = await this.userModel.findById( userId );
+      if (!user) return {msg: 'User not exist.'}
+
+      const room = await this.roomModel.findById( roomId );
+      if (!room) return {msg: 'Room not exist.'}
+
+      room.owners = room.owners.filter(owner => owner !== userId)
+      room.participants = room.participants.filter(participant => participant !== userId)
+      room.save();
+
+      return {msg: 'User deleted from room.'};
 
     } catch (error) {
       throw error;

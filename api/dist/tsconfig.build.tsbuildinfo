@@ -2286,9 +2286,14 @@
         "signature": "14670849e55958db125501d7017056d02ab1ad65918b6ab94a8abe0f21771fd7",
         "affectsGlobalScope": false
       },
+      "../src/rooms/dto/delete-user-from-room.dto.ts": {
+        "version": "e5beeeda27dd4b7a2fc65556174732fd2b5b69e14f519ed164679d0333ee3d1b",
+        "signature": "dd88434d518e2437628227e1ac342b7ef8732531b2a3e9f1dac9585d39103a6a",
+        "affectsGlobalScope": false
+      },
       "../src/rooms/rooms.service.ts": {
-        "version": "d47d43f93fd16f477f6d93a85abde63b6ddf98bb6d3b0db58bafc2e0e9210956",
-        "signature": "ef12b513991bc8127bb862affdbba50373cf69d05c2657825d68ce58d07e72fd",
+        "version": "e6a9785f34b0c96a8b279fb8ac219cca911044d04115414bcc5fb616d00cdc0b",
+        "signature": "2acc6863693be81b5f327c2f48579eda14164d8855ce5b7774d487a1425d4f7d",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -2392,8 +2397,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.controller.ts": {
-        "version": "6d5c412efff5c2a3b432a161af63506ff5e035fa40017a27705523b666a1a2e5",
-        "signature": "fa0f060da9a51208ddbee6024620c66bcfae6e09485436be4147f847c1586f27",
+        "version": "bb8e5b1f96b64de5b1818c721963b3e041d92c37aca977f5f2ca1e69715fca03",
+        "signature": "bdc0ec0475ce8eb579d0037b43b9f3d3d77f6bc11f6fc644016e883a6b362796",
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {
@@ -5184,6 +5189,9 @@
       "../src/rooms/dto/delete-participant-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/rooms/dto/delete-user-from-room.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/rooms/dto/edit-room-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts",
         "../src/rooms/dto/create-room-dto.ts"
@@ -5204,6 +5212,7 @@
         "../src/rooms/dto/create-room-dto.ts",
         "../src/rooms/dto/delete-owner-dto.ts",
         "../src/rooms/dto/delete-participant-dto.ts",
+        "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
@@ -5229,6 +5238,7 @@
         "../src/rooms/dto/create-room-dto.ts",
         "../src/rooms/dto/delete-owner-dto.ts",
         "../src/rooms/dto/delete-participant-dto.ts",
+        "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
@@ -7375,6 +7385,7 @@
         "../src/rooms/dto/create-room-dto.ts",
         "../src/rooms/dto/delete-owner-dto.ts",
         "../src/rooms/dto/delete-participant-dto.ts",
+        "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
@@ -7390,6 +7401,7 @@
         "../src/rooms/dto/create-room-dto.ts",
         "../src/rooms/dto/delete-owner-dto.ts",
         "../src/rooms/dto/delete-participant-dto.ts",
+        "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/schemas/room.schema.ts",
@@ -8016,6 +8028,7 @@
       "../src/rooms/dto/create-room-dto.ts",
       "../src/rooms/dto/delete-owner-dto.ts",
       "../src/rooms/dto/delete-participant-dto.ts",
+      "../src/rooms/dto/delete-user-from-room.dto.ts",
       "../src/rooms/dto/edit-room-dto.ts",
       "../src/rooms/dto/get-all-users-from-room.dto.ts",
       "../src/rooms/dto/return-room-dto.ts",

@@ -347,13 +347,33 @@ let RoomsService = class RoomsService {
             for (let i = 0; i < room.owners.length; i++) {
                 const user = await this.userModel.findById(room.owners[i]);
                 if (user) {
-                    users.push(user);
+                    users.push({
+                        id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        about: user.about,
+                        ownedRooms: user.ownedRooms,
+                        participantRooms: user.participantRooms,
+                        profilePicture: user.profilePicture,
+                        profileBackground: user.profileBackground,
+                        socialMediaLinks: user.socialMediaLinks,
+                    });
                 }
             }
             for (let i = 0; i < room.participants.length; i++) {
                 const user = await this.userModel.findById(room.participants[i]);
                 if (user) {
-                    users.push(user);
+                    users.push({
+                        id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        about: user.about,
+                        ownedRooms: user.ownedRooms,
+                        participantRooms: user.participantRooms,
+                        profilePicture: user.profilePicture,
+                        profileBackground: user.profileBackground,
+                        socialMediaLinks: user.socialMediaLinks,
+                    });
                 }
             }
             users.sort((a, b) => {
@@ -364,6 +384,23 @@ let RoomsService = class RoomsService {
                 return 0;
             });
             return users;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteUserFromRoom({ roomId, userId }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist.' };
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Room not exist.' };
+            room.owners = room.owners.filter(owner => owner !== userId);
+            room.participants = room.participants.filter(participant => participant !== userId);
+            room.save();
+            return { msg: 'User deleted from room.' };
         }
         catch (error) {
             throw error;

@@ -15,6 +15,7 @@ import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
+import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -90,6 +91,12 @@ export class RoomsController {
   @Get('get-all-users-from-room/:roomId')
   getAllUsersFromRoom(@Param() { roomId }: GetAllUsersFromRoomDto): Promise<ReturnUserDto[] | {msg: string}> {
     return this.roomService.getAllUsersFromRoom( roomId )
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Delete('delete-user-from-room')
+  deleteUserFromRoom(@Body() deleteUserFromRoomDto: DeleteUserFromRoomDto): Promise<{msg: string}> {
+    return this.roomService.deleteUserFromRoom( deleteUserFromRoomDto );
   }
 
 }

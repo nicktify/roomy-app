@@ -10,6 +10,7 @@ import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
+import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 export declare class RoomsController {
     private readonly roomService;
     constructor(roomService: RoomsService);
@@ -50,6 +51,9 @@ export declare class RoomsController {
         msg: string;
     }>;
     getAllUsersFromRoom({ roomId }: GetAllUsersFromRoomDto): Promise<ReturnUserDto[] | {
+        msg: string;
+    }>;
+    deleteUserFromRoom(deleteUserFromRoomDto: DeleteUserFromRoomDto): Promise<{
         msg: string;
     }>;
 }

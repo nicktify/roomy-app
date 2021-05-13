@@ -11,6 +11,7 @@ import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
+import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
@@ -47,6 +48,9 @@ export declare class RoomsService {
         msg: string;
     }>;
     getAllUsersFromRoom(roomId: string): Promise<ReturnUserDto[] | {
+        msg: string;
+    }>;
+    deleteUserFromRoom({ roomId, userId }: DeleteUserFromRoomDto): Promise<{
         msg: string;
     }>;
 }
