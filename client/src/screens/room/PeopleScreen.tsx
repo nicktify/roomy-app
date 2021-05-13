@@ -12,75 +12,82 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const PeopleScreen = () => {
-  const { user, selectedRoom, getAllUsersFromRoom, handleDeleteUserFromRoom, makeUserOwnerOfRoom, makeUserParticipantOfRoom } = useContext( Context );
+  const { user, selectedRoom, getAllUsersFromRoom, handleDeleteUserFromRoom, makeUserOwnerOfRoom, makeUserParticipantOfRoom } = useContext(Context);
 
-  const [ allUsers, setAllUsers ] = useState<User[]>([]);
-  const [ showModalUserOption, setShowModalUserOption ] = useState(false);
-  const [ selectedUser, setSelectedUser ] = useState<User | null>(null)
-  const [ showModalConfirmationDelete, setShowModalConfirmationDelete ] = useState(false);
-  const [ confirmationDisabledButton, setConfirmationDisabledButton ] = useState(false);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [showModalUserOption, setShowModalUserOption] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showModalConfirmationDelete, setShowModalConfirmationDelete] = useState(false);
+  const [confirmationDisabledButton, setConfirmationDisabledButton] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [searchUsersResult, setSearchUsersResult] = useState<User[]>();
 
   useEffect(() => {
-    fetchAllUsersFromRoom()
-  }, [])
+    fetchAllUsersFromRoom();
+  }, []);
 
-  useEffect(() => {}, [selectedRoom]);
+  useEffect(() => { }, [selectedRoom]);
+
+  const onSearchChange = (value: string) => {
+    setSearchValue(value);
+    setSearchUsersResult(allUsers.filter(user => user.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())));
+  };
 
 
   const fetchAllUsersFromRoom = () => {
     selectedRoom && getAllUsersFromRoom(selectedRoom?.id)
-    .then((result) => {
-      setAllUsers(result);
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
+      .then((result) => {
+        setAllUsers(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   const handleDeleteUser = () => {
 
-    setConfirmationDisabledButton(true)
+    setConfirmationDisabledButton(true);
 
     selectedRoom && selectedUser && handleDeleteUserFromRoom(selectedRoom?.id, selectedUser.id)
-    .then(() => {
-      fetchAllUsersFromRoom();
-      setSelectedUser(null);
-      setShowModalConfirmationDelete(false);
-      setShowModalUserOption(false);
-      setConfirmationDisabledButton(false);
-    })
-    .catch(error => {
-      console.log(error);
-      setSelectedUser(null);
-      setShowModalConfirmationDelete(false);
-      setShowModalUserOption(false);
-      setConfirmationDisabledButton(false);
-    })
-  }
+      .then(() => {
+        fetchAllUsersFromRoom();
+        setSelectedUser(null);
+        setShowModalConfirmationDelete(false);
+        setShowModalUserOption(false);
+        setConfirmationDisabledButton(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setSelectedUser(null);
+        setShowModalConfirmationDelete(false);
+        setShowModalUserOption(false);
+        setConfirmationDisabledButton(false);
+      });
+  };
 
   const handleMakeUserOwner = () => {
     selectedUser && makeUserOwnerOfRoom(selectedUser.id)
-    .then(result => {
-      setShowModalUserOption(false);
-      console.log(result)
-    })
-    .catch(error => {
-      setShowModalUserOption(false);
-      console.log(error)
-    })
-  }
+      .then(result => {
+        setShowModalUserOption(false);
+        console.log(result);
+      })
+      .catch(error => {
+        setShowModalUserOption(false);
+        console.log(error);
+      });
+  };
 
   const handleMakeUserParticipant = () => {
     selectedUser && makeUserParticipantOfRoom(selectedUser.id)
-    .then(result => {
-      setShowModalUserOption(false);
-      console.log(result)
-    })
-    .catch(error => {
-      setShowModalUserOption(false);
-      console.log(error)
-    })
-  }
+      .then(result => {
+        setShowModalUserOption(false);
+        console.log(result);
+      })
+      .catch(error => {
+        setShowModalUserOption(false);
+        console.log(error);
+      });
+  };
 
   const renderItem = ({ item }: { item: User; }) => (
     <Pressable
@@ -105,24 +112,24 @@ const PeopleScreen = () => {
       >
         {
           item.profilePicture ?
-          <Image
-            style={{
-              borderRadius: 50,
-            }}
-            source={{
-              uri: item.profilePicture
-            }}
-            width={50}
-            height={50}
-          />
-          :
-          <Icon
-            name='account-circle'
-            size={50}
-            color={principalColor}
-          />
+            <Image
+              style={{
+                borderRadius: 50,
+              }}
+              source={{
+                uri: item.profilePicture
+              }}
+              width={50}
+              height={50}
+            />
+            :
+            <Icon
+              name='account-circle'
+              size={50}
+              color={principalColor}
+            />
         }
-      <Text style={{ fontWeight: 'bold', fontSize: 18, opacity: 0.8, marginHorizontal: 10, }}>{item.name}</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 18, opacity: 0.8, marginHorizontal: 10, }}>{item.name}</Text>
       </View>
       <View
         style={{
@@ -130,16 +137,16 @@ const PeopleScreen = () => {
         }}
       >
         {
-          selectedRoom && selectedRoom.owners.includes(item.id) && 
-          <Text style={{fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
+          selectedRoom && selectedRoom.owners.includes(item.id) &&
+          <Text style={{ fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
 
         }
-        { selectedRoom?.owners.includes(user?.id ? user.id : '') &&
-          <Icon 
+        {selectedRoom?.owners.includes(user?.id ? user.id : '') &&
+          <Icon
             name='more-vert'
             size={25}
             onPress={() => {
-              setShowModalUserOption(true)
+              setShowModalUserOption(true);
               setSelectedUser(item);
             }}
           />
@@ -147,7 +154,7 @@ const PeopleScreen = () => {
 
       </View>
     </Pressable>
-  )
+  );
 
 
 
@@ -170,36 +177,51 @@ const PeopleScreen = () => {
           paddingVertical: 15,
           marginTop: 15,
           flexDirection: 'row',
-          alignItems: 'center'
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
-        <TextInput
-          style={{
-            width: windowWidth * 0.8,
-            backgroundColor: '#f1f1f1f1',
-            borderRadius: 40,
-            color: 'black',
-            paddingHorizontal: 20,
-            borderColor: '#525252',
-            borderWidth: 0.2,
-            marginLeft: 10,
-          }}
-        />
+
         <View
-          style={{ width: windowWidth * 0.2 }}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
         >
           <Icon
             name="search"
             size={35}
-            style={{ alignSelf: 'center', opacity: 0.8 }}
+            style={{
+              opacity: 0.8,
+              marginRight: 5,
+            }}
           />
+
+          <TextInput
+            style={{
+              width: windowWidth * 0.8,
+              backgroundColor: '#f1f1f1f1',
+              borderRadius: 40,
+              paddingHorizontal: 20,
+              borderColor: '#525252',
+              borderWidth: 0.2,
+              marginLeft: 10,
+              flexDirection: 'row',
+              color: 'black',
+              fontSize: 18
+            }}
+            onChangeText={(searchValue) => onSearchChange(searchValue)}
+            value={searchValue}
+            defaultValue={searchValue}
+          />
+
         </View>
       </View>
       <View
         style={{ width: '100%', paddingHorizontal: 10, }}
       >
         <FlatList
-          data={allUsers}
+          data={searchValue.length > 0 ? searchUsersResult : allUsers}
           renderItem={renderItem}
           keyExtractor={item => `${item.id}${item.name}`}
           ListFooterComponent={<View style={{ width: '100%', height: 60 }}></View>}
@@ -209,97 +231,97 @@ const PeopleScreen = () => {
 
       {/* User option modal */}
       <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showModalUserOption}
-          onRequestClose={() => {
-            setShowModalUserOption(!showModalUserOption);
-          }}
+        animationType="slide"
+        transparent={true}
+        visible={showModalUserOption}
+        onRequestClose={() => {
+          setShowModalUserOption(!showModalUserOption);
+        }}
+      >
+        <View
+          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
         >
-          <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
-          >
-          </View>
-            <View style={modalStyles.centeredView}>
-              <View style={modalStyles.modalView}>
-                <View
-                  style={{
-                    width: 280,
-                    backgroundColor: 'white',
-                    padding: 10,
-                    borderRadius: 10,
-                    shadowColor: "#000",
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    shadowOpacity: 0.23,
-                    shadowRadius: 2.62,
-                    elevation: 4,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 20,
-                  }}
-                >
-                  <View
-                    style={{
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    {
-                        selectedUser?.profilePicture ?
-                        <Image
-                          style={{
-                            borderRadius: 50,
-                          }}
-                          source={{
-                            uri: selectedUser.profilePicture
-                          }}
-                          width={40}
-                          height={40}
-                        />
-                        :
-                        <Icon
-                          name='account-circle'
-                          size={40}
-                          color={principalColor}
-                        />
-                      }
-
-                  </View>
-                  <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8}}>{selectedUser?.name}</Text>
-                </View>
+        </View>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <View
+              style={{
+                width: 280,
+                backgroundColor: 'white',
+                padding: 10,
+                borderRadius: 10,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.23,
+                shadowRadius: 2.62,
+                elevation: 4,
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 20,
+              }}
+            >
+              <View
+                style={{
+                  marginHorizontal: 10,
+                }}
+              >
                 {
-                  selectedUser && selectedRoom && selectedRoom.participants.includes(selectedUser.id) ?
-                    <Pressable
-                      style={modalStyles.button}
-                      onPress={handleMakeUserOwner}
-                    >
-                      <Text style={modalStyles.textStyle}>Make owner</Text>
-                    </Pressable>
-                    : 
-                    <Pressable
-                      style={modalStyles.button}
-                      onPress={handleMakeUserParticipant}
-                    >
-                      <Text style={modalStyles.textStyle}>Remove as owner</Text>
-                    </Pressable>
+                  selectedUser?.profilePicture ?
+                    <Image
+                      style={{
+                        borderRadius: 50,
+                      }}
+                      source={{
+                        uri: selectedUser.profilePicture
+                      }}
+                      width={40}
+                      height={40}
+                    />
+                    :
+                    <Icon
+                      name='account-circle'
+                      size={40}
+                      color={principalColor}
+                    />
                 }
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={() => setShowModalConfirmationDelete(true)}
-                >
-                  <Text style={modalStyles.textStyle}>Delete user from room</Text>
-                </Pressable>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={() => setShowModalUserOption(!showModalUserOption)}
-                >
-                  <Text style={modalStyles.textStyle}>Cancel</Text>
-                </Pressable>
+
               </View>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8 }}>{selectedUser?.name}</Text>
             </View>
-            <Modal
+            {
+              selectedUser && selectedRoom && selectedRoom.participants.includes(selectedUser.id) ?
+                <Pressable
+                  style={modalStyles.button}
+                  onPress={handleMakeUserOwner}
+                >
+                  <Text style={modalStyles.textStyle}>Make owner</Text>
+                </Pressable>
+                :
+                <Pressable
+                  style={modalStyles.button}
+                  onPress={handleMakeUserParticipant}
+                >
+                  <Text style={modalStyles.textStyle}>Remove as owner</Text>
+                </Pressable>
+            }
+            <Pressable
+              style={modalStyles.button}
+              onPress={() => setShowModalConfirmationDelete(true)}
+            >
+              <Text style={modalStyles.textStyle}>Delete user from room</Text>
+            </Pressable>
+            <Pressable
+              style={modalStyles.button}
+              onPress={() => setShowModalUserOption(!showModalUserOption)}
+            >
+              <Text style={modalStyles.textStyle}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Modal
           animationType="slide"
           transparent={true}
           visible={showModalConfirmationDelete}
@@ -308,50 +330,50 @@ const PeopleScreen = () => {
           }}
         >
           <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
+            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
           >
           </View>
-            <View style={modalStyles.centeredView}>
-              <View style={modalStyles.modalView}>
+          <View style={modalStyles.centeredView}>
+            <View style={modalStyles.modalView}>
 
-                <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8}}>Are you sure you want to delete the user from this room?</Text>
-                <Pressable
-                  style={{
-                    width: 200,
-                    borderRadius: 20,
-                    padding: 10,
-                    margin: 10,
-                    backgroundColor: 'red',
-                    shadowColor: "#000",
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                    opacity: confirmationDisabledButton ? 0.5 : 1
-                  }}
-                  onPress={handleDeleteUser}
-                >
-                  <Text style={{
-                        color: 'white',
-                        opacity: 0.9,
-                        fontWeight: "bold",
-                        textAlign: "center",
-                  }}>Yes, delete</Text>
-                </Pressable>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={() => setShowModalConfirmationDelete(!showModalConfirmationDelete)}
-                >
-                  <Text style={modalStyles.textStyle}>Cancel</Text>
-                </Pressable>
-              </View>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8 }}>Are you sure you want to delete the user from this room?</Text>
+              <Pressable
+                style={{
+                  width: 200,
+                  borderRadius: 20,
+                  padding: 10,
+                  margin: 10,
+                  backgroundColor: 'red',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                  opacity: confirmationDisabledButton ? 0.5 : 1
+                }}
+                onPress={handleDeleteUser}
+              >
+                <Text style={{
+                  color: 'white',
+                  opacity: 0.9,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}>Yes, delete</Text>
+              </Pressable>
+              <Pressable
+                style={modalStyles.button}
+                onPress={() => setShowModalConfirmationDelete(!showModalConfirmationDelete)}
+              >
+                <Text style={modalStyles.textStyle}>Cancel</Text>
+              </Pressable>
             </View>
+          </View>
 
         </Modal>
-        </Modal>
+      </Modal>
     </View>
   );
 };
