@@ -7,10 +7,10 @@ import styles from '../../styles/components/room';
 
 const Room = ( { name, id, navigation, setModalRoomOptions, setSelectedRoomId }: { name: string, id: string, navigation: any, setModalRoomOptions: any, setSelectedRoomId: any }) => {
 
-  const { getCurrentRoomInformation } = useContext( Context );
+  const { getCurrentRoomPosts } = useContext( Context );
 
   const handlePress = () => {
-    getCurrentRoomInformation(id)
+    getCurrentRoomPosts(id)
     .then(() => {
       navigation.navigate('Room')
     })

@@ -34,7 +34,7 @@ interface ContextProps {
   logout: () => void;
   createRoom: ( name: string, password: string ) => Promise<{msg: string}>;
   updateProfilePicture: (data: ImagePickerResponse) => Promise<any>;
-  getCurrentRoomInformation: ( id: string ) => Promise<any>;
+  getCurrentRoomPosts: ( id: string ) => Promise<any>;
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
   deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
@@ -44,6 +44,9 @@ interface ContextProps {
   changeAbout: (about: string) => Promise<{msg: string}>;
   getAllUsersFromRoom: (roomId: string) => Promise<User[]>;
   handleDeleteUserFromRoom: (roomId: string, userId: string) => Promise<{msg: string}>;
+  makeUserOwnerOfRoom: (userId: string) => Promise<{msg: string}>; 
+  makeUserParticipantOfRoom: (userId: string) => Promise<{msg: string}>;
+  getRoomById: () => Promise<any>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -227,7 +230,7 @@ const AppContext = ({ children }: any) => {
     })
   }
 
-  const getCurrentRoomInformation = async (id: string | undefined): Promise<any> => {
+  const getCurrentRoomPosts = async (id: string | undefined): Promise<any> => {
 
     if (!id) return;
     
@@ -290,7 +293,7 @@ const AppContext = ({ children }: any) => {
           )
           .then((response) => {
             validateToken();
-            getCurrentRoomInformation(state.selectedRoom?.id);
+            getCurrentRoomPosts(state.selectedRoom?.id);
             resolve(response.data)
           })
           .catch(error => {
@@ -332,7 +335,7 @@ const AppContext = ({ children }: any) => {
           return state?.user && getRooms(state?.user);
         })
         .then(() => {
-          getCurrentRoomInformation(state.selectedRoom?.id);
+          getCurrentRoomPosts(state.selectedRoom?.id);
           resolve({ msg: 'Post delted' });
         })
         .catch(error => {
@@ -494,6 +497,69 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const makeUserOwnerOfRoom = (userId: string): Promise<{msg: string}> => {
+    return new Promise( async (resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return {msg: 'Not authenticated.'};
+
+      if(!state.selectedRoom || !userId) return {msg: 'Missing information.'}
+      axios.put(`${ API }/rooms/make-user-owner-of-room`, {
+        userId,
+        roomId: state.selectedRoom.id,
+      }, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        getRoomById()
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
+  const makeUserParticipantOfRoom = (userId: string): Promise<{msg: string}> => {
+    return new Promise( async (resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return {msg: 'Not authenticated.'};
+
+      if(!state.selectedRoom || !userId) return {msg: 'Missing information.'}
+      axios.put(`${ API }/rooms/make-user-participant-of-room`, {
+        userId,
+        roomId: state.selectedRoom.id,
+      }, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        getRoomById().then(() => resolve(response.data))
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
+  const getRoomById = (): Promise<{msg: string}> => {
+    return new Promise(async (resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+
+      if (!token || !state.user) return {msg: 'Not authenticated.'}
+      if (!state.selectedRoom) return {msg: 'Missing information'}
+
+      axios.get(`${ API }/rooms/user-room/${ state.selectedRoom.id }`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        dispatch({ type: 'SET_SELECTED_ROOM', payload: response.data })
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -510,7 +576,7 @@ const AppContext = ({ children }: any) => {
         logout,
         createRoom,
         updateProfilePicture,
-        getCurrentRoomInformation,
+        getCurrentRoomPosts,
         addNewPost,
         getUserById,
         deletePost,
@@ -519,7 +585,10 @@ const AppContext = ({ children }: any) => {
         changeSocialMediaIcon,
         changeAbout,
         getAllUsersFromRoom,
-        handleDeleteUserFromRoom
+        handleDeleteUserFromRoom,
+        makeUserOwnerOfRoom,
+        makeUserParticipantOfRoom,
+        getRoomById,
       }}
     >
     {children}

@@ -12,17 +12,20 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const PeopleScreen = () => {
-  const { user, selectedRoom, getAllUsersFromRoom, handleDeleteUserFromRoom } = useContext( Context );
+  const { user, selectedRoom, getAllUsersFromRoom, handleDeleteUserFromRoom, makeUserOwnerOfRoom, makeUserParticipantOfRoom } = useContext( Context );
 
   const [ allUsers, setAllUsers ] = useState<User[]>([]);
   const [ showModalUserOption, setShowModalUserOption ] = useState(false);
   const [ selectedUser, setSelectedUser ] = useState<User | null>(null)
   const [ showModalConfirmationDelete, setShowModalConfirmationDelete ] = useState(false);
-  const [ confirmationDisabledButton, setConfirmationDisabledButton ] = useState(false)
+  const [ confirmationDisabledButton, setConfirmationDisabledButton ] = useState(false);
 
   useEffect(() => {
     fetchAllUsersFromRoom()
   }, [])
+
+  useEffect(() => {}, [selectedRoom]);
+
 
   const fetchAllUsersFromRoom = () => {
     selectedRoom && getAllUsersFromRoom(selectedRoom?.id)
@@ -33,8 +36,6 @@ const PeopleScreen = () => {
       console.log(error)
     })
   }
-
-  useEffect(() => {}, [])
 
   const handleDeleteUser = () => {
 
@@ -58,7 +59,27 @@ const PeopleScreen = () => {
   }
 
   const handleMakeUserOwner = () => {
+    selectedUser && makeUserOwnerOfRoom(selectedUser.id)
+    .then(result => {
+      setShowModalUserOption(false);
+      console.log(result)
+    })
+    .catch(error => {
+      setShowModalUserOption(false);
+      console.log(error)
+    })
+  }
 
+  const handleMakeUserParticipant = () => {
+    selectedUser && makeUserParticipantOfRoom(selectedUser.id)
+    .then(result => {
+      setShowModalUserOption(false);
+      console.log(result)
+    })
+    .catch(error => {
+      setShowModalUserOption(false);
+      console.log(error)
+    })
   }
 
   const renderItem = ({ item }: { item: User; }) => (
@@ -103,16 +124,28 @@ const PeopleScreen = () => {
         }
       <Text style={{ fontWeight: 'bold', fontSize: 18, opacity: 0.8, marginHorizontal: 10, }}>{item.name}</Text>
       </View>
-      { selectedRoom?.owners.includes(user?.id ? user.id : '') &&
-        <Icon 
-          name='more-vert'
-          size={25}
-          onPress={() => {
-            setShowModalUserOption(true)
-            setSelectedUser(item);
-          }}
-        />
-      }
+      <View
+        style={{
+          flexDirection: 'row'
+        }}
+      >
+        {
+          selectedRoom && selectedRoom.owners.includes(item.id) && 
+          <Text style={{fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
+
+        }
+        { selectedRoom?.owners.includes(user?.id ? user.id : '') &&
+          <Icon 
+            name='more-vert'
+            size={25}
+            onPress={() => {
+              setShowModalUserOption(true)
+              setSelectedUser(item);
+            }}
+          />
+        }
+
+      </View>
     </Pressable>
   )
 
@@ -236,12 +269,22 @@ const PeopleScreen = () => {
                   </View>
                   <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8}}>{selectedUser?.name}</Text>
                 </View>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={handleMakeUserOwner}
-                >
-                  <Text style={modalStyles.textStyle}>Make administrator</Text>
-                </Pressable>
+                {
+                  selectedUser && selectedRoom && selectedRoom.participants.includes(selectedUser.id) ?
+                    <Pressable
+                      style={modalStyles.button}
+                      onPress={handleMakeUserOwner}
+                    >
+                      <Text style={modalStyles.textStyle}>Make owner</Text>
+                    </Pressable>
+                    : 
+                    <Pressable
+                      style={modalStyles.button}
+                      onPress={handleMakeUserParticipant}
+                    >
+                      <Text style={modalStyles.textStyle}>Remove as owner</Text>
+                    </Pressable>
+                }
                 <Pressable
                   style={modalStyles.button}
                   onPress={() => setShowModalConfirmationDelete(true)}
