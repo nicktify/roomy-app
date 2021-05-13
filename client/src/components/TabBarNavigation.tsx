@@ -11,7 +11,7 @@ const TabBarNavigation = ({ navigation }: any) => {
         onPress={ () => navigation.navigate('Home') }
       >
         <Icon
-          style={style.navigationBottomIcon}
+          style={[style.navigationBottomIcon, {maxWidth: 25}]}
           name="home"
           color="black"
           size={25}
@@ -22,17 +22,7 @@ const TabBarNavigation = ({ navigation }: any) => {
       >
         <Icon 
           style={[style.navigationBottomIcon, {maxWidth: 25}]}
-          name="add"
-          color="black"
-          size={30}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={ () => navigation.navigate('Profile') }
-      >
-        <Icon 
-          style={style.navigationBottomIcon}
-          name="person"
+          name="add-circle"
           color="black"
           size={25}
         />
@@ -41,10 +31,20 @@ const TabBarNavigation = ({ navigation }: any) => {
         onPress={ () => navigation.navigate('Notifications') }
       >
         <Icon 
-          style={style.navigationBottomIcon}
+          style={[style.navigationBottomIcon, {maxWidth: 25}]}
           name="notifications"
           color="black"
           size={25}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={ () => navigation.navigate('Profile') }
+      >
+        <Icon 
+          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+          name="person"
+          color="black"
+          size={28}
         />
       </TouchableOpacity>
   </View>

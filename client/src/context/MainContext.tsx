@@ -41,6 +41,7 @@ interface ContextProps {
   deleteRoom: (id: string) => Promise<{msg: string}>;
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{msg: string}>;
   changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
+  changeAbout: (about: string) => Promise<{msg: string}>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -75,19 +76,18 @@ const AppContext = ({ children }: any) => {
   }
 
 
-  const singUp = ({ name, email, password, role = '' }: RegisterData): Promise<{msg: string}> => {
+  const singUp = ({ name, email, password }: RegisterData): Promise<{msg: string}> => {
     return new Promise((resolve, reject) => {
       axios.post(`${ API }/users`, {
           name,
           email,
           password,
-          role,
         })
         .then(response => {
           resolve({ msg: response.data.msg });
         })
         .catch(error => {
-          console.log(error);
+          console.log(error)
           reject({ msg: 'Register failure.' });
         })
 
@@ -428,6 +428,27 @@ const AppContext = ({ children }: any) => {
       })
   }
 
+  const changeAbout = (about: string): Promise<{msg: string}> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return {msg: 'Not authenticated.'};
+
+      axios.put(`${ API }/users/change-about`, {
+        about,
+        userId: state.user.id
+      }, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        validateToken();
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  } 
+
   
   return (
     <Context.Provider value={{
@@ -450,7 +471,8 @@ const AppContext = ({ children }: any) => {
         deletePost,
         deleteRoom,
         changeProfileBackground,
-        changeSocialMediaIcon
+        changeSocialMediaIcon,
+        changeAbout,
       }}
     >
     {children}

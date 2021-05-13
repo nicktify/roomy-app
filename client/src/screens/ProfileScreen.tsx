@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, Dimensions, Image, Modal, Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SocialMediaIcon from '../components/SocialMediaIcon';
 import SocialMediaIcons from '../components/SocialMediaIcons';
@@ -15,7 +16,7 @@ import { style as modalStyles } from '../styles/components/modal';
 
 const ProfileScreen = () => {
 
-  const { user, updateProfilePicture, changeProfileBackground, changeSocialMediaIcon } = useContext( Context );
+  const { user, updateProfilePicture, changeProfileBackground, changeSocialMediaIcon, changeAbout } = useContext( Context );
   
   const [ modalVisible, setModalVisible ] = useState(false);
   const [ pictureType, setPictureType ] = useState('');
@@ -23,8 +24,36 @@ const ProfileScreen = () => {
   const [ showModalChangeSocialMedia, setShowModalSocialMedia ] = useState(false);
   const [ socialMediaLinkTextInputValue, setSocialMediaLinkTextInputValue ] = useState<string | null>();
   const [ link, setLink ] = useState<string>('');
+  const [ showTextInputChangeAbout, setShowTextInputChangeAbout ] = useState(false);
+  const [ about, setAbout ] = useState('');
+  const [ saveAboutDisabled, setSaveAboutDisabled ] = useState(false)
   
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    if (user && user.about.length > 0) {
+      setAbout(user.about);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.about.length > 0) {
+      setAbout(user.about);
+    }
+  }, [])
+
+  const handleChangeAbout = () => {
+    if (about.length > 0) {
+      setSaveAboutDisabled(true);
+      changeAbout(about)
+      .then(() => {
+        setSaveAboutDisabled(false);
+        setShowTextInputChangeAbout(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setSaveAboutDisabled(false)
+      })
+    }
+  }
 
   const handleChangeSocialLink = () => {
     if (link.length > 0) {
@@ -79,9 +108,7 @@ const ProfileScreen = () => {
 
       if (pictureType === 'backgroundPicture') {
         changeProfileBackground(resp)
-        .then(result => {
-          console.log(result)
-        })
+        // .then()
         .catch(error => {
           console.log(error)
         })
@@ -108,9 +135,8 @@ const ProfileScreen = () => {
 
       if (pictureType === 'backgroundPicture') {
         changeProfileBackground(resp)
-        .then(result => {
-          console.log(result)
-        })
+        // .then()
+        .catch(error => console.log(error));
       }
 
       setModalVisible(false);
@@ -124,6 +150,10 @@ const ProfileScreen = () => {
   }
 
   return (
+    <KeyboardAwareScrollView>
+
+
+
     <View style={{flex: 1}}>
       <View style={{
         width: windowWidth,
@@ -173,7 +203,7 @@ const ProfileScreen = () => {
                 width: 100,
                 borderRadius: 50,
               }}
-              onPress={() => handleModal('backgroundPicture')}
+              onPress={() => handleModal('profilePicture')}
             >
               <Image
                 source={{
@@ -188,8 +218,17 @@ const ProfileScreen = () => {
               />
             </Pressable>
             :
-            <Pressable>
-              <Icon
+            <Pressable
+              style={{
+                alignSelf: 'center',
+                height: 100,
+                width: 100,
+                borderRadius: 50,
+                backgroundColor: 'black'
+              }}
+              onPress={() => handleModal('profilePicture')}
+            >
+              {/* <Icon
                 style={{
                   alignSelf: 'center',
                   height: 100,
@@ -197,10 +236,9 @@ const ProfileScreen = () => {
                   borderRadius: 50,
                 }}
                 name="account-circle"
-                size={80}
-                color={principalColor}
-                onPress={() => setModalVisible(true)}
-              />
+                size={100}
+                color='black'
+              /> */}
             </Pressable>
         }
         </View>
@@ -223,9 +261,150 @@ const ProfileScreen = () => {
             borderTopWidth: 1,
             width: '90%',
             paddingTop: 10,
+            paddingBottom: 10,
           }}
         >
-          <Text>hola como estas mi nombre es nicolas y soy un full stack developer</Text>
+          <Text style={{ width: '100%', textAlign: 'center', fontSize: 20, fontWeight: 'bold', opacity: 0.8, marginBottom: 10, }}>About</Text>
+          {
+            user && user.about.length > 0 && showTextInputChangeAbout === false ?
+            <View
+              // style={{backgroundColor: 'red'}}
+            >
+              <Pressable
+                onPress={() => setShowTextInputChangeAbout(true)}
+                // style={{backgroundColor: 'red'}}
+              >
+                <Text style={{fontSize: 16}}>{user.about}</Text>
+              </Pressable>
+              <Pressable
+                style={{
+                  width: 120,
+                  height: 50,
+                  justifyContent: 'center',
+                  marginTop: 30,
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: 5,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.22,
+                  shadowRadius: 2.22,
+                  elevation: 3,
+                  // padding: 20
+                }}
+                onPress={() => setShowTextInputChangeAbout(true)}
+              >
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>Edit about</Text>
+              </Pressable>
+
+            </View>
+            :
+            !showTextInputChangeAbout ?
+            <Pressable
+              style={{
+                width: 80,
+                marginTop: 30,
+                alignItems: 'center',
+                alignSelf: 'center',
+                backgroundColor: 'white',
+                borderRadius: 5,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.22,
+                shadowRadius: 2.22,
+                elevation: 3,
+              }}
+              onPress={() => setShowTextInputChangeAbout(true)}
+            >
+              <Icon 
+                name='add'
+                size={40}
+              /> 
+            </Pressable>
+            : 
+            <View
+              style={{
+              }}
+            >
+              <TextInput
+                style={{
+                  width: '100%',
+                  color: 'black',
+                  fontSize: 16,
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  borderColor: 'black'
+                }}
+                onChangeText={(about) => setAbout(about)}
+                value={about}
+                defaultValue=""
+                multiline
+              />
+              <View
+                style={{flexDirection: 'row', justifyContent: 'center'}}
+              >
+
+                <Pressable
+                  style={{
+                    backgroundColor: principalColor,
+                    borderRadius: 5,
+                    width: 100,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 1,
+                    },
+                    shadowOpacity: 0.22,
+                    shadowRadius: 2.22,
+                    elevation: 3,
+                    marginHorizontal: 20,
+                    marginBottom: 50,
+                    opacity: saveAboutDisabled ? 0.5 : 1
+                  }}
+                  onPress={handleChangeAbout}
+                >
+                  <Text style={{color: 'white', fontSize: 20}}>Save</Text>
+                </Pressable>
+                <Pressable
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: 5,
+                    width: 100,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 1,
+                    },
+                    shadowOpacity: 0.22,
+                    shadowRadius: 2.22,
+                    elevation: 3,
+                    marginHorizontal: 20,
+                    marginBottom: 50,
+                  }}
+                  onPress={() => setShowTextInputChangeAbout(false)}
+                >
+                  <Text style={{color: 'black', fontSize: 20}}>Cancel</Text>
+                </Pressable>
+              </View>
+            </View>
+          }
         </View>
       </View>
 
@@ -286,6 +465,7 @@ const ProfileScreen = () => {
                 <SocialMediaIcon name={selectedSocialMediaIcon} />
                 <TextInput 
                   style={{
+                    color: 'black',
                     backgroundColor: '#f1f1f1f1',
                     width: windowWidth * 0.75,
                     borderRadius: 20,
@@ -327,6 +507,7 @@ const ProfileScreen = () => {
 
         </Modal>
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 

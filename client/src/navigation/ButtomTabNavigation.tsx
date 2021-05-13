@@ -30,7 +30,7 @@ export const CreateRoomTabNavigation = () => {
 export const ProfileTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Notifications" component={ ProfileScreen } />
+      <Tab.Screen name="Profile" component={ ProfileScreen } />
     </Tab.Navigator>
   );
 }
@@ -38,7 +38,7 @@ export const ProfileTabNavigation = () => {
 export const NotificationsTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Search" component={ NotificationsScreen } />
+      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
     </Tab.Navigator>
   );
 }

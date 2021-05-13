@@ -7,7 +7,7 @@ export class User {
   name: string;
   ownedRooms: [string];
   participantRooms: [string];
-  role: string;
+  about: string;
   profilePicture: string | null;
   profileBackground: string | null;
   socialMediaLinks: {
@@ -37,7 +37,6 @@ export class RegisterData {
   email: string;
   name: string;
   password: string;
-  role: string;
 }
 
 export default InitialState;
