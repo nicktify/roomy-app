@@ -53,4 +53,16 @@ export declare class RoomsService {
     deleteUserFromRoom({ roomId, userId }: DeleteUserFromRoomDto): Promise<{
         msg: string;
     }>;
+    makeUserOwner({ userId, roomId }: {
+        userId: any;
+        roomId: any;
+    }): Promise<{
+        msg: string;
+    }>;
+    makeUserParticipant({ userId, roomId }: {
+        userId: any;
+        roomId: any;
+    }): Promise<{
+        msg: string;
+    }>;
 }

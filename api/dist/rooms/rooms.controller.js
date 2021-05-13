@@ -27,6 +27,7 @@ const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const return_user_dto_1 = require("../users/dto/return-user.dto");
 const get_all_users_from_room_dto_1 = require("./dto/get-all-users-from-room.dto");
 const delete_user_from_room_dto_1 = require("./dto/delete-user-from-room.dto");
+const make_user_participant_or_owner_dto_1 = require("./dto/make-user-participant-or-owner.dto");
 let RoomsController = class RoomsController {
     constructor(roomService) {
         this.roomService = roomService;
@@ -69,6 +70,12 @@ let RoomsController = class RoomsController {
     }
     deleteUserFromRoom(deleteUserFromRoomDto) {
         return this.roomService.deleteUserFromRoom(deleteUserFromRoomDto);
+    }
+    makeUserOwner(makeUserOwnerOfRoomDto) {
+        return this.roomService.makeUserOwner(makeUserOwnerOfRoomDto);
+    }
+    makeUserParticipant(makeUserParticipantOfRoomDto) {
+        return this.roomService.makeUserParticipant(makeUserParticipantOfRoomDto);
     }
 };
 __decorate([
@@ -173,6 +180,22 @@ __decorate([
     __metadata("design:paramtypes", [delete_user_from_room_dto_1.DeleteUserFromRoomDto]),
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "deleteUserFromRoom", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('make-user-owner-of-room'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [make_user_participant_or_owner_dto_1.MakeUserParticipantOrOwnerDto]),
+    __metadata("design:returntype", Promise)
+], RoomsController.prototype, "makeUserOwner", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('make-user-participant-of-room'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [make_user_participant_or_owner_dto_1.MakeUserParticipantOrOwnerDto]),
+    __metadata("design:returntype", Promise)
+], RoomsController.prototype, "makeUserParticipant", null);
 RoomsController = __decorate([
     common_1.Controller('rooms'),
     __metadata("design:paramtypes", [rooms_service_1.RoomsService])

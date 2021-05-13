@@ -461,4 +461,54 @@ export class RoomsService {
     }
   }
 
+
+  async makeUserOwner({ userId, roomId }): Promise<{ msg: string }> {
+    try {
+      const user = await this.userModel.findById( userId );
+      if(!user) return {msg: 'User not exist.'}
+      const room = await this.roomModel.findById( roomId );
+      if (!room) return {msg: 'Room not exist'};
+
+      if (!room.owners.includes(userId)) {
+        room.owners.push(userId);
+      }
+      room.participants = room.participants.filter(participant => participant !== userId);
+      room.save();
+      
+      if (!user.ownedRooms.includes(roomId)) {
+        user.ownedRooms.push(roomId);
+      }
+      user.participantRooms = user.participantRooms.filter(room => room !== roomId);
+      user.save();
+
+      return {msg: 'User now is owner of the room'}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async makeUserParticipant({ userId, roomId }): Promise<{msg: string}> {
+    try {
+      const user = await this.userModel.findById( userId );
+      if(!user) return {msg: 'User not exist.'}
+      const room = await this.roomModel.findById( roomId );
+      if (!room) return {msg: 'Room not exist'};
+
+      if (!room.participants.includes(userId)) {
+        room.participants.push(userId);
+      }
+      room.owners = room.owners.filter(owner => owner !== userId);
+      room.save();
+
+      if (!user.participantRooms.includes(roomId)) {
+        user.participantRooms.push(roomId);
+      }
+      user.ownedRooms = user.ownedRooms.filter(room => room !== roomId);
+      user.save();
+
+      return {msg: 'User now is participant of the room.'}
+    } catch (error) {
+      throw error;
+    }
+  }
 }

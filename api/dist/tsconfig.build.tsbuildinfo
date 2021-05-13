@@ -2292,8 +2292,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.service.ts": {
-        "version": "e6a9785f34b0c96a8b279fb8ac219cca911044d04115414bcc5fb616d00cdc0b",
-        "signature": "2acc6863693be81b5f327c2f48579eda14164d8855ce5b7774d487a1425d4f7d",
+        "version": "9bfb87477dbf30fc13dd0ab0559ba05112b975a427c03532b67e4e86b7922d1b",
+        "signature": "8ac92d3a5d8799835ed0ef5cdeda3e24003ebb95ce671d71e9c5e4cae86bf158",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -2396,9 +2396,14 @@
         "signature": "e9629b89f6cd33a040577695d89edf882e66287d30c87121f5fc07f404decd25",
         "affectsGlobalScope": false
       },
+      "../src/rooms/dto/make-user-participant-or-owner.dto.ts": {
+        "version": "3bde33d16a63c9bf323261a66204ddf5597e127c1616a0d129138899f18c3f3d",
+        "signature": "ec69a5986617373f25921f7f63ecd5b479836707274039944f6ac933185f7e02",
+        "affectsGlobalScope": false
+      },
       "../src/rooms/rooms.controller.ts": {
-        "version": "bb8e5b1f96b64de5b1818c721963b3e041d92c37aca977f5f2ca1e69715fca03",
-        "signature": "bdc0ec0475ce8eb579d0037b43b9f3d3d77f6bc11f6fc644016e883a6b362796",
+        "version": "feb3b2beb74edfada2074b30845a0dda50c823aa076f129a59dd2712a37e658c",
+        "signature": "b59ae8c06daf0c3439e2f493c7bc489950bd01048aa1c88158e2f76580f8c71a",
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {
@@ -5199,6 +5204,9 @@
       "../src/rooms/dto/get-all-users-from-room.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/rooms/dto/make-user-participant-or-owner.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/rooms/dto/return-room-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5215,6 +5223,7 @@
         "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
+        "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/rooms.service.ts",
         "../src/users/dto/return-user.dto.ts"
@@ -7388,6 +7397,7 @@
         "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
+        "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/rooms.service.ts",
         "../src/users/dto/return-user.dto.ts"
@@ -8031,6 +8041,7 @@
       "../src/rooms/dto/delete-user-from-room.dto.ts",
       "../src/rooms/dto/edit-room-dto.ts",
       "../src/rooms/dto/get-all-users-from-room.dto.ts",
+      "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
       "../src/rooms/dto/return-room-dto.ts",
       "../src/rooms/interfaces/room-interface.ts",
       "../src/rooms/rooms.controller.ts",
