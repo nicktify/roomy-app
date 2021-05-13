@@ -414,7 +414,7 @@ export class UsersService {
       return {msg: 'About cleaned'};
 
     } catch (error) {
-      
+      throw error;
     }
   }
 

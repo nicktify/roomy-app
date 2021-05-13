@@ -16,6 +16,8 @@ import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-owner.dto';
+import { User } from 'src/users/interfaces/user.interface';
+import { StringDto } from './dto/string.dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -110,5 +112,10 @@ export class RoomsController {
   makeUserParticipant( @Body() makeUserParticipantOfRoomDto: MakeUserParticipantOrOwnerDto ): Promise<{msg: string}> {
     return this.roomService.makeUserParticipant( makeUserParticipantOfRoomDto );
   }
+
+  // @Get('test')
+  // test(@Body() body: StringDto): Promise<ReturnUserDto[]> {
+  //   return this.roomService.test(body);
+  // }
 
 }

@@ -28,6 +28,7 @@ const return_user_dto_1 = require("../users/dto/return-user.dto");
 const get_all_users_from_room_dto_1 = require("./dto/get-all-users-from-room.dto");
 const delete_user_from_room_dto_1 = require("./dto/delete-user-from-room.dto");
 const make_user_participant_or_owner_dto_1 = require("./dto/make-user-participant-or-owner.dto");
+const user_interface_1 = require("../users/interfaces/user.interface");
 let RoomsController = class RoomsController {
     constructor(roomService) {
         this.roomService = roomService;

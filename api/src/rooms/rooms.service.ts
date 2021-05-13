@@ -14,7 +14,6 @@ import { addNewParticipantDto } from './dto/add-new-participant-dto';
 import { DeleteParticipantDto } from './dto/delete-participant-dto';
 import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
-import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 
@@ -511,4 +510,21 @@ export class RoomsService {
       throw error;
     }
   }
+
+  // async test({string}: {string: string}): Promise<ReturnUserDto[]> {
+
+  //   try {
+  //     const users = await this.userModel.find();
+  //     let result = []
+  //     for (let i = 0; i < users.length; i ++) {
+  //       const include = users[i].name.includes(string);
+  //       if (include) {
+  //         result.push(users[i])
+  //       }
+  //     }
+  //     return result;
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
 }
