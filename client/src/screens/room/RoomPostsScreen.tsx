@@ -342,7 +342,6 @@ const RoomPostsScreen = () => {
                   },
                   shadowOpacity: 0.23,
                   shadowRadius: 2.62,
-                  
                   elevation: 4,
                 }}
               >
@@ -399,7 +398,7 @@ const RoomPostsScreen = () => {
           </View>
         </Modal>
 
-        {/* Post Image modal */}
+        {/* Post show preview Image modal */}
         <Modal
           animationType="slide"
           transparent={true}

@@ -43,6 +43,7 @@ interface ContextProps {
   changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
   changeAbout: (about: string) => Promise<{msg: string}>;
   getAllUsersFromRoom: (roomId: string) => Promise<User[]>;
+  handleDeleteUserFromRoom: (roomId: string, userId: string) => Promise<{msg: string}>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -467,6 +468,32 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const handleDeleteUserFromRoom = (roomId: string, userId: string): Promise<{msg: string}> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return {msg: 'Not authenticated.'};
+
+      if(!roomId || !userId) return {msg: 'Missing information.'}
+
+      axios.delete(`${ API }/rooms/delete-user-from-room`, {
+        data: {
+          roomId,
+          userId,
+        },
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        resolve(response.data);
+        if (state.selectedRoom) {
+          getAllUsersFromRoom(state.selectedRoom.id);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
   
   return (
     <Context.Provider value={{
@@ -491,7 +518,8 @@ const AppContext = ({ children }: any) => {
         changeProfileBackground,
         changeSocialMediaIcon,
         changeAbout,
-        getAllUsersFromRoom
+        getAllUsersFromRoom,
+        handleDeleteUserFromRoom
       }}
     >
     {children}
