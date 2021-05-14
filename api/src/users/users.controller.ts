@@ -56,6 +56,7 @@ export class UsersController {
     return this.usersService.deleteUser( id, req.user );
   }
 
+  @UseGuards( JwtAuthGuard )
   @Get('email')
   getByEmail( @Body() email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
     return this.usersService.getByEmail( email );
