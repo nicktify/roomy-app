@@ -22,7 +22,7 @@ export const HomeTabNavigation = () => {
 export const CreateRoomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Calendar" component={ CreateRoomScreen } />
+      <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
     </Tab.Navigator>
   );
 }
@@ -43,13 +43,13 @@ export const NotificationsTabNavigation = () => {
   );
 }
 
-export const CreateRoomNavigation = () => {
-  return (
-    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
-    </Tab.Navigator>
-  );
-}
+// export const CreateRoomNavigation = () => {
+//   return (
+//     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
+//       <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
+//     </Tab.Navigator>
+//   );
+// }
 
 export const RoomNavigation = () => {
   return (

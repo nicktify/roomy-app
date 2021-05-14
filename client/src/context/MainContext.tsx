@@ -305,7 +305,7 @@ const AppContext = ({ children }: any) => {
 
   const getUserById = (id: string): Promise<User | string> => {
     return new Promise( async (resolve, reject) => {
-      const user = await axios.get(`${ API }/users/${ id }`);
+      const user = await axios.get(`${ API }/users/get-by-id/${ id }`);
       
       if ( ! user ) reject('User not found');
 
