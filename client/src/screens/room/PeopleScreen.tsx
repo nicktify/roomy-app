@@ -6,7 +6,8 @@ import { Context } from '../../context/MainContext';
 import { User } from '../../types/user';
 
 import { style as modalStyles } from '../../styles/components/modal';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -21,6 +22,8 @@ const PeopleScreen = () => {
   const [confirmationDisabledButton, setConfirmationDisabledButton] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchUsersResult, setSearchUsersResult] = useState<User[]>();
+  const [activeForm, setActiveForm] = useState(false);
+  const [userEmailOnSearch, setUserEmailOnSearch] = useState('');
 
   useEffect(() => {
     fetchAllUsersFromRoom();
@@ -69,7 +72,6 @@ const PeopleScreen = () => {
     selectedUser && makeUserOwnerOfRoom(selectedUser.id)
       .then(result => {
         setShowModalUserOption(false);
-        console.log(result);
       })
       .catch(error => {
         setShowModalUserOption(false);
@@ -81,7 +83,6 @@ const PeopleScreen = () => {
     selectedUser && makeUserParticipantOfRoom(selectedUser.id)
       .then(result => {
         setShowModalUserOption(false);
-        console.log(result);
       })
       .catch(error => {
         setShowModalUserOption(false);
@@ -159,8 +160,16 @@ const PeopleScreen = () => {
 
 
   return (
-    <View>
-      <View>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <View
+        style={{
+          height: windowHeight * 0.05
+        }}
+      >
         <Text style={{
           fontSize: 22,
           fontWeight: 'bold',
@@ -174,32 +183,17 @@ const PeopleScreen = () => {
       <View
         style={{
           backgroundColor: 'white',
+          height: windowHeight * 0.1,
           paddingVertical: 15,
           marginTop: 15,
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
-
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}
-        >
-          <Icon
-            name="search"
-            size={35}
-            style={{
-              opacity: 0.8,
-              marginRight: 5,
-            }}
-          />
-
           <TextInput
             style={{
-              width: windowWidth * 0.8,
+              width: windowWidth * 0.9,
               backgroundColor: '#f1f1f1f1',
               borderRadius: 40,
               paddingHorizontal: 20,
@@ -210,15 +204,16 @@ const PeopleScreen = () => {
               color: 'black',
               fontSize: 18
             }}
+            placeholder='Search user'
+            placeholderTextColor='#4a4a4a'
+            autoFocus={false}
             onChangeText={(searchValue) => onSearchChange(searchValue)}
             value={searchValue}
             defaultValue={searchValue}
           />
-
-        </View>
       </View>
       <View
-        style={{ width: '100%', paddingHorizontal: 10, }}
+        style={{ width: '100%', paddingHorizontal: 10, height: '100%' }}
       >
         <FlatList
           data={searchValue.length > 0 ? searchUsersResult : allUsers}
@@ -226,7 +221,44 @@ const PeopleScreen = () => {
           keyExtractor={item => `${item.id}${item.name}`}
           ListFooterComponent={<View style={{ width: '100%', height: 60 }}></View>}
           ListHeaderComponent={<View style={{ width: '100%', height: 20 }}></View>}
+          
         />
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          flexDirection: 'row',
+          width: 120,
+          marginBottom: 10,
+          justifyContent: 'center',
+          alignItems:'center'
+          
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems:'center'
+          }}
+        >
+          <Text style={{fontSize: 10}}>Add user</Text>
+          <Icon
+            style={{
+              backgroundColor: principalColor,
+              borderRadius: 50,
+              marginLeft: 5,
+            }}
+            name="add"
+            color='white'
+            size={40}
+          />
+          
+        </View>
+
       </View>
 
       {/* User option modal */}
@@ -287,7 +319,6 @@ const PeopleScreen = () => {
                       color={principalColor}
                     />
                 }
-
               </View>
               <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8 }}>{selectedUser?.name}</Text>
             </View>
@@ -371,7 +402,6 @@ const PeopleScreen = () => {
               </Pressable>
             </View>
           </View>
-
         </Modal>
       </Modal>
     </View>

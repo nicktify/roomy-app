@@ -256,7 +256,13 @@ const RoomPostsScreen = () => {
                     }}
                     onPress={handlePublish}
                   >
-                    <Text style={style.cancelFormText}>Publish</Text>
+                    <Text 
+                      style={{
+                        color: 'white',
+                        fontSize: 20,
+                        opacity: 0.8,
+                      }}
+                    >Publish</Text>
                   </Pressable>
                   <TouchableOpacity
                     style={style.cancelFormButton}
