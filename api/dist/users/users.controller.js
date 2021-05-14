@@ -86,7 +86,7 @@ __decorate([
     __metadata("design:returntype", Object)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
-    common_1.Get('/:id'),
+    common_1.Get('get-by-id/:id'),
     __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -126,7 +126,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
-    common_1.Get('email'),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-by-email'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [find_by_email_dto_1.FindByEmailDto]),

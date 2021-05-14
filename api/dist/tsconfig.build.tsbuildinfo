@@ -2602,12 +2602,12 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "608d3a2696769d8f64d6ac39066c5d64fbe65233e1ab94ea3c1ccacbea7bd06f",
-        "signature": "77cda8149daf5779e609688065499576d2070bcc87ffc0562a6b3b2e4bf2b9f7",
+        "version": "079761986be663f9657b6dd3f676690847e23e3992743aacc9fcebebca6710e6",
+        "signature": "66e9f53a4ee1c5030165eeb12c9f1124687e21cf07d9ed620a8d14deebed1e6b",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "14a4ffacc1170cd8341657f2e11cf1cb6dbb1d43bd653ca24f850041a0735d78",
+        "version": "449d1e9e2201c13455104e82b1823cdda31f3660b1fdc2cefa54ee8074cdfc5e",
         "signature": "a51b147db79a6a745521c588372f729e7b2bfb714e9926761f6d59ed8e76b691",
         "affectsGlobalScope": false
       },

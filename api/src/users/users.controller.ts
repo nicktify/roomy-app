@@ -26,7 +26,7 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
-  @Get('/:id')
+  @Get('get-by-id/:id')
   getUser( @Param() { id }: { id: string } ): Promise<ReturnUserDto | { msg: string }> {
     return this.usersService.getUser( id );
   }
@@ -57,8 +57,8 @@ export class UsersController {
   }
 
   @UseGuards( JwtAuthGuard )
-  @Get('get-user-by-email')
-  getByEmail( @Body() email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
+  @Get('get-by-email')
+  getByEmail( @Body() email: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.getByEmail( email );
   }
 

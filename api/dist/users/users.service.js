@@ -177,13 +177,13 @@ let UsersService = class UsersService {
             throw error;
         }
     }
-    async getByEmail(email) {
+    async getByEmail({ email }) {
         try {
-            const user = await this.userModel.findOne(email);
+            const user = await this.userModel.findOne({ email: email });
             if (!user)
                 return { msg: 'User not exist.' };
             return {
-                id: user.id,
+                id: user._id,
                 name: user.name,
                 email: user.email,
                 about: user.about,

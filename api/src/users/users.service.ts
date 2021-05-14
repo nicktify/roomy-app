@@ -214,15 +214,15 @@ export class UsersService {
 
   }
 
-  async getByEmail( email: FindByEmailDto ): Promise<ReturnUserDto | { msg: string }> {
+  async getByEmail( { email }: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}>  {
 
     try {
 
-      const user = await this.userModel.findOne(email);
+      const user = await this.userModel.findOne({email: email});
       if ( !user ) return { msg: 'User not exist.' };
 
       return {
-        id: user.id,
+        id: user._id,
         name: user.name,
         email: user.email,
         about: user.about,

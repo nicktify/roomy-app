@@ -36,7 +36,7 @@ export declare class UsersService {
     deleteUser(id: string, authenticatedUser: any): Promise<{
         msg: string;
     }>;
-    getByEmail(email: FindByEmailDto): Promise<ReturnUserDto | {
+    getByEmail({ email }: FindByEmailDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
     validateUser(user: any): Promise<{
