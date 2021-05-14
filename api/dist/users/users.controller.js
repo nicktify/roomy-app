@@ -127,8 +127,8 @@ __decorate([
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Get('get-by-email'),
-    __param(0, common_1.Body()),
+    common_1.Get('get-by-email/:email'),
+    __param(0, common_1.Param()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [find_by_email_dto_1.FindByEmailDto]),
     __metadata("design:returntype", Promise)

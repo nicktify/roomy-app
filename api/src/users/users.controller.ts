@@ -57,8 +57,8 @@ export class UsersController {
   }
 
   @UseGuards( JwtAuthGuard )
-  @Get('get-by-email')
-  getByEmail( @Body() email: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}> {
+  @Get('get-by-email/:email')
+  getByEmail( @Param() email: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.getByEmail( email );
   }
 
