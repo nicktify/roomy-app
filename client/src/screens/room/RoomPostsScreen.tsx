@@ -40,7 +40,7 @@ const RoomPostsScreen = () => {
   const [ disabledPublishPostButton, setDisabledPublishPostButton ] = useState(false)
 
 
-  const userIsOwner = selectedRoom?.owners.includes(user!.id);
+  const userIsOwner = selectedRoom && user && selectedRoom.owners.includes(user.id);
 
   useEffect(() => {}, [selectedRoomPosts]);
   
@@ -53,14 +53,19 @@ const RoomPostsScreen = () => {
       setImageUri(undefined)
       return true;
     }
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    if (!isFocused) backHandler.remove();
-
-    return () => backHandler.remove()
+    
+    if (user && selectedRoom && selectedRoom.owners.includes(user.id)) {
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      if (!isFocused) {
+        backHandler.remove();
+      }
+  
+      return () => backHandler.remove()
+    }
     
   }, [isFocused])
 

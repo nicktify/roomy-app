@@ -48,16 +48,18 @@ const PeopleScreen = () => {
       setSearchedUserOnFetchResult(null)
       return true;
     }
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    if (!isFocused) {
-      backHandler.remove();
+    if (user && selectedRoom && selectedRoom.owners.includes(user.id)) {
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      if (!isFocused) {
+        backHandler.remove();
+      }
+  
+      return () => backHandler.remove()
     }
-
-    return () => backHandler.remove()
 
   }, [isFocused])
 
@@ -335,43 +337,46 @@ const PeopleScreen = () => {
 
         />
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-          flexDirection: 'row',
-          width: 120,
-          marginBottom: 10,
-          justifyContent: 'center',
-          alignItems: 'center'
-
-        }}
-      >
+      {
+        user && selectedRoom && selectedRoom.owners.includes(user.id) &&
         <View
           style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
             flexDirection: 'row',
-            width: '100%',
+            width: 120,
+            marginBottom: 10,
             justifyContent: 'center',
             alignItems: 'center'
+
           }}
         >
-          <Text style={{ fontSize: 10 }}>Add user</Text>
-          <Icon
+          <View
             style={{
-              backgroundColor: principalColor,
-              borderRadius: 50,
-              marginLeft: 5,
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
-            name="add"
-            color='white'
-            size={40}
-            onPress={() => setActiveForm(true)}
-          />
+          >
+            <Text style={{ fontSize: 10 }}>Add user</Text>
+            <Icon
+              style={{
+                backgroundColor: principalColor,
+                borderRadius: 50,
+                marginLeft: 5,
+              }}
+              name="add"
+              color='white'
+              size={40}
+              onPress={() => setActiveForm(true)}
+            />
+
+          </View>
 
         </View>
-
-      </View>
+      }
       {
         activeForm &&
         <View
