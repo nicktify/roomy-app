@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
+import { Dimensions, Keyboard, Modal, Pressable, Text, View } from 'react-native';
 
 import HomeLeftTopComponent from '../components/HomeLeftTopComponent';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
@@ -9,6 +9,7 @@ import style from '../styles/screens/home';
 import { style as ModalStyles } from '../styles/components/modal';
 import { Context } from '../context/MainContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -18,8 +19,6 @@ const HomeScreen = ({ navigation }: any) => {
 
   const { deleteRoom } = useContext( Context );
 
-
-  const [ selectedRooms, setSelectedRooms ] = useState('createdRooms');
   const [ modalRoomOptions, setModalRoomOptions ] = useState(false);
   const [ modalConfirmationDeleteRoom, setModalConfirmationDeleteRoom ] = useState(false);
   const [ selectedRoomId, setSelectedRoomId ] = useState('');
@@ -74,11 +73,12 @@ const HomeScreen = ({ navigation }: any) => {
 
               }}>
               <Text style={{fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
-              <View
+              <TouchableOpacity
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}
+                onPress={() => navigation.navigate('SearchRoom')}
               >
                 <Text>Search</Text>
                 <Icon 
@@ -89,12 +89,10 @@ const HomeScreen = ({ navigation }: any) => {
                     marginLeft: 5,
                   }}
                 />
-
-              </View>
+              </TouchableOpacity>
             </View>
             <Rooms
               navigation={ navigation }
-              selectedRooms={ selectedRooms }
               setModalRoomOptions={setModalRoomOptions}
               setSelectedRoomId={setSelectedRoomId}
             />
@@ -157,7 +155,6 @@ const HomeScreen = ({ navigation }: any) => {
               >
                 <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>Cancel</Text>
               </Pressable>
-
             </View>
           </View>
         </Modal>
@@ -184,7 +181,7 @@ const HomeScreen = ({ navigation }: any) => {
                   borderRadius: 20,
                   padding: 10,
                   margin: 10,
-                  backgroundColor: 'white',
+                  backgroundColor: 'red',
                   shadowColor: "#000",
                   shadowOffset: {
                     width: 0,
@@ -196,7 +193,7 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={handleDeleteRoom}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>Yes, delete</Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white'}}>Yes, delete</Text>
               </Pressable>
               <Pressable
                 style={{
@@ -205,7 +202,7 @@ const HomeScreen = ({ navigation }: any) => {
                   borderRadius: 20,
                   padding: 10,
                   margin: 10,
-                  backgroundColor: 'red',
+                  backgroundColor: 'white',
                   shadowColor: "#000",
                   shadowOffset: {
                     width: 0,
@@ -217,8 +214,9 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={() => setModalConfirmationDeleteRoom(false)}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white'}}>Cancel</Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>cancel</Text>
               </Pressable>
+
 
             </View>
           </View>

@@ -8,6 +8,8 @@ type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
                 | { type: 'SET_ROOMS', payload: Room[] }
                 | { type: 'SET_SELECTED_ROOM', payload: Room }
                 | { type: 'SET_ROOM_POSTS', payload: Post[] }
+                | { type: 'SET_ROOM_INFORMATION', payload: { posts: Post[], users: User[] } }
+                | { type: 'SET_ROOM_USERS', payload: User[] }
 
 const userReducer = ( state: InitialState, action: TypeAction) => {
   
@@ -50,6 +52,19 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
       return {
         ...state,
         selectedRoomPosts: action.payload,
+      }
+
+    case 'SET_ROOM_INFORMATION':
+      return {
+        ...state,
+        selectedRoomPosts: action.payload.posts,
+        selectedRoomUsers: action.payload.users,
+      }
+    
+    case 'SET_ROOM_USERS':
+      return {
+        ...state,
+        selectedRoomUsers: action.payload,
       }
 
     default:

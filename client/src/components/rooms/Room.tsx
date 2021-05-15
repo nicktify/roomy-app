@@ -9,15 +9,15 @@ const windowHeight = Dimensions.get('window').height;
 
 const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: { name: string, id: string, navigation: any, setModalRoomOptions: any, setSelectedRoomId: any; }) => {
 
-  const { getCurrentRoomPosts } = useContext(Context);
+  const { setSelectedRoom, getAllRoomInformation } = useContext(Context);
 
   const handlePress = () => {
-    getCurrentRoomPosts(id)
-      .then(() => {
+    setSelectedRoom(id).then(() => {
+      getAllRoomInformation(id).then(() => {
         navigation.navigate('Room');
       })
-      .catch(error => console.log(error));
-  };
+    }).catch(error => console.log(error))
+  }
 
   const shortedName = `${name.slice(0, 50)}${name.length > 50 ? '...' : ''}`;
 

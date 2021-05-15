@@ -17,7 +17,15 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const PeopleScreen = () => {
-  const { user, selectedRoom, getAllUsersFromRoom, handleDeleteUserFromRoom, makeUserOwnerOfRoom, makeUserParticipantOfRoom } = useContext(Context);
+  const { 
+    user,
+    selectedRoom,
+    getAllUsersFromRoom,
+    handleDeleteUserFromRoom,
+    makeUserOwnerOfRoom,
+    makeUserParticipantOfRoom,
+    selectedRoomUsers,
+  } = useContext(Context);
 
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [showModalUserOption, setShowModalUserOption] = useState(false);
@@ -57,25 +65,23 @@ const PeopleScreen = () => {
       if (!isFocused) {
         backHandler.remove();
       }
-  
+      
       return () => backHandler.remove()
     }
 
   }, [isFocused])
 
-  useEffect(() => { }, [selectedRoom]);
-
   const onSearchChange = (value: string) => {
     setSearchValue(value);
-    setSearchUsersResult(allUsers.filter(user => user.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())));
+    selectedRoomUsers && setSearchUsersResult(selectedRoomUsers.filter(user => user.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())));
   };
 
 
   const fetchAllUsersFromRoom = () => {
-    selectedRoom && getAllUsersFromRoom(selectedRoom?.id)
-      .then((result) => {
-        setAllUsers(result);
-      })
+    selectedRoom && getAllUsersFromRoom(selectedRoom.id)
+      // .then((result) => {
+      //   setAllUsers(result);
+      // })
       .catch(error => {
         console.log(error);
       });
@@ -329,7 +335,7 @@ const PeopleScreen = () => {
         style={{ width: '100%', paddingHorizontal: 10, height: '100%' }}
       >
         <FlatList
-          data={searchValue.length > 0 ? searchUsersResult : allUsers}
+          data={searchValue.length > 0 ? searchUsersResult : selectedRoomUsers}
           renderItem={renderItem}
           keyExtractor={item => `${item.id}${item.name}`}
           ListFooterComponent={<View style={{ width: '100%', height: 60 }}></View>}

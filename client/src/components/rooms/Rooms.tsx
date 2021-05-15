@@ -6,12 +6,12 @@ import { Context } from '../../context/MainContext';
 
 import Room from './Room';
 
-const Rooms = ({ selectedRooms, navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
+const Rooms = ({ navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
 
   const { rooms, getRooms } = useContext( Context );
 
-  useEffect(() => {console.log(rooms)}, [rooms])
-  useEffect(() => {getRooms()}, [])
+  useEffect(() => {}, [rooms])
+  useEffect(() => { getRooms() }, [])
 
   const renderItem = ({ item }: any) => (
     <View style={{ width: '100%' , alignItems: 'center'}}>

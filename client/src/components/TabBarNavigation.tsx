@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import style from '../styles/navigation';
@@ -35,7 +35,7 @@ const TabBarNavigation = ({ navigation }: any) => {
           name="notifications"
           color="black"
           size={25}
-        />
+          />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={ () => navigation.navigate('Profile') }

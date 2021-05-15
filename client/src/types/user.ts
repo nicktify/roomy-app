@@ -25,6 +25,7 @@ class InitialState {
   rooms: Room[] | null;
   selectedRoom: Room | null;
   selectedRoomPosts: Post[] | null;
+  selectedRoomUsers: User[] | null;
 }
 
 export class LoginData {

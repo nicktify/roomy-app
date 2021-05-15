@@ -17,6 +17,7 @@ const initialState: InitialState = {
   rooms: null,
   selectedRoom: null,
   selectedRoomPosts: null,
+  selectedRoomUsers: null,
 }
 
 interface ContextProps {
@@ -26,26 +27,32 @@ interface ContextProps {
   selectedRoom: Room | null;
   rooms: Room[] | null;
   selectedRoomPosts: Post[] | null;
+  selectedRoomUsers: User[] | null;
+
   signIn: ( loginData: LoginData ) => Promise<{ msg: string }>;
   singUp: ( registerData: RegisterData ) => Promise<{ msg: string }>;
   validateToken: (token: string) => Promise<void>;
   logout: () => void;
-  createRoom: ( name: string, password: string ) => Promise<{msg: string}>;
-  updateProfilePicture: (data: ImagePickerResponse) => Promise<any>;
-  getCurrentRoomPosts: ( id: string ) => Promise<any>;
-  addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   getUserById: ( id: string ) => Promise<User | string>;
-  deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
-  deleteRoom: (id: string) => Promise<{msg: string}>;
+  updateProfilePicture: (data: ImagePickerResponse) => Promise<any>;
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{msg: string}>;
   changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
+
+  getRooms: () => any;
+  createRoom: ( name: string, password: string ) => Promise<{msg: string}>;
+  addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
+  deletePost: (roomId: string, postId: string) => Promise<{msg: string}>;
+  deleteRoom: (id: string) => Promise<{msg: string}>;
   changeAbout: (about: string) => Promise<{msg: string}>;
-  getAllUsersFromRoom: (roomId: string) => Promise<User[]>;
   handleDeleteUserFromRoom: (roomId: string, userId: string) => Promise<{msg: string}>;
-  makeUserOwnerOfRoom: (userId: string) => Promise<{msg: string}>; 
+  makeUserOwnerOfRoom: (userId: string) => Promise<{msg: string}>;
   makeUserParticipantOfRoom: (userId: string) => Promise<{msg: string}>;
   getRoomById: () => Promise<any>;
-  getRooms: () => any;
+
+  getCurrentRoomPosts: ( roomId: string ) => Promise<any>;
+  getAllUsersFromRoom: ( roomId: string ) => Promise<User[]>;
+  setSelectedRoom: ( roomId: string ) => Promise<any>;
+  getAllRoomInformation: (roomId: string) => Promise<any>
 }
 
 export const Context = createContext({} as ContextProps);
@@ -170,7 +177,6 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response.data)
         dispatch({ type: 'SET_ROOMS', payload: response.data })
       })
       .catch(error => {
@@ -211,38 +217,55 @@ const AppContext = ({ children }: any) => {
     })
   }
 
-  const getCurrentRoomPosts = async (id: string | undefined): Promise<any> => {
+  const setSelectedRoom = (roomId: string | undefined): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      if (!roomId) return reject('Missing roomId');
+      if (!state.rooms) return reject('Missing rooms in state');
+      const selectedRoom = state.rooms.filter(room => room.id === roomId)[0];
+  
+      dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
+      resolve('done');
+    })
+  }
 
-    if (!id) return;
-    
-    try {
+  const getAllRoomInformation = (roomId: string): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) return reject('Not authenticated');
+      if (!roomId) return reject('Not room')
+
+      axios.get(`${API}/rooms/get-all-room-information/${roomId}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        dispatch({ type: 'SET_ROOM_INFORMATION', 
+          payload: { posts: response.data.posts, users: response.data.users } })
+        resolve('done');
+      })
+      .catch(error => {
+        reject(error);
+      })
+    })
+  }
+
+  const getCurrentRoomPosts = (roomId: string): Promise<any> => {
+    return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
       if (!token) return;
 
-      return new Promise(async (resolve, reject) => {
+      if (!state.selectedRoom) return;
 
-        if (!state.rooms) return;
-
-        const selectedRoom = state.rooms.filter(room => room.id === id)[0];
-
-        dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
-
-
-        const fetchPost = await axios.get(`${ API }/posts/get-all-posts/${id}`, {
-          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-        })
-
-        const posts = fetchPost.data;
-
-        dispatch({ type: 'SET_ROOM_POSTS', payload: posts });
-
-
-        resolve(selectedRoom);
-      });
-
-    } catch (error) {
-      console.log(error);
-    }
+      axios.get(`${ API }/posts/get-all-posts/${ roomId }`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        dispatch({ type: 'SET_ROOM_POSTS', payload: response.data });
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error)
+      })
+    })
   }
 
   const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
@@ -271,7 +294,7 @@ const AppContext = ({ children }: any) => {
           )
           .then((response) => {
             validateToken();
-            getCurrentRoomPosts(state.selectedRoom?.id);
+            state.selectedRoom && getCurrentRoomPosts(state.selectedRoom.id);
             resolve(response.data)
           })
           .catch(error => {
@@ -308,12 +331,11 @@ const AppContext = ({ children }: any) => {
             postId
           }
         })
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           return  getRooms();
         })
         .then(() => {
-          getCurrentRoomPosts(state.selectedRoom?.id);
+          state.selectedRoom && getCurrentRoomPosts(state.selectedRoom.id);
           resolve({ msg: 'Post delted' });
         })
         .catch(error => {
@@ -376,9 +398,8 @@ const AppContext = ({ children }: any) => {
           headers: { Authorization: `Bearer ${JSON.parse(token)}` }
         }
       )
-      .then((response) => {
+      .then(() => {
         validateToken()
-        console.log(response.data)
         resolve({ msg: 'Background changed.' })
       })
       .catch(error => {
@@ -432,16 +453,19 @@ const AppContext = ({ children }: any) => {
     })
   } 
 
-  const getAllUsersFromRoom = (roomId: string): Promise<User[]> => {
+  const getAllUsersFromRoom = (): Promise<User[]> => {
     return new Promise(async(resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
       if (!token || !state.user) return {msg: 'Not authenticated.'};
 
-      axios.get(`${ API }/rooms/get-all-users-from-room/${ roomId }`, {
+      if (!state.selectedRoom) return {msg: 'Missing room.'};
+
+      axios.get(`${ API }/rooms/get-all-users-from-room/${ state.selectedRoom.id }`, {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        resolve(response.data)
+        dispatch({ type: 'SET_ROOM_USERS', payload: response.data });
+        resolve(response.data);
       })
       .catch(error => {
         reject(error);
@@ -466,7 +490,7 @@ const AppContext = ({ children }: any) => {
       .then(response => {
         resolve(response.data);
         if (state.selectedRoom) {
-          getAllUsersFromRoom(state.selectedRoom.id);
+          getAllUsersFromRoom();
         }
       })
       .catch(error => {
@@ -547,13 +571,14 @@ const AppContext = ({ children }: any) => {
         rooms: state.rooms,
         selectedRoom: state.selectedRoom,
         selectedRoomPosts: state.selectedRoomPosts,
+        selectedRoomUsers: state.selectedRoomUsers,
         signIn,
         singUp,
         validateToken,
         logout,
         createRoom,
         updateProfilePicture,
-        getCurrentRoomPosts,
+        setSelectedRoom,
         addNewPost,
         getUserById,
         deletePost,
@@ -567,6 +592,8 @@ const AppContext = ({ children }: any) => {
         makeUserParticipantOfRoom,
         getRoomById,
         getRooms,
+        getCurrentRoomPosts,
+        getAllRoomInformation,
       }}
     >
     {children}
