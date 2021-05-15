@@ -6,6 +6,7 @@ import LoadingScreen from '../screens/LoadingScreen';
 import { Context } from '../context/MainContext';
 import AuthNavigation from './AuthNavigation';
 import SearchRoomScreen from '../screens/SearchRoomScreen';
+import { RoomNavigation } from './ButtomTabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const AppNavigation = () => {
                   <>
                     <Stack.Screen name="HomeNavigation" component={ DrawerNavigation } />
                     <Stack.Screen name="SearchRoom" component={ SearchRoomScreen } />
+                    <Stack.Screen name="Room" component={ RoomNavigation } />
                   </>
                :
                   <Stack.Screen name="AuthNavigation" component={ AuthNavigation } />

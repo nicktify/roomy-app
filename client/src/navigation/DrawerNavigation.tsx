@@ -25,10 +25,9 @@ const DrawerNavigation = () => {
       }}
     >
       <Drawer.Screen name="Home" component={ HomeTabNavigation } />
-      <Drawer.Screen name="CreateRoom" component={ CreateRoomTabNavigation } />
+      {/* <Drawer.Screen name="CreateRoom" component={ CreateRoomTabNavigation } />
       <Drawer.Screen name="Profile" component={ ProfileTabNavigation } />
-      <Drawer.Screen name="Notifications" component={ NotificationsTabNavigation } />
-      <Drawer.Screen name="Room" component={ RoomNavigation } />
+      <Drawer.Screen name="Notifications" component={ NotificationsTabNavigation } /> */}
     </Drawer.Navigator>
   );
 }

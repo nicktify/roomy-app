@@ -15,6 +15,9 @@ export const HomeTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
       <Tab.Screen name="Home" component={ HomeScreen } />
+      <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
+      <Tab.Screen name="Profile" component={ ProfileScreen } />
+      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
     </Tab.Navigator>
   );
 }

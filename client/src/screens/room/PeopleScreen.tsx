@@ -27,7 +27,6 @@ const PeopleScreen = () => {
     selectedRoomUsers,
   } = useContext(Context);
 
-  const [allUsers, setAllUsers] = useState<User[]>([]);
   const [showModalUserOption, setShowModalUserOption] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showModalConfirmationDelete, setShowModalConfirmationDelete] = useState(false);
@@ -47,6 +46,8 @@ const PeopleScreen = () => {
   }, []);
 
   const isFocused = useIsFocused();
+
+  useEffect(() => {console.log(selectedRoomUsers)}, [selectedRoomUsers])
 
 
   useEffect(() => {
