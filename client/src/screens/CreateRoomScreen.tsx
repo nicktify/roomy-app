@@ -23,7 +23,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
     setPassword(password);
     setRepeatedPassword(repeatedPassword);
     setErrors(createRoomValidations(password, repeatedPassword, name,));
-    console.log(errors);
   };
 
   React.useEffect(() => {
@@ -44,8 +43,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
     ) {
       setCreateDisabled(true);
       createRoom(name, password)
-        .then((result) => {
-          console.log(result);
+        .then(() => {
           setName('');
           setPassword('');
           setRepeatedPassword('');

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList } from 'react-native';
+import { Image, Modal, Pressable, Text, TextInput, TouchableOpacity, View, Dimensions, FlatList, BackHandler } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useIsFocused } from '@react-navigation/native';
 
 import { Context } from '../../context/MainContext';
 
@@ -42,6 +43,26 @@ const RoomPostsScreen = () => {
   const userIsOwner = selectedRoom?.owners.includes(user!.id);
 
   useEffect(() => {}, [selectedRoomPosts]);
+  
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    const backAction = () => {
+      setActiveForm(false)
+      setBodyPostFormError('')
+      setImageUri(undefined)
+      return true;
+    }
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    if (!isFocused) backHandler.remove();
+
+    return () => backHandler.remove()
+    
+  }, [isFocused])
 
   const handlePostOption = (post: SelectedPost) => {
     setModalPostOptionVisible(true)
@@ -323,7 +344,7 @@ const RoomPostsScreen = () => {
           transparent={true}
           visible={modalPostOptionVisible}
           onRequestClose={() => {
-            setModalPictureVisible(!modalPictureVisible);
+            setModalPostOptionVisible(!modalPostOptionVisible)
           }}
         >
           <View

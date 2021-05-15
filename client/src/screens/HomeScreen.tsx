@@ -27,8 +27,7 @@ const HomeScreen = ({ navigation }: any) => {
 
   const handleDeleteRoom = () => {
     deleteRoom(selectedRoomId)
-    .then(result => {
-      console.log(result)
+    .then(() => {
       setModalConfirmationDeleteRoom(false);
       setModalRoomOptions(false);
       setSelectedRoomId('');

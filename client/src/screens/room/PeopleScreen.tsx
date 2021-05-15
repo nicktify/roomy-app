@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, Pressable, Text, View, TextInput, FlatList, Image, Modal, Linking, Alert } from 'react-native';
+import { Dimensions, Pressable, Text, View, TextInput, FlatList, Image, Modal, Linking, Alert, BackHandler } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
 import { Context } from '../../context/MainContext';
 import { User } from '../../types/user';
 
 import { style as modalStyles } from '../../styles/components/modal';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { API } from '../../config/environment/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,6 +37,29 @@ const PeopleScreen = () => {
   useEffect(() => {
     fetchAllUsersFromRoom();
   }, []);
+
+  const isFocused = useIsFocused();
+
+
+  useEffect(() => {
+    const backAction = () => {
+      setActiveForm(false)
+      setSearchUserOnFetchInputValue('')
+      setSearchedUserOnFetchResult(null)
+      return true;
+    }
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    if (!isFocused) {
+      backHandler.remove();
+    }
+
+    return () => backHandler.remove()
+
+  }, [isFocused])
 
   useEffect(() => { }, [selectedRoom]);
 
@@ -174,7 +197,6 @@ const PeopleScreen = () => {
       headers: { Authorization: `Bearer ${JSON.parse(token)}` }
     })
       .then(response => {
-        console.log(response.data);
         if (response.data.msg !== 'User not exist.') {
           setSearchedUserOnFetchResult(response.data);
           setShowNotFound(false);

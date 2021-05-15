@@ -33,8 +33,7 @@ const LoginScreen = ({ navigation }: any) => {
     if (errors.email.length === 0 && errors.password.length === 0) {
       setLoginDisabled(true)
       signIn( { email, password } )
-      .then((response) => {
-        console.log(response)
+      .then(() => {
         setLoginDisabled(false);
       })
       .catch(error => {
