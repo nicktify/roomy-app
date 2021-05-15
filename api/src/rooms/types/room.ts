@@ -1,4 +1,4 @@
-export interface Room {
+export class Room {
   id: string;
   name: string;
   owners: string[];

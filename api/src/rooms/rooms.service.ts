@@ -17,11 +17,14 @@ import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
-import { Room } from './interfaces/room-interface';
+import { PostDocument } from 'src/posts/schemas/post.schema';
+import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
 
 @Injectable()
 export class RoomsService {
-  constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>, @InjectModel('User') private userModel: Model<UserDocument> ) {}
+  constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>,
+    @InjectModel('User') private userModel: Model<UserDocument>,
+    @InjectModel('Post') private postModel: Model<PostDocument> ) {}
 
   async getRooms(): Promise<ReturnRoomDto[]> {
 
@@ -558,6 +561,53 @@ export class RoomsService {
       })
 
       return rooms;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[]} | {msg: string}> {
+    try {
+      const room = await this.roomModel.findById( roomId );
+      if (! room ) return { msg: 'Room not exist.' };
+
+      let posts: ReturnPostDto[] = [];
+      for (let i = 0; i < room.posts.length; i ++) {
+        const post = await this.postModel.findById(room.posts[i]);
+        if (post) {
+          posts.push({
+            id: post._id,
+            roomId: post.roomId,
+            authorId: post.authorId,
+            authorProfilePicture: post.authorProfilePicture,
+            authorName: post.authorName,
+            body: post.body,
+            date: post.date,
+            image: post.image,
+          });
+        }
+      }
+
+      let users: ReturnUserDto[] = [];
+      for (let i = 0; i < room.participants.length; i ++) {
+        const user = await this.userModel.findById(room.participants[i]);
+        if (user) {
+          users.push({
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            about: user.about,
+            ownedRooms: user.ownedRooms,
+            participantRooms: user.participantRooms,
+            profilePicture: user.profilePicture,
+            profileBackground: user.profileBackground,
+            socialMediaLinks: user.socialMediaLinks,
+          })
+        }
+      }
+
+      return { posts, users };
 
     } catch (error) {
       throw error;

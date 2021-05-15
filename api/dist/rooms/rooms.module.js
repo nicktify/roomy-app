@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomsModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const post_schema_1 = require("../posts/schemas/post.schema");
 const user_schema_1 = require("../users/schemas/user.schema");
 const rooms_controller_1 = require("./rooms.controller");
 const rooms_service_1 = require("./rooms.service");
@@ -20,7 +21,8 @@ RoomsModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([
                 { name: 'Room', schema: room_schema_1.RoomSchema },
-                { name: 'User', schema: user_schema_1.UserSchema }
+                { name: 'User', schema: user_schema_1.UserSchema },
+                { name: 'Post', schema: post_schema_1.PostSchema },
             ]),
         ],
         controllers: [rooms_controller_1.RoomsController],

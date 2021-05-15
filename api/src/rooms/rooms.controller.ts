@@ -16,9 +16,8 @@ import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-owner.dto';
-import { User } from 'src/users/interfaces/user.interface';
-import { StringDto } from './dto/string.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
+import { GetAllRoomInformation } from './dto/get-all-room-information';
 
 @Controller('rooms')
 export class RoomsController {
@@ -118,6 +117,12 @@ export class RoomsController {
   @Get('get-all-rooms-from-user/:userId')
   getAllRoomsFromUser(@Param() userId: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {msg: string}> {
     return this.roomService.getAllRoomsFromUser(userId);
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Get('get-all-room-information/:roomId')
+  getAllRoomInformation(@Param() roomId: GetAllRoomInformation): Promise<any> {
+    return this.roomService.getAllRoomInformation(roomId);
   }
 
 }

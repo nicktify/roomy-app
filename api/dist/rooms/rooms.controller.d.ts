@@ -13,6 +13,7 @@ import { GetAllUsersFromRoomDto } from './dto/get-all-users-from-room.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-owner.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
+import { GetAllRoomInformation } from './dto/get-all-room-information';
 export declare class RoomsController {
     private readonly roomService;
     constructor(roomService: RoomsService);
@@ -67,4 +68,5 @@ export declare class RoomsController {
     getAllRoomsFromUser(userId: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {
         msg: string;
     }>;
+    getAllRoomInformation(roomId: GetAllRoomInformation): Promise<any>;
 }

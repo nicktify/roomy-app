@@ -18,10 +18,13 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("../users/schemas/user.schema");
 const return_user_dto_1 = require("../users/dto/return-user.dto");
+const post_schema_1 = require("../posts/schemas/post.schema");
+const return_post_dto_1 = require("../posts/dto/return-post-dto");
 let RoomsService = class RoomsService {
-    constructor(roomModel, userModel) {
+    constructor(roomModel, userModel, postModel) {
         this.roomModel = roomModel;
         this.userModel = userModel;
+        this.postModel = postModel;
     }
     async getRooms() {
         const rooms = await this.roomModel.find();
@@ -462,11 +465,29 @@ let RoomsService = class RoomsService {
             let rooms = [];
             for (let i = 0; i < user.ownedRooms.length; i++) {
                 const room = await this.roomModel.findById(user.ownedRooms[i]);
-                rooms.push(room);
+                rooms.push({
+                    id: room._id,
+                    name: room.name,
+                    owners: room.owners,
+                    participants: room.participants,
+                    links: room.links,
+                    dates: room.dates,
+                    posts: room.posts,
+                    books: room.books,
+                });
             }
             for (let i = 0; i < user.participantRooms.length; i++) {
                 const room = await this.roomModel.findById(user.participantRooms[i]);
-                rooms.push(room);
+                rooms.push({
+                    id: room._id,
+                    name: room.name,
+                    owners: room.owners,
+                    participants: room.participants,
+                    links: room.links,
+                    dates: room.dates,
+                    posts: room.posts,
+                    books: room.books,
+                });
             }
             rooms.sort((a, b) => {
                 if (a.name.toLowerCase() > b.name.toLowerCase())
@@ -481,11 +502,59 @@ let RoomsService = class RoomsService {
             throw error;
         }
     }
+    async getAllRoomInformation({ roomId }) {
+        try {
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Room not exist.' };
+            let posts = [];
+            for (let i = 0; i < room.posts.length; i++) {
+                const post = await this.postModel.findById(room.posts[i]);
+                if (post) {
+                    posts.push({
+                        id: post._id,
+                        roomId: post.roomId,
+                        authorId: post.authorId,
+                        authorProfilePicture: post.authorProfilePicture,
+                        authorName: post.authorName,
+                        body: post.body,
+                        date: post.date,
+                        image: post.image,
+                    });
+                }
+            }
+            let users = [];
+            for (let i = 0; i < room.participants.length; i++) {
+                const user = await this.userModel.findById(room.participants[i]);
+                if (user) {
+                    users.push({
+                        id: user._id,
+                        email: user.email,
+                        name: user.name,
+                        about: user.about,
+                        ownedRooms: user.ownedRooms,
+                        participantRooms: user.participantRooms,
+                        profilePicture: user.profilePicture,
+                        profileBackground: user.profileBackground,
+                        socialMediaLinks: user.socialMediaLinks,
+                    });
+                }
+            }
+            return { posts, users };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 RoomsService = __decorate([
     common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel('Room')), __param(1, mongoose_1.InjectModel('User')),
-    __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
+    __param(0, mongoose_1.InjectModel('Room')),
+    __param(1, mongoose_1.InjectModel('User')),
+    __param(2, mongoose_1.InjectModel('Post')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], RoomsService);
 exports.RoomsService = RoomsService;
 //# sourceMappingURL=rooms.service.js.map

@@ -13,10 +13,13 @@ import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
+import { PostDocument } from 'src/posts/schemas/post.schema';
+import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
-    constructor(roomModel: Model<RoomDocument>, userModel: Model<UserDocument>);
+    private postModel;
+    constructor(roomModel: Model<RoomDocument>, userModel: Model<UserDocument>, postModel: Model<PostDocument>);
     getRooms(): Promise<ReturnRoomDto[]>;
     getRoom(id: string): Promise<ReturnRoomDto | {
         msg: string;
@@ -67,6 +70,14 @@ export declare class RoomsService {
         msg: string;
     }>;
     getAllRoomsFromUser({ userId }: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {
+        msg: string;
+    }>;
+    getAllRoomInformation({ roomId }: {
+        roomId: any;
+    }): Promise<{
+        posts: ReturnPostDto[];
+        users: ReturnUserDto[];
+    } | {
         msg: string;
     }>;
 }

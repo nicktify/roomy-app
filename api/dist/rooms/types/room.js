@@ -4,4 +4,4 @@ exports.Room = void 0;
 class Room {
 }
 exports.Room = Room;
-//# sourceMappingURL=room-interface.js.map
+//# sourceMappingURL=room.js.map
