@@ -55,7 +55,6 @@ const RegisterScreen = ({ navigation }: any) => {
     if (errors.name.length === 0) setBadNameMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
     if (errors.password.length === 0) setBadPasswordMessage('');
-    console.log(errors)
   }
 
   useEffect(() => {
@@ -69,16 +68,17 @@ const RegisterScreen = ({ navigation }: any) => {
 
   const handleRegister = () => {
     if (password !== repeatedPassword) setPasswordMatchError(true)
-    if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError) {
+    if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError && !registerDisabled) {
       setRegisterDisabled(true);
       singUp({
         name,
         email,
         password,
-        role: 'student',
       })
-      .then(() => {
-        setModalRegisterSuccess(true);
+      .then((response) => {
+        if (response.msg === 'User register success.') {
+          setModalRegisterSuccess(true);
+        }
         setRegisterDisabled(false);
       })
       .catch(() => {

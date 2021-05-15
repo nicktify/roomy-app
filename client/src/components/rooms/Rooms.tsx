@@ -8,9 +8,10 @@ import Room from './Room';
 
 const Rooms = ({ selectedRooms, navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
 
-  const { ownedRooms, participantRooms } = useContext( Context );
+  const { rooms, getRooms } = useContext( Context );
 
-  useEffect(() => {}, [ownedRooms, participantRooms])
+  useEffect(() => {console.log(rooms)}, [rooms])
+  useEffect(() => {getRooms()}, [])
 
   const renderItem = ({ item }: any) => (
     <View style={{ width: '100%' , alignItems: 'center'}}>
@@ -18,11 +19,10 @@ const Rooms = ({ selectedRooms, navigation, setModalRoomOptions, setSelectedRoom
     </View>
   )
 
-
   return (
       <SafeAreaView style={{ width: '100%', flex: 1 }}>
       <FlatList
-        data={selectedRooms === 'createdRooms' ? ownedRooms : participantRooms}
+        data={rooms}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
-import AddRoomButtom from '../components/buttoms/AddRoomButtom';
-import SelectRooms from '../components/buttoms/SelecRooms';
 
 import HomeLeftTopComponent from '../components/HomeLeftTopComponent';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
@@ -10,6 +8,7 @@ import Rooms from '../components/rooms/Rooms';
 import style from '../styles/screens/home';
 import { style as ModalStyles } from '../styles/components/modal';
 import { Context } from '../context/MainContext';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -44,13 +43,54 @@ const HomeScreen = ({ navigation }: any) => {
           <HomeLeftTopComponent navigation={ navigation } />
           <HomeRightTopComponent />
         </View>
-        <View style={style.bottomContainer}>
-          <View style={style.innerButtomContainer} >
-            <View style={{ width: '100%', alignItems: 'center', marginBottom: 20, }}>
-              <SelectRooms
-                selectedRooms={ selectedRooms }
-                setSelectedRooms={ setSelectedRooms }
-              />
+        <View style={{
+              flex: 1,
+              backgroundColor: '#f1f1f1',
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+              justifyContent: 'center',
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 10,
+                height: 10,
+              },
+              shadowOpacity: 0.44,
+              shadowRadius: 5,
+              elevation: 16,
+        }}>
+          <View style={{
+                height: '100%',
+                alignItems: 'center',
+                paddingHorizontal: 10,
+          }} >
+            <View style={{
+              width: '80%',
+              alignItems: 'center',
+              marginBottom: 10,
+              borderBottomColor: '#a4a4a4a4',
+              borderBottomWidth: 0.5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+
+              }}>
+              <Text style={{fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Text>Search</Text>
+                <Icon 
+                  name='search'
+                  size={30}
+                  style={{
+                    opacity: 0.8,
+                    marginLeft: 5,
+                  }}
+                />
+
+              </View>
             </View>
             <Rooms
               navigation={ navigation }

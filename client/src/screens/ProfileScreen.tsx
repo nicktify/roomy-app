@@ -59,7 +59,6 @@ const ProfileScreen = () => {
     if (link.length > 0) {
       changeSocialMediaIcon(selectedSocialMediaIcon, link)
       .then(result => {
-        console.log(result)
         setShowModalSocialMedia(false);
       })
       .catch(error => {
@@ -228,17 +227,6 @@ const ProfileScreen = () => {
               }}
               onPress={() => handleModal('profilePicture')}
             >
-              {/* <Icon
-                style={{
-                  alignSelf: 'center',
-                  height: 100,
-                  width: 100,
-                  borderRadius: 50,
-                }}
-                name="account-circle"
-                size={100}
-                color='black'
-              /> */}
             </Pressable>
         }
         </View>
@@ -267,12 +255,9 @@ const ProfileScreen = () => {
           <Text style={{ width: '100%', textAlign: 'center', fontSize: 20, fontWeight: 'bold', opacity: 0.8, marginBottom: 10, }}>About</Text>
           {
             user && user.about.length > 0 && showTextInputChangeAbout === false ?
-            <View
-              // style={{backgroundColor: 'red'}}
-            >
+            <View>
               <Pressable
                 onPress={() => setShowTextInputChangeAbout(true)}
-                // style={{backgroundColor: 'red'}}
               >
                 <Text style={{fontSize: 16}}>{user.about}</Text>
               </Pressable>
@@ -294,7 +279,6 @@ const ProfileScreen = () => {
                   shadowOpacity: 0.22,
                   shadowRadius: 2.22,
                   elevation: 3,
-                  // padding: 20
                 }}
                 onPress={() => setShowTextInputChangeAbout(true)}
               >
@@ -471,6 +455,8 @@ const ProfileScreen = () => {
                     borderRadius: 20,
                     marginBottom: 20,
                   }}
+                  placeholder='https://www.socialmegia.com/miperfil'
+                  placeholderTextColor='#a1a1a1a1'
                   onChangeText={(link) => setLink(link)}
                   value={link}
                   defaultValue={socialMediaLinkTextInputValue ? socialMediaLinkTextInputValue : ''}

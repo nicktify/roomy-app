@@ -22,8 +22,7 @@ class InitialState {
   token: string | null;
   userDidRegister: boolean;
   validationCompleted: boolean;
-  ownedRooms: Room[] | null;
-  participantRooms: Room[] | null;
+  rooms: Room[] | null;
   selectedRoom: Room | null;
   selectedRoomPosts: Post[] | null;
 }

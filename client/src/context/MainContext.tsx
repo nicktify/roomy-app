@@ -14,8 +14,7 @@ const initialState: InitialState = {
   token: null,
   userDidRegister: false,
   validationCompleted: false,
-  ownedRooms: null,
-  participantRooms: null,
+  rooms: null,
   selectedRoom: null,
   selectedRoomPosts: null,
 }
@@ -24,9 +23,8 @@ interface ContextProps {
   user: User | null;
   token: string | null;
   validationCompleted: boolean;
-  ownedRooms: Room[] | null;
-  participantRooms: Room[] | null;
   selectedRoom: Room | null;
+  rooms: Room[] | null;
   selectedRoomPosts: Post[] | null;
   signIn: ( loginData: LoginData ) => Promise<{ msg: string }>;
   singUp: ( registerData: RegisterData ) => Promise<{ msg: string }>;
@@ -47,6 +45,7 @@ interface ContextProps {
   makeUserOwnerOfRoom: (userId: string) => Promise<{msg: string}>; 
   makeUserParticipantOfRoom: (userId: string) => Promise<{msg: string}>;
   getRoomById: () => Promise<any>;
+  getRooms: () => any;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -69,7 +68,7 @@ const AppContext = ({ children }: any) => {
         })
         .then( async response => {
           await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-          getRooms(response.data.user);
+          getRooms();
           dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
           resolve({ msg: 'Authenticated' });
         })
@@ -145,8 +144,7 @@ const AppContext = ({ children }: any) => {
       )
       .then(response => {
         dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-        getRooms( response.data.user )
-        dispatch({ type: 'VALIDATION_COMPLETED' });
+        getRooms().then(() => dispatch({ type: 'VALIDATION_COMPLETED' }))
       })
       .catch(error => {
         console.log(error)
@@ -162,39 +160,22 @@ const AppContext = ({ children }: any) => {
   }
 
 
-  const getRooms = async (user: User) => {
+  const getRooms = async () => {
 
     try {
-
       const token = await AsyncStorage.getItem('token');
+      if ( ! token || !state.user) return;
 
-      if ( ! token ) return;
-
-      let ownedRooms: Room[] = [];
-      let participantRooms: Room[] = [];
-  
-      const insert = ( arr: Room[], room: Room ) => [
-        room,
-        ...arr
-      ]
-  
-      for (let i = 0; i < user.ownedRooms.length; i ++) {
-        const id: string = user.ownedRooms[i];
-        const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`, {
-          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-        })
-        ownedRooms = insert(ownedRooms, room)
-      }
-  
-      for (let i = 0; i < user.participantRooms.length; i ++) {
-        const id: string = user.participantRooms[i];
-        const { data: room } = await axios.get(`${ API }/rooms/user-room/${ id }`, {
-          headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-        });
-        participantRooms = insert(participantRooms, room)
-      }
-      
-      dispatch({ type: 'SET_ROOMS', payload: { ownedRooms, participantRooms } })
+      axios.get(`${ API }/rooms/get-all-rooms-from-user/${state.user.id}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response.data)
+        dispatch({ type: 'SET_ROOMS', payload: response.data })
+      })
+      .catch(error => {
+        console.log(error);
+      })
       
     } catch (error) {
       console.log(error)
@@ -240,12 +221,9 @@ const AppContext = ({ children }: any) => {
 
       return new Promise(async (resolve, reject) => {
 
-        let selectedRoom: Room | undefined = state.ownedRooms?.filter(room => room.id === id)[0];
-        if (!selectedRoom) {
-          selectedRoom = state.participantRooms?.filter(room => room.id === id)[0];
-        }
+        if (!state.rooms) return;
 
-        if (!selectedRoom) return reject('Can\'t find room');
+        const selectedRoom = state.rooms.filter(room => room.id === id)[0];
 
         dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
 
@@ -332,7 +310,7 @@ const AppContext = ({ children }: any) => {
         })
         .then(response => {
           console.log(response.data);
-          return state?.user && getRooms(state?.user);
+          return  getRooms();
         })
         .then(() => {
           getCurrentRoomPosts(state.selectedRoom?.id);
@@ -566,8 +544,7 @@ const AppContext = ({ children }: any) => {
         user: state.user,
         token: state.token,
         validationCompleted: state.validationCompleted,
-        ownedRooms: state.ownedRooms,
-        participantRooms: state.participantRooms,
+        rooms: state.rooms,
         selectedRoom: state.selectedRoom,
         selectedRoomPosts: state.selectedRoomPosts,
         signIn,
@@ -589,6 +566,7 @@ const AppContext = ({ children }: any) => {
         makeUserOwnerOfRoom,
         makeUserParticipantOfRoom,
         getRoomById,
+        getRooms,
       }}
     >
     {children}

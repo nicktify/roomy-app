@@ -15,7 +15,7 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     justifyContent: 'center',
-    paddingTop: 20,
+    paddingTop: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 10,
@@ -23,13 +23,7 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.44,
     shadowRadius: 5,
-    
     elevation: 16,
-  },
-  innerButtomContainer: {
-    height: '100%',
-    alignItems: 'center',
-    paddingHorizontal: 10,
   }
 });
 

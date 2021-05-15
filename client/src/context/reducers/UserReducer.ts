@@ -5,7 +5,7 @@ import InitialState, { User } from "../../types/user";
 type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User } }
                 | { type: 'LOGOUT' }
                 | { type: 'VALIDATION_COMPLETED' }
-                | { type: 'SET_ROOMS', payload: { participantRooms: Room[], ownedRooms: Room[] } }
+                | { type: 'SET_ROOMS', payload: Room[] }
                 | { type: 'SET_SELECTED_ROOM', payload: Room }
                 | { type: 'SET_ROOM_POSTS', payload: Post[] }
 
@@ -37,8 +37,7 @@ const userReducer = ( state: InitialState, action: TypeAction) => {
     case 'SET_ROOMS':
       return {
         ...state,
-        participantRooms: action.payload.participantRooms,
-        ownedRooms: action.payload.ownedRooms,
+        rooms: action.payload
       }
 
     case 'SET_SELECTED_ROOM':
