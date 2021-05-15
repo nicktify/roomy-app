@@ -47,9 +47,6 @@ const PeopleScreen = () => {
 
   const isFocused = useIsFocused();
 
-  useEffect(() => {console.log(selectedRoomUsers)}, [selectedRoomUsers])
-
-
   useEffect(() => {
     const backAction = () => {
       setActiveForm(false)
@@ -77,12 +74,8 @@ const PeopleScreen = () => {
     selectedRoomUsers && setSearchUsersResult(selectedRoomUsers.filter(user => user.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())));
   };
 
-
   const fetchAllUsersFromRoom = () => {
     selectedRoom && getAllUsersFromRoom(selectedRoom.id)
-      // .then((result) => {
-      //   setAllUsers(result);
-      // })
       .catch(error => {
         console.log(error);
       });
@@ -493,18 +486,27 @@ const PeopleScreen = () => {
                   width: '60%',
                 }}
               >
-                <Image
-                  source={{
-                    uri: searchedUserOnFetchresult && searchedUserOnFetchresult.profilePicture ? searchedUserOnFetchresult.profilePicture : undefined
-                  }}
-                  width={50}
-                  height={50}
-                  style={{
-                    borderRadius: 50,
-                    width: 50,
-                    height: 50,
-                  }}
-                />
+                {
+                searchedUserOnFetchresult && searchedUserOnFetchresult.profilePicture ?
+                  <Image
+                    source={{
+                      uri: searchedUserOnFetchresult.profilePicture
+                    }}
+                    width={50}
+                    height={50}
+                    style={{
+                      borderRadius: 50,
+                      width: 50,
+                      height: 50,
+                    }}
+                  />
+                  :
+                  <Icon 
+                    name='account-circle'
+                    color={principalColor}
+                    size={50}
+                  />
+                }
                 <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8, marginLeft: 10 }}>{searchedUserOnFetchresult.name}</Text>
 
               </View>
