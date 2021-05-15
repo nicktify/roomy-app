@@ -22,38 +22,6 @@ export const HomeTabNavigation = () => {
   );
 }
 
-export const CreateRoomTabNavigation = () => {
-  return (
-    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
-    </Tab.Navigator>
-  );
-}
-
-export const ProfileTabNavigation = () => {
-  return (
-    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Profile" component={ ProfileScreen } />
-    </Tab.Navigator>
-  );
-}
-
-export const NotificationsTabNavigation = () => {
-  return (
-    <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-      <Tab.Screen name="Notifications" component={ NotificationsScreen } />
-    </Tab.Navigator>
-  );
-}
-
-// export const CreateRoomNavigation = () => {
-//   return (
-//     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>
-//       <Tab.Screen name="CreateRoom" component={ CreateRoomScreen } />
-//     </Tab.Navigator>
-//   );
-// }
-
 export const RoomNavigation = () => {
   return (
     <Tab.Navigator tabBar={ props => <TabBarNavigation { ...props } /> }>

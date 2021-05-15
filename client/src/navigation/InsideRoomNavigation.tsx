@@ -9,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const InsideRoomNavigation = () => {
   return (
-    <Tab.Navigator 
+    <Tab.Navigator
       tabBar={ props => <TabBarRoomNavigation { ...props } />}
       initialRouteName="HomeRoomScreen"
       >
