@@ -519,16 +519,34 @@ export class RoomsService {
       const user = await this.userModel.findById(userId);
       if (!user) return {msg: 'User not exist.'};
 
-      let rooms = [];
+      let rooms: ReturnRoomDto[] = [];
 
       for (let i = 0; i < user.ownedRooms.length; i ++) {
         const room = await this.roomModel.findById(user.ownedRooms[i]);
-        rooms.push(room);
+        rooms.push({
+          id: room._id,
+          name: room.name,
+          owners: room.owners,
+          participants: room.participants,
+          links: room.links,
+          dates: room.dates,
+          posts: room.posts,
+          books: room.books,
+        });
       }
 
       for (let i = 0; i < user.participantRooms.length; i ++) {
         const room = await this.roomModel.findById(user.participantRooms[i]);
-        rooms.push(room);
+        rooms.push({
+          id: room._id,
+          name: room.name,
+          owners: room.owners,
+          participants: room.participants,
+          links: room.links,
+          dates: room.dates,
+          posts: room.posts,
+          books: room.books,
+        });
       }
 
       rooms.sort((a, b) => {
