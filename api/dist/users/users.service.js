@@ -59,12 +59,12 @@ let UsersService = class UsersService {
     }
     async createUser({ name, email, password }, file) {
         try {
-            const user = await this.userModel.findOne({ email: email });
+            const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
             if (user)
                 return { msg: 'User already exist.' };
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            const createdUser = await this.userModel.create({ name, email, password: hash, about: '' });
+            const createdUser = await this.userModel.create({ name, email: email.toLocaleLowerCase(), password: hash, about: '' });
             if (!file)
                 return { msg: 'User register success.' };
             return new Promise((resolve, reject) => {
@@ -179,7 +179,7 @@ let UsersService = class UsersService {
     }
     async getByEmail({ email }) {
         try {
-            const user = await this.userModel.findOne({ email: email });
+            const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
             if (!user)
                 return { msg: 'User not exist.' };
             return {

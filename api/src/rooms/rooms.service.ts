@@ -16,6 +16,8 @@ import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
+import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
+import { Room } from './interfaces/room-interface';
 
 @Injectable()
 export class RoomsService {
@@ -511,20 +513,36 @@ export class RoomsService {
     }
   }
 
-  // async test({string}: {string: string}): Promise<ReturnUserDto[]> {
+  async getAllRoomsFromUser({userId}: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {msg: string}> {
 
-  //   try {
-  //     const users = await this.userModel.find();
-  //     let result = []
-  //     for (let i = 0; i < users.length; i ++) {
-  //       const include = users[i].name.includes(string);
-  //       if (include) {
-  //         result.push(users[i])
-  //       }
-  //     }
-  //     return result;
-  //   } catch (error) {
-  //     throw error
-  //   }
-  // }
+    try {
+      const user = await this.userModel.findById(userId);
+      if (!user) return {msg: 'User not exist.'};
+
+      let rooms = [];
+
+      for (let i = 0; i < user.ownedRooms.length; i ++) {
+        const room = await this.roomModel.findById(user.ownedRooms[i]);
+        rooms.push(room);
+      }
+
+      for (let i = 0; i < user.participantRooms.length; i ++) {
+        const room = await this.roomModel.findById(user.participantRooms[i]);
+        rooms.push(room);
+      }
+
+      rooms.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+
+        return 0;
+      })
+
+      return rooms;
+
+    } catch (error) {
+      throw error;
+    }
+  }
 }

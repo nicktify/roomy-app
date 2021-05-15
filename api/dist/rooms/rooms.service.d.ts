@@ -12,6 +12,7 @@ import { AddNewBookDto } from './dto/add-new-book-dto';
 import { AddNewLinkDto } from './dto/add-new-link-dto';
 import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
+import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
@@ -63,6 +64,9 @@ export declare class RoomsService {
         userId: any;
         roomId: any;
     }): Promise<{
+        msg: string;
+    }>;
+    getAllRoomsFromUser({ userId }: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {
         msg: string;
     }>;
 }

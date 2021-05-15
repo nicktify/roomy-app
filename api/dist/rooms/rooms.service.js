@@ -454,6 +454,33 @@ let RoomsService = class RoomsService {
             throw error;
         }
     }
+    async getAllRoomsFromUser({ userId }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'User not exist.' };
+            let rooms = [];
+            for (let i = 0; i < user.ownedRooms.length; i++) {
+                const room = await this.roomModel.findById(user.ownedRooms[i]);
+                rooms.push(room);
+            }
+            for (let i = 0; i < user.participantRooms.length; i++) {
+                const room = await this.roomModel.findById(user.participantRooms[i]);
+                rooms.push(room);
+            }
+            rooms.sort((a, b) => {
+                if (a.name.toLowerCase() > b.name.toLowerCase())
+                    return 1;
+                if (a.name.toLowerCase() < b.name.toLowerCase())
+                    return -1;
+                return 0;
+            });
+            return rooms;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 RoomsService = __decorate([
     common_1.Injectable(),
