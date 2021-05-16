@@ -8,6 +8,7 @@ import AuthNavigation from './AuthNavigation';
 import SearchRoomScreen from '../screens/SearchRoomScreen';
 import { RoomNavigation } from './ButtomTabNavigation';
 import AddUserToRoomScreen from '../screens/AddUserToRoomScreen';
+import NewPostForm from '../components/forms/NewPostForm';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const AppNavigation = () => {
                     <Stack.Screen name="SearchRoom" component={ SearchRoomScreen } />
                     <Stack.Screen name="Room" component={ RoomNavigation } />
                     <Stack.Screen name="AddUserToRoom" component={ AddUserToRoomScreen } />
+                    <Stack.Screen name="NewPostForm" component={ NewPostForm } />
                   </>
                :
                   <Stack.Screen name="AuthNavigation" component={ AuthNavigation } />

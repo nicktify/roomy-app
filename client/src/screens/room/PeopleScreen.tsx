@@ -45,30 +45,6 @@ const PeopleScreen = ({ navigation }: any) => {
     fetchAllUsersFromRoom();
   }, []);
 
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    const backAction = () => {
-      setActiveForm(false)
-      setSearchUserOnFetchInputValue('')
-      setSearchedUserOnFetchResult(null)
-      return true;
-    }
-    if (user && selectedRoom && selectedRoom.owners.includes(user.id)) {
-      const backHandler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        backAction
-      );
-  
-      if (!isFocused) {
-        backHandler.remove();
-      }
-      
-      return () => backHandler.remove()
-    }
-
-  }, [isFocused])
-
   const onSearchChange = (value: string) => {
     setSearchValue(value);
     selectedRoomUsers && setSearchUsersResult(selectedRoomUsers.filter(user => user.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())));

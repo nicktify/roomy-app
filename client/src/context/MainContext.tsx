@@ -260,21 +260,20 @@ const AppContext = ({ children }: any) => {
 
   const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
     return new Promise(async (resolve, reject) => {
+
       const token = await AsyncStorage.getItem('token');
+      if (!token) return;
+      if (!state.selectedRoom || !state.user) return 'Missing information';
 
-      if (!token || !data) return;
-
-      const fileToUpload = {
+      const formData = new FormData();
+      data && formData.append('file', {
         uri: data.uri,
         type: data.type,
         name: data.fileName
-      };
-
-      const formData = new FormData();
-      formData.append('file', fileToUpload);
-      formData.append('roomId', state.selectedRoom?.id);
-      formData.append('authorId', state.user?.id);
-      formData.append('authorProfilePicture', state.user?.profilePicture);
+      });
+      formData.append('roomId', state.selectedRoom.id);
+      formData.append('authorId', state.user.id);
+      formData.append('authorProfilePicture', state.user.profilePicture);
       formData.append('authorName', state.user?.name);
       formData.append('body', body);
 
