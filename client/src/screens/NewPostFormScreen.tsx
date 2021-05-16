@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 import SelectImageOnPostFormModal from '../components/modals/SelectImageOnPostFormModal';
+
+const windowWidth = Dimensions.get('window').width;
 
 const NewPostForm = ({navigation}: any) => {
 
@@ -69,19 +71,21 @@ const NewPostForm = ({navigation}: any) => {
           <Text style={{ fontSize: 30, fontWeight: 'bold', opacity: 0.8 }}>Add new post</Text>
         </View>
         <TextInput
-          multiline
-          placeholder="What's new?"
-          autoCorrect={false}
           style={{
-            color: 'black',
+            width: windowWidth * 0.9,
+            borderRadius: 5,
+            borderColor: '#4a4a4a',
+            borderWidth: 0.2,
             fontSize: 18,
-            marginTop: 20,
-            borderRadius: 10,
-            borderColor: '#f1f1f1',
-            borderWidth: 2,
-            width: '100%',
-            opacity: 0.8,
+            paddingHorizontal: 20,
+            marginTop: 40,
+            color: '#4a4a4a',
           }}
+          placeholder='What do you want to share?'
+          placeholderTextColor='#4a4a4a'
+          autoCorrect={false}
+          autoFocus
+          multiline
           onChangeText={bodyPost => setBodyPost(bodyPost)}
           defaultValue={bodyPost}
           value={bodyPost}
@@ -104,11 +108,15 @@ const NewPostForm = ({navigation}: any) => {
           }
           <TouchableOpacity
             style={{
-              borderRadius: 20,
               margin: 30,
-              borderColor: '#f1f1f1',
-              borderWidth: 2,
               padding: 10,
+              borderRadius: 5,
+              borderColor: '#4a4a4a',
+              borderWidth: 0.2,
+              paddingHorizontal: 20,
+              marginTop: 40,
+              width: windowWidth * 0.5,
+              alignItems: 'center',
             }}
             onPress={() => setModalPictureVisible(true)}
           >
@@ -125,25 +133,28 @@ const NewPostForm = ({navigation}: any) => {
           padding: 10,
           width: '100%',
         }}>
-          <Pressable
+          <TouchableOpacity
             style={{
-              backgroundColor: principalColor,
-              borderRadius: 30,
-              width: 150,
-              padding: 10,
               alignItems: 'center',
-              opacity: disabledPublishPostButton ? 0.5 : 1,
+              backgroundColor: principalColor,
+              borderRadius: 20,
+              padding: 10,
+              justifyContent: 'center',
+              marginTop: 18,
+              width: windowWidth * 0.5,
+              alignSelf: 'center',
+              opacity: disabledPublishPostButton ? 0.5 : 1
             }}
             onPress={handlePublish}
           >
             <Text
               style={{
                 color: 'white',
-                fontSize: 20,
-                opacity: 0.8,
+                fontSize: 25,
+                fontWeight: 'bold',
               }}
             >Publish</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
 

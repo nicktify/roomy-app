@@ -26,20 +26,6 @@ const ProfileScreen = ({navigation}: any) => {
   const [socialMediaLinkTextInputValue, setSocialMediaLinkTextInputValue] = useState<string | null>();
   const [link, setLink] = useState<string>('');
   const [showTextInputChangeAbout, setShowTextInputChangeAbout] = useState(false);
-  const [about, setAbout] = useState('');
-  const [saveAboutDisabled, setSaveAboutDisabled] = useState(false);
-
-  useEffect(() => {
-    if (user && user.about.length > 0) {
-      setAbout(user.about);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (user && user.about.length > 0) {
-      setAbout(user.about);
-    }
-  }, []);
 
   const handleChangeSocialLink = () => {
     if (link.length > 0) {
@@ -241,26 +227,18 @@ const ProfileScreen = ({navigation}: any) => {
                   </Pressable>
                   <TouchableOpacity
                     style={{
-                      width: 120,
-                      height: 50,
-                      justifyContent: 'center',
-                      marginTop: 30,
                       alignItems: 'center',
-                      alignSelf: 'center',
                       backgroundColor: principalColor,
                       borderRadius: 20,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                        width: 0,
-                        height: 1,
-                      },
-                      shadowOpacity: 0.22,
-                      shadowRadius: 2.22,
-                      elevation: 3,
+                      padding: 10,
+                      justifyContent: 'center',
+                      marginTop: 18,
+                      width: windowWidth * 0.5,
+                      alignSelf: 'center',
                     }}
                     onPress={() => navigation.navigate('EditAboutForm')}
                   >
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>Edit about</Text>
+                    <Text style={{ fontSize: 25,fontWeight: 'bold', color: 'white' }}>Edit about</Text>
                   </TouchableOpacity>
                 </View>
                 :

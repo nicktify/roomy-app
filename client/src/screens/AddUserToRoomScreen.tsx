@@ -9,6 +9,7 @@ import ShowUserOnFetchModal from '../components/modals/ShowUserOnFetchModal';
 import { principalColor } from '../config/colors';
 import { API } from '../config/environment/constants';
 import { User } from '../types/user';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -127,32 +128,16 @@ const AddUserToRoomScreen = () => {
         width: '100%',
       }}
     >
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: 'white',
-          elevation: 5,
-          paddingVertical: 10,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          width: '100%',
-        }}
-      >
         <TextInput
           style={{
-            backgroundColor: 'white',
-            borderColor: 'black',
-            borderRadius: 20,
-            borderWidth: 0.2,
-            color: '#3a3a3a',
-            fontSize: 18,
-            paddingHorizontal: 10,
             width: windowWidth * 0.9,
+            borderRadius: 5,
+            borderColor: '#4a4a4a',
+            borderWidth: 0.2,
+            fontSize: 18,
+            paddingHorizontal: 20,
+            marginTop: 40,
+            color: '#4a4a4a',
           }}
           placeholder='Search new user by email'
           placeholderTextColor='#4a4a4a'
@@ -161,29 +146,21 @@ const AddUserToRoomScreen = () => {
           defaultValue={searchUserOnFetchInputValue}
           keyboardType='email-address'
         />
-      </View>
-      <Pressable
+      <TouchableOpacity
         style={{
           alignItems: 'center',
           backgroundColor: principalColor,
           borderRadius: 20,
-          elevation: 5,
-          height: 50,
+          padding: 10,
           justifyContent: 'center',
           marginTop: 18,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          width: 110,
+          width: windowWidth * 0.5,
+          alignSelf: 'center',
         }}
         onPress={() => fetchSearchedUser()}
       >
-        <Text style={{ color: 'white', fontSize: 18, }}>Search</Text>
-      </Pressable>
+        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Search</Text>
+      </TouchableOpacity>
       {
         showNotFound &&
         <View
