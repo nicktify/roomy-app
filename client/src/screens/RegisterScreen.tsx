@@ -13,61 +13,58 @@ const windowHeight = Dimensions.get('window').height;
 
 const RegisterScreen = ({ navigation }: any) => {
 
-  const { singUp } = useContext( Context );
+  const { singUp } = useContext(Context);
 
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow );
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide );
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 
     return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow );
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide );
-    }
-  }, [])
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
 
-  const [ email, setEmail ] = useState('');
-  const [ name, setName ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ repeatedPassword, setRepeatedPassword ] = useState('');
-  const [ keyboardState, setKeyboardState ] = useState(false);
-
-  const [ registerDisabled, setRegisterDisabled ] = useState(false);
-  const [ errors, setErrors ] = useState(signUpValidation(email, password, name));
-  const [ fetchErrorMessage, setFetchErrorMessage ] = useState('');
-  const [ badNameMessage, setBadNameMessage ] = useState('');
-  const [ badEmailMessage, setBadEmailMessage ] = useState('');
-  const [ badPasswordMessage, setBadPasswordMessage ] = useState('');
-  const [ passwordMatchError, setPasswordMatchError ] = useState(false);
-  const [ modalRegisterSuccess, setModalRegisterSuccess ] = useState(false);
-
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatedPassword, setRepeatedPassword] = useState('');
+  const [keyboardState, setKeyboardState] = useState(false);
+  const [registerDisabled, setRegisterDisabled] = useState(false);
+  const [errors, setErrors] = useState(signUpValidation(email, password, name));
+  const [fetchErrorMessage, setFetchErrorMessage] = useState('');
+  const [badNameMessage, setBadNameMessage] = useState('');
+  const [badEmailMessage, setBadEmailMessage] = useState('');
+  const [badPasswordMessage, setBadPasswordMessage] = useState('');
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [modalRegisterSuccess, setModalRegisterSuccess] = useState(false);
 
   const onChange = (name: string, email: string, password: string, repeatedPassword: string) => {
     setName(name);
     setEmail(email);
     setPassword(password);
     setRepeatedPassword(repeatedPassword);
+    setErrors(signUpValidation(email, password, name));
 
-    setErrors(signUpValidation(email, password, name))
-
-    if (password !== repeatedPassword) setPasswordMatchError(true)
-    else setPasswordMatchError(false)
+    if (password !== repeatedPassword) setPasswordMatchError(true);
+    else setPasswordMatchError(false);
 
     if (errors.name.length === 0) setBadNameMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
     if (errors.password.length === 0) setBadPasswordMessage('');
-  }
+  };
 
   useEffect(() => {
     if (errors.name.length === 0) setBadNameMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
     if (errors.password.length === 0) setBadPasswordMessage('');
-  }, [name, email, password, repeatedPassword, errors])
+  }, [name, email, password, repeatedPassword, errors]);
 
   const _keyboardDidShow = () => setKeyboardState(true);
   const _keyboardDidHide = () => setKeyboardState(false);
 
   const handleRegister = () => {
-    if (password !== repeatedPassword) setPasswordMatchError(true)
+    if (password !== repeatedPassword) setPasswordMatchError(true);
     if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError && !registerDisabled) {
       setRegisterDisabled(true);
       singUp({
@@ -75,21 +72,21 @@ const RegisterScreen = ({ navigation }: any) => {
         email,
         password,
       })
-      .then((response) => {
-        if (response.msg === 'User register success.') {
-          setModalRegisterSuccess(true);
-        }
-        setRegisterDisabled(false);
-      })
-      .catch(() => {
-        setFetchErrorMessage('Something went wrong. Please try again.')
-      })
+        .then((response) => {
+          if (response.msg === 'User register success.') {
+            setModalRegisterSuccess(true);
+          }
+          setRegisterDisabled(false);
+        })
+        .catch(() => {
+          setFetchErrorMessage('Something went wrong. Please try again.');
+        });
     } else {
       setBadNameMessage(errors.name);
       setBadEmailMessage(errors.email);
       setBadPasswordMessage(errors.password);
     }
-  }
+  };
 
   return (
     <View style={style.root}>
@@ -123,7 +120,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badNameMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badNameMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badNameMessage}</Text>
                 }
                 <Text style={style.textLabel}>Enter your email:</Text>
                 <TextInput
@@ -137,7 +134,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badEmailMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badEmailMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
                 }
                 <Text style={style.textLabel}>Enter your password:</Text>
                 <TextInput
@@ -151,7 +148,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badPasswordMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badPasswordMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badPasswordMessage}</Text>
                 }
                 <Text style={style.textLabel}>Repeat your password:</Text>
                 <TextInput
@@ -165,7 +162,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   passwordMatchError &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>Password needs to be equal.</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>Password needs to be equal.</Text>
                 }
                 {
                   !registerDisabled ?
@@ -185,8 +182,8 @@ const RegisterScreen = ({ navigation }: any) => {
                         >LOGIN</Text>
                       </TouchableOpacity>
                     </View>
-                    : 
-                    <View style={{width: 10, height: 30}}></View>
+                    :
+                    <View style={{ width: 10, height: 30 }}></View>
                 }
                 <Pressable
                   style={{
@@ -213,32 +210,32 @@ const RegisterScreen = ({ navigation }: any) => {
         </KeyboardAvoidingView>
       </KeyboardAwareScrollView>
       <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalRegisterSuccess || fetchErrorMessage.length > 0}
+        animationType="slide"
+        transparent={true}
+        visible={modalRegisterSuccess || fetchErrorMessage.length > 0}
+      >
+        <View
+          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
         >
-          <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
-          >
+        </View>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <Text>You have been registered successfuly.</Text>
+            <Pressable
+              style={modalStyles.button}
+              onPress={() => {
+                if (fetchErrorMessage.length === 0) {
+                  navigation.navigate('Login');
+                }
+                setModalRegisterSuccess(false);
+                setFetchErrorMessage('');
+              }}
+            >
+              <Text style={modalStyles.textStyle}>{modalRegisterSuccess ? 'Login' : 'Ok'}</Text>
+            </Pressable>
           </View>
-          <View style={modalStyles.centeredView}>
-            <View style={modalStyles.modalView}>
-              <Text>You have been registered successfuly.</Text>
-              <Pressable
-                style={modalStyles.button}
-                onPress={() => {
-                  if (fetchErrorMessage.length === 0) {
-                    navigation.navigate('Login');
-                  }
-                  setModalRegisterSuccess(false);
-                  setFetchErrorMessage('');
-                }}
-              >
-                <Text style={modalStyles.textStyle}>{ modalRegisterSuccess ? 'Login' : 'Ok' }</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
+        </View>
+      </Modal>
     </View>
   );
 };

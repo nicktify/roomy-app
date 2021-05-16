@@ -10,13 +10,13 @@ const Tab = createMaterialTopTabNavigator();
 const InsideRoomNavigation = () => {
   return (
     <Tab.Navigator
-      tabBar={ props => <TabBarRoomNavigation { ...props } />}
+      tabBar={props => <TabBarRoomNavigation {...props} />}
       initialRouteName="HomeRoomScreen"
-      >
-    <Tab.Screen name="HomeRoomScreen" component={ RoomPostsScreen } />
-    <Tab.Screen name="BooksRoomScreen" component={ ForumScreen } />
-    <Tab.Screen name="PeopleRoomScreen" component={ PeopleScreen } />
-  </Tab.Navigator>
+    >
+      <Tab.Screen name="HomeRoomScreen" component={RoomPostsScreen} />
+      <Tab.Screen name="BooksRoomScreen" component={ForumScreen} />
+      <Tab.Screen name="PeopleRoomScreen" component={PeopleScreen} />
+    </Tab.Navigator>
   );
 };
 

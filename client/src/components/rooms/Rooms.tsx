@@ -8,19 +8,19 @@ import Room from './Room';
 
 const Rooms = ({ navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
 
-  const { rooms, getRooms } = useContext( Context );
+  const { rooms, getRooms } = useContext(Context);
 
-  useEffect(() => {}, [rooms])
-  useEffect(() => { getRooms() }, [])
+  useEffect(() => { }, [rooms]);
+  useEffect(() => { getRooms(); }, []);
 
   const renderItem = ({ item }: any) => (
-    <View style={{ width: '100%' , alignItems: 'center'}}>
-      <Room name={item.name} id={item.id} navigation={ navigation } setModalRoomOptions={setModalRoomOptions} setSelectedRoomId={setSelectedRoomId}/>
+    <View style={{ width: '100%', alignItems: 'center' }}>
+      <Room name={item.name} id={item.id} navigation={navigation} setModalRoomOptions={setModalRoomOptions} setSelectedRoomId={setSelectedRoomId} />
     </View>
-  )
+  );
 
   return (
-      <SafeAreaView style={{ width: '100%', flex: 1 }}>
+    <SafeAreaView style={{ width: '100%', flex: 1 }}>
       <FlatList
         data={rooms}
         renderItem={renderItem}

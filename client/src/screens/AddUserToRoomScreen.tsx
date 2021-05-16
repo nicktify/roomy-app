@@ -14,14 +14,10 @@ const windowHeight = Dimensions.get('window').height;
 
 const AddUserToRoomScreen = () => {
 
-  const { 
+  const {
     user,
     selectedRoom,
     getAllUsersFromRoom,
-    handleDeleteUserFromRoom,
-    makeUserOwnerOfRoom,
-    makeUserParticipantOfRoom,
-    selectedRoomUsers,
   } = useContext(Context);
 
   const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
@@ -30,7 +26,7 @@ const AddUserToRoomScreen = () => {
   const [showProfilePreview, setShowProfilePreview] = useState<User | null>(null);
   const [showPreviewSocialMediaLink, setShowPreviewSocialMediaLink] = useState(false);
   const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState('');
-  
+
 
   const fetchAllUsersFromRoom = () => {
     selectedRoom && getAllUsersFromRoom(selectedRoom.id)
@@ -54,7 +50,7 @@ const AddUserToRoomScreen = () => {
         }
         if (response.data.msg === 'User not exist.') {
           setShowNotFound(true);
-          setSearchedUserOnFetchResult(null)
+          setSearchedUserOnFetchResult(null);
         }
       })
       .catch(error => {
@@ -443,9 +439,9 @@ const AddUserToRoomScreen = () => {
                 paddingHorizontal: 20,
               }}
             >
-              <Text style={{color: 'black'}}>{showProfilePreview?.about}</Text>
+              <Text style={{ color: 'black' }}>{showProfilePreview?.about}</Text>
             </View>
-            
+
             <Pressable
               style={{
                 backgroundColor: principalColor,
@@ -461,7 +457,7 @@ const AddUserToRoomScreen = () => {
               }}
               onPress={handleAddUserToRoom}
             >
-              <Text style={{color: 'white', fontSize: 20}}>Add</Text>
+              <Text style={{ color: 'white', fontSize: 20 }}>Add</Text>
             </Pressable>
 
           </View>
@@ -482,7 +478,7 @@ const AddUserToRoomScreen = () => {
         >
         </View>
         <View
-          style={{width: windowWidth, height: windowHeight, justifyContent: 'center', alignItems: 'center'}}
+          style={{ width: windowWidth, height: windowHeight, justifyContent: 'center', alignItems: 'center' }}
         >
           <View
             style={{
@@ -503,7 +499,7 @@ const AddUserToRoomScreen = () => {
                 padding: 10,
               }}
             >
-              <Text style={{color: 'black'}}>{selectedSocialMediaLink}</Text>
+              <Text style={{ color: 'black' }}>{selectedSocialMediaLink}</Text>
             </View>
             <Pressable
               style={{

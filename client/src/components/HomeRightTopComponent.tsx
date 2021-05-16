@@ -14,11 +14,11 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const HomeRightTopComponent = () => {
-  const [ modalVisible, setModalVisible ] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const { user, updateProfilePicture } = useContext( Context );
+  const { user, updateProfilePicture } = useContext(Context);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => { }, [user]);
 
   const handleUploadImage = () => {
     launchImageLibrary({
@@ -46,7 +46,7 @@ const HomeRightTopComponent = () => {
       updateProfilePicture(resp);
       setModalVisible(false);
     });
-  }
+  };
 
   return (
     <>
@@ -88,31 +88,31 @@ const HomeRightTopComponent = () => {
           }}
         >
           <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5 , position: 'absolute', width: windowWidth, height: windowHeight }}
+            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
           >
           </View>
-            <View style={modalStyles.centeredView}>
-              <View style={modalStyles.modalView}>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={handleUploadImage}
-                >
-                  <Text style={modalStyles.textStyle}>Select from galery</Text>
-                </Pressable>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={handleTakePicture}
-                >
-                  <Text style={modalStyles.textStyle}>Take picture</Text>
-                </Pressable>
-                <Pressable
-                  style={modalStyles.button}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={modalStyles.textStyle}>Cancel</Text>
-                </Pressable>
-              </View>
+          <View style={modalStyles.centeredView}>
+            <View style={modalStyles.modalView}>
+              <Pressable
+                style={modalStyles.button}
+                onPress={handleUploadImage}
+              >
+                <Text style={modalStyles.textStyle}>Select from galery</Text>
+              </Pressable>
+              <Pressable
+                style={modalStyles.button}
+                onPress={handleTakePicture}
+              >
+                <Text style={modalStyles.textStyle}>Take picture</Text>
+              </Pressable>
+              <Pressable
+                style={modalStyles.button}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={modalStyles.textStyle}>Cancel</Text>
+              </Pressable>
             </View>
+          </View>
 
         </Modal>
       </View>

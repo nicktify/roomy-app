@@ -7,26 +7,26 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
 
-  const { logout } = React.useContext( Context );
+  const { logout } = React.useContext(Context);
 
   const handleLogout = () => {
     logout();
-  }
+  };
 
   return (
     <Drawer.Navigator initialRouteName="Home"
-      drawerContent={ props => {
+      drawerContent={props => {
         return (
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label="Logout" onPress={ handleLogout } />
+            <DrawerItem label="Logout" onPress={handleLogout} />
           </DrawerContentScrollView>
-        )
+        );
       }}
     >
-      <Drawer.Screen name="Home" component={ HomeTabNavigation } />
+      <Drawer.Screen name="Home" component={HomeTabNavigation} />
     </Drawer.Navigator>
   );
-}
+};
 
 export default DrawerNavigation;

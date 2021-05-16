@@ -9,43 +9,43 @@ import { signInValidation } from '../validations/signin';
 
 const LoginScreen = ({ navigation }: any) => {
 
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ loginDisabled, setLoginDisabled ] = useState(false);
-  const [ errors, setErrors ] = useState(signInValidation({ email, password }));
-  const [ fetchErrorMessage, setFetchErrorMessage ] = useState('');
-  const [ badEmailMessage, setBadEmailMessage ] = useState('')
-  const [ badPasswordMessage, setBadPasswordMessage ] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginDisabled, setLoginDisabled] = useState(false);
+  const [errors, setErrors] = useState(signInValidation({ email, password }));
+  const [fetchErrorMessage, setFetchErrorMessage] = useState('');
+  const [badEmailMessage, setBadEmailMessage] = useState('');
+  const [badPasswordMessage, setBadPasswordMessage] = useState('');
 
-  const { signIn } = useContext( Context );
+  const { signIn } = useContext(Context);
 
   const onChange = (email: string, password: string) => {
     setEmail(email);
     setPassword(password);
-    setErrors(signInValidation({email, password}));
+    setErrors(signInValidation({ email, password }));
     if (errors.password.length === 0) setBadPasswordMessage('');
     if (errors.email.length === 0) setBadEmailMessage('');
-  }
+  };
 
-  useEffect(() => {}, [email, password])
+  useEffect(() => { }, [email, password]);
 
   const handleLogin = () => {
     if (errors.email.length === 0 && errors.password.length === 0) {
-      setLoginDisabled(true)
-      signIn( { email, password } )
-      .then(() => {
-        setLoginDisabled(false);
-      })
-      .catch(error => {
-        console.log('screen', error)
-        setFetchErrorMessage('Email or password is invalid.');
-        setLoginDisabled(false)
-      })
+      setLoginDisabled(true);
+      signIn({ email, password })
+        .then(() => {
+          setLoginDisabled(false);
+        })
+        .catch(error => {
+          console.log('screen', error);
+          setFetchErrorMessage('Email or password is invalid.');
+          setLoginDisabled(false);
+        });
     } else {
-      setBadEmailMessage(errors.email)
-      setBadPasswordMessage(errors.password)
+      setBadEmailMessage(errors.email);
+      setBadPasswordMessage(errors.password);
     }
-  }
+  };
 
   return (
     <View style={style.root}>
@@ -72,7 +72,7 @@ const LoginScreen = ({ navigation }: any) => {
                 <Text style={style.textLabel}>Enter your email:</Text>
                 {
                   fetchErrorMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{fetchErrorMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{fetchErrorMessage}</Text>
                 }
                 <TextInput
                   style={style.textInput}
@@ -85,7 +85,7 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {
                   badEmailMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badEmailMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
                 }
                 <Text style={style.textLabel}>Enter your password:</Text>
                 <TextInput
@@ -99,27 +99,26 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {
                   badPasswordMessage.length > 1 &&
-                  <Text style={{color: 'red', fontStyle: 'italic'}}>{badPasswordMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badPasswordMessage}</Text>
                 }
                 {
                   !loginDisabled ?
-                  <View
-                    style={style.registerContainer}
-                  >
-                    <Text
-                      style={style.dontHaveAnAccountText}
-                    >Don't have an account?</Text>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Register')}
+                    <View
+                      style={style.registerContainer}
                     >
                       <Text
-                        style={style.registerLink}
-                      >REGISTER</Text>
-                    </TouchableOpacity>
-                  </View>
-                  : 
-                  <View style={style.registerContainer}></View>
-
+                        style={style.dontHaveAnAccountText}
+                      >Don't have an account?</Text>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('Register')}
+                      >
+                        <Text
+                          style={style.registerLink}
+                        >REGISTER</Text>
+                      </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={style.registerContainer}></View>
                 }
                 <Pressable
                   style={{

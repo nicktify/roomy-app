@@ -7,22 +7,22 @@ const TabBarRoomNavigation = ({ navigation }: any) => {
   return (
     <View style={style.navigationTop}>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('HomeRoomScreen') }
+        onPress={() => navigation.navigate('HomeRoomScreen')}
       >
         <Text style={style.text}>POSTS</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('BooksRoomScreen') }
+        onPress={() => navigation.navigate('BooksRoomScreen')}
       >
         <Text style={style.text}>FORUM</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('PeopleRoomScreen') }
+        onPress={() => navigation.navigate('PeopleRoomScreen')}
       >
         <Text style={style.text}>PEOPLE</Text>
       </TouchableOpacity>
-  </View>
-  )
-}
+    </View>
+  );
+};
 
 export default TabBarRoomNavigation;

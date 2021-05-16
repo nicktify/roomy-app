@@ -8,6 +8,6 @@ export class Post {
   date: Date;
   image: {
     url: string,
-    size: { width: number, height: number }
+    size: { width: number, height: number };
   };
 }

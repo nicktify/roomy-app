@@ -8,47 +8,47 @@ const TabBarNavigation = ({ navigation }: any) => {
   return (
     <View style={style.navigationBottom}>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Home') }
+        onPress={() => navigation.navigate('Home')}
       >
         <Icon
-          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+          style={[style.navigationBottomIcon, { maxWidth: 25 }]}
           name="home"
           color="black"
           size={25}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('CreateRoom') }
+        onPress={() => navigation.navigate('CreateRoom')}
       >
-        <Icon 
-          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+        <Icon
+          style={[style.navigationBottomIcon, { maxWidth: 25 }]}
           name="add-circle"
           color="black"
           size={25}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Notifications') }
+        onPress={() => navigation.navigate('Notifications')}
       >
-        <Icon 
-          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+        <Icon
+          style={[style.navigationBottomIcon, { maxWidth: 25 }]}
           name="notifications"
           color="black"
           size={25}
-          />
+        />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={ () => navigation.navigate('Profile') }
+        onPress={() => navigation.navigate('Profile')}
       >
-        <Icon 
-          style={[style.navigationBottomIcon, {maxWidth: 25}]}
+        <Icon
+          style={[style.navigationBottomIcon, { maxWidth: 25 }]}
           name="person"
           color="black"
           size={28}
         />
       </TouchableOpacity>
-  </View>
-  )
-}
+    </View>
+  );
+};
 
 export default TabBarNavigation;

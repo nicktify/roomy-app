@@ -17,50 +17,50 @@ const windowHeight = Dimensions.get('window').height;
 
 const HomeScreen = ({ navigation }: any) => {
 
-  const { deleteRoom } = useContext( Context );
+  const { deleteRoom } = useContext(Context);
 
-  const [ modalRoomOptions, setModalRoomOptions ] = useState(false);
-  const [ modalConfirmationDeleteRoom, setModalConfirmationDeleteRoom ] = useState(false);
-  const [ selectedRoomId, setSelectedRoomId ] = useState('');
+  const [modalRoomOptions, setModalRoomOptions] = useState(false);
+  const [modalConfirmationDeleteRoom, setModalConfirmationDeleteRoom] = useState(false);
+  const [selectedRoomId, setSelectedRoomId] = useState('');
 
   const handleDeleteRoom = () => {
     deleteRoom(selectedRoomId)
-    .then(() => {
-      setModalConfirmationDeleteRoom(false);
-      setModalRoomOptions(false);
-      setSelectedRoomId('');
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
+      .then(() => {
+        setModalConfirmationDeleteRoom(false);
+        setModalRoomOptions(false);
+        setSelectedRoomId('');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <View style={style.root}>
         <View style={style.topContainer}>
-          <HomeLeftTopComponent navigation={ navigation } />
+          <HomeLeftTopComponent navigation={navigation} />
           <HomeRightTopComponent />
         </View>
         <View style={{
-              flex: 1,
-              backgroundColor: '#f1f1f1',
-              borderTopLeftRadius: 50,
-              borderTopRightRadius: 50,
-              justifyContent: 'center',
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 10,
-                height: 10,
-              },
-              shadowOpacity: 0.44,
-              shadowRadius: 5,
-              elevation: 16,
+          flex: 1,
+          backgroundColor: '#f1f1f1',
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+          justifyContent: 'center',
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 10,
+            height: 10,
+          },
+          shadowOpacity: 0.44,
+          shadowRadius: 5,
+          elevation: 16,
         }}>
           <View style={{
-                height: '100%',
-                alignItems: 'center',
-                paddingHorizontal: 10,
+            height: '100%',
+            alignItems: 'center',
+            paddingHorizontal: 10,
           }} >
             <View style={{
               width: '80%',
@@ -71,8 +71,8 @@ const HomeScreen = ({ navigation }: any) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
 
-              }}>
-              <Text style={{fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
+            }}>
+              <Text style={{ fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
               <TouchableOpacity
                 style={{
                   flexDirection: 'row',
@@ -81,7 +81,7 @@ const HomeScreen = ({ navigation }: any) => {
                 onPress={() => navigation.navigate('SearchRoom')}
               >
                 <Text>Search</Text>
-                <Icon 
+                <Icon
                   name='search'
                   size={30}
                   style={{
@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }: any) => {
               </TouchableOpacity>
             </View>
             <Rooms
-              navigation={ navigation }
+              navigation={navigation}
               setModalRoomOptions={setModalRoomOptions}
               setSelectedRoomId={setSelectedRoomId}
             />
@@ -103,12 +103,12 @@ const HomeScreen = ({ navigation }: any) => {
           transparent={true}
           visible={modalRoomOptions}
           onRequestClose={() => {
-            setModalRoomOptions(false)
+            setModalRoomOptions(false);
           }}
         >
-          <View style={{position: 'absolute', backgroundColor: 'black', opacity: 0.5, width: windowWidth, height: windowHeight}}></View>
+          <View style={{ position: 'absolute', backgroundColor: 'black', opacity: 0.5, width: windowWidth, height: windowHeight }}></View>
           <View
-          style={ModalStyles.centeredView}
+            style={ModalStyles.centeredView}
           >
             <View
               style={ModalStyles.modalView}
@@ -132,7 +132,7 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={() => setModalConfirmationDeleteRoom(true)}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>Delete room</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Delete room</Text>
               </Pressable>
               <Pressable
                 style={{
@@ -153,7 +153,7 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={() => setModalRoomOptions(false)}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>Cancel</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Cancel</Text>
               </Pressable>
             </View>
           </View>
@@ -163,17 +163,16 @@ const HomeScreen = ({ navigation }: any) => {
           transparent={true}
           visible={modalConfirmationDeleteRoom}
           onRequestClose={() => {
-            setModalConfirmationDeleteRoom(false)
+            setModalConfirmationDeleteRoom(false);
           }}
         >
-
           <View
-          style={ModalStyles.centeredView}
+            style={ModalStyles.centeredView}
           >
             <View
               style={ModalStyles.modalView}
             >
-              <Text style={{fontSize: 18, marginBottom: 15,}}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
+              <Text style={{ fontSize: 18, marginBottom: 15, }}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
               <Pressable
                 style={{
                   width: 200,
@@ -193,7 +192,7 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={handleDeleteRoom}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white'}}>Yes, delete</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white' }}>Yes, delete</Text>
               </Pressable>
               <Pressable
                 style={{
@@ -214,10 +213,8 @@ const HomeScreen = ({ navigation }: any) => {
                 }}
                 onPress={() => setModalConfirmationDeleteRoom(false)}
               >
-                <Text style={{fontSize: 20, fontWeight: 'bold', opacity: 0.7}}>cancel</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>cancel</Text>
               </Pressable>
-
-
             </View>
           </View>
         </Modal>
