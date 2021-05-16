@@ -261,6 +261,7 @@ const AppContext = ({ children }: any) => {
   const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
+
       if (!token || !data) return;
 
       const fileToUpload = {
@@ -270,8 +271,7 @@ const AppContext = ({ children }: any) => {
       };
 
       const formData = new FormData();
-
-      data && formData.append('file', fileToUpload);
+      formData.append('file', fileToUpload);
       formData.append('roomId', state.selectedRoom?.id);
       formData.append('authorId', state.user?.id);
       formData.append('authorProfilePicture', state.user?.profilePicture);
@@ -301,7 +301,6 @@ const AppContext = ({ children }: any) => {
       if (!user) reject('User not found');
 
       resolve(user.data);
-
     });
   };
 
@@ -337,10 +336,9 @@ const AppContext = ({ children }: any) => {
 
   const deleteRoom = (id: string): Promise<{ msg: string; }> => {
     return new Promise(async (resolve, reject) => {
-
       const token = await AsyncStorage.getItem('token');
-      if (!token) return { msg: 'User not authenticated.' };
 
+      if (!token) return { msg: 'User not authenticated.' };
       if (!id) return { msg: 'Id is missing.' };
 
       axios.delete(`${API}/rooms/delete-room`, {
@@ -364,11 +362,9 @@ const AppContext = ({ children }: any) => {
 
   const changeProfileBackground = (file: ImagePickerResponse): Promise<{ msg: string; }> => {
     return new Promise(async (resolve, reject) => {
-
       const token = await AsyncStorage.getItem('token');
 
       if (!token || !state.user) return { msg: 'Not authenticated' };
-
       if (!file) return { msg: 'No file' };
 
       const fileToUpload = {
@@ -378,7 +374,6 @@ const AppContext = ({ children }: any) => {
       };
 
       const formData = new FormData();
-
       formData.append('file', fileToUpload);
       formData.append('userId', state.user.id);
 
