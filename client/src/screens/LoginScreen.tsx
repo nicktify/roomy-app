@@ -17,7 +17,7 @@ const LoginScreen = ({ navigation }: any) => {
   const [badEmailMessage, setBadEmailMessage] = useState('');
   const [badPasswordMessage, setBadPasswordMessage] = useState('');
 
-  const { signIn } = useContext(Context);
+  const { signIn, getRooms } = useContext(Context);
 
   const onChange = (email: string, password: string) => {
     setEmail(email);
@@ -30,14 +30,17 @@ const LoginScreen = ({ navigation }: any) => {
   useEffect(() => { }, [email, password]);
 
   const handleLogin = () => {
+
     if (errors.email.length === 0 && errors.password.length === 0) {
+
       setLoginDisabled(true);
+
       signIn({ email, password })
         .then(() => {
           setLoginDisabled(false);
+          getRooms();
         })
-        .catch(error => {
-          console.log('screen', error);
+        .catch(() => {
           setFetchErrorMessage('Email or password is invalid.');
           setLoginDisabled(false);
         });

@@ -72,7 +72,6 @@ const AppContext = ({ children }: any) => {
       })
         .then(async response => {
           await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-          getRooms();
           dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
           resolve({ msg: 'Authenticated' });
         })
@@ -80,7 +79,6 @@ const AppContext = ({ children }: any) => {
           reject(error);
         });
     });
-
   };
 
 
@@ -98,7 +96,6 @@ const AppContext = ({ children }: any) => {
           console.log(error);
           reject({ msg: 'Register failure.' });
         });
-
     });
   };
 
@@ -121,8 +118,8 @@ const AppContext = ({ children }: any) => {
 
       axios.post(`${API}/users/add-profile-picture`,
         formData,
-        { headers: { Authorization: `Bearer ${JSON.parse(token)}` } }
-      )
+        { headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
         .then(response => {
           validateToken();
           resolve(response.data);
@@ -144,8 +141,8 @@ const AppContext = ({ children }: any) => {
 
     axios.post(`${API}/users/auth/validate-token`,
       undefined,
-      { headers: { Authorization: `Bearer ${JSON.parse(token)}` } }
-    )
+      { headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+    })
       .then(response => {
         dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
         getRooms().then(() => dispatch({ type: 'VALIDATION_COMPLETED' }));
@@ -165,32 +162,24 @@ const AppContext = ({ children }: any) => {
 
 
   const getRooms = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (!token || !state.user) return;
 
-    try {
-      const token = await AsyncStorage.getItem('token');
-      if (!token || !state.user) return;
-
-      axios.get(`${API}/rooms/get-all-rooms-from-user/${state.user.id}`, {
-        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+    axios.get(`${API}/rooms/get-all-rooms-from-user/${state.user.id}`, {
+      headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+    })
+      .then(response => {
+        dispatch({ type: 'SET_ROOMS', payload: response.data });
       })
-        .then(response => {
-          dispatch({ type: 'SET_ROOMS', payload: response.data });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-
-    } catch (error) {
-      console.log(error);
-    }
-
+      .catch(error => {
+        console.log(error);
+      });
   };
 
 
   const createRoom = (name: string, password: string): Promise<{ msg: string; }> => {
 
     return new Promise(async (resolve, reject) => {
-
       if (!name || !password) reject({ msg: 'Missing information.' });
 
       const token = await AsyncStorage.getItem('token');
@@ -218,6 +207,7 @@ const AppContext = ({ children }: any) => {
     return new Promise((resolve, reject) => {
       if (!roomId) return reject('Missing roomId');
       if (!state.rooms) return reject('Missing rooms in state');
+
       const selectedRoom = state.rooms.filter(room => room.id === roomId)[0];
 
       dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
@@ -228,6 +218,7 @@ const AppContext = ({ children }: any) => {
   const getAllRoomInformation = (roomId: string): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
+
       if (!token) return reject('Not authenticated');
       if (!roomId) return reject('Not room');
 
@@ -250,8 +241,8 @@ const AppContext = ({ children }: any) => {
   const getCurrentRoomPosts = (roomId: string): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
-      if (!token) return;
 
+      if (!token) return;
       if (!state.selectedRoom) return;
 
       axios.get(`${API}/posts/get-all-posts/${roomId}`, {
@@ -270,12 +261,12 @@ const AppContext = ({ children }: any) => {
   const addNewPost = async (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
-      if (!token) return;
+      if (!token || !data) return;
 
       const fileToUpload = {
-        uri: data?.uri,
-        type: data?.type,
-        name: data?.fileName
+        uri: data.uri,
+        type: data.type,
+        name: data.fileName
       };
 
       const formData = new FormData();
