@@ -29,12 +29,12 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <View style={{
+      backgroundColor: 'white',
       flex: 1,
-      backgroundColor: 'white'
     }}>
       <View style={{
         flex: 0.3,
-        flexDirection: 'row'
+        flexDirection: 'row',
       }}>
         <HomeLeftTopComponent navigation={navigation} />
         <HomeRightTopComponent />
@@ -44,6 +44,7 @@ const HomeScreen = ({ navigation }: any) => {
         backgroundColor: '#f1f1f1',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
+        elevation: 16,
         justifyContent: 'center',
         shadowColor: "#000",
         shadowOffset: {
@@ -52,27 +53,32 @@ const HomeScreen = ({ navigation }: any) => {
         },
         shadowOpacity: 0.44,
         shadowRadius: 5,
-        elevation: 16,
       }}>
         <View style={{
-          height: '100%',
           alignItems: 'center',
+          height: '100%',
           paddingHorizontal: 10,
         }} >
           <View style={{
-            width: '80%',
             alignItems: 'center',
-            marginBottom: 10,
             borderBottomColor: '#a4a4a4a4',
             borderBottomWidth: 0.5,
+            marginBottom: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            width: '80%',
           }}>
-            <Text style={{ fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
+            <Text style={{
+              fontSize: 22,
+              fontWeight: 'bold',
+              opacity: 0.8, }}
+            >
+                Your rooms
+            </Text>
             <TouchableOpacity
               style={{
-                flexDirection: 'row',
                 alignItems: 'center',
+                flexDirection: 'row',
               }}
               onPress={() => navigation.navigate('SearchRoom')}
             >
@@ -81,8 +87,8 @@ const HomeScreen = ({ navigation }: any) => {
                 name='search'
                 size={30}
                 style={{
-                  opacity: 0.8,
                   marginLeft: 5,
+                  opacity: 0.8,
                 }}
               />
             </TouchableOpacity>
