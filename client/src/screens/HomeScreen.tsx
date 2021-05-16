@@ -1,18 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
-
+import { Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Context } from '../context/MainContext';
 import HomeLeftTopComponent from '../components/HomeLeftTopComponent';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
 import Rooms from '../components/rooms/Rooms';
-
-import { style as ModalStyles } from '../styles/components/modal';
-import { Context } from '../context/MainContext';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import RoomOptionsModal from '../components/modals/RoomOptionsModal';
 
 const HomeScreen = ({ navigation }: any) => {
 
@@ -74,7 +67,6 @@ const HomeScreen = ({ navigation }: any) => {
             borderBottomWidth: 0.5,
             flexDirection: 'row',
             justifyContent: 'space-between',
-
           }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', opacity: 0.8, }}>Your rooms</Text>
             <TouchableOpacity
@@ -102,126 +94,15 @@ const HomeScreen = ({ navigation }: any) => {
           />
         </View>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalRoomOptions}
-        onRequestClose={() => {
-          setModalRoomOptions(false);
-        }}
-      >
-        <View style={{ position: 'absolute', backgroundColor: 'black', opacity: 0.5, width: windowWidth, height: windowHeight }}></View>
-        <View
-          style={ModalStyles.centeredView}
-        >
-          <View
-            style={ModalStyles.modalView}
-          >
-            <Pressable
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-              onPress={() => setModalConfirmationDeleteRoom(true)}
-            >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Delete room</Text>
-            </Pressable>
-            <Pressable
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-              onPress={() => setModalRoomOptions(false)}
-            >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Cancel</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalConfirmationDeleteRoom}
-        onRequestClose={() => {
-          setModalConfirmationDeleteRoom(false);
-        }}
-      >
-        <View
-          style={ModalStyles.centeredView}
-        >
-          <View
-            style={ModalStyles.modalView}
-          >
-            <Text style={{ fontSize: 18, marginBottom: 15, }}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
-            <Pressable
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'red',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-              onPress={handleDeleteRoom}
-            >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white' }}>Yes, delete</Text>
-            </Pressable>
-            <Pressable
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-              onPress={() => setModalConfirmationDeleteRoom(false)}
-            >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>cancel</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+
+      <RoomOptionsModal 
+        modalRoomOptions={modalRoomOptions}
+        setModalRoomOptions={setModalRoomOptions}
+        setModalConfirmationDeleteRoom={setModalConfirmationDeleteRoom}
+        modalConfirmationDeleteRoom={modalConfirmationDeleteRoom}
+        handleDeleteRoom={handleDeleteRoom}
+      />
+
     </View>
   );
 };

@@ -4,7 +4,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { principalColor } from '../config/colors';
 
 import { Context } from '../context/MainContext';
-import style from '../styles/screens/login';
 import { signInValidation } from '../validations/signin';
 
 const LoginScreen = ({ navigation }: any) => {
@@ -51,7 +50,13 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={style.root}>
+    <View style={{
+      flex: 1,
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
       <KeyboardAwareScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
       >
@@ -63,12 +68,24 @@ const LoginScreen = ({ navigation }: any) => {
             onPress={Keyboard.dismiss}
           >
 
-            <View style={style.formContainer}>
+            <View style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
               <View
-                style={style.loginTextContainer}
+                style={{
+                  minWidth: '80%',
+                }}
               >
                 <Text
-                  style={style.loginText}
+                  style={{
+                    color: '#69C1AC',
+                    fontSize: 50,
+                    fontWeight: 'bold',
+                    marginBottom: 15,
+                  }}
                 >Login</Text>
               </View>
               <View>
@@ -107,21 +124,40 @@ const LoginScreen = ({ navigation }: any) => {
                 {
                   !loginDisabled ?
                     <View
-                      style={style.registerContainer}
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        marginTop: 20,
+                        height: 30,
+                        minWidth: 10,
+                      }}
                     >
                       <Text
-                        style={style.dontHaveAnAccountText}
+                        style={{
+                          opacity: 0.6,
+                        }}
                       >Don't have an account?</Text>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('Register')}
                       >
                         <Text
-                          style={style.registerLink}
+                          style={{
+                            color: '#69C1AC',
+                            fontWeight: 'bold',
+                            marginLeft: 10,
+                            opacity: 0.6,
+                          }}
                         >REGISTER</Text>
                       </TouchableOpacity>
                     </View>
                     :
-                    <View style={style.registerContainer}></View>
+                    <View style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      marginTop: 20,
+                      height: 30,
+                      minWidth: 10,
+                    }}></View>
                 }
                 <Pressable
                   style={{
@@ -137,7 +173,11 @@ const LoginScreen = ({ navigation }: any) => {
                   onPress={handleLogin}
                 >
                   <Text
-                    style={style.textButton}
+                    style={{
+                      fontSize: 28,
+                      fontWeight: 'bold',
+                      color: 'white'
+                    }}
                   >
                     Login
                 </Text>
@@ -150,6 +190,24 @@ const LoginScreen = ({ navigation }: any) => {
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  textInput: {
+    fontSize: 18,
+    width: 200,
+    color: 'black',
+    backgroundColor: '#E8E8E8',
+    padding: 15,
+    borderRadius: 10,
+    minWidth: '80%',
+  },
+  textLabel: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 20,
+    opacity: 0.6,
+  },
+});
 
 export default LoginScreen;
 

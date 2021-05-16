@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Keyboard, KeyboardAvoidingView, Pressable, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
-import style from '../styles/screens/login';
 import { createRoomValidations } from '../validations/createRoom';
 
 const CreateRoomScreen = ({ navigation }: any) => {
@@ -61,7 +60,13 @@ const CreateRoomScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={style.root}>
+    <View style={{
+      flex: 1,
+      backgroundColor: 'white',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
       <KeyboardAwareScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
       >
@@ -71,14 +76,31 @@ const CreateRoomScreen = ({ navigation }: any) => {
           <TouchableWithoutFeedback
             style={{ flex: 1 }}
             onPress={Keyboard.dismiss}>
-            <View style={style.formContainer}>
+            <View style={{
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+            }}>
               <View
-                style={style.loginTextContainer}
+                style={{
+                  minWidth: '80%',
+                }}
               >
-                <Text style={style.loginText}>Create room</Text>
+                <Text style={{
+                      color: '#69C1AC',
+                      fontSize: 50,
+                      fontWeight: 'bold',
+                      marginBottom: 15,
+                }}>Create room</Text>
               </View>
               <View>
-                <Text style={style.textLabel}>Enter room name:</Text>
+                <Text style={{
+                      marginTop: 10,
+                      marginBottom: 10,
+                      fontSize: 20,
+                      opacity: 0.6,
+                }}>Enter room name:</Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="Quantum mechanics"
@@ -131,7 +153,11 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   onPress={handleCreateRoom}
                 >
                   <Text
-                    style={style.textButton}
+                    style={{
+                      fontSize: 28,
+                      fontWeight: 'bold',
+                      color: 'white'
+                    }}
                   >
                     Create room
                 </Text>
@@ -144,5 +170,23 @@ const CreateRoomScreen = ({ navigation }: any) => {
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  textInput: {
+    fontSize: 18,
+    width: 200,
+    color: 'black',
+    backgroundColor: '#E8E8E8',
+    padding: 15,
+    borderRadius: 10,
+    minWidth: '80%',
+  },
+  textLabel: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 20,
+    opacity: 0.6,
+  },
+});
 
 export default CreateRoomScreen;
