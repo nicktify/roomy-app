@@ -49,74 +49,72 @@ const HomeRightTopComponent = () => {
   };
 
   return (
-    <>
-      <View style={styles.rightTopContainer}>
-        <Image
-          style={{ resizeMode: 'contain', position: 'absolute', alignSelf: 'flex-end', top: -10, right: 20 }}
-          source={require('../assets/roomy.png')}
-          width={50}
-          height={50}
-        />
-        {
-          user?.profilePicture ?
-            <TouchableWithoutFeedback
-              style={{ flex: 1 }}
-              onPress={() => setModalVisible(true)}
-            >
-              <Image
-                source={{
-                  uri: user.profilePicture,
-                }}
-                style={styles.profileImage}
-              />
-            </TouchableWithoutFeedback>
-            :
-            <Icon
-              style={styles.profileImage}
-              name="account-circle"
-              size={80}
-              color={principalColor}
-              onPress={() => setModalVisible(true)}
-            />
-        }
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
+    <View style={styles.rightTopContainer}>
+      <Image
+        style={{ resizeMode: 'contain', position: 'absolute', alignSelf: 'flex-end', top: -10, right: 20 }}
+        source={require('../assets/roomy.png')}
+        width={50}
+        height={50}
+      />
+      {
+        user?.profilePicture ?
+          <TouchableWithoutFeedback
+            style={{ flex: 1 }}
+            onPress={() => setModalVisible(true)}
           >
+            <Image
+              source={{
+                uri: user.profilePicture,
+              }}
+              style={styles.profileImage}
+            />
+          </TouchableWithoutFeedback>
+          :
+          <Icon
+            style={styles.profileImage}
+            name="account-circle"
+            size={80}
+            color={principalColor}
+            onPress={() => setModalVisible(true)}
+          />
+      }
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View
+          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
+        >
+        </View>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <Pressable
+              style={modalStyles.button}
+              onPress={handleUploadImage}
+            >
+              <Text style={modalStyles.textStyle}>Select from galery</Text>
+            </Pressable>
+            <Pressable
+              style={modalStyles.button}
+              onPress={handleTakePicture}
+            >
+              <Text style={modalStyles.textStyle}>Take picture</Text>
+            </Pressable>
+            <Pressable
+              style={modalStyles.button}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={modalStyles.textStyle}>Cancel</Text>
+            </Pressable>
           </View>
-          <View style={modalStyles.centeredView}>
-            <View style={modalStyles.modalView}>
-              <Pressable
-                style={modalStyles.button}
-                onPress={handleUploadImage}
-              >
-                <Text style={modalStyles.textStyle}>Select from galery</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.button}
-                onPress={handleTakePicture}
-              >
-                <Text style={modalStyles.textStyle}>Take picture</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.button}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={modalStyles.textStyle}>Cancel</Text>
-              </Pressable>
-            </View>
-          </View>
+        </View>
 
-        </Modal>
-      </View>
-    </>
+      </Modal>
+    </View>
   );
 };
 
