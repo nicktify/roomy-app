@@ -16,7 +16,7 @@ import SocialMediaIcon from '../../components/SocialMediaIcon';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const PeopleScreen = () => {
+const PeopleScreen = ({ navigation }: any) => {
   const { 
     user,
     selectedRoom,
@@ -370,7 +370,7 @@ const PeopleScreen = () => {
               name="add"
               color='white'
               size={40}
-              onPress={() => setActiveForm(true)}
+              onPress={() => navigation.navigate('AddUserToRoom')}
             />
 
           </View>
