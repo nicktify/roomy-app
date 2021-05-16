@@ -4,15 +4,16 @@ import { TextInput } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SocialMediaIcon from '../components/SocialMediaIcon';
+import ChangeSocialMediaModal from '../components/modals/ChangeSocialMediaModal';
+import SelectProfilePictureModal from '../components/modals/SelectProfilePictureModal';
 import SocialMediaIcons from '../components/SocialMediaIcons';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
+
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-import { style as modalStyles } from '../styles/components/modal';
 
 const ProfileScreen = () => {
 
@@ -99,7 +100,6 @@ const ProfileScreen = () => {
 
       if (pictureType === 'profilePicture') {
         updateProfilePicture(resp)
-          .then()
           .catch(error => {
             console.log(error);
           });
@@ -107,7 +107,6 @@ const ProfileScreen = () => {
 
       if (pictureType === 'backgroundPicture') {
         changeProfileBackground(resp)
-          // .then()
           .catch(error => {
             console.log(error);
           });
@@ -134,7 +133,6 @@ const ProfileScreen = () => {
 
       if (pictureType === 'backgroundPicture') {
         changeProfileBackground(resp)
-          // .then()
           .catch(error => console.log(error));
       }
 
@@ -150,9 +148,6 @@ const ProfileScreen = () => {
 
   return (
     <KeyboardAwareScrollView>
-
-
-
       <View style={{ flex: 1 }}>
         <View style={{
           width: windowWidth,
@@ -185,8 +180,6 @@ const ProfileScreen = () => {
                 </View>
             }
           </Pressable>
-
-
           <View
             style={{
               width: windowWidth,
@@ -284,7 +277,6 @@ const ProfileScreen = () => {
                   >
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Edit about</Text>
                   </Pressable>
-
                 </View>
                 :
                 !showTextInputChangeAbout ?
@@ -334,7 +326,6 @@ const ProfileScreen = () => {
                     <View
                       style={{ flexDirection: 'row', justifyContent: 'center' }}
                     >
-
                       <Pressable
                         style={{
                           backgroundColor: principalColor,
@@ -392,106 +383,23 @@ const ProfileScreen = () => {
           </View>
         </View>
 
+        <SelectProfilePictureModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          handleUploadImage={handleUploadImage}
+          handleTakePicture={handleTakePicture}
+        />
+        <ChangeSocialMediaModal 
+          showModalChangeSocialMedia={showModalChangeSocialMedia}
+          setModalVisible={setModalVisible}
+          selectedSocialMediaIcon={selectedSocialMediaIcon}
+          link={link}
+          setLink={setLink}
+          socialMediaLinkTextInputValue={socialMediaLinkTextInputValue}
+          handleChangeSocialLink={handleChangeSocialLink}
+          setShowModalSocialMedia={setShowModalSocialMedia}
+        />
 
-        {/* Select profile picture modal */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
-          >
-          </View>
-          <View style={modalStyles.centeredView}>
-            <View style={modalStyles.modalView}>
-              <Pressable
-                style={modalStyles.button}
-                onPress={handleUploadImage}
-              >
-                <Text style={modalStyles.textStyle}>Select from galery</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.button}
-                onPress={handleTakePicture}
-              >
-                <Text style={modalStyles.textStyle}>Take picture</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.button}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={modalStyles.textStyle}>Cancel</Text>
-              </Pressable>
-            </View>
-          </View>
-
-        </Modal>
-
-        {/* Change social media modal */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showModalChangeSocialMedia}
-          onRequestClose={() => {
-            setModalVisible(!showModalChangeSocialMedia);
-          }}
-        >
-          <View
-            style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
-          >
-          </View>
-          <View style={modalStyles.centeredView}>
-            <View style={modalStyles.modalView}>
-              <SocialMediaIcon name={selectedSocialMediaIcon} />
-              <TextInput
-                style={{
-                  color: 'black',
-                  backgroundColor: '#f1f1f1f1',
-                  width: windowWidth * 0.75,
-                  borderRadius: 20,
-                  marginBottom: 20,
-                }}
-                placeholder='https://www.socialmegia.com/miperfil'
-                placeholderTextColor='#a1a1a1a1'
-                onChangeText={(link) => setLink(link)}
-                value={link}
-                defaultValue={socialMediaLinkTextInputValue ? socialMediaLinkTextInputValue : ''}
-              />
-              <Pressable
-                style={{
-                  width: 200,
-                  borderRadius: 20,
-                  padding: 10,
-                  margin: 10,
-                  backgroundColor: 'white',
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                  opacity: link.length > 0 ? 1 : 0.5
-                }}
-                onPress={handleChangeSocialLink}
-              >
-                <Text style={modalStyles.textStyle}>OK</Text>
-              </Pressable>
-              <Pressable
-                style={modalStyles.button}
-                onPress={() => setShowModalSocialMedia(!showModalChangeSocialMedia)}
-              >
-                <Text style={modalStyles.textStyle}>Cancel</Text>
-              </Pressable>
-            </View>
-          </View>
-
-        </Modal>
       </View>
     </KeyboardAwareScrollView>
   );
