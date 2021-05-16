@@ -102,6 +102,7 @@ const LoginScreen = ({ navigation }: any) => {
                   defaultValue={email}
                   value={email}
                   keyboardType='email-address'
+                  autoFocus
                 />
                 {
                   badEmailMessage.length > 1 &&

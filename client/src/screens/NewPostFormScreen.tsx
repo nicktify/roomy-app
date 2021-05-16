@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { principalColor } from '../../config/colors';
-import { Context } from '../../context/MainContext';
-import SelectImageOnPostFormModal from '../modals/SelectImageOnPostFormModal';
+import { principalColor } from '../config/colors';
+import { Context } from '../context/MainContext';
+import SelectImageOnPostFormModal from '../components/modals/SelectImageOnPostFormModal';
 
 const NewPostForm = ({navigation}: any) => {
 

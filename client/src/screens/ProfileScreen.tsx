@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Dimensions, Image, Modal, Pressable } from 'react-native';
+import { Text, View, Dimensions, Image, Modal, Pressable, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -15,9 +15,9 @@ import { Context } from '../context/MainContext';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}: any) => {
 
-  const { user, updateProfilePicture, changeProfileBackground, changeSocialMediaIcon, changeAbout } = useContext(Context);
+  const { user, updateProfilePicture, changeProfileBackground, changeSocialMediaIcon } = useContext(Context);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [pictureType, setPictureType] = useState('');
@@ -41,25 +41,10 @@ const ProfileScreen = () => {
     }
   }, []);
 
-  const handleChangeAbout = () => {
-    if (about.length > 0) {
-      setSaveAboutDisabled(true);
-      changeAbout(about)
-        .then(() => {
-          setSaveAboutDisabled(false);
-          setShowTextInputChangeAbout(false);
-        })
-        .catch(error => {
-          console.log(error);
-          setSaveAboutDisabled(false);
-        });
-    }
-  };
-
   const handleChangeSocialLink = () => {
     if (link.length > 0) {
       changeSocialMediaIcon(selectedSocialMediaIcon, link)
-        .then(result => {
+        .then(() => {
           setShowModalSocialMedia(false);
         })
         .catch(error => {
@@ -254,7 +239,7 @@ const ProfileScreen = () => {
                   >
                     <Text style={{ fontSize: 16 }}>{user.about}</Text>
                   </Pressable>
-                  <Pressable
+                  <TouchableOpacity
                     style={{
                       width: 120,
                       height: 50,
@@ -262,8 +247,8 @@ const ProfileScreen = () => {
                       marginTop: 30,
                       alignItems: 'center',
                       alignSelf: 'center',
-                      backgroundColor: 'white',
-                      borderRadius: 5,
+                      backgroundColor: principalColor,
+                      borderRadius: 20,
                       shadowColor: "#000",
                       shadowOffset: {
                         width: 0,
@@ -273,13 +258,12 @@ const ProfileScreen = () => {
                       shadowRadius: 2.22,
                       elevation: 3,
                     }}
-                    onPress={() => setShowTextInputChangeAbout(true)}
+                    onPress={() => navigation.navigate('EditAboutForm')}
                   >
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Edit about</Text>
-                  </Pressable>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>Edit about</Text>
+                  </TouchableOpacity>
                 </View>
                 :
-                !showTextInputChangeAbout ?
                   <Pressable
                     style={{
                       width: 80,
@@ -297,88 +281,13 @@ const ProfileScreen = () => {
                       shadowRadius: 2.22,
                       elevation: 3,
                     }}
-                    onPress={() => setShowTextInputChangeAbout(true)}
+                    onPress={() => navigation.navigate('EditAboutForm')}
                   >
                     <Icon
                       name='add'
                       size={40}
                     />
                   </Pressable>
-                  :
-                  <View
-                    style={{
-                    }}
-                  >
-                    <TextInput
-                      style={{
-                        width: '100%',
-                        color: 'black',
-                        fontSize: 16,
-                        borderRadius: 10,
-                        borderWidth: 1,
-                        borderColor: 'black'
-                      }}
-                      onChangeText={(about) => setAbout(about)}
-                      value={about}
-                      defaultValue=""
-                      multiline
-                    />
-                    <View
-                      style={{ flexDirection: 'row', justifyContent: 'center' }}
-                    >
-                      <Pressable
-                        style={{
-                          backgroundColor: principalColor,
-                          borderRadius: 5,
-                          width: 100,
-                          height: 50,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                          marginTop: 20,
-                          shadowColor: "#000",
-                          shadowOffset: {
-                            width: 0,
-                            height: 1,
-                          },
-                          shadowOpacity: 0.22,
-                          shadowRadius: 2.22,
-                          elevation: 3,
-                          marginHorizontal: 20,
-                          marginBottom: 50,
-                          opacity: saveAboutDisabled ? 0.5 : 1
-                        }}
-                        onPress={handleChangeAbout}
-                      >
-                        <Text style={{ color: 'white', fontSize: 20 }}>Save</Text>
-                      </Pressable>
-                      <Pressable
-                        style={{
-                          backgroundColor: 'white',
-                          borderRadius: 5,
-                          width: 100,
-                          height: 50,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                          marginTop: 20,
-                          shadowColor: "#000",
-                          shadowOffset: {
-                            width: 0,
-                            height: 1,
-                          },
-                          shadowOpacity: 0.22,
-                          shadowRadius: 2.22,
-                          elevation: 3,
-                          marginHorizontal: 20,
-                          marginBottom: 50,
-                        }}
-                        onPress={() => setShowTextInputChangeAbout(false)}
-                      >
-                        <Text style={{ color: 'black', fontSize: 20 }}>Cancel</Text>
-                      </Pressable>
-                    </View>
-                  </View>
             }
           </View>
         </View>
