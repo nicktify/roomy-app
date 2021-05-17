@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, Pressable, Text, View, TextInput, FlatList, Image, Modal, Linking, Alert, BackHandler } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import { Dimensions, Pressable, Text, View, TextInput, FlatList, Image, Modal, Linking, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
@@ -254,52 +253,42 @@ const PeopleScreen = ({ navigation }: any) => {
         flex: 1,
       }}
     >
-      <View
-        style={{
-          height: windowHeight * 0.05
-        }}
-      >
+      <View style={{
+        alignItems: 'center',
+        borderBottomColor: '#a4a4a4a4',
+        borderBottomWidth: 0.5,
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '80%',
+        alignSelf: 'center',
+        marginTop: 10,
+      }}>
         <Text style={{
           fontSize: 22,
           fontWeight: 'bold',
           opacity: 0.8,
-          alignSelf: 'center',
-          marginTop: 10,
-        }}>
-          {selectedRoom?.name}
-        </Text>
-      </View>
-      <View
-        style={{
-          backgroundColor: 'white',
-          height: windowHeight * 0.1,
-          paddingVertical: 15,
-          marginTop: 15,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
         }}
-      >
-        <TextInput
+        >
+          Room participants
+            </Text>
+        <TouchableOpacity
           style={{
-            width: windowWidth * 0.9,
-            backgroundColor: '#f1f1f1f1',
-            borderRadius: 40,
-            paddingHorizontal: 20,
-            borderColor: '#525252',
-            borderWidth: 0.2,
-            marginLeft: 10,
+            alignItems: 'center',
             flexDirection: 'row',
-            color: 'black',
-            fontSize: 18
           }}
-          placeholder='Search user'
-          placeholderTextColor='#4a4a4a'
-          autoFocus={false}
-          onChangeText={(searchValue) => onSearchChange(searchValue)}
-          value={searchValue}
-          defaultValue={searchValue}
-        />
+          onPress={() => navigation.navigate('')}
+        >
+          <Text>Search</Text>
+          <Icon
+            name='search'
+            size={30}
+            style={{
+              marginLeft: 5,
+              opacity: 0.8,
+            }}
+          />
+        </TouchableOpacity>
       </View>
       <View
         style={{ width: '100%', paddingHorizontal: 10, height: '100%' }}

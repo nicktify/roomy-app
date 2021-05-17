@@ -47,6 +47,9 @@ const EditAboutFormScreen = ({navigation}: any) => {
         alignItems: 'center',
       }}
     >
+      <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
+          <Text style={{ fontSize: 30, fontWeight: 'bold', opacity: 0.8 }}>Edit about</Text>
+      </View>
       <TextInput
         style={{
           width: windowWidth * 0.9,

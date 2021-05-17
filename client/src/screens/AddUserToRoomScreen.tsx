@@ -128,24 +128,28 @@ const AddUserToRoomScreen = () => {
         width: '100%',
       }}
     >
-        <TextInput
-          style={{
-            width: windowWidth * 0.9,
-            borderRadius: 5,
-            borderColor: '#4a4a4a',
-            borderWidth: 0.2,
-            fontSize: 18,
-            paddingHorizontal: 20,
-            marginTop: 40,
-            color: '#4a4a4a',
-          }}
-          placeholder='Search new user by email'
-          placeholderTextColor='#4a4a4a'
-          onChangeText={(searchUserOnFetchInputValue) => setSearchUserOnFetchInputValue(searchUserOnFetchInputValue)}
-          value={searchUserOnFetchInputValue}
-          defaultValue={searchUserOnFetchInputValue}
-          keyboardType='email-address'
-        />
+      <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
+        <Text style={{ fontSize: 25, fontWeight: 'bold', opacity: 0.8 }}>Search new participant</Text>
+      </View>
+      <TextInput
+        style={{
+          width: windowWidth * 0.9,
+          borderRadius: 5,
+          borderColor: '#4a4a4a',
+          borderWidth: 0.2,
+          fontSize: 18,
+          paddingHorizontal: 20,
+          marginTop: 40,
+          marginBottom: 40,
+          color: '#4a4a4a',
+        }}
+        placeholder='Search new user by email'
+        placeholderTextColor='#4a4a4a'
+        onChangeText={(searchUserOnFetchInputValue) => setSearchUserOnFetchInputValue(searchUserOnFetchInputValue)}
+        value={searchUserOnFetchInputValue}
+        defaultValue={searchUserOnFetchInputValue}
+        keyboardType='email-address'
+      />
       <TouchableOpacity
         style={{
           alignItems: 'center',
@@ -153,7 +157,6 @@ const AddUserToRoomScreen = () => {
           borderRadius: 20,
           padding: 10,
           justifyContent: 'center',
-          marginTop: 18,
           width: windowWidth * 0.5,
           alignSelf: 'center',
         }}
@@ -282,14 +285,13 @@ const AddUserToRoomScreen = () => {
         </View>
       }
 
-      {/* Modals */}
-      <ShowUserOnFetchModal 
+      <ShowUserOnFetchModal
         showProfilePreview={showProfilePreview}
         setShowProfilePreview={setShowProfilePreview}
         handleSocialMediaPress={handleSocialMediaPress}
         handleAddUserToRoom={handleAddUserToRoom}
       />
-      <ShowSocialMediaPreviewLinkmodal 
+      <ShowSocialMediaPreviewLinkmodal
         showPreviewSocialMediaLink={showPreviewSocialMediaLink}
         setShowPreviewSocialMediaLink={setShowPreviewSocialMediaLink}
         selectedSocialMediaLink={selectedSocialMediaLink}
