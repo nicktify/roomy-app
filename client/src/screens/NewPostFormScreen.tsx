@@ -60,29 +60,32 @@ const NewPostForm = ({navigation}: any) => {
 
   return (
     <View style={{
-      height: '100%',
-      width: '100%',
+     flex: 1,
       backgroundColor: 'white',
-      paddingHorizontal: 20,
       alignItems: 'center'
     }}>
-      <KeyboardAwareScrollView style={{ flex: 1, width: '100%', height: '100%' }}>
-        <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', opacity: 0.8 }}>Add new post</Text>
-        </View>
+      <KeyboardAwareScrollView style={{ flex: 1 }}>
+        <Text style={{
+          color: '#69C1AC',
+          fontSize: 30,
+          alignSelf: 'center',
+          fontWeight: 'bold',
+          marginBottom: 15,
+        }}>
+          Create new post
+        </Text>
         <TextInput
           style={{
-            width: windowWidth * 0.9,
-            borderRadius: 5,
-            borderColor: '#4a4a4a',
-            borderWidth: 0.2,
             fontSize: 18,
-            paddingHorizontal: 20,
-            marginTop: 40,
-            color: '#4a4a4a',
+            width: windowWidth * 0.9,
+            color: 'black',
+            backgroundColor: '#E8E8E8',
+            padding: 15,
+            borderRadius: 10,
+            alignSelf: 'center'
           }}
           placeholder='What do you want to share?'
-          placeholderTextColor='#4a4a4a'
+          placeholderTextColor="#9a9b9c"
           autoCorrect={false}
           autoFocus
           multiline
@@ -94,7 +97,7 @@ const NewPostForm = ({navigation}: any) => {
           bodyPostFormError.length > 0 &&
           <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
         }
-        <View style={{ width: '100%', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginTop: 10, }}>
+        <View style={{ width: windowWidth, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingVertical: 20 }}>
           {
             imageUri &&
             <Image
@@ -108,31 +111,24 @@ const NewPostForm = ({navigation}: any) => {
           }
           <TouchableOpacity
             style={{
-              margin: 30,
-              padding: 10,
-              borderRadius: 5,
+              marginLeft: 10,
+              borderRadius: 2,
               borderColor: '#4a4a4a',
-              borderWidth: 0.2,
-              paddingHorizontal: 20,
-              marginTop: 40,
-              width: windowWidth * 0.5,
+              borderWidth: 0.1,
+              padding: 15,
               alignItems: 'center',
             }}
             onPress={() => setModalPictureVisible(true)}
           >
             <Text style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 15,
               opacity: 0.7,
-            }}>Upload image</Text>
+            }}>
+              {imageUri ? 'Upload another image' : 'Upload image'}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          padding: 10,
-          width: '100%',
-        }}>
           <TouchableOpacity
             style={{
               alignItems: 'center',
@@ -155,7 +151,6 @@ const NewPostForm = ({navigation}: any) => {
               }}
             >Publish</Text>
           </TouchableOpacity>
-        </View>
       </KeyboardAwareScrollView>
 
       <SelectImageOnPostFormModal 

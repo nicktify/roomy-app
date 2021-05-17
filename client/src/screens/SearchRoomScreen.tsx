@@ -46,22 +46,33 @@ const SearchRoomScreen = ({ navigation }: any) => {
         backgroundColor: 'white'
       }}
     >
-      <Text style={{ fontSize: 30, opacity: 0.8, marginTop: 20 }}>Search room</Text>
+      <View
+        style={{
+          minWidth: '80%',
+        }}
+      >
+        <Text style={{
+          color: '#69C1AC',
+          fontSize: 30,
+          alignSelf: 'center',
+          fontWeight: 'bold',
+          marginBottom: 15,
+        }}>Create room</Text>
+      </View>
       <TextInput
         style={{
-          borderRadius: 20,
-          borderColor: 'black',
-          borderWidth: 0.1,
-          marginTop: 20,
-          width: windowWidth * 0.9,
-          color: '#4a4a4a',
           fontSize: 18,
-          paddingHorizontal: 20,
-          marginBottom: 20,
+          width: windowWidth * 0.9,
+          color: 'black',
+          backgroundColor: '#E8E8E8',
+          padding: 15,
+          borderRadius: 10,
+          minWidth: '80%',
+          marginBottom: 40,
         }}
         autoFocus
         placeholder='Enter room name'
-        placeholderTextColor='#4a4a4a'
+        placeholderTextColor="#9a9b9c"
         onChangeText={(searchInput) => setSearchInput(searchInput)}
         value={searchInput}
         defaultValue={searchInput}

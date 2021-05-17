@@ -72,15 +72,19 @@ const EditAboutFormScreen = ({navigation}: any) => {
       />
       <TouchableOpacity
         style={{
+          alignItems: 'center',
+          marginTop: 20,
           backgroundColor: principalColor,
-          borderRadius: 40,
-          padding: 15,
-          marginTop: 40,
+          borderRadius: 20,
+          padding: 10,
+          justifyContent: 'center',
+          width: windowWidth * 0.5,
+          alignSelf: 'center',
           opacity: saveAboutDisabled ? 0.5 : 1,
         }}
         onPress={() => handleChangeAbout()}
       >
-        <Text style={{color: 'white'}}>Change about</Text>
+        <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Change about</Text>
       </TouchableOpacity>
     </View>
   );

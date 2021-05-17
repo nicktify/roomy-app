@@ -16,6 +16,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const PeopleScreen = ({ navigation }: any) => {
+
   const { 
     user,
     selectedRoom,
@@ -25,6 +26,8 @@ const PeopleScreen = ({ navigation }: any) => {
     makeUserParticipantOfRoom,
     selectedRoomUsers,
   } = useContext(Context);
+
+  const userIsOwner = selectedRoom && user && selectedRoom.owners.includes(user.id);
 
   const [showModalUserOption, setShowModalUserOption] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -303,44 +306,21 @@ const PeopleScreen = ({ navigation }: any) => {
         />
       </View>
       {
-        user && selectedRoom && selectedRoom.owners.includes(user.id) &&
-        <View
+        userIsOwner &&
+        <Icon
           style={{
             position: 'absolute',
             bottom: 0,
             right: 0,
-            flexDirection: 'row',
-            width: 120,
-            marginBottom: 10,
-            justifyContent: 'center',
-            alignItems: 'center'
-
+            margin: 15,
+            backgroundColor: principalColor,
+            borderRadius: 50,
           }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <Text style={{ fontSize: 10 }}>Add user</Text>
-            <Icon
-              style={{
-                backgroundColor: principalColor,
-                borderRadius: 50,
-                marginLeft: 5,
-              }}
-              name="add"
-              color='white'
-              size={40}
-              onPress={() => navigation.navigate('AddUserToRoom')}
-            />
-
-          </View>
-
-        </View>
+          name="add"
+          color='white'
+          size={40}
+          onPress={() => navigation.navigate('AddUserToRoom')}
+        />
       }
       {
         activeForm &&

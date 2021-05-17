@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Dimensions, Keyboard, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
@@ -60,9 +61,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
     }
   };
 
-  const ref_input2 = React.useRef();
-  const ref_input3 = React.useRef();
-
   return (
     <View style={{
       flex: 1,
@@ -93,7 +91,9 @@ const CreateRoomScreen = ({ navigation }: any) => {
                       alignSelf: 'center',
                       fontWeight: 'bold',
                       marginBottom: 15,
-                }}>Create room</Text>
+                }}>
+                  Create room
+                </Text>
               </View>
               <View>
                 <Text style={style.textLabel}>Enter room name:</Text>
@@ -138,7 +138,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                 {repeatedPasswordError.length > 0 &&
                   <Text style={{ color: 'red' }}>{repeatedPasswordError}</Text>
                 }
-                <Pressable
+                <TouchableOpacity
                   style={{
                     backgroundColor: principalColor,
                     borderRadius: 20,
@@ -160,7 +160,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   >
                     Create room
                 </Text>
-                </Pressable>
+                </TouchableOpacity>
               </View>
             </View>
           </TouchableWithoutFeedback>

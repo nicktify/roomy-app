@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Dimensions, Image, Modal, Pressable, TouchableOpacity } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React, { useContext, useState } from 'react';
+import { Text, View, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -124,7 +123,7 @@ const ProfileScreen = ({navigation}: any) => {
           width: windowWidth,
           height: 250
         }}>
-          <Pressable
+          <TouchableOpacity
             onPress={() => handleModal('backgroundPicture')}
           >
             {
@@ -150,7 +149,7 @@ const ProfileScreen = ({navigation}: any) => {
                 >
                 </View>
             }
-          </Pressable>
+          </TouchableOpacity>
           <View
             style={{
               width: windowWidth,
@@ -159,7 +158,7 @@ const ProfileScreen = ({navigation}: any) => {
           >
             {
               user?.profilePicture ?
-                <Pressable
+                <TouchableOpacity
                   style={{
                     alignSelf: 'center',
                     height: 100,
@@ -179,9 +178,9 @@ const ProfileScreen = ({navigation}: any) => {
                       borderRadius: 50,
                     }}
                   />
-                </Pressable>
+                </TouchableOpacity>
                 :
-                <Pressable
+                <TouchableOpacity
                   style={{
                     alignSelf: 'center',
                     height: 100,
@@ -191,7 +190,7 @@ const ProfileScreen = ({navigation}: any) => {
                   }}
                   onPress={() => handleModal('profilePicture')}
                 >
-                </Pressable>
+                </TouchableOpacity>
             }
           </View>
         </View>
@@ -220,17 +219,17 @@ const ProfileScreen = ({navigation}: any) => {
             {
               user && user.about.length > 0 && showTextInputChangeAbout === false ?
                 <View>
-                  <Pressable
+                  <TouchableOpacity
                     onPress={() => setShowTextInputChangeAbout(true)}
                   >
                     <Text style={{ fontSize: 16 }}>{user.about}</Text>
-                  </Pressable>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     style={{
                       alignItems: 'center',
                       backgroundColor: principalColor,
-                      borderRadius: 20,
-                      padding: 10,
+                      borderRadius: 10,
+                      padding: 5,
                       justifyContent: 'center',
                       marginTop: 18,
                       width: windowWidth * 0.5,
@@ -242,7 +241,7 @@ const ProfileScreen = ({navigation}: any) => {
                   </TouchableOpacity>
                 </View>
                 :
-                  <Pressable
+                  <TouchableOpacity
                     style={{
                       width: 80,
                       marginTop: 30,
@@ -265,7 +264,7 @@ const ProfileScreen = ({navigation}: any) => {
                       name='add'
                       size={40}
                     />
-                  </Pressable>
+                  </TouchableOpacity>
             }
           </View>
         </View>

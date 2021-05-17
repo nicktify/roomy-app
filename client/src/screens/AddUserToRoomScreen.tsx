@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Image, Linking, Pressable, Text, TextInput, View } from 'react-native';
+import { Dimensions, Image, Linking, Pressable, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,7 +9,6 @@ import ShowUserOnFetchModal from '../components/modals/ShowUserOnFetchModal';
 import { principalColor } from '../config/colors';
 import { API } from '../config/environment/constants';
 import { User } from '../types/user';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -128,20 +127,25 @@ const AddUserToRoomScreen = () => {
         width: '100%',
       }}
     >
-      <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
-        <Text style={{ fontSize: 25, fontWeight: 'bold', opacity: 0.8 }}>Search new participant</Text>
-      </View>
+      <Text style={{
+        color: '#69C1AC',
+        fontSize: 30,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+      }}>
+        {`Add new user to \n${selectedRoom?.name}`}
+      </Text>
       <TextInput
         style={{
-          width: windowWidth * 0.9,
-          borderRadius: 5,
-          borderColor: '#4a4a4a',
-          borderWidth: 0.2,
+          maxWidth: windowWidth * 0.9,
           fontSize: 18,
-          paddingHorizontal: 20,
-          marginTop: 40,
-          marginBottom: 40,
-          color: '#4a4a4a',
+          width: windowWidth * 0.9,
+          color: 'black',
+          backgroundColor: '#E8E8E8',
+          padding: 15,
+          borderRadius: 10,
+          alignSelf: 'center',
+          marginVertical: 20,
         }}
         placeholder='Search new user by email'
         placeholderTextColor='#4a4a4a'
@@ -177,7 +181,8 @@ const AddUserToRoomScreen = () => {
       }
       {
         searchedUserOnFetchresult && !searchedUserOnFetchresult.msg &&
-        <View
+        <View>
+        <TouchableOpacity
           style={{
             alignItems: 'center',
             backgroundColor: 'white',
@@ -196,6 +201,7 @@ const AddUserToRoomScreen = () => {
             shadowRadius: 3.84,
             width: windowWidth * 0.9,
           }}
+          onPress={() => setShowProfilePreview(searchedUserOnFetchresult)}
         >
           <View
             style={{
@@ -227,60 +233,43 @@ const AddUserToRoomScreen = () => {
             }
             <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8, marginLeft: 10 }}>{searchedUserOnFetchresult.name}</Text>
           </View>
-          <View
+        </TouchableOpacity>
+        <View
             style={{
               alignItems: 'center',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              width: '40%',
+              marginTop: 20,
             }}
           >
-            <Pressable
+            <TouchableOpacity
               style={{
+                backgroundColor: principalColor,
+                borderRadius: 10,
+                width: windowWidth * 0.4,
+                paddingVertical: 10,
+                display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'white',
-                borderColor: '#a4a4a4a4',
-                borderRadius: 20,
-                borderWidth: 0.5,
                 justifyContent: 'center',
-                padding: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.20,
-                shadowRadius: 1.41,
-                elevation: 2,
-                width: 60,
               }}
               onPress={() => setShowProfilePreview(searchedUserOnFetchresult)}
             >
-              <Text style={{ color: 'black' }}>View</Text>
-            </Pressable>
-            <Pressable
+              <Text style={{ color: 'white' }}>View</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
+                backgroundColor: principalColor,
+                borderRadius: 10,
+                width: windowWidth * 0.4,
+                paddingVertical: 10,
+                display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'white',
-                borderRadius: 20,
-                borderColor: '#a4a4a4a4',
-                borderWidth: 0.5,
-                elevation: 2,
                 justifyContent: 'center',
-                padding: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.20,
-                shadowRadius: 1.41,
-                width: 60,
               }}
               onPress={handleAddUserToRoom}
             >
-              <Text style={{ color: 'black' }}>Add</Text>
-            </Pressable>
+              <Text style={{ color: 'white' }}>Add</Text>
+            </TouchableOpacity>
           </View>
         </View>
       }
