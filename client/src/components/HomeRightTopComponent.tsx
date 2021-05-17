@@ -2,21 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Image, Modal, Pressable, Text, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
-
 import styles from '../styles/components/homeRightTop';
-
 import { style as modalStyles } from '../styles/components/modal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const HomeRightTopComponent = () => {
-  const [modalVisible, setModalVisible] = useState(false);
 
   const { user, updateProfilePicture } = useContext(Context);
+  
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => { }, [user]);
 
@@ -51,7 +49,13 @@ const HomeRightTopComponent = () => {
   return (
     <View style={styles.rightTopContainer}>
       <Image
-        style={{ resizeMode: 'contain', position: 'absolute', alignSelf: 'flex-end', top: -10, right: 20 }}
+        style={{
+          resizeMode: 'contain',
+          position: 'absolute',
+          alignSelf: 'flex-end',
+          top: -10,
+          right: 20
+        }}
         source={require('../assets/roomy.png')}
         width={50}
         height={50}
@@ -86,10 +90,20 @@ const HomeRightTopComponent = () => {
           setModalVisible(!modalVisible);
         }}
       >
+
+        {/* Dark background */}
         <View
-          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
+          style={{
+            flex: 1,
+            backgroundColor: 'black',
+            opacity: 0.5,
+            position: 'absolute',
+            width: windowWidth,
+            height: windowHeight
+          }}
         >
         </View>
+
         <View style={modalStyles.centeredView}>
           <View style={modalStyles.modalView}>
             <Pressable
@@ -112,7 +126,6 @@ const HomeRightTopComponent = () => {
             </Pressable>
           </View>
         </View>
-
       </Modal>
     </View>
   );

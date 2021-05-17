@@ -62,10 +62,12 @@ const CreateRoomScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: 'white',
-    }}>
+    <View 
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+      }}
+    >
       <KeyboardAwareScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
       >
@@ -74,29 +76,36 @@ const CreateRoomScreen = ({ navigation }: any) => {
         >
           <TouchableWithoutFeedback
             style={{ flex: 1 }}
-            onPress={Keyboard.dismiss}>
-            <View style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  alignItems: 'center',
-            }}>
+            onPress={Keyboard.dismiss}
+          >
+            <View 
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
               <View
                 style={{
                   minWidth: '80%',
                 }}
               >
-                <Text style={{
-                      color: '#69C1AC',
-                      fontSize: 30,
-                      alignSelf: 'center',
-                      fontWeight: 'bold',
-                      marginBottom: 15,
-                }}>
+                <Text 
+                  style={{
+                    color: '#69C1AC',
+                    fontSize: 30,
+                    alignSelf: 'center',
+                    fontWeight: 'bold',
+                    marginBottom: 15,
+                  }}
+                >
                   Create room
                 </Text>
               </View>
               <View>
-                <Text style={style.textLabel}>Enter room name:</Text>
+                <Text style={style.textLabel}>
+                  Enter room name:
+                </Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="Quantum mechanics"
@@ -107,10 +116,13 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   autoCorrect={false}
                   returnKeyType = {"next"}
                 />
-                {nameError.length > 0 &&
-                  <Text style={{ color: 'red' }}>{nameError}</Text>
+                {
+                  nameError.length > 0 &&
+                    <Text style={{ color: 'red' }}>{nameError}</Text>
                 }
-                <Text style={style.textLabel}>Enter room password:</Text>
+                <Text style={style.textLabel}>
+                  Enter room password:
+                </Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="******"
@@ -121,10 +133,13 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   secureTextEntry
                   returnKeyType = {"next"}
                 />
-                {passwordError.length > 0 &&
-                  <Text style={{ color: 'red' }}>{passwordError}</Text>
+                {
+                  passwordError.length > 0 &&
+                    <Text style={{ color: 'red' }}>{passwordError}</Text>
                 }
-                <Text style={style.textLabel}>Repeat room password:</Text>
+                <Text style={style.textLabel}>
+                  Repeat room password:
+                </Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="******"
@@ -135,8 +150,9 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   secureTextEntry
                   blurOnSubmit={false}
                 />
-                {repeatedPasswordError.length > 0 &&
-                  <Text style={{ color: 'red' }}>{repeatedPasswordError}</Text>
+                {
+                  repeatedPasswordError.length > 0 &&
+                    <Text style={{ color: 'red' }}>{repeatedPasswordError}</Text>
                 }
                 <TouchableOpacity
                   style={{

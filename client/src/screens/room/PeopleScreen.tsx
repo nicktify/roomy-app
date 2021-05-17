@@ -1,26 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Pressable, Text, View, FlatList, Image, Linking, TouchableOpacity } from 'react-native';
-
+import { Pressable, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { principalColor } from '../../config/colors';
 import { Context } from '../../context/MainContext';
-import { User } from '../../types/user';
-
-import axios from 'axios';
-import { API } from '../../config/environment/constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserOnRoomOptionModal from '../../components/modals/UserOnRoomOptionModal';
 import DeleteUserFromRoomConfirmationModal from '../../components/modals/DeleteUserFromRoomConfirmationModal';
+import { principalColor } from '../../config/colors';
+import { User } from '../../types/user';
 
 const PeopleScreen = ({ navigation }: any) => {
 
-  const { 
-    user,
-    selectedRoom,
-    getAllUsersFromRoom,
-    handleDeleteUserFromRoom,
-    selectedRoomUsers,
-  } = useContext(Context);
+  const { user, selectedRoom, getAllUsersFromRoom, selectedRoomUsers } = useContext(Context);
 
   const userIsOwner = selectedRoom && user && selectedRoom.owners.includes(user.id);
 
@@ -28,13 +17,6 @@ const PeopleScreen = ({ navigation }: any) => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showModalConfirmationDelete, setShowModalConfirmationDelete] = useState(false);
   const [confirmationDisabledButton, setConfirmationDisabledButton] = useState(false);
-  // const [activeForm, setActiveForm] = useState(false);
-  // const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
-  // const [searchedUserOnFetchresult, setSearchedUserOnFetchResult] = useState<User | null>(null);
-  // const [showNotFound, setShowNotFound] = useState(false);
-  // const [showProfilePreview, setShowProfilePreview] = useState<User | null>(null);
-  // const [showPreviewSocialMediaLink, setShowPreviewSocialMediaLink] = useState(false);
-  // const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState('');
 
   useEffect(() => {
     fetchAllUsersFromRoom();
@@ -46,8 +28,6 @@ const PeopleScreen = ({ navigation }: any) => {
         console.log(error);
       });
   };
-
-
 
   const renderItem = ({ item }: { item: User; }) => (
     <Pressable
@@ -110,95 +90,12 @@ const PeopleScreen = ({ navigation }: any) => {
           <Icon
             name='more-vert'
             size={25}
-
           />
         </TouchableOpacity>
         }
-
       </View>
     </Pressable>
   );
-
-  // const fetchSearchedUser = async () => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   if (!token) return;
-  //   const email = searchUserOnFetchInputValue.toLocaleLowerCase();
-  //   await axios.get(`${API}/users/get-by-email/${email}`, {
-  //     headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-  //   })
-  //     .then(response => {
-  //       if (response.data.msg !== 'User not exist.') {
-  //         setSearchedUserOnFetchResult(response.data);
-  //         setShowNotFound(false);
-  //       }
-  //       if (response.data.msg === 'User not exist.') {
-  //         setShowNotFound(true);
-  //         setSearchedUserOnFetchResult(null)
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       setSearchedUserOnFetchResult(null);
-  //       setShowNotFound(true);
-  //     });
-  // };
-
-  // const handleAddUserToRoom = async () => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   if (!token) return;
-  //   if (!selectedRoom || !user || !searchedUserOnFetchresult) return;
-  //   axios.post(`${API}/rooms/newparticipant`, {
-  //     id: selectedRoom.id,
-  //     owner: user.id,
-  //     newParticipant: searchedUserOnFetchresult.id,
-  //   }, {
-  //     headers: { Authorization: `Bearer ${JSON.parse(token)}` }
-  //   })
-  //     .then(() => {
-  //       fetchAllUsersFromRoom();
-  //       setSearchedUserOnFetchResult(null);
-  //       setShowNotFound(false);
-  //       setActiveForm(false);
-  //       setSearchUserOnFetchInputValue('');
-  //       setSearchedUserOnFetchResult(null);
-  //       setShowPreviewSocialMediaLink(false);
-  //       setShowProfilePreview(null);
-  //     })
-  //     .catch(error => console.log(error));
-  // };
-
-  // const handleSocialMediaPress = (type: string) => {
-  //   if (type === 'facebook') {
-  //     Linking.canOpenURL(showProfilePreview?.socialMediaLinks.facebook!).then(supported => {
-  //       if (supported) {
-  //         Linking.openURL(showProfilePreview?.socialMediaLinks.facebook!);
-  //       } else {
-  //         setShowPreviewSocialMediaLink(true);
-  //         setSelectedSocialMediaLink(showProfilePreview?.socialMediaLinks.facebook!);
-  //       }
-  //     });
-  //   }
-  //   if (type === 'twitter') {
-  //     Linking.canOpenURL(showProfilePreview?.socialMediaLinks.twitter!).then(supported => {
-  //       if (supported) {
-  //         Linking.openURL(showProfilePreview?.socialMediaLinks.twitter!);
-  //       } else {
-  //         setShowPreviewSocialMediaLink(true);
-  //         setSelectedSocialMediaLink(showProfilePreview?.socialMediaLinks.twitter!);
-  //       }
-  //     });
-  //   }
-  //   if (type === 'instagram') {
-  //     Linking.canOpenURL(showProfilePreview?.socialMediaLinks.instagram!).then(supported => {
-  //       if (supported) {
-  //         Linking.openURL(showProfilePreview?.socialMediaLinks.instagram!);
-  //       } else {
-  //         setShowPreviewSocialMediaLink(true);
-  //         setSelectedSocialMediaLink(showProfilePreview?.socialMediaLinks.instagram!);
-  //       }
-  //     });
-  //   }
-  // };
 
   return (
     <View

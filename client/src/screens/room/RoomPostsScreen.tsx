@@ -44,40 +44,48 @@ const RoomPostsScreen = ({navigation}: any) => {
       <View style={style.postInnerContainer}>
         <View style={style.postTopContainer}>
           <View style={style.authorInfoContainer}>
-            {item.authorProfilePicture.length > 10 ?
-              <Image
-                source={{
-                  uri: item.authorProfilePicture
-                }}
-                style={style.authorProfileImage}
-              />
-              :
-              <Icon
-                style={style.authorProfileImage}
-                name="account-circle"
-                size={80}
-                color={principalColor}
-              />
+            {
+              item.authorProfilePicture.length > 10 ?
+                <Image
+                  source={{
+                    uri: item.authorProfilePicture
+                  }}
+                  style={style.authorProfileImage}
+                />
+                :
+                <Icon
+                  style={style.authorProfileImage}
+                  name="account-circle"
+                  size={80}
+                  color={principalColor}
+                />
             }
-            <View style={style.authorNameContainer}><Text style={style.authorNameText}>{item.authorName}</Text></View>
+            <View style={style.authorNameContainer}>
+              <Text style={style.authorNameText}>{item.authorName}</Text>
+            </View>
           </View>
           <View
-            style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
+            style={{
+              height: '100%',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            {user?.id === item.authorId &&
-              <Icon
-                name='more-vert'
-                size={25}
-                onPress={() => {
-                  handlePostOption({
-                    id: item.id,
-                    body: item.body,
-                    image: item.image?.url,
-                    authorProfilePicture: item.authorProfilePicture,
-                    authorName: item.authorName
-                  });
-                }}
-              />
+            {
+              user?.id === item.authorId &&
+                <Icon
+                  name='more-vert'
+                  size={25}
+                  onPress={() => {
+                    handlePostOption({
+                      id: item.id,
+                      body: item.body,
+                      image: item.image?.url,
+                      authorProfilePicture: item.authorProfilePicture,
+                      authorName: item.authorName
+                    });
+                  }}
+                />
             }
           </View>
         </View>
@@ -91,21 +99,22 @@ const RoomPostsScreen = ({navigation}: any) => {
             backgroundColor: '#f1f1f1',
           }}
         >
-          {item.image &&
-            <Pressable
-              onPress={() => {
-                setSelectedImagePostUrl(item.image.url);
-              }}
-            >
-              <Image
-                source={{
-                  uri: item.image.url,
+          {
+            item.image &&
+              <Pressable
+                onPress={() => {
+                  setSelectedImagePostUrl(item.image.url);
                 }}
-                style={style.image}
-                width={350}
-                height={350}
-              />
-            </Pressable>
+              >
+                <Image
+                  source={{
+                    uri: item.image.url,
+                  }}
+                  style={style.image}
+                  width={350}
+                  height={350}
+                />
+              </Pressable>
           }
         </View>
       </View>
@@ -115,13 +124,15 @@ const RoomPostsScreen = ({navigation}: any) => {
   return (
     <SafeAreaView style={style.root}>
       <View>
-        <Text style={{
-          fontSize: 22,
-          fontWeight: 'bold',
-          opacity: 0.8,
-          alignSelf: 'center',
-          marginTop: 10,
-        }}>
+        <Text 
+          style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            opacity: 0.8,
+            alignSelf: 'center',
+            marginTop: 10,
+          }}
+        >
           {selectedRoom?.name}
         </Text>
       </View>
@@ -134,13 +145,13 @@ const RoomPostsScreen = ({navigation}: any) => {
       />
       {
         userIsOwner &&
-        <Icon
-          style={style.addIcon}
-          name="add"
-          color='white'
-          size={40}
-          onPress={() => navigation.navigate('NewPostForm')}
-        />
+          <Icon
+            style={style.addIcon}
+            name="add"
+            color='white'
+            size={40}
+            onPress={() => navigation.navigate('NewPostForm')}
+          />
       }
 
       <PostOptionModal 

@@ -50,13 +50,15 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={{
-      flex: 1,
-      backgroundColor: 'white',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}>
+    <View 
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <KeyboardAwareScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
       >
@@ -68,12 +70,14 @@ const LoginScreen = ({ navigation }: any) => {
             onPress={Keyboard.dismiss}
           >
 
-            <View style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            <View 
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <View
                 style={{
                   minWidth: '80%',
@@ -86,10 +90,14 @@ const LoginScreen = ({ navigation }: any) => {
                     fontWeight: 'bold',
                     marginBottom: 15,
                   }}
-                >Login</Text>
+                >
+                  Login
+                </Text>
               </View>
               <View>
-                <Text style={style.textLabel}>Enter your email:</Text>
+                <Text style={style.textLabel}>
+                  Enter your email:
+                </Text>
                 {
                   fetchErrorMessage.length > 1 &&
                   <Text style={{ color: 'red', fontStyle: 'italic' }}>{fetchErrorMessage}</Text>
@@ -106,9 +114,11 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {
                   badEmailMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
+                    <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
                 }
-                <Text style={style.textLabel}>Enter your password:</Text>
+                <Text style={style.textLabel}>
+                  Enter your password:
+                </Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="******"
@@ -137,7 +147,9 @@ const LoginScreen = ({ navigation }: any) => {
                         style={{
                           opacity: 0.6,
                         }}
-                      >Don't have an account?</Text>
+                      >
+                        Don't have an account?
+                      </Text>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('Register')}
                       >
@@ -148,17 +160,22 @@ const LoginScreen = ({ navigation }: any) => {
                             marginLeft: 10,
                             opacity: 0.6,
                           }}
-                        >REGISTER</Text>
+                        >
+                          REGISTER
+                        </Text>
                       </TouchableOpacity>
                     </View>
                     :
-                    <View style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      marginTop: 20,
-                      height: 30,
-                      minWidth: 10,
-                    }}></View>
+                    <View 
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        marginTop: 20,
+                        height: 30,
+                        minWidth: 10,
+                      }}
+                    >
+                    </View>
                 }
                 <Pressable
                   style={{
@@ -181,7 +198,7 @@ const LoginScreen = ({ navigation }: any) => {
                     }}
                   >
                     Login
-                </Text>
+                  </Text>
                 </Pressable>
               </View>
             </View>

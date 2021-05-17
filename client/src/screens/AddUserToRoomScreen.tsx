@@ -14,12 +14,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const AddUserToRoomScreen = ({navigation}: any) => {
 
-  const {
-    user,
-    selectedRoom,
-    getAllUsersFromRoom,
-    makeUserParticipantOfRoom,
-  } = useContext(Context);
+  const { user, selectedRoom, getAllUsersFromRoom, makeUserParticipantOfRoom } = useContext(Context);
 
   const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
   const [searchedUserOnFetchresult, setSearchedUserOnFetchResult] = useState<User | null>(null);
@@ -121,12 +116,14 @@ const AddUserToRoomScreen = ({navigation}: any) => {
         width: '100%',
       }}
     >
-      <Text style={{
-        color: '#69C1AC',
-        fontSize: 30,
-        alignSelf: 'center',
-        fontWeight: 'bold',
-      }}>
+      <Text 
+        style={{
+          color: '#69C1AC',
+          fontSize: 30,
+          alignSelf: 'center',
+          fontWeight: 'bold',
+        }}
+      >
         {`Add new user to \n${selectedRoom?.name}`}
       </Text>
       <TextInput
@@ -236,13 +233,13 @@ const AddUserToRoomScreen = ({navigation}: any) => {
           <Text style={{color: 'red', fontStyle: 'italic', fontSize: 12, marginTop: 10, }}>This user is already a participant of this room</Text>
         }
         <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 20,
-            }}
-          >
+          style={{
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}
+        >
             <TouchableOpacity
               style={{
                 backgroundColor: principalColor,
@@ -259,36 +256,38 @@ const AddUserToRoomScreen = ({navigation}: any) => {
             </TouchableOpacity>
             {
               searchedUserOnFetchresult && !searchedUserOnFetchresult.msg && selectedRoom && 
-              (selectedRoom.owners.includes(searchedUserOnFetchresult.id) || selectedRoom.participants.includes(searchedUserOnFetchresult.id)) ?
-              <Pressable
-                style={{
-                  backgroundColor: principalColor,
-                  borderRadius: 10,
-                  width: windowWidth * 0.4,
-                  paddingVertical: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  opacity: 0.5,
-                }}
-              >
-                <Text style={{ color: 'white' }}>Add</Text>
-              </Pressable>
-              :
-              <TouchableOpacity
-                style={{
-                  backgroundColor: principalColor,
-                  borderRadius: 10,
-                  width: windowWidth * 0.4,
-                  paddingVertical: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                onPress={handleAddUserToRoom}
-              >
-                <Text style={{ color: 'white' }}>Add</Text>
-              </TouchableOpacity>
+              (selectedRoom.owners.includes(searchedUserOnFetchresult.id) ||
+              selectedRoom.participants.includes(searchedUserOnFetchresult.id)) ?
+
+                <Pressable
+                  style={{
+                    backgroundColor: principalColor,
+                    borderRadius: 10,
+                    width: windowWidth * 0.4,
+                    paddingVertical: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: 0.5,
+                  }}
+                >
+                  <Text style={{ color: 'white' }}>Add</Text>
+                </Pressable>
+                :
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: principalColor,
+                    borderRadius: 10,
+                    width: windowWidth * 0.4,
+                    paddingVertical: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  onPress={handleAddUserToRoom}
+                >
+                  <Text style={{ color: 'white' }}>Add</Text>
+                </TouchableOpacity>
             }
           </View>
         </View>
