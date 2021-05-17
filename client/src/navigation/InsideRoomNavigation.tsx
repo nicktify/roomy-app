@@ -1,5 +1,5 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import TabBarRoomNavigation from '../components/TabBarRoomNavigation';
 import ForumScreen from '../screens/room/ForumScreen';
 import PeopleScreen from '../screens/room/PeopleScreen';

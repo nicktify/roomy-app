@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
@@ -16,7 +15,7 @@ const Stack = createStackNavigator();
 
 const AppNavigation = () => {
 
-  const { validationCompleted, user } = React.useContext( Context );
+  const { validationCompleted, user } = useContext( Context );
 
   if ( ! validationCompleted ) return <LoadingScreen />
   

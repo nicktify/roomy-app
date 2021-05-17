@@ -123,19 +123,6 @@ const RoomPostsScreen = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={style.root}>
-      <View>
-        <Text 
-          style={{
-            fontSize: 22,
-            fontWeight: 'bold',
-            opacity: 0.8,
-            alignSelf: 'center',
-            marginTop: 10,
-          }}
-        >
-          {selectedRoom?.name}
-        </Text>
-      </View>
       <FlatList
         data={selectedRoomPosts}
         renderItem={renderItem}

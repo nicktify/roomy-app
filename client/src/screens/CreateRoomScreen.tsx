@@ -115,6 +115,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   value={name}
                   autoCorrect={false}
                   returnKeyType = {"next"}
+                  autoFocus
                 />
                 {
                   nameError.length > 0 &&
