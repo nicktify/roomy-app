@@ -1,10 +1,10 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type PostDocument = Post & Document;
+export type PostForumDocument = PostForum & Document;
 
 @Schema()
-export class Post {
+export class PostForum {
   @Prop()
   roomId: string;
 
@@ -23,11 +23,12 @@ export class Post {
   @Prop()
   date: Date;
 
-  @Prop({ type: Object })
-  image: {
-    url: string,
-    size: { width: number, height: number }
-  };
+  @Prop({ type: Array })
+  comments: [{
+    authorId: string,
+    authorProfilePicture: string,
+    body: string,
+  }];
 }
 
-export const PostSchema = SchemaFactory.createForClass( Post );
+export const PostForumSchema = SchemaFactory.createForClass( PostForum );

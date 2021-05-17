@@ -1,10 +1,18 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreatePostDto {
+export class ReturnPostForumDto {
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
   @IsNotEmpty()
   @IsString()
   roomId: string;
-
+  
+  @IsNotEmpty()
+  @IsString()
+  body: string;
+  
   @IsNotEmpty()
   @IsString()
   authorId: string;
@@ -12,12 +20,4 @@ export class CreatePostDto {
   @IsNotEmpty()
   @IsString()
   authorProfilePicture: string;
-
-  @IsNotEmpty()
-  @IsString()
-  body: string;
-
-  @IsNotEmpty()
-  @IsString()
-  authorName: string;
 }

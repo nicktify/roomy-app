@@ -10,6 +10,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { ForumModule } from './forum/forum.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PostsModule } from './posts/posts.module';
     RoomsModule,
     AuthModule,
     PostsModule,
+    ForumModule,
   ],
   controllers: [ AppController ],
   providers: [ AppService ],

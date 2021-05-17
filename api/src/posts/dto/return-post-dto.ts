@@ -1,7 +1,6 @@
-import { IsDate, IsJSON, IsNotEmpty, IsObject, IsString } from "class-validator";
+import { IsArray, IsDate, IsJSON, IsNotEmpty, IsObject, IsString } from "class-validator";
 
 export class ReturnPostDto {
-
   @IsNotEmpty()
   @IsString()
   id: string;
@@ -36,5 +35,13 @@ export class ReturnPostDto {
     url: string,
     size: { width: number, height: number }
   };
+
+  @IsNotEmpty()
+  @IsArray()
+  comments: [{
+    authorId: string,
+    authorProfilePicture: string,
+    body: string,
+  }]
 
 }
