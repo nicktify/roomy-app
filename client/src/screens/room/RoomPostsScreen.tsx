@@ -40,12 +40,8 @@ const RoomPostsScreen = ({navigation}: any) => {
   };
 
   const renderItem = ({ item }: { item: Post; }) => (
-    <View
-      style={style.postContainer}
-    >
-      <View
-        style={style.postInnerContainer}
-      >
+    <View style={style.postContainer}>
+      <View style={style.postInnerContainer}>
         <View style={style.postTopContainer}>
           <View style={style.authorInfoContainer}>
             {item.authorProfilePicture.length > 10 ?

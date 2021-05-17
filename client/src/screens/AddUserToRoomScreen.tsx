@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Context } from '../context/MainContext';
-import ShowSocialMediaPreviewLinkmodal from '../components/modals/ShowSocialMediaPreviewLinkModal';
+import ShowSocialMediaPreviewLinkModal from '../components/modals/ShowSocialMediaPreviewLinkModal';
 import ShowUserOnFetchModal from '../components/modals/ShowUserOnFetchModal';
 import { principalColor } from '../config/colors';
 import { API } from '../config/environment/constants';
@@ -12,12 +12,13 @@ import { User } from '../types/user';
 
 const windowWidth = Dimensions.get('window').width;
 
-const AddUserToRoomScreen = () => {
+const AddUserToRoomScreen = ({navigation}: any) => {
 
   const {
     user,
     selectedRoom,
     getAllUsersFromRoom,
+    makeUserParticipantOfRoom,
   } = useContext(Context);
 
   const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
@@ -26,13 +27,6 @@ const AddUserToRoomScreen = () => {
   const [showProfilePreview, setShowProfilePreview] = useState<User | null>(null);
   const [showPreviewSocialMediaLink, setShowPreviewSocialMediaLink] = useState(false);
   const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState('');
-
-  const fetchAllUsersFromRoom = () => {
-    selectedRoom && getAllUsersFromRoom(selectedRoom.id)
-      .catch(error => {
-        console.log(error);
-      });
-  };
 
   const fetchSearchedUser = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -61,27 +55,27 @@ const AddUserToRoomScreen = () => {
   };
 
   const handleAddUserToRoom = async () => {
+
+    /** In this if statment we ask if the fetched on search user is already a participant of the current room
+     * and if so, return without doing anything.
+     */
+    if (searchedUserOnFetchresult && !searchedUserOnFetchresult.msg && selectedRoom && 
+      (selectedRoom.owners.includes(searchedUserOnFetchresult.id) || selectedRoom?.participants.includes(searchedUserOnFetchresult.id))) return;
+    
     const token = await AsyncStorage.getItem('token');
     if (!token) return;
     if (!selectedRoom || !user || !searchedUserOnFetchresult) return;
 
-    axios.post(`${API}/rooms/newparticipant`, {
-      id: selectedRoom.id,
-      owner: user.id,
-      newParticipant: searchedUserOnFetchresult.id,
-    }, {
-      headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+    makeUserParticipantOfRoom(searchedUserOnFetchresult.id)
+    .then(() => {
+      navigation.goBack();
     })
-      .then(() => {
-        fetchAllUsersFromRoom();
-        setSearchedUserOnFetchResult(null);
-        setShowNotFound(false);
-        setSearchUserOnFetchInputValue('');
-        setSearchedUserOnFetchResult(null);
-        setShowPreviewSocialMediaLink(false);
-        setShowProfilePreview(null);
-      })
-      .catch(error => console.log(error));
+    .then(() => {
+      getAllUsersFromRoom(selectedRoom.id);
+    })
+    .catch(error => {
+      console.log(error)
+    })
   };
 
   const handleSocialMediaPress = (type: string) => {
@@ -149,10 +143,12 @@ const AddUserToRoomScreen = () => {
         }}
         placeholder='Search new user by email'
         placeholderTextColor='#4a4a4a'
+        keyboardType='email-address'
+        autoFocus
         onChangeText={(searchUserOnFetchInputValue) => setSearchUserOnFetchInputValue(searchUserOnFetchInputValue)}
         value={searchUserOnFetchInputValue}
         defaultValue={searchUserOnFetchInputValue}
-        keyboardType='email-address'
+        onEndEditing={() => fetchSearchedUser()}
       />
       <TouchableOpacity
         style={{
@@ -234,6 +230,11 @@ const AddUserToRoomScreen = () => {
             <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8, marginLeft: 10 }}>{searchedUserOnFetchresult.name}</Text>
           </View>
         </TouchableOpacity>
+        {
+          searchedUserOnFetchresult && !searchedUserOnFetchresult.msg && selectedRoom && 
+          (selectedRoom.owners.includes(searchedUserOnFetchresult.id) || selectedRoom?.participants.includes(searchedUserOnFetchresult.id)) &&
+          <Text style={{color: 'red', fontStyle: 'italic', fontSize: 12, marginTop: 10, }}>This user is already a participant of this room</Text>
+        }
         <View
             style={{
               alignItems: 'center',
@@ -256,20 +257,39 @@ const AddUserToRoomScreen = () => {
             >
               <Text style={{ color: 'white' }}>View</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: principalColor,
-                borderRadius: 10,
-                width: windowWidth * 0.4,
-                paddingVertical: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={handleAddUserToRoom}
-            >
-              <Text style={{ color: 'white' }}>Add</Text>
-            </TouchableOpacity>
+            {
+              searchedUserOnFetchresult && !searchedUserOnFetchresult.msg && selectedRoom && 
+              (selectedRoom.owners.includes(searchedUserOnFetchresult.id) || selectedRoom.participants.includes(searchedUserOnFetchresult.id)) ?
+              <Pressable
+                style={{
+                  backgroundColor: principalColor,
+                  borderRadius: 10,
+                  width: windowWidth * 0.4,
+                  paddingVertical: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: 0.5,
+                }}
+              >
+                <Text style={{ color: 'white' }}>Add</Text>
+              </Pressable>
+              :
+              <TouchableOpacity
+                style={{
+                  backgroundColor: principalColor,
+                  borderRadius: 10,
+                  width: windowWidth * 0.4,
+                  paddingVertical: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={handleAddUserToRoom}
+              >
+                <Text style={{ color: 'white' }}>Add</Text>
+              </TouchableOpacity>
+            }
           </View>
         </View>
       }
@@ -280,7 +300,7 @@ const AddUserToRoomScreen = () => {
         handleSocialMediaPress={handleSocialMediaPress}
         handleAddUserToRoom={handleAddUserToRoom}
       />
-      <ShowSocialMediaPreviewLinkmodal
+      <ShowSocialMediaPreviewLinkModal
         showPreviewSocialMediaLink={showPreviewSocialMediaLink}
         setShowPreviewSocialMediaLink={setShowPreviewSocialMediaLink}
         selectedSocialMediaLink={selectedSocialMediaLink}

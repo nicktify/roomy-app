@@ -4,7 +4,7 @@ import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ShowSocialMediaPreviewLinkmodal = ({ showPreviewSocialMediaLink, setShowPreviewSocialMediaLink, selectedSocialMediaLink }: any) => {
+const ShowSocialMediaPreviewLinkModal = ({ showPreviewSocialMediaLink, setShowPreviewSocialMediaLink, selectedSocialMediaLink }: any) => {
   return (
     <Modal
       animationType="slide"
@@ -61,4 +61,4 @@ const ShowSocialMediaPreviewLinkmodal = ({ showPreviewSocialMediaLink, setShowPr
   );
 };
 
-export default ShowSocialMediaPreviewLinkmodal;
+export default ShowSocialMediaPreviewLinkModal;

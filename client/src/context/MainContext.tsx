@@ -474,7 +474,7 @@ const AppContext = ({ children }: any) => {
         .then(response => {
           resolve(response.data);
           if (state.selectedRoom) {
-            getAllUsersFromRoom();
+            getRoomById().then(() => getAllUsersFromRoom());
           }
         })
         .catch(error => {
