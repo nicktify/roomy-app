@@ -28,13 +28,13 @@ const PeopleScreen = ({ navigation }: any) => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showModalConfirmationDelete, setShowModalConfirmationDelete] = useState(false);
   const [confirmationDisabledButton, setConfirmationDisabledButton] = useState(false);
-  const [activeForm, setActiveForm] = useState(false);
-  const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
-  const [searchedUserOnFetchresult, setSearchedUserOnFetchResult] = useState<User | null>(null);
-  const [showNotFound, setShowNotFound] = useState(false);
-  const [showProfilePreview, setShowProfilePreview] = useState<User | null>(null);
-  const [showPreviewSocialMediaLink, setShowPreviewSocialMediaLink] = useState(false);
-  const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState('');
+  // const [activeForm, setActiveForm] = useState(false);
+  // const [searchUserOnFetchInputValue, setSearchUserOnFetchInputValue] = useState('');
+  // const [searchedUserOnFetchresult, setSearchedUserOnFetchResult] = useState<User | null>(null);
+  // const [showNotFound, setShowNotFound] = useState(false);
+  // const [showProfilePreview, setShowProfilePreview] = useState<User | null>(null);
+  // const [showPreviewSocialMediaLink, setShowPreviewSocialMediaLink] = useState(false);
+  // const [selectedSocialMediaLink, setSelectedSocialMediaLink] = useState('');
 
   useEffect(() => {
     fetchAllUsersFromRoom();
@@ -206,31 +206,34 @@ const PeopleScreen = ({ navigation }: any) => {
         flex: 1,
       }}
     >
-      <View style={{
-        alignItems: 'center',
-        borderBottomColor: '#a4a4a4a4',
-        borderBottomWidth: 0.5,
-        marginBottom: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '80%',
-        alignSelf: 'center',
-        marginTop: 10,
-      }}>
-        <Text style={{
-          fontSize: 22,
-          fontWeight: 'bold',
-          opacity: 0.8,
+      <View 
+        style={{
+          alignItems: 'center',
+          borderBottomColor: '#a4a4a4a4',
+          borderBottomWidth: 0.5,
+          marginBottom: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '80%',
+          alignSelf: 'center',
+          marginTop: 10,
         }}
+      >
+        <Text 
+          style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            opacity: 0.8,
+          }}
         >
           Room participants
-            </Text>
+        </Text>
         <TouchableOpacity
           style={{
             alignItems: 'center',
             flexDirection: 'row',
           }}
-          onPress={() => navigation.navigate('')}
+          onPress={() => navigation.navigate('SearchUserFromRoom')}
         >
           <Text>Search</Text>
           <Icon
@@ -252,7 +255,6 @@ const PeopleScreen = ({ navigation }: any) => {
           keyExtractor={item => `${item.id}${item.name}`}
           ListFooterComponent={<View style={{ width: '100%', height: 60 }}></View>}
           ListHeaderComponent={<View style={{ width: '100%', height: 20 }}></View>}
-
         />
       </View>
       {
