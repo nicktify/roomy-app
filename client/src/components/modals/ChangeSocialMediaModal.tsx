@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Modal, Pressable, Text, TextInput, View } from 'react-native';
+import { Dimensions, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { style as modalStyles } from '../../styles/components/modal';
 import SocialMediaIcon from '../SocialMediaIcon';
@@ -48,7 +48,7 @@ const ChangeSocialMediaModal = ({
           value={link}
           defaultValue={socialMediaLinkTextInputValue ? socialMediaLinkTextInputValue : ''}
         />
-        <Pressable
+        <TouchableOpacity
           style={{
             width: 200,
             borderRadius: 20,
@@ -68,13 +68,13 @@ const ChangeSocialMediaModal = ({
           onPress={handleChangeSocialLink}
         >
           <Text style={modalStyles.textStyle}>OK</Text>
-        </Pressable>
-        <Pressable
+        </TouchableOpacity>
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={() => setShowModalSocialMedia(!showModalChangeSocialMedia)}
         >
           <Text style={modalStyles.textStyle}>Cancel</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   </Modal>

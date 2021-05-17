@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
+import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import { style as ModalStyles } from '../../styles/components/modal';
 
@@ -24,7 +24,7 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
           <View
             style={ModalStyles.modalView}
           >
-            <Pressable
+            <TouchableOpacity
               style={{
                 width: 200,
                 alignItems: 'center',
@@ -44,8 +44,8 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
               onPress={() => setModalConfirmationDeleteRoom(true)}
             >
               <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Delete room</Text>
-            </Pressable>
-            <Pressable
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 width: 200,
                 alignItems: 'center',
@@ -65,7 +65,7 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
               onPress={() => setModalRoomOptions(false)}
             >
               <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Cancel</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -86,7 +86,7 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
             style={ModalStyles.modalView}
           >
             <Text style={{ fontSize: 18, marginBottom: 15, }}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
-            <Pressable
+            <TouchableOpacity
               style={{
                 width: 200,
                 alignItems: 'center',
@@ -106,8 +106,8 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
               onPress={handleDeleteRoom}
             >
               <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white' }}>Yes, delete</Text>
-            </Pressable>
-            <Pressable
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 width: 200,
                 alignItems: 'center',
@@ -127,7 +127,7 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
               onPress={() => setModalConfirmationDeleteRoom(false)}
             >
               <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>cancel</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>

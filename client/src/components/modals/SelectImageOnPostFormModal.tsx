@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
+import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import { style as modalStyles } from '../../styles/components/modal';
 
@@ -22,24 +22,24 @@ const SelectImageOnPostFormModal = ({modalPictureVisible, setModalPictureVisible
     </View>
     <View style={modalStyles.centeredView}>
       <View style={modalStyles.modalView}>
-        <Pressable
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={handleUploadImage}
         >
           <Text style={modalStyles.textStyle}>Select from galery</Text>
-        </Pressable>
-        <Pressable
+        </TouchableOpacity>
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={handleTakePicture}
         >
           <Text style={modalStyles.textStyle}>Take picture</Text>
-        </Pressable>
-        <Pressable
+        </TouchableOpacity>
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={() => setModalPictureVisible(!modalPictureVisible)}
         >
           <Text style={modalStyles.textStyle}>Cancel</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   </Modal>

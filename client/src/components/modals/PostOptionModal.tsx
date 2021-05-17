@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, Modal, Pressable, Text, View } from 'react-native';
+import { Dimensions, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { style as modalStyles } from '../../styles/components/modal';
 
 const windowWidth = Dimensions.get('window').width;
@@ -82,18 +82,18 @@ const PostOptionModal = ({modalPostOptionVisible, setModalPostOptionVisible, act
             }
           </View>
         </View>
-        <Pressable
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={handleDeletePost}
         >
           <Text style={modalStyles.textStyle}>Delete post</Text>
-        </Pressable>
-        <Pressable
+        </TouchableOpacity>
+        <TouchableOpacity
           style={modalStyles.button}
           onPress={() => setModalPostOptionVisible(!modalPostOptionVisible)}
         >
           <Text style={modalStyles.textStyle}>Cancel</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   </Modal>

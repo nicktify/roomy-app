@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Modal, Pressable, Text, View } from 'react-native';
+import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -42,7 +42,7 @@ const ShowSocialMediaPreviewLinkmodal = ({ showPreviewSocialMediaLink, setShowPr
           >
             <Text style={{ color: 'black' }}>{selectedSocialMediaLink}</Text>
           </View>
-          <Pressable
+          <TouchableOpacity
             style={{
               borderWidth: 0.5,
               borderColor: '#a2a2a2a2',
@@ -54,7 +54,7 @@ const ShowSocialMediaPreviewLinkmodal = ({ showPreviewSocialMediaLink, setShowPr
             }}
           >
             <Text>Copy to clipboard</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Keyboard, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Dimensions, Keyboard, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
 import { createRoomValidations } from '../validations/createRoom';
 
+const windowWidth = Dimensions.get('window').width;
+
 const CreateRoomScreen = ({ navigation }: any) => {
+
+  const { createRoom } = React.useContext(Context);
 
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -30,10 +34,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
     if (errors.repeatedPassword.length === 0) setRepeatedPasswordError('');
   }, [name, password, repeatedPassword]);
 
-  const { createRoom } = React.useContext(Context);
-
   const handleCreateRoom = () => {
-
     if (errors.name.length === 0 &&
       errors.password.length === 0 &&
       repeatedPasswordError.length === 0 &&
@@ -59,13 +60,13 @@ const CreateRoomScreen = ({ navigation }: any) => {
     }
   };
 
+  const ref_input2 = React.useRef();
+  const ref_input3 = React.useRef();
+
   return (
     <View style={{
       flex: 1,
       backgroundColor: 'white',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
     }}>
       <KeyboardAwareScrollView
         style={{ flex: 1, backgroundColor: 'white' }}
@@ -79,7 +80,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
             <View style={{
                   flex: 1,
                   flexDirection: 'column',
-                  justifyContent: 'center',
                   alignItems: 'center',
             }}>
               <View
@@ -89,18 +89,14 @@ const CreateRoomScreen = ({ navigation }: any) => {
               >
                 <Text style={{
                       color: '#69C1AC',
-                      fontSize: 50,
+                      fontSize: 30,
+                      alignSelf: 'center',
                       fontWeight: 'bold',
                       marginBottom: 15,
                 }}>Create room</Text>
               </View>
               <View>
-                <Text style={{
-                      marginTop: 10,
-                      marginBottom: 10,
-                      fontSize: 20,
-                      opacity: 0.6,
-                }}>Enter room name:</Text>
+                <Text style={style.textLabel}>Enter room name:</Text>
                 <TextInput
                   style={style.textInput}
                   placeholder="Quantum mechanics"
@@ -108,7 +104,8 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   onChangeText={name => onChange(name, password, repeatedPassword)}
                   defaultValue={name}
                   value={name}
-                  keyboardType='email-address'
+                  autoCorrect={false}
+                  returnKeyType = {"next"}
                 />
                 {nameError.length > 0 &&
                   <Text style={{ color: 'red' }}>{nameError}</Text>
@@ -122,6 +119,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   defaultValue={password}
                   value={password}
                   secureTextEntry
+                  returnKeyType = {"next"}
                 />
                 {passwordError.length > 0 &&
                   <Text style={{ color: 'red' }}>{passwordError}</Text>
@@ -135,6 +133,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   defaultValue={repeatedPassword}
                   value={repeatedPassword}
                   secureTextEntry
+                  blurOnSubmit={false}
                 />
                 {repeatedPasswordError.length > 0 &&
                   <Text style={{ color: 'red' }}>{repeatedPasswordError}</Text>
@@ -148,7 +147,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: createDisabled ? 0.5 : 1,
-                    marginTop: 50,
+                    marginTop: 20,
                   }}
                   onPress={handleCreateRoom}
                 >
@@ -174,7 +173,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
 const style = StyleSheet.create({
   textInput: {
     fontSize: 18,
-    width: 200,
+    width: windowWidth * 0.9,
     color: 'black',
     backgroundColor: '#E8E8E8',
     padding: 15,
@@ -182,9 +181,9 @@ const style = StyleSheet.create({
     minWidth: '80%',
   },
   textLabel: {
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 2,
+    fontSize: 15,
     opacity: 0.6,
   },
 });
