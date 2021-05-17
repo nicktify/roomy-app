@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class ReturnPostForumDto {
+export class ReturnForumPostDto {
   @IsNotEmpty()
   @IsString()
   id: string;

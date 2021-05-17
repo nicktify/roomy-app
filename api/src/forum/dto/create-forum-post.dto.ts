@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsObject, IsString } from "class-validator";
 
-export class CreatePostForumDto {
+export class CreateForumPostDto {
   @IsNotEmpty()
   @IsString()
   authorId: string;

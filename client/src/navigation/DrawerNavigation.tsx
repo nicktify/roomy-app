@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { HomeTabNavigation } from './ButtomTabNavigation';
 import { Context } from '../context/MainContext';

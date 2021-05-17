@@ -136,7 +136,7 @@ const HomeScreen = ({ navigation }: any) => {
               style={{
                 fontSize: 22,
                 fontWeight: 'bold',
-                opacity: 0.8, }}
+                opacity: 0.7, }}
             >
               Your rooms
             </Text>
@@ -147,13 +147,19 @@ const HomeScreen = ({ navigation }: any) => {
               }}
               onPress={() => navigation.navigate('SearchRoom')}
             >
-              <Text>Search</Text>
+              <Text
+                style={{
+                  opacity: 0.7,
+                }}
+              >
+                Search
+              </Text>
               <Icon
                 name='search'
                 size={30}
                 style={{
                   marginLeft: 5,
-                  opacity: 0.8,
+                  opacity: 0.7,
                 }}
               />
             </TouchableOpacity>
