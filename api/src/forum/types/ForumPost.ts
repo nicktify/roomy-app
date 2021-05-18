@@ -6,9 +6,5 @@ export class ForumPost {
   authorName: string;
   body: string;
   date: Date;
-  comments: [{
-    authorId: string,
-    authorProfilePicture: string,
-    body: string,
-  }]
+  comments: string[]
 }

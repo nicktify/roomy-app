@@ -35,13 +35,4 @@ export class ReturnPostDto {
     url: string,
     size: { width: number, height: number }
   };
-
-  @IsNotEmpty()
-  @IsArray()
-  comments: [{
-    authorId: string,
-    authorProfilePicture: string,
-    body: string,
-  }]
-
 }

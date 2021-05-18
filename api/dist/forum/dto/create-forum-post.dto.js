@@ -9,34 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreatePostDto = void 0;
+exports.CreateForumPostDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreatePostDto {
+class CreateForumPostDto {
 }
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "roomId", void 0);
+], CreateForumPostDto.prototype, "authorId", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorId", void 0);
+], CreateForumPostDto.prototype, "roomId", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorProfilePicture", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], CreatePostDto.prototype, "body", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], CreatePostDto.prototype, "authorName", void 0);
-exports.CreatePostDto = CreatePostDto;
-//# sourceMappingURL=create-post.dto.js.map
+], CreateForumPostDto.prototype, "body", void 0);
+exports.CreateForumPostDto = CreateForumPostDto;
+//# sourceMappingURL=create-forum-post.dto.js.map

@@ -9,34 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreatePostDto = void 0;
-const class_validator_1 = require("class-validator");
-class CreatePostDto {
-}
+exports.ForumPostCommentSchema = exports.ForumPostComment = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let ForumPostComment = class ForumPostComment {
+};
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "roomId", void 0);
+], ForumPostComment.prototype, "forumPostId", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorId", void 0);
+], ForumPostComment.prototype, "authorId", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorProfilePicture", void 0);
+], ForumPostComment.prototype, "authorProfilePicture", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "body", void 0);
+], ForumPostComment.prototype, "authorName", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorName", void 0);
-exports.CreatePostDto = CreatePostDto;
-//# sourceMappingURL=create-post.dto.js.map
+], ForumPostComment.prototype, "body", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", Date)
+], ForumPostComment.prototype, "date", void 0);
+ForumPostComment = __decorate([
+    mongoose_1.Schema()
+], ForumPostComment);
+exports.ForumPostComment = ForumPostComment;
+exports.ForumPostCommentSchema = mongoose_1.SchemaFactory.createForClass(ForumPostComment);
+//# sourceMappingURL=forum-post-comment.schema.js.map

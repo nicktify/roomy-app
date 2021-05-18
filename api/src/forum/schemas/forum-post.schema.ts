@@ -1,10 +1,10 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type PostForumDocument = PostForum & Document;
+export type ForumPostDocument = ForumPost & Document;
 
 @Schema()
-export class PostForum {
+export class ForumPost {
   @Prop()
   roomId: string;
 
@@ -31,4 +31,4 @@ export class PostForum {
   }];
 }
 
-export const PostForumSchema = SchemaFactory.createForClass( PostForum );
+export const ForumPostSchema = SchemaFactory.createForClass( ForumPost );
