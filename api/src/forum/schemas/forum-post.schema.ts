@@ -18,17 +18,16 @@ export class ForumPost {
   authorName: string;
 
   @Prop()
-  body: string
+  body: string;
+
+  @Prop()
+  image: string;
 
   @Prop()
   date: Date;
 
-  @Prop({ type: Array })
-  comments: [{
-    authorId: string,
-    authorProfilePicture: string,
-    body: string,
-  }];
+  @Prop()
+  comments: string[];
 }
 
 export const ForumPostSchema = SchemaFactory.createForClass( ForumPost );

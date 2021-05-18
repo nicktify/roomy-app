@@ -18,19 +18,78 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const room_schema_1 = require("../rooms/schemas/room.schema");
 const user_schema_1 = require("../users/schemas/user.schema");
+let cloudinary = require("cloudinary").v2;
+let streamifier = require('streamifier');
 let ForumService = class ForumService {
-    constructor(userModel, roomModel, forumPostCommentModel) {
+    constructor(userModel, roomModel, forumPostModel, forumPostCommentModel) {
         this.userModel = userModel;
         this.roomModel = roomModel;
+        this.forumPostModel = forumPostModel;
         this.forumPostCommentModel = forumPostCommentModel;
+    }
+    async createNewForumPost({ authorId, roomId, body }, file) {
+        try {
+            const user = await this.userModel.findById(authorId);
+            if (!user)
+                return { msg: 'Inexistent user.' };
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Inexistent room.' };
+            const forumPost = await this.forumPostModel.create({
+                roomId,
+                authorId,
+                authorName: user.name,
+                authorProfilePicture: user.profilePicture,
+                body,
+                date: new Date(),
+            });
+            if (!file) {
+                return {
+                    id: forumPost._id,
+                    roomId: forumPost.roomId,
+                    authorId: forumPost.authorId,
+                    authorName: forumPost.authorName,
+                    authorProfilePicture: forumPost.authorProfilePicture,
+                    body: forumPost.body,
+                    image: forumPost.image,
+                    date: forumPost.date,
+                    comments: forumPost.comments,
+                };
+            }
+            return new Promise((resolve, reject) => {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                    if (error)
+                        reject({ msg: 'Error uploading image.' });
+                    forumPost.image = result.secure_url;
+                    forumPost.save();
+                    resolve({
+                        id: forumPost._id,
+                        roomId: forumPost.roomId,
+                        authorId: forumPost.authorId,
+                        authorName: forumPost.authorName,
+                        authorProfilePicture: forumPost.authorProfilePicture,
+                        body: forumPost.body,
+                        image: forumPost.image,
+                        date: forumPost.date,
+                        comments: forumPost.comments,
+                    });
+                });
+                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+            });
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
 ForumService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('User')),
     __param(1, mongoose_1.InjectModel('Room')),
-    __param(2, mongoose_1.InjectModel('ForumPostComment')),
+    __param(2, mongoose_1.InjectModel('ForumPost')),
+    __param(3, mongoose_1.InjectModel('ForumPostComment')),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model])
 ], ForumService);

@@ -5,12 +5,7 @@ export declare class ReturnForumPostDto {
     authorProfilePicture: string;
     authorName: string;
     body: string;
+    image: string;
     date: Date;
-    comments: [
-        {
-            authorId: string;
-            authorProfilePicture: string;
-            body: string;
-        }
-    ];
+    comments: string[];
 }

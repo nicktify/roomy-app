@@ -6,13 +6,8 @@ export declare class ForumPost {
     authorProfilePicture: string;
     authorName: string;
     body: string;
+    image: string;
     date: Date;
-    comments: [
-        {
-            authorId: string;
-            authorProfilePicture: string;
-            body: string;
-        }
-    ];
+    comments: string[];
 }
 export declare const ForumPostSchema: import("mongoose").Schema<Document<ForumPost, {}>, import("mongoose").Model<any, any>, undefined>;

@@ -45,6 +45,11 @@ __decorate([
 ], ReturnForumPostDto.prototype, "body", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], ReturnForumPostDto.prototype, "image", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
     class_validator_1.IsDate(),
     __metadata("design:type", Date)
 ], ReturnForumPostDto.prototype, "date", void 0);

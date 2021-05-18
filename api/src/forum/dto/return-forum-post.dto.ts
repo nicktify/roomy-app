@@ -26,14 +26,14 @@ export class ReturnForumPostDto {
   body: string;
 
   @IsNotEmpty()
+  @IsString()
+  image: string;
+
+  @IsNotEmpty()
   @IsDate()
   date: Date;
 
   @IsNotEmpty()
   @IsArray()
-  comments: [{
-    authorId: string,
-    authorProfilePicture: string,
-    body: string,
-  }]
+  comments: string[];
 }

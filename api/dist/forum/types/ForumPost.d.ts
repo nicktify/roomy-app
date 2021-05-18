@@ -5,6 +5,7 @@ export declare class ForumPost {
     authorProfilePicture: string;
     authorName: string;
     body: string;
+    image: string;
     date: Date;
     comments: string[];
 }

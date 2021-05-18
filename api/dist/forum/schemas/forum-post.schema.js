@@ -35,10 +35,14 @@ __decorate([
 ], ForumPost.prototype, "body", void 0);
 __decorate([
     mongoose_1.Prop(),
+    __metadata("design:type", String)
+], ForumPost.prototype, "image", void 0);
+__decorate([
+    mongoose_1.Prop(),
     __metadata("design:type", Date)
 ], ForumPost.prototype, "date", void 0);
 __decorate([
-    mongoose_1.Prop({ type: Array }),
+    mongoose_1.Prop(),
     __metadata("design:type", Array)
 ], ForumPost.prototype, "comments", void 0);
 ForumPost = __decorate([
