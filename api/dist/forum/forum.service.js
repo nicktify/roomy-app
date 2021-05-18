@@ -81,6 +81,52 @@ let ForumService = class ForumService {
             throw error;
         }
     }
+    async getAllRoomForumPost({ roomId }) {
+        try {
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Inexistent room.' };
+            const forumPost = await this.forumPostModel.find({ roomId });
+            const returnedForumPost = forumPost.map(forumPost => ({
+                id: forumPost._id,
+                roomId: forumPost.roomId,
+                authorId: forumPost.authorId,
+                authorName: forumPost.authorName,
+                authorProfilePicture: forumPost.authorProfilePicture,
+                body: forumPost.body,
+                image: forumPost.image,
+                date: forumPost.date,
+                comments: forumPost.comments,
+            }));
+            return returnedForumPost;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async getAllForumPostComments({ forumPostId }) {
+        try {
+            const forumPost = await this.forumPostModel.findById(forumPostId);
+            if (!forumPost)
+                return { msg: 'Inexistent forum post.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteForumPost({ forumPostId }) {
+        try {
+            await this.forumPostModel.findByIdAndDelete(forumPostId);
+            const forumPost = await this.forumPostModel.findById(forumPostId);
+            if (!forumPost)
+                return { msg: 'Forum post deleted.' };
+            else
+                return { msg: 'Please try again.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 ForumService = __decorate([
     common_1.Injectable(),

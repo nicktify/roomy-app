@@ -11,7 +11,7 @@ const Rooms = ({ navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
   const { rooms, getRooms } = useContext(Context);
 
   useEffect(() => { }, [rooms]);
-  useEffect(() => { getRooms(); }, []);
+  useEffect(() => { console.log(rooms) }, []);
 
   const renderItem = ({ item }: any) => (
     <View style={{ width: '100%', alignItems: 'center' }}>

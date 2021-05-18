@@ -71,7 +71,10 @@ const PostOptionModal = ({modalPostOptionVisible, setModalPostOptionVisible, act
             {activeSelectedPostOptions.image &&
               <View style={{ alignItems: 'center' }}>
                 <Image
-                  style={{ width: '100%', height: 100, borderRadius: 5, }}
+                  style={{ 
+                    width: '100%',
+                    height: '100%'
+                  }}
                   source={{
                     uri: activeSelectedPostOptions.image
                   }}
