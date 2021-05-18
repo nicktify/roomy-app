@@ -3,13 +3,16 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { RoomDocument } from "src/rooms/schemas/room.schema";
 import { UserDocument } from "src/users/schemas/user.schema";
+import { AddForumPostCommentDto } from "./dto/add-forum-post-comment.dto";
 import { CreateForumPostDto } from "./dto/create-forum-post.dto";
 import { DeleteForumPostDto } from "./dto/delete-forum-post.dto";
 import { GetAllForumPostCommentsDto } from "./dto/get-all-forum-post-comments.dto";
 import { GetAllRoomForumPostDto } from "./dto/get-all-room-forum-posts.dto";
+import { ReturnForumPostCommentDto } from "./dto/return-forum-post-comment.dto";
 import { ReturnForumPostDto } from "./dto/return-forum-post.dto";
 import { ForumPostCommentDocument } from "./schemas/forum-post-comment.schema";
 import { ForumPostDocument } from "./schemas/forum-post.schema";
+import { DeleteForumPostCommentDto } from './dto/delete-forum-post-comment.dto';
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 
@@ -104,11 +107,33 @@ export class ForumService {
     }
   }
 
-  async getAllForumPostComments({forumPostId}: GetAllForumPostCommentsDto) {
+  async getAllForumPostComments({forumPostId}: GetAllForumPostCommentsDto): Promise<ReturnForumPostCommentDto[] | {msg: string}> {
     try {
       const forumPost = await this.forumPostModel.findById(forumPostId);
       if (!forumPost) return {msg: 'Inexistent forum post.'}
 
+      const forumPostComments = await this.forumPostCommentModel.find({ forumPostId });
+      if (!forumPostComments) return;
+
+      const returnedForumPostComments = forumPostComments.map(comment => ({
+        id: comment._id,
+        forumPostId: comment.forumPostId,
+        authorId: comment.authorId,
+        authorName: comment.authorName,
+        authorProfilePicture: comment.authorProfilePicture,
+        body: comment.body,
+        date: comment.date,
+      }))
+
+      returnedForumPostComments.sort((a, b) => {
+        if (a.date < b.date) return 1
+
+        if (a.date > b.date) return -1
+
+        return 0
+      })
+
+      return returnedForumPostComments;
 
     } catch (error) {
       throw error;
@@ -121,6 +146,42 @@ export class ForumService {
       const forumPost = await this.forumPostModel.findById(forumPostId);
       if (!forumPost) return {msg: 'Forum post deleted.'}
       else return {msg: 'Please try again.'}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async addForumPostComment({forumPostId, authorId, body}: AddForumPostCommentDto): Promise<{msg: string}> {
+    try {
+      const forumPost = await this.forumPostModel.findById(forumPostId)
+      if (!forumPost) return {msg: 'Inexistent post.'}
+
+      const author = await this.userModel.findById(authorId);
+      if (!author) return {msg: 'Inexistent user.'}
+
+      const comment = await this.forumPostCommentModel.create({
+        forumPostId,
+        authorId,
+        authorName: author.name,
+        authorProfilePicture: author.profilePicture,
+        body,
+        date: new Date()
+      })
+
+      forumPost.comments.push(comment._id);
+
+      return {msg: 'Comment created.'}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteForumPostComment({forumPostCommentId}: DeleteForumPostCommentDto): Promise<{msg: string}> {
+    try {
+      await this.forumPostCommentModel.deleteOne({_id: forumPostCommentId});
+      const comment = await this.forumPostCommentModel.findById(forumPostCommentId);
+      if (!comment) return {msg: 'Comment deleted.'}
+      return {msg: 'Please try again.'}
     } catch (error) {
       throw error;
     }

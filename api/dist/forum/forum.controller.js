@@ -16,7 +16,9 @@ exports.ForumController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const add_forum_post_comment_dto_1 = require("./dto/add-forum-post-comment.dto");
 const create_forum_post_dto_1 = require("./dto/create-forum-post.dto");
+const delete_forum_post_comment_dto_1 = require("./dto/delete-forum-post-comment.dto");
 const delete_forum_post_dto_1 = require("./dto/delete-forum-post.dto");
 const get_all_room_forum_posts_dto_1 = require("./dto/get-all-room-forum-posts.dto");
 const forum_service_1 = require("./forum.service");
@@ -32,6 +34,15 @@ let ForumController = class ForumController {
     }
     async deleteForumPost(forumPostId) {
         return this.forumService.deleteForumPost(forumPostId);
+    }
+    async getAllForumPostComments(forumPostId) {
+        return this.forumService.getAllForumPostComments(forumPostId);
+    }
+    async addForumPostComment(addForumPostCommentDto) {
+        return this.forumService.addForumPostComment(addForumPostCommentDto);
+    }
+    async deleteForumPostComment(deleteForumPostCommentDto) {
+        return this.forumService.deleteForumPostComment(deleteForumPostCommentDto);
     }
 };
 __decorate([
@@ -59,6 +70,30 @@ __decorate([
     __metadata("design:paramtypes", [delete_forum_post_dto_1.DeleteForumPostDto]),
     __metadata("design:returntype", Promise)
 ], ForumController.prototype, "deleteForumPost", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-all-forum-post-comments/:forumPostId'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "getAllForumPostComments", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Post('add-forum-post-comment'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_forum_post_comment_dto_1.AddForumPostCommentDto]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "addForumPostComment", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Delete('delete-forum-post-comment'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_forum_post_comment_dto_1.DeleteForumPostCommentDto]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "deleteForumPostComment", null);
 ForumController = __decorate([
     common_1.Controller('forum'),
     __metadata("design:paramtypes", [forum_service_1.ForumService])

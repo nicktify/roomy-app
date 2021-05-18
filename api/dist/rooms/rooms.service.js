@@ -465,29 +465,33 @@ let RoomsService = class RoomsService {
             let rooms = [];
             for (let i = 0; i < user.ownedRooms.length; i++) {
                 const room = await this.roomModel.findById(user.ownedRooms[i]);
-                rooms.push({
-                    id: room._id,
-                    name: room.name,
-                    owners: room.owners,
-                    participants: room.participants,
-                    links: room.links,
-                    dates: room.dates,
-                    posts: room.posts,
-                    books: room.books,
-                });
+                if (room) {
+                    rooms.push({
+                        id: room._id,
+                        name: room.name,
+                        owners: room.owners,
+                        participants: room.participants,
+                        links: room.links,
+                        dates: room.dates,
+                        posts: room.posts,
+                        books: room.books,
+                    });
+                }
             }
             for (let i = 0; i < user.participantRooms.length; i++) {
                 const room = await this.roomModel.findById(user.participantRooms[i]);
-                rooms.push({
-                    id: room._id,
-                    name: room.name,
-                    owners: room.owners,
-                    participants: room.participants,
-                    links: room.links,
-                    dates: room.dates,
-                    posts: room.posts,
-                    books: room.books,
-                });
+                if (room) {
+                    rooms.push({
+                        id: room._id,
+                        name: room.name,
+                        owners: room.owners,
+                        participants: room.participants,
+                        links: room.links,
+                        dates: room.dates,
+                        posts: room.posts,
+                        books: room.books,
+                    });
+                }
             }
             rooms.sort((a, b) => {
                 if (a.name.toLowerCase() > b.name.toLowerCase())
