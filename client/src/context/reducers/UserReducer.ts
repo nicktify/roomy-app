@@ -24,10 +24,14 @@ const userReducer = (state: InitialState, action: TypeAction) => {
 
     case 'LOGOUT':
       return {
-        ...state,
-        token: null,
         user: null,
+        token: null,
         userDidRegister: false,
+        validationCompleted: true,
+        rooms: null,
+        selectedRoom: null,
+        selectedRoomPosts: null,
+        selectedRoomUsers: null,
       };
 
     case 'VALIDATION_COMPLETED':

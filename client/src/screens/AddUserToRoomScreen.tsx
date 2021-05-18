@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Image, Linking, Pressable, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Dimensions, Image, Linking, Pressable, Text, TextInput, View, TouchableOpacity, Alert, Modal } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -11,6 +11,7 @@ import { API } from '../config/environment/constants';
 import { User } from '../types/user';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const AddUserToRoomScreen = ({navigation}: any) => {
 
@@ -63,7 +64,7 @@ const AddUserToRoomScreen = ({navigation}: any) => {
 
     makeUserParticipantOfRoom(searchedUserOnFetchresult.id)
     .then(() => {
-      navigation.goBack();
+      navigation.navigate('Room')
     })
     .then(() => {
       getAllUsersFromRoom(selectedRoom.id);
