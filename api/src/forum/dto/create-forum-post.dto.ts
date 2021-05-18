@@ -12,15 +12,4 @@ export class CreateForumPostDto {
   @IsNotEmpty()
   @IsString()
   body: string;
-
-  @IsNotEmpty()
-  @IsString()
-  authorProfilePicture: string;
-
-  @IsNotEmpty()
-  @IsObject()
-  image: {
-    url: string,
-    size: { width: number, height: number }
-  };
 }

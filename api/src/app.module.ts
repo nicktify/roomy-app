@@ -17,7 +17,7 @@ import { ForumModule } from './forum/forum.module';
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ ConfigModule ],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: async () => ({
         uri: process.env.MONGODB_URI,
       }),
       inject: [ ConfigService ],

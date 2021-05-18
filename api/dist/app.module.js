@@ -17,6 +17,7 @@ const rooms_module_1 = require("./rooms/rooms.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const posts_module_1 = require("./posts/posts.module");
+const forum_module_1 = require("./forum/forum.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -25,7 +26,7 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot(),
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
-                useFactory: async (configService) => ({
+                useFactory: async () => ({
                     uri: process.env.MONGODB_URI,
                 }),
                 inject: [config_1.ConfigService],
@@ -34,6 +35,7 @@ AppModule = __decorate([
             rooms_module_1.RoomsModule,
             auth_module_1.AuthModule,
             posts_module_1.PostsModule,
+            forum_module_1.ForumModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

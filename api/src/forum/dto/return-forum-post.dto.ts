@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDataURI, IsDate, IsNotEmpty, IsString } from "class-validator";
 
 export class ReturnForumPostDto {
   @IsNotEmpty()
@@ -8,11 +8,7 @@ export class ReturnForumPostDto {
   @IsNotEmpty()
   @IsString()
   roomId: string;
-  
-  @IsNotEmpty()
-  @IsString()
-  body: string;
-  
+
   @IsNotEmpty()
   @IsString()
   authorId: string;
@@ -20,4 +16,24 @@ export class ReturnForumPostDto {
   @IsNotEmpty()
   @IsString()
   authorProfilePicture: string;
+
+  @IsNotEmpty()
+  @IsString()
+  authorName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  body: string;
+
+  @IsNotEmpty()
+  @IsString()
+  image: string;
+
+  @IsNotEmpty()
+  @IsDate()
+  date: Date;
+
+  @IsNotEmpty()
+  @IsArray()
+  comments: string[];
 }

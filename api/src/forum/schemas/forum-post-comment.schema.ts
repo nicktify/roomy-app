@@ -1,12 +1,12 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type ForumPostDocument = ForumPost & Document;
+export type ForumPostCommentDocument = ForumPostComment & Document;
 
 @Schema()
-export class ForumPost {
+export class ForumPostComment {
   @Prop()
-  roomId: string;
+  forumPostId: string;
 
   @Prop()
   authorId: string;
@@ -18,16 +18,10 @@ export class ForumPost {
   authorName: string;
 
   @Prop()
-  body: string;
-
-  @Prop()
-  image: string;
+  body: string
 
   @Prop()
   date: Date;
-
-  @Prop()
-  comments: string[];
 }
 
-export const ForumPostSchema = SchemaFactory.createForClass( ForumPost );
+export const ForumPostCommentSchema = SchemaFactory.createForClass( ForumPostComment );

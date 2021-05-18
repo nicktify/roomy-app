@@ -9,34 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreatePostDto = void 0;
-const class_validator_1 = require("class-validator");
-class CreatePostDto {
-}
+exports.ForumPostSchema = exports.ForumPost = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let ForumPost = class ForumPost {
+};
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "roomId", void 0);
+], ForumPost.prototype, "roomId", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorId", void 0);
+], ForumPost.prototype, "authorId", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorProfilePicture", void 0);
+], ForumPost.prototype, "authorProfilePicture", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "body", void 0);
+], ForumPost.prototype, "authorName", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
-], CreatePostDto.prototype, "authorName", void 0);
-exports.CreatePostDto = CreatePostDto;
-//# sourceMappingURL=create-post.dto.js.map
+], ForumPost.prototype, "body", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", String)
+], ForumPost.prototype, "image", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", Date)
+], ForumPost.prototype, "date", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", Array)
+], ForumPost.prototype, "comments", void 0);
+ForumPost = __decorate([
+    mongoose_1.Schema()
+], ForumPost);
+exports.ForumPost = ForumPost;
+exports.ForumPostSchema = mongoose_1.SchemaFactory.createForClass(ForumPost);
+//# sourceMappingURL=forum-post.schema.js.map
