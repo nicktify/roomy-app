@@ -109,6 +109,26 @@ let ForumService = class ForumService {
             const forumPost = await this.forumPostModel.findById(forumPostId);
             if (!forumPost)
                 return { msg: 'Inexistent forum post.' };
+            const forumPostComments = await this.forumPostCommentModel.find({ forumPostId });
+            if (!forumPostComments)
+                return;
+            const returnedForumPostComments = forumPostComments.map(comment => ({
+                id: comment._id,
+                forumPostId: comment.forumPostId,
+                authorId: comment.authorId,
+                authorName: comment.authorName,
+                authorProfilePicture: comment.authorProfilePicture,
+                body: comment.body,
+                date: comment.date,
+            }));
+            returnedForumPostComments.sort((a, b) => {
+                if (a.date < b.date)
+                    return 1;
+                if (a.date > b.date)
+                    return -1;
+                return 0;
+            });
+            return returnedForumPostComments;
         }
         catch (error) {
             throw error;
@@ -122,6 +142,41 @@ let ForumService = class ForumService {
                 return { msg: 'Forum post deleted.' };
             else
                 return { msg: 'Please try again.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async addForumPostComment({ forumPostId, authorId, body }) {
+        try {
+            const forumPost = await this.forumPostModel.findById(forumPostId);
+            if (!forumPost)
+                return { msg: 'Inexistent post.' };
+            const author = await this.userModel.findById(authorId);
+            if (!author)
+                return { msg: 'Inexistent user.' };
+            const comment = await this.forumPostCommentModel.create({
+                forumPostId,
+                authorId,
+                authorName: author.name,
+                authorProfilePicture: author.profilePicture,
+                body,
+                date: new Date()
+            });
+            forumPost.comments.push(comment._id);
+            return { msg: 'Comment created.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteForumPostComment({ forumPostCommentId }) {
+        try {
+            await this.forumPostCommentModel.deleteOne({ _id: forumPostCommentId });
+            const comment = await this.forumPostCommentModel.findById(forumPostCommentId);
+            if (!comment)
+                return { msg: 'Comment deleted.' };
+            return { msg: 'Please try again.' };
         }
         catch (error) {
             throw error;
