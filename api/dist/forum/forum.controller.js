@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const create_forum_post_dto_1 = require("./dto/create-forum-post.dto");
+const delete_forum_post_dto_1 = require("./dto/delete-forum-post.dto");
+const get_all_room_forum_posts_dto_1 = require("./dto/get-all-room-forum-posts.dto");
 const forum_service_1 = require("./forum.service");
 let ForumController = class ForumController {
     constructor(forumService) {
@@ -24,6 +26,12 @@ let ForumController = class ForumController {
     }
     async createNewForumPost(createForumPostDto, file) {
         return this.forumService.createNewForumPost(createForumPostDto, file);
+    }
+    async getAllRoomForumPosts(roomId) {
+        return this.forumService.getAllRoomForumPost(roomId);
+    }
+    async deleteForumPost(forumPostId) {
+        return this.forumService.deleteForumPost(forumPostId);
     }
 };
 __decorate([
@@ -35,6 +43,22 @@ __decorate([
     __metadata("design:paramtypes", [create_forum_post_dto_1.CreateForumPostDto, Object]),
     __metadata("design:returntype", Promise)
 ], ForumController.prototype, "createNewForumPost", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-all-room-forum-posts/:roomId'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_all_room_forum_posts_dto_1.GetAllRoomForumPostDto]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "getAllRoomForumPosts", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Delete('delete-forum-post/:forumPostId'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_forum_post_dto_1.DeleteForumPostDto]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "deleteForumPost", null);
 ForumController = __decorate([
     common_1.Controller('forum'),
     __metadata("design:paramtypes", [forum_service_1.ForumService])

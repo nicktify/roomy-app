@@ -19,7 +19,7 @@ const NewPostForm = ({navigation}: any) => {
   const [modalPictureVisible, setModalPictureVisible] = useState(false);
 
   const handlePublish = () => {
-    if (bodyPost.length > 1 && !disabledPublishPostButton) {
+    if (bodyPost.length > 0 && !disabledPublishPostButton) {
       setDisabledPublishPostButton(true);
       addNewPost(bodyPost, imageUri ? imageUri : undefined)
         .then(() => {
@@ -129,7 +129,7 @@ const NewPostForm = ({navigation}: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-          <TouchableOpacity
+          <Pressable
             style={{
               alignItems: 'center',
               backgroundColor: principalColor,
@@ -150,7 +150,7 @@ const NewPostForm = ({navigation}: any) => {
                 fontWeight: 'bold',
               }}
             >Publish</Text>
-          </TouchableOpacity>
+          </Pressable>
       </KeyboardAwareScrollView>
 
       <SelectImageOnPostFormModal 

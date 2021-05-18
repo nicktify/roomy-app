@@ -47,6 +47,8 @@ const style = StyleSheet.create({
   },
   image: {
     borderRadius: 2,
+    width: 350,
+    height: 350,
     maxHeight: '100%',
     maxWidth: '100%',
   },

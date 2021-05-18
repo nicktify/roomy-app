@@ -100,17 +100,20 @@ const RoomPostsScreen = ({navigation}: any) => {
           }}
         >
           {
-            item.image &&
+            item.image && item.image.url &&
               <Pressable
                 onPress={() => {
                   setSelectedImagePostUrl(item.image.url);
                 }}
               >
                 <Image
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
                   source={{
                     uri: item.image.url,
                   }}
-                  style={style.image}
                   width={350}
                   height={350}
                 />

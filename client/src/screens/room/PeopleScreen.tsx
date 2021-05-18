@@ -80,7 +80,8 @@ const PeopleScreen = ({ navigation }: any) => {
           selectedRoom && selectedRoom.owners.includes(item.id) &&
           <Text style={{ fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
         }
-        {selectedRoom?.owners.includes(user?.id ? user.id : '') &&
+        {
+          selectedRoom && user && selectedRoom.owners.includes(user.id) && item.id !== user.id &&
         <TouchableOpacity
           onPress={() => {
             setShowModalUserOption(true);

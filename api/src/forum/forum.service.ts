@@ -4,6 +4,9 @@ import { Model } from "mongoose";
 import { RoomDocument } from "src/rooms/schemas/room.schema";
 import { UserDocument } from "src/users/schemas/user.schema";
 import { CreateForumPostDto } from "./dto/create-forum-post.dto";
+import { DeleteForumPostDto } from "./dto/delete-forum-post.dto";
+import { GetAllForumPostCommentsDto } from "./dto/get-all-forum-post-comments.dto";
+import { GetAllRoomForumPostDto } from "./dto/get-all-room-forum-posts.dto";
 import { ReturnForumPostDto } from "./dto/return-forum-post.dto";
 import { ForumPostCommentDocument } from "./schemas/forum-post-comment.schema";
 import { ForumPostDocument } from "./schemas/forum-post.schema";
@@ -72,6 +75,52 @@ export class ForumService {
       );
       streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
       })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllRoomForumPost({roomId}: GetAllRoomForumPostDto): Promise<ReturnForumPostDto[] | {msg: string}> {
+    try {
+      const room = await this.roomModel.findById( roomId );
+      if (!room) return {msg: 'Inexistent room.'};
+      const forumPost = await this.forumPostModel.find({ roomId });
+      
+      const returnedForumPost: ReturnForumPostDto[] = forumPost.map(forumPost => ({
+        id: forumPost._id,
+        roomId: forumPost.roomId,
+        authorId: forumPost.authorId,
+        authorName: forumPost.authorName,
+        authorProfilePicture: forumPost.authorProfilePicture,
+        body: forumPost.body,
+        image: forumPost.image,
+        date: forumPost.date,
+        comments: forumPost.comments,
+      }))
+
+      return returnedForumPost;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllForumPostComments({forumPostId}: GetAllForumPostCommentsDto) {
+    try {
+      const forumPost = await this.forumPostModel.findById(forumPostId);
+      if (!forumPost) return {msg: 'Inexistent forum post.'}
+
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteForumPost({forumPostId}: DeleteForumPostDto): Promise<{msg: string}> {
+    try {
+      await this.forumPostModel.findByIdAndDelete(forumPostId);
+      const forumPost = await this.forumPostModel.findById(forumPostId);
+      if (!forumPost) return {msg: 'Forum post deleted.'}
+      else return {msg: 'Please try again.'}
     } catch (error) {
       throw error;
     }

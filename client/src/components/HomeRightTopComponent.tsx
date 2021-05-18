@@ -62,17 +62,26 @@ const HomeRightTopComponent = () => {
       />
       {
         user?.profilePicture ?
-          <TouchableWithoutFeedback
+          <Pressable
             style={{ flex: 1 }}
             onPress={() => setModalVisible(true)}
           >
             <Image
+              style={{
+                alignSelf: 'flex-end',
+                marginRight: 10,
+                marginTop: 50,
+                height: 80,
+                width: 80,
+                borderRadius: 50,
+              }}
               source={{
                 uri: user.profilePicture,
               }}
-              style={styles.profileImage}
+              width={80}
+              height={80}
             />
-          </TouchableWithoutFeedback>
+          </Pressable>
           :
           <Icon
             style={styles.profileImage}

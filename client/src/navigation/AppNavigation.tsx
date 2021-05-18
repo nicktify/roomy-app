@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 
 const AppNavigation = () => {
 
-  const { validationCompleted, user } = useContext( Context );
+  const { validationCompleted, user, rooms } = useContext( Context );
 
   if ( ! validationCompleted ) return <LoadingScreen />
   

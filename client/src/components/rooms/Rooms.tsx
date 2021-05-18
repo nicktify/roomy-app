@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ const Rooms = ({ navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
   const { rooms, getRooms } = useContext(Context);
 
   useEffect(() => { }, [rooms]);
-  useEffect(() => { getRooms(); }, []);
+  useEffect(() => { getRooms() }, [])
 
   const renderItem = ({ item }: any) => (
     <View style={{ width: '100%', alignItems: 'center' }}>
