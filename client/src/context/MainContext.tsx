@@ -547,6 +547,130 @@ const AppContext = ({ children }: any) => {
   };
 
 
+  const getAllRoomForumPost = (): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return 'Not authenticated.'
+      if (!state.selectedRoom) return 'Missing information.'
+      axios.get(`${API}/get-all-room-forum-posts/${state.selectedRoom.id}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    })
+  }
+
+
+  const createNewForumPost = (body: string, data: ImagePickerResponse): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return 'Not authenticated.';
+      if (!state.selectedRoom) return 'Missing information.';
+      if (!body) return 'Missing information.';
+
+      const formData = new FormData();
+      data && formData.append('file', {
+        uri: data.uri,
+        type: data.type,
+        name: data.fileName
+      });
+      formData.append('authorId', state.user.id)
+      formData.append('roomId', state.selectedRoom.id)
+      formData.append('body', body);
+
+      axios.post(`${API}/forum/create-new-forum-post`, formData, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  }
+
+
+  const deleteForumPost = (forumPostId: string): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return 'Not authenticated.';
+      if (!forumPostId) return 'Missing information.';
+      axios.delete(`${API}/forum/delete-forum-post/${forumPostId}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  }
+
+  const addForumPostComment = (forumPostId: string, body: string): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return 'Not authenticated.';
+      if (!forumPostId || !body) return 'Missing information.';
+      axios.post(`${API}/add-forum-post-comment`, {
+        forumPostId,
+        authorId: state.user.id,
+        body,
+      }, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  }
+
+  const getAllForumPostComments = (forumPostId: string): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if(!token || !state.user) return 'Not authenticated.';
+      if (!forumPostId) return 'Missing information.';
+      axios.get(`${API}/get-all-forum-post-comments/${forumPostId}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  }
+
+  const deleteForumPostComment = (forumPostCommentId: string): Promise<any> => {
+    return new Promise(async(resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token || !state.user) return 'Not authenticated.';
+      if (!forumPostCommentId) return 'Missing information.';
+      axios.delete(`${API}/delete-forum-post-comment0`, {
+        data: {
+          forumPostCommentId
+        }, 
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+  } 
+
+
   return (
     <Context.Provider value={{
       user: state.user,
