@@ -39,10 +39,6 @@ export class ReturnRoomDto {
 
   @IsNotEmpty()
   @IsArray()
-  posts: string[]
-
-  @IsNotEmpty()
-  @IsArray()
   books: [
     {
       name: string;

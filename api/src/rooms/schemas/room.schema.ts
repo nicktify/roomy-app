@@ -36,9 +36,6 @@ export class Room {
   ]
 
   @Prop()
-  posts: string[];
-
-  @Prop()
   books: [
     {
       name: string;

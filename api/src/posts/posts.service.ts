@@ -86,9 +86,6 @@ export class PostsService {
   
               post.image = { url: result.secure_url, size: { width: result.width, height: result.height }}
               post.save();
-              
-              room.posts.push(post._id);
-              room.save();
   
               const returnedPost: ReturnPostDto = {
                 id: post._id,
@@ -106,9 +103,6 @@ export class PostsService {
           streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
         })
       } else {
-
-        room.posts.push(post._id);
-        room.save();
 
         const returnedPost: ReturnPostDto = {
           id: post._id,
@@ -130,13 +124,8 @@ export class PostsService {
 
   async deletePost( postId, roomId ): Promise<{ msg: string }> {
     try {
-
       const room = await this.roomModel.findById( roomId );
-
       if ( ! room  ) return { msg: 'Room not exist.' }
-
-      room.posts = room.posts.filter(post => post !== postId);
-      room.save();
 
       await this.postModel.deleteOne({ _id: postId });
       const post = await this.postModel.findById( postId );

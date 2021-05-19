@@ -18,7 +18,6 @@ export declare class Room {
             description: string;
         }
     ];
-    posts: string[];
     books: [
         {
             name: string;

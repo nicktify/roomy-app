@@ -38,7 +38,6 @@ let RoomsService = class RoomsService {
             participants: room.participants,
             links: room.links,
             dates: room.dates,
-            posts: room.posts,
             books: room.books,
         }));
     }
@@ -56,7 +55,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -81,7 +79,6 @@ let RoomsService = class RoomsService {
                 participants: createdRoom.participants,
                 links: createdRoom.links,
                 dates: createdRoom.dates,
-                posts: createdRoom.posts,
                 books: createdRoom.books,
             };
         }
@@ -108,7 +105,6 @@ let RoomsService = class RoomsService {
                 participants: editedRoom.participants,
                 links: editedRoom.links,
                 dates: editedRoom.dates,
-                posts: editedRoom.posts,
                 books: editedRoom.books,
             };
         }
@@ -175,7 +171,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -215,7 +210,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -254,7 +248,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -294,7 +287,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -476,7 +468,6 @@ let RoomsService = class RoomsService {
                         participants: room.participants,
                         links: room.links,
                         dates: room.dates,
-                        posts: room.posts,
                         books: room.books,
                     });
                 }
@@ -491,7 +482,6 @@ let RoomsService = class RoomsService {
                         participants: room.participants,
                         links: room.links,
                         dates: room.dates,
-                        posts: room.posts,
                         books: room.books,
                     });
                 }
@@ -514,19 +504,19 @@ let RoomsService = class RoomsService {
             const room = await this.roomModel.findById(roomId);
             if (!room)
                 return { msg: 'Room not exist.' };
-            let posts = [];
-            for (let i = 0; i < room.posts.length; i++) {
-                const post = await this.postModel.findById(room.posts[i]);
-                if (post) {
-                    posts.push({
-                        id: post._id,
-                        roomId: post.roomId,
-                        authorId: post.authorId,
-                        authorProfilePicture: post.authorProfilePicture,
-                        authorName: post.authorName,
-                        body: post.body,
-                        date: post.date,
-                        image: post.image,
+            const posts = await this.postModel.find({ roomId });
+            let returnedPosts = [];
+            if (posts) {
+                for (let i = 0; i < posts.length; i++) {
+                    returnedPosts.push({
+                        id: posts[i]._id,
+                        authorId: posts[i].authorId,
+                        roomId: posts[i].roomId,
+                        authorProfilePicture: posts[i].authorProfilePicture,
+                        authorName: posts[i].authorName,
+                        body: posts[i].body,
+                        date: posts[i].date,
+                        image: posts[i].image,
                     });
                 }
             }
@@ -564,7 +554,21 @@ let RoomsService = class RoomsService {
                     });
                 }
             }
-            return { posts, users, forumPosts: returnedForumPosts };
+            returnedPosts.sort((a, b) => {
+                if (a.date < b.date)
+                    return 1;
+                if (a.date > b.date)
+                    return -1;
+                return 0;
+            });
+            returnedForumPosts.sort((a, b) => {
+                if (a.date < b.date)
+                    return 1;
+                if (a.date > b.date)
+                    return -1;
+                return 0;
+            });
+            return { posts: returnedPosts, users, forumPosts: returnedForumPosts };
         }
         catch (error) {
             throw error;

@@ -40,10 +40,6 @@ __decorate([
 __decorate([
     mongoose_1.Prop(),
     __metadata("design:type", Array)
-], Room.prototype, "posts", void 0);
-__decorate([
-    mongoose_1.Prop(),
-    __metadata("design:type", Array)
 ], Room.prototype, "books", void 0);
 Room = __decorate([
     mongoose_1.Schema()
