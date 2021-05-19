@@ -227,7 +227,7 @@ const AppContext = ({ children }: any) => {
         .then(response => {
           dispatch({
             type: 'SET_ROOM_INFORMATION',
-            payload: { posts: response.data.posts, users: response.data.users }
+            payload: { posts: response.data.posts, users: response.data.users, forumPosts: response.data.forumPosts }
           });
           resolve('done');
         })
@@ -585,10 +585,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data);
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
   }
@@ -603,10 +604,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data);
       })
       .catch(error => {
-        console.log(error);
+        reject(error);
       })
     })
   }
@@ -624,10 +626,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response)
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error);
       })
     })
   }
@@ -641,10 +644,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
   }
@@ -661,16 +665,14 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
   }
-
-
-
 
   return (
     <Context.Provider value={{
