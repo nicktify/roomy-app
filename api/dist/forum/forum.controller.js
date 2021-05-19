@@ -35,11 +35,11 @@ let ForumController = class ForumController {
     async deleteForumPost(forumPostId) {
         return this.forumService.deleteForumPost(forumPostId);
     }
-    async getAllForumPostComments(forumPostId) {
-        return this.forumService.getAllForumPostComments(forumPostId);
-    }
     async addForumPostComment(addForumPostCommentDto) {
         return this.forumService.addForumPostComment(addForumPostCommentDto);
+    }
+    async getAllForumPostComments(forumPostId) {
+        return this.forumService.getAllForumPostComments(forumPostId);
     }
     async deleteForumPostComment(deleteForumPostCommentDto) {
         return this.forumService.deleteForumPostComment(deleteForumPostCommentDto);
@@ -72,20 +72,20 @@ __decorate([
 ], ForumController.prototype, "deleteForumPost", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Get('get-all-forum-post-comments/:forumPostId'),
-    __param(0, common_1.Param()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ForumController.prototype, "getAllForumPostComments", null);
-__decorate([
-    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post('add-forum-post-comment'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [add_forum_post_comment_dto_1.AddForumPostCommentDto]),
     __metadata("design:returntype", Promise)
 ], ForumController.prototype, "addForumPostComment", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Get('get-all-forum-post-comments/:forumPostId'),
+    __param(0, common_1.Param()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ForumController.prototype, "getAllForumPostComments", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Delete('delete-forum-post-comment'),

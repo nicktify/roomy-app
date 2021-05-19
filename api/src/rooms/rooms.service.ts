@@ -19,12 +19,15 @@ import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
+import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
+import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
 
 @Injectable()
 export class RoomsService {
   constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>,
     @InjectModel('User') private userModel: Model<UserDocument>,
-    @InjectModel('Post') private postModel: Model<PostDocument> ) {}
+    @InjectModel('Post') private postModel: Model<PostDocument>,
+    @InjectModel('ForumPost') private forumPostModel: Model<ForumPostDocument> ) {}
 
   async getRooms(): Promise<ReturnRoomDto[]> {
 
@@ -571,7 +574,7 @@ export class RoomsService {
     }
   }
 
-  async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[]} | {msg: string}> {
+  async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[], forumPosts: ReturnForumPostDto[]} | {msg: string}> {
     try {
       const room = await this.roomModel.findById( roomId );
       if (! room ) return { msg: 'Room not exist.' };
@@ -611,7 +614,26 @@ export class RoomsService {
         }
       }
 
-      return { posts, users };
+      let forumPosts = await this.forumPostModel.find({ roomId });
+
+      let returnedForumPosts: ReturnForumPostDto[] = [];
+      if (forumPosts) {
+        for (let i = 0; i < forumPosts.length; i ++) {
+          returnedForumPosts.push({
+            id: forumPosts[i]._id,
+            roomId: forumPosts[i].roomId,
+            authorId: forumPosts[i].authorId,
+            authorName: forumPosts[i].authorName,
+            authorProfilePicture: forumPosts[i].authorProfilePicture,
+            body: forumPosts[i].body,
+            image: forumPosts[i].image,
+            comments: forumPosts[i].comments,
+            date: forumPosts[i].date,
+          })
+        }
+      }
+
+      return { posts, users, forumPosts: returnedForumPosts };
 
     } catch (error) {
       throw error;

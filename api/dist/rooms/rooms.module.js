@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomsModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const forum_post_schema_1 = require("../forum/schemas/forum-post.schema");
 const post_schema_1 = require("../posts/schemas/post.schema");
 const user_schema_1 = require("../users/schemas/user.schema");
 const rooms_controller_1 = require("./rooms.controller");
@@ -23,6 +24,7 @@ RoomsModule = __decorate([
                 { name: 'Room', schema: room_schema_1.RoomSchema },
                 { name: 'User', schema: user_schema_1.UserSchema },
                 { name: 'Post', schema: post_schema_1.PostSchema },
+                { name: 'ForumPost', schema: forum_post_schema_1.ForumPostSchema },
             ]),
         ],
         controllers: [rooms_controller_1.RoomsController],

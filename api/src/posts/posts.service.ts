@@ -146,8 +146,10 @@ export class PostsService {
       room.save();
 
       await this.postModel.deleteOne({ _id: postId });
+      const post = await this.postModel.findById( postId );
+      if (!post) return { msg: 'Post deleted.' };
+      else return { msg: 'Please try again.' };
 
-      return { msg: 'Post deleted.' }
     } catch (error) {
       throw error;
     }

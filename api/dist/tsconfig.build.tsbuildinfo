@@ -1596,6 +1596,11 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "affectsGlobalScope": false
       },
+      "../src/forum/schemas/forum-post.schema.ts": {
+        "version": "a1511c11dcfc23d4b284b497e925ad0ce8ffa9d2d656e89a81fc1ca3eeb6fb5e",
+        "signature": "2ffef31aa9d4b4f954aba4b16aa7c81d1ea22f39342a9b105cf26782a36f34bb",
+        "affectsGlobalScope": false
+      },
       "../src/posts/schemas/post.schema.ts": {
         "version": "ef6fafb8085f842b2445af9acea02c39fa49a0d7ba3844c8d367913de90627b2",
         "signature": "0961d38416bf6b69360fdfa89c7c4131e27eab90c4c9d77c0070f129057e45d7",
@@ -2301,9 +2306,14 @@
         "signature": "a5ddce1c5261e401110e86e75050b671b8f8a2b5ab7946b4d38f18163187e8e9",
         "affectsGlobalScope": false
       },
+      "../src/forum/dto/return-forum-post.dto.ts": {
+        "version": "277e22207b1d9f0efbaf0219b85b0a600dfd1397c91f9e29c8537c4b3dac576d",
+        "signature": "9c3156db89f176d5ed7d8c292113b5d85692d3890168237f3ecc6a51f546adc6",
+        "affectsGlobalScope": false
+      },
       "../src/rooms/rooms.service.ts": {
-        "version": "44d25b9f0874577aa24f458e6270a06c4559faea90555a2c23cc210831d06e34",
-        "signature": "492a19c10979693d312585205fb7ad7ddab1aedf5284ca141ff0b71dd684af22",
+        "version": "2b9067ff86c70ee5f76124533deaf52616d713fba41c5309c42788c383ffc2a9",
+        "signature": "8c8f3139485d4c252b4d6a04939a0118fa71295b70d369d8192f00b3b998c2c7",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -2427,7 +2437,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {
-        "version": "a31263db98ad65a7c6768ecfe917feaa1dc1fa3ac23296ad2071b2a5cae97b8d",
+        "version": "1cdcb80476947132b235306db7a10d7988fb4caf5efbf72b016e0c947d2cba76",
         "signature": "ad06c69a4aed6b1a166f149de17d10e55a81948cc9977b4f1960c224922668d9",
         "affectsGlobalScope": false
       },
@@ -2667,7 +2677,7 @@
         "affectsGlobalScope": false
       },
       "../src/posts/posts.service.ts": {
-        "version": "81e0f4ac21e0ee4bb6f7871aaeb366b39ee9cc2801ca34cecfe1bb67cd27f991",
+        "version": "57f460a0ed1eb00a3ff14ebd01b164f929f757ff15e34186b7136dfb9fe4e69c",
         "signature": "76708f969b52313d0e362769f221bb0a92266ba7e126ea1f99f8cf2add7273e4",
         "affectsGlobalScope": false
       },
@@ -2711,19 +2721,9 @@
         "signature": "203197d70a24ef578b6008167b20e32b7422afd0b969afcc53765f9c284463cc",
         "affectsGlobalScope": false
       },
-      "../src/forum/dto/return-forum-post.dto.ts": {
-        "version": "277e22207b1d9f0efbaf0219b85b0a600dfd1397c91f9e29c8537c4b3dac576d",
-        "signature": "9c3156db89f176d5ed7d8c292113b5d85692d3890168237f3ecc6a51f546adc6",
-        "affectsGlobalScope": false
-      },
       "../src/forum/schemas/forum-post-comment.schema.ts": {
         "version": "c366248b8b02ddbff20ae48d5cc9b6b30e90ef22aeefa0609e1f250a2f25d99f",
         "signature": "810985762d56dd7db822c77676650aea9e757c62ebd99659a93e89bca31ec1c1",
-        "affectsGlobalScope": false
-      },
-      "../src/forum/schemas/forum-post.schema.ts": {
-        "version": "a1511c11dcfc23d4b284b497e925ad0ce8ffa9d2d656e89a81fc1ca3eeb6fb5e",
-        "signature": "2ffef31aa9d4b4f954aba4b16aa7c81d1ea22f39342a9b105cf26782a36f34bb",
         "affectsGlobalScope": false
       },
       "../src/forum/dto/delete-forum-post-comment.dto.ts": {
@@ -2737,8 +2737,8 @@
         "affectsGlobalScope": false
       },
       "../src/forum/forum.controller.ts": {
-        "version": "49eafc5322531c9b6896cc063fe21c26e1c54bedb4b3598b9a832c0a9c117ef2",
-        "signature": "9cb39ef4cf40e155299f3463f93a50cf16f0281b86d63bd4fd568e43af80eb94",
+        "version": "a14e0cc09eac34609be9f4a426bc6e9b2f3991ba5a6f63b932ea2b32961bf576",
+        "signature": "f72cb327c6e1acf31fda8e24170f550ef7cd19c88dba3d8d51db8a218aa96687",
         "affectsGlobalScope": false
       },
       "../src/forum/forum.module.ts": {
@@ -5399,6 +5399,7 @@
       "../src/rooms/rooms.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../src/forum/schemas/forum-post.schema.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/rooms/rooms.controller.ts",
         "../src/rooms/rooms.service.ts",
@@ -5409,6 +5410,8 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
+        "../src/forum/dto/return-forum-post.dto.ts",
+        "../src/forum/schemas/forum-post.schema.ts",
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/rooms/dto/add-new-book-dto.ts",
@@ -7608,6 +7611,8 @@
       ],
       "../src/rooms/rooms.service.ts": [
         "../node_modules/mongoose/index.d.ts",
+        "../src/forum/dto/return-forum-post.dto.ts",
+        "../src/forum/schemas/forum-post.schema.ts",
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/rooms/dto/add-new-book-dto.ts",

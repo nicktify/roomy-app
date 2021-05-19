@@ -133,7 +133,11 @@ let PostsService = class PostsService {
             room.posts = room.posts.filter(post => post !== postId);
             room.save();
             await this.postModel.deleteOne({ _id: postId });
-            return { msg: 'Post deleted.' };
+            const post = await this.postModel.findById(postId);
+            if (!post)
+                return { msg: 'Post deleted.' };
+            else
+                return { msg: 'Please try again.' };
         }
         catch (error) {
             throw error;

@@ -20,11 +20,14 @@ const user_schema_1 = require("../users/schemas/user.schema");
 const return_user_dto_1 = require("../users/dto/return-user.dto");
 const post_schema_1 = require("../posts/schemas/post.schema");
 const return_post_dto_1 = require("../posts/dto/return-post-dto");
+const forum_post_schema_1 = require("../forum/schemas/forum-post.schema");
+const return_forum_post_dto_1 = require("../forum/dto/return-forum-post.dto");
 let RoomsService = class RoomsService {
-    constructor(roomModel, userModel, postModel) {
+    constructor(roomModel, userModel, postModel, forumPostModel) {
         this.roomModel = roomModel;
         this.userModel = userModel;
         this.postModel = postModel;
+        this.forumPostModel = forumPostModel;
     }
     async getRooms() {
         const rooms = await this.roomModel.find();
@@ -544,7 +547,24 @@ let RoomsService = class RoomsService {
                     });
                 }
             }
-            return { posts, users };
+            let forumPosts = await this.forumPostModel.find({ roomId });
+            let returnedForumPosts = [];
+            if (forumPosts) {
+                for (let i = 0; i < forumPosts.length; i++) {
+                    returnedForumPosts.push({
+                        id: forumPosts[i]._id,
+                        roomId: forumPosts[i].roomId,
+                        authorId: forumPosts[i].authorId,
+                        authorName: forumPosts[i].authorName,
+                        authorProfilePicture: forumPosts[i].authorProfilePicture,
+                        body: forumPosts[i].body,
+                        image: forumPosts[i].image,
+                        comments: forumPosts[i].comments,
+                        date: forumPosts[i].date,
+                    });
+                }
+            }
+            return { posts, users, forumPosts: returnedForumPosts };
         }
         catch (error) {
             throw error;
@@ -556,7 +576,9 @@ RoomsService = __decorate([
     __param(0, mongoose_1.InjectModel('Room')),
     __param(1, mongoose_1.InjectModel('User')),
     __param(2, mongoose_1.InjectModel('Post')),
+    __param(3, mongoose_1.InjectModel('ForumPost')),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model])
 ], RoomsService);
