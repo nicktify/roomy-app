@@ -16,7 +16,9 @@ export declare class PostsController {
     }): Promise<ReturnPostDto | {
         msg: string;
     }>;
-    addNewPost(createPostDto: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto>;
+    addNewPost(createPostDto: CreatePostDto, file: Express.Multer.File): Promise<ReturnPostDto | {
+        msg: string;
+    }>;
     deletePost({ postId, roomId }: DeletePostDto): Promise<{
         msg: string;
     }>;

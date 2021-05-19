@@ -19,38 +19,35 @@ const mongoose_2 = require("mongoose");
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 const room_schema_1 = require("../rooms/schemas/room.schema");
+const user_schema_1 = require("../users/schemas/user.schema");
 let PostsService = class PostsService {
-    constructor(postModel, roomModel) {
+    constructor(postModel, roomModel, userModel) {
         this.postModel = postModel;
         this.roomModel = roomModel;
+        this.userModel = userModel;
     }
     async getAllRoomPost(id) {
         try {
             const room = await this.roomModel.findById(id);
             if (!room)
                 return { msg: 'Room not exist.' };
-            let posts = [];
-            const insert = (arr, post) => [
-                post,
-                ...arr
-            ];
-            for (let i = 0; i < room.posts.length; i++) {
-                const post = await this.postModel.findById(room.posts[i]);
-                if (post) {
-                    const curatedPost = {
-                        id: post._id,
-                        authorId: post.authorId,
-                        authorName: post.authorName,
-                        authorProfilePicture: post.authorProfilePicture,
-                        roomId: post.roomId,
-                        body: post.body,
-                        date: post.date,
-                        image: post.image,
-                    };
-                    posts = insert(posts, curatedPost);
+            const posts = await this.postModel.find({ roomId: id });
+            let returnedPost = [];
+            if (posts) {
+                for (let i = 0; i < posts.length; i++) {
+                    returnedPost.push({
+                        id: posts[i]._id,
+                        authorId: posts[i].authorId,
+                        authorName: posts[i].authorName,
+                        authorProfilePicture: posts[i].authorProfilePicture,
+                        body: posts[i].body,
+                        roomId: posts[i].roomId,
+                        date: posts[i].date,
+                        image: posts[i].image,
+                    });
                 }
             }
-            return posts;
+            return returnedPost;
         }
         catch (error) {
             throw error;
@@ -80,6 +77,11 @@ let PostsService = class PostsService {
     async addNewPost({ authorId, authorProfilePicture, authorName, roomId, body }, file) {
         try {
             const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Inexistent room' };
+            const user = await this.userModel.findById(authorId);
+            if (!user)
+                return { msg: 'Inexistent user.' };
             const post = await this.postModel.create({ authorId, authorProfilePicture, authorName, roomId, body, date: new Date() });
             if (file) {
                 return new Promise((resolve, reject) => {
@@ -146,8 +148,12 @@ let PostsService = class PostsService {
 };
 PostsService = __decorate([
     common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel('Post')), __param(1, mongoose_1.InjectModel('Room')),
-    __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
+    __param(0, mongoose_1.InjectModel('Post')),
+    __param(1, mongoose_1.InjectModel('Room')),
+    __param(2, mongoose_1.InjectModel('User')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], PostsService);
 exports.PostsService = PostsService;
 //# sourceMappingURL=posts.service.js.map

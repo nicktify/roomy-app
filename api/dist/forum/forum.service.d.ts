@@ -27,10 +27,10 @@ export declare class ForumService {
     getAllForumPostComments({ forumPostId }: GetAllForumPostCommentsDto): Promise<ReturnForumPostCommentDto[] | {
         msg: string;
     }>;
-    deleteForumPost({ forumPostId }: DeleteForumPostDto): Promise<{
+    addForumPostComment({ forumPostId, authorId, body }: AddForumPostCommentDto): Promise<{
         msg: string;
     }>;
-    addForumPostComment({ forumPostId, authorId, body }: AddForumPostCommentDto): Promise<{
+    deleteForumPost({ forumPostId }: DeleteForumPostDto): Promise<{
         msg: string;
     }>;
     deleteForumPostComment({ forumPostCommentId }: DeleteForumPostCommentDto): Promise<{

@@ -17,7 +17,6 @@ export class PostsController {
     return this.postsService.getAllRoomPost( id )
   }
 
-
   @UseGuards( JwtAuthGuard )
   @Get('get-post/:id')
   getPost( @Param() { id } ): Promise<ReturnPostDto | { msg: string }> {
@@ -27,7 +26,7 @@ export class PostsController {
   @UseGuards( JwtAuthGuard )
   @Post('add')
   @UseInterceptors(FileInterceptor('file'))
-  addNewPost( @Body() createPostDto: CreatePostDto, @UploadedFile() file: Express.Multer.File): Promise<ReturnPostDto> {
+  addNewPost( @Body() createPostDto: CreatePostDto, @UploadedFile() file: Express.Multer.File): Promise<ReturnPostDto | {msg: string}> {
     return this.postsService.addNewPost( createPostDto, file );
   }
 

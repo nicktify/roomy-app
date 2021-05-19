@@ -8,48 +8,38 @@ import { RoomDocument } from 'src/rooms/schemas/room.schema';
 import { PostDocument } from './schemas/post.schema';
 import { ReturnPostDto } from './dto/return-post-dto';
 import { CreatePostDto } from './dto/create-post.dto';
-import { Post } from './types/post';
+import { UserDocument } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class PostsService {
 
-  constructor( @InjectModel('Post') private postModel: Model<PostDocument>, @InjectModel('Room') private roomModel: Model<RoomDocument> ) {}
+  constructor( 
+    @InjectModel('Post') private postModel: Model<PostDocument>,
+    @InjectModel('Room') private roomModel: Model<RoomDocument>,
+    @InjectModel('User') private userModel: Model<UserDocument> ) {}
 
   async getAllRoomPost(id: string): Promise<ReturnPostDto[] | { msg: string }> {
     try {
       const room = await this.roomModel.findById( id );
-
       if ( ! room ) return { msg: 'Room not exist.' }
 
-      let posts = [];
-
-      const insert = (arr: ReturnPostDto[], post: Post) => [
-        post,
-        ...arr
-      ]
-
-      for (let i = 0; i < room.posts.length; i ++) {
-        const post = await this.postModel.findById( room.posts[i] );
-
-        if (post) {
-          const curatedPost: Post = {
-            id: post._id,
-            authorId: post.authorId,
-            authorName: post.authorName,
-            authorProfilePicture: post.authorProfilePicture,
-            roomId: post.roomId,
-            body: post.body,
-            date: post.date,
-            image: post.image,
-          }
-
-          posts = insert(posts, curatedPost);
+      const posts = await this.postModel.find({roomId: id});
+      let returnedPost: ReturnPostDto[] = [];
+      if (posts) {
+        for (let i = 0; i < posts.length; i ++) {
+          returnedPost.push({
+            id: posts[i]._id,
+            authorId: posts[i].authorId,
+            authorName: posts[i].authorName,
+            authorProfilePicture: posts[i].authorProfilePicture,
+            body: posts[i].body,
+            roomId: posts[i].roomId,
+            date: posts[i].date,
+            image: posts[i].image,
+          })
         }
-
       }
-
-      return posts;
-
+      return returnedPost;
     } catch (error) {
       throw error;
     }
@@ -77,10 +67,13 @@ export class PostsService {
     }
   }
 
-  async addNewPost( { authorId, authorProfilePicture, authorName, roomId, body }: CreatePostDto, file: Express.Multer.File ): Promise<ReturnPostDto> {
+  async addNewPost( { authorId, authorProfilePicture, authorName, roomId, body }: CreatePostDto, file: Express.Multer.File ): Promise<ReturnPostDto | {msg: string}> {
     try {
 
       const room = await this.roomModel.findById(roomId);
+      if (!room) return {msg: 'Inexistent room'}
+      const user = await this.userModel.findById(authorId)
+      if (!user) return {msg: 'Inexistent user.'}
       const post = await this.postModel.create({ authorId, authorProfilePicture, authorName, roomId, body, date: new Date() });
 
       if (file) {
