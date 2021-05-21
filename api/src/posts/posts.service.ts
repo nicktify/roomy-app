@@ -129,7 +129,7 @@ export class PostsService {
 
       await this.postModel.deleteOne({ _id: postId });
       const post = await this.postModel.findById( postId );
-      if (!post) return { msg: 'Post deleted.' };
+      if ( ! post ) return { msg: 'Post deleted.' };
       else return { msg: 'Please try again.' };
 
     } catch (error) {

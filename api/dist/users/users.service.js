@@ -61,7 +61,10 @@ let UsersService = class UsersService {
         try {
             const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
             if (user)
-                return { msg: 'User already exist.' };
+                return { msg: 'Email already registered, try another or log in.' };
+            if (!/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+                return { msg: 'Password should have at least one lowercase, one uppercase, and one number.' };
+            }
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
             const createdUser = await this.userModel.create({ name, email: email.toLocaleLowerCase(), password: hash, about: '' });

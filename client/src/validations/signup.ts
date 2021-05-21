@@ -18,7 +18,7 @@ export const signUpValidation = (email: string, password: string, name: string) 
   if (!password) {
     errors.password = 'Password is required';
   }
-  else if (password.length > 20 || password.length < 6 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[1-9]/.test(password)) {
+  else if (password.length > 20 || password.length < 6 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
     errors.password = 'Password should have at least one lowercase\none uppercase, and one number.';
   }
 
