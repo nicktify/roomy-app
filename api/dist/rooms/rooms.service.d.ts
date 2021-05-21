@@ -27,7 +27,7 @@ export declare class RoomsService {
     getRoom(id: string): Promise<ReturnRoomDto | {
         msg: string;
     }>;
-    createRoom({ name, password, owner }: CreateRoomDto, authenticatedUser: any): Promise<ReturnRoomDto | {
+    createRoom({ name, owner }: CreateRoomDto, authenticatedUser: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
     editRoom({ id, name, owner }: EditRoomDto, authenticatedUser: any): Promise<ReturnRoomDto | {

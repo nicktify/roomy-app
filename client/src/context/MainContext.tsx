@@ -37,7 +37,7 @@ interface ContextProps {
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{ msg: string; }>;
   changeSocialMediaIcon: (type: string, link: string) => Promise<any>;
   getRooms: () => any;
-  createRoom: (name: string, password: string) => Promise<{ msg: string; }>;
+  createRoom: (name: string) => Promise<{ msg: string; }>;
   addNewPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
   deletePost: (roomId: string, postId: string) => Promise<{ msg: string; }>;
   deleteRoom: (id: string) => Promise<{ msg: string; }>;
@@ -176,10 +176,10 @@ const AppContext = ({ children }: any) => {
   };
 
 
-  const createRoom = (name: string, password: string): Promise<{ msg: string; }> => {
+  const createRoom = (name: string): Promise<{ msg: string; }> => {
 
     return new Promise(async (resolve, reject) => {
-      if (!name || !password) reject({ msg: 'Missing information.' });
+      if (!name) reject({ msg: 'Missing information.' });
 
       const token = await AsyncStorage.getItem('token');
 
@@ -187,7 +187,6 @@ const AppContext = ({ children }: any) => {
 
       axios.post(`${API}/rooms`, {
         name,
-        password,
         owner: state.user?.id
       }, {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }

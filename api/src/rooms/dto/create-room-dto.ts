@@ -8,10 +8,6 @@ export class CreateRoomDto {
 
   @IsNotEmpty()
   @IsString()
-  password: string;
-
-  @IsNotEmpty()
-  @IsString()
   owner: string;
 
 }

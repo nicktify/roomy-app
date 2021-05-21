@@ -2,7 +2,6 @@ import { Document } from 'mongoose';
 export declare type RoomDocument = Room & Document;
 export declare class Room {
     name: string;
-    password: string;
     owners: string[];
     participants: string[];
     links: [

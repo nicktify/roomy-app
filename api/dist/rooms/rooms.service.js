@@ -62,14 +62,14 @@ let RoomsService = class RoomsService {
             throw error;
         }
     }
-    async createRoom({ name, password, owner }, authenticatedUser) {
+    async createRoom({ name, owner }, authenticatedUser) {
         try {
             const findOwner = await this.userModel.findById(owner);
             if (!findOwner)
                 return { msg: 'User not exist.' };
             if (owner !== authenticatedUser.userId)
                 return { msg: 'You don\'t have the authorization to do this action.' };
-            const createdRoom = await this.roomModel.create({ name, password, owners: owner });
+            const createdRoom = await this.roomModel.create({ name, owners: owner });
             findOwner.ownedRooms.push(createdRoom._id);
             findOwner.save();
             return {

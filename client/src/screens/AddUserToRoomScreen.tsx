@@ -11,7 +11,6 @@ import { API } from '../config/environment/constants';
 import { User } from '../types/user';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const AddUserToRoomScreen = ({navigation}: any) => {
 
@@ -27,6 +26,8 @@ const AddUserToRoomScreen = ({navigation}: any) => {
   const fetchSearchedUser = async () => {
     const token = await AsyncStorage.getItem('token');
     if (!token) return;
+
+    if (searchUserOnFetchInputValue.length === 0) return;
 
     const email = searchUserOnFetchInputValue.toLocaleLowerCase();
 

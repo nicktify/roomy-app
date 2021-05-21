@@ -14,41 +14,23 @@ const CreateRoomScreen = ({ navigation }: any) => {
   const { createRoom } = React.useContext(Context);
 
   const [name, setName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [repeatedPassword, setRepeatedPassword] = React.useState('');
   const [createDisabled, setCreateDisabled] = React.useState(false);
   const [nameError, setNameError] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState('');
-  const [repeatedPasswordError, setRepeatedPasswordError] = React.useState('');
-  const [errors, setErrors] = React.useState(createRoomValidations(password, repeatedPassword, name));
+  const [errors, setErrors] = React.useState(createRoomValidations(name));
 
-  const onChange = (name: string, password: string, repeatedPassword: string) => {
+  const onChange = (name: string) => {
     setName(name);
-    setPassword(password);
-    setRepeatedPassword(repeatedPassword);
-    setErrors(createRoomValidations(password, repeatedPassword, name,));
+    setErrors(createRoomValidations(name));
   };
 
-  React.useEffect(() => {
-    if (errors.name.length === 0) setNameError('');
-    if (errors.password.length === 0) setPasswordError('');
-    if (errors.repeatedPassword.length === 0) setRepeatedPasswordError('');
-  }, [name, password, repeatedPassword]);
-
   const handleCreateRoom = () => {
-    if (errors.name.length === 0 &&
-      errors.password.length === 0 &&
-      repeatedPasswordError.length === 0 &&
-      name.length > 0 && password.length > 0 &&
-      repeatedPassword.length > 0
-    ) {
+    if (errors.name.length === 0) {
       setCreateDisabled(true);
-      createRoom(name, password)
+      createRoom(name)
         .then(() => {
           setName('');
-          setPassword('');
-          setRepeatedPassword('');
           setCreateDisabled(false);
+          setNameError('')
           navigation.navigate('Home');
         })
         .catch(error => {
@@ -56,8 +38,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
         });
     } else {
       setNameError(errors.name);
-      setPasswordError(errors.password);
-      setRepeatedPasswordError(errors.repeatedPassword);
     }
   };
 
@@ -110,7 +90,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                   style={style.textInput}
                   placeholder="Quantum mechanics"
                   placeholderTextColor="#9a9b9c"
-                  onChangeText={name => onChange(name, password, repeatedPassword)}
+                  onChangeText={name => onChange(name)}
                   defaultValue={name}
                   value={name}
                   autoCorrect={false}
@@ -120,40 +100,6 @@ const CreateRoomScreen = ({ navigation }: any) => {
                 {
                   nameError.length > 0 &&
                     <Text style={{ color: 'red' }}>{nameError}</Text>
-                }
-                <Text style={style.textLabel}>
-                  Enter room password:
-                </Text>
-                <TextInput
-                  style={style.textInput}
-                  placeholder="******"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={password => onChange(name, password, repeatedPassword)}
-                  defaultValue={password}
-                  value={password}
-                  secureTextEntry
-                  returnKeyType = {"next"}
-                />
-                {
-                  passwordError.length > 0 &&
-                    <Text style={{ color: 'red' }}>{passwordError}</Text>
-                }
-                <Text style={style.textLabel}>
-                  Repeat room password:
-                </Text>
-                <TextInput
-                  style={style.textInput}
-                  placeholder="******"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={repeatedPassword => onChange(name, password, repeatedPassword)}
-                  defaultValue={repeatedPassword}
-                  value={repeatedPassword}
-                  secureTextEntry
-                  blurOnSubmit={false}
-                />
-                {
-                  repeatedPasswordError.length > 0 &&
-                    <Text style={{ color: 'red' }}>{repeatedPasswordError}</Text>
                 }
                 <TouchableOpacity
                   style={{
