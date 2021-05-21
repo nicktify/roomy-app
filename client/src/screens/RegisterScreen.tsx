@@ -76,6 +76,9 @@ const RegisterScreen = ({ navigation }: any) => {
           if (response.msg === 'User register success.') {
             setModalRegisterSuccess(true);
           }
+          if (response.msg === 'Email already registered, try another or log in.') {
+            setFetchErrorMessage(response.msg);
+          }
           setRegisterDisabled(false);
         })
         .catch(() => {
@@ -106,7 +109,7 @@ const RegisterScreen = ({ navigation }: any) => {
               >
                 <Text
                   style={style.loginText}
-                >Login</Text>
+                >Register</Text>
               </View>
               <View>
                 <Text style={style.textLabel}>Enter your name:</Text>
@@ -212,7 +215,7 @@ const RegisterScreen = ({ navigation }: any) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalRegisterSuccess || fetchErrorMessage.length > 0}
+        visible={modalRegisterSuccess}
       >
         <View
           style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
@@ -224,14 +227,36 @@ const RegisterScreen = ({ navigation }: any) => {
             <Pressable
               style={modalStyles.button}
               onPress={() => {
-                if (fetchErrorMessage.length === 0) {
-                  navigation.navigate('Login');
-                }
+                navigation.navigate('Login');
                 setModalRegisterSuccess(false);
-                setFetchErrorMessage('');
               }}
             >
-              <Text style={modalStyles.textStyle}>{modalRegisterSuccess ? 'Login' : 'Ok'}</Text>
+              <Text style={modalStyles.textStyle}>Login</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={fetchErrorMessage.length > 0}
+        onRequestClose={() => setFetchErrorMessage('')}
+      >
+        <View
+          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
+        >
+        </View>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <Text>{fetchErrorMessage}</Text>
+            <Pressable
+              style={modalStyles.button}
+              onPress={() => {
+                setFetchErrorMessage('')
+              }}
+            >
+              <Text style={modalStyles.textStyle}>OK</Text>
             </Pressable>
           </View>
         </View>
