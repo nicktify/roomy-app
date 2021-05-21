@@ -22,11 +22,6 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], CreateRoomDto.prototype, "password", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
 ], CreateRoomDto.prototype, "owner", void 0);
 exports.CreateRoomDto = CreateRoomDto;
 //# sourceMappingURL=create-room-dto.js.map

@@ -10,9 +10,6 @@ export class Room {
   name: string;
   
   @Prop()
-  password: string;
-  
-  @Prop()
   owners: string[];
   
   @Prop()

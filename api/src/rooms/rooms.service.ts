@@ -68,7 +68,7 @@ export class RoomsService {
     }
   }
 
-  async createRoom( { name, password, owner }: CreateRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
+  async createRoom( { name, owner }: CreateRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
 
@@ -77,7 +77,7 @@ export class RoomsService {
 
       if ( owner !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' };
 
-      const createdRoom = await this.roomModel.create({ name, password, owners: owner });
+      const createdRoom = await this.roomModel.create({ name, owners: owner });
 
       findOwner.ownedRooms.push(createdRoom._id);
       findOwner.save();

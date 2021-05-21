@@ -19,10 +19,6 @@ __decorate([
 ], Room.prototype, "name", void 0);
 __decorate([
     mongoose_1.Prop(),
-    __metadata("design:type", String)
-], Room.prototype, "password", void 0);
-__decorate([
-    mongoose_1.Prop(),
     __metadata("design:type", Array)
 ], Room.prototype, "owners", void 0);
 __decorate([
