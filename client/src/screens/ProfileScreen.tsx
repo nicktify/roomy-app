@@ -21,40 +21,34 @@ const ProfileScreen = ({navigation}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [pictureType, setPictureType] = useState('');
   const [selectedSocialMediaIcon, setSelectedSocialMediaIcon] = useState<string>('');
-  const [showModalChangeSocialMedia, setShowModalSocialMedia] = useState(false);
-  const [socialMediaLinkTextInputValue, setSocialMediaLinkTextInputValue] = useState<string | null>();
+  const [showModalChangeSocialMedia, setShowModalChangeSocialMedia] = useState(false);
   const [link, setLink] = useState<string>('');
   const [showTextInputChangeAbout, setShowTextInputChangeAbout] = useState(false);
 
   const handleChangeSocialLink = () => {
-    if (link.length > 0) {
-      changeSocialMediaIcon(selectedSocialMediaIcon, link)
-        .then(() => {
-          setShowModalSocialMedia(false);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    changeSocialMediaIcon(selectedSocialMediaIcon, link)
+      .then(() => {
+        setShowModalChangeSocialMedia(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const handleSocialMediaPress = (icon: string) => {
     setSelectedSocialMediaIcon(icon);
-    setShowModalSocialMedia(true);
+    setShowModalChangeSocialMedia(true);
 
-    if (icon === 'facebook') {
-      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.facebook);
-      user && user.socialMediaLinks && setLink(user.socialMediaLinks.facebook ? user.socialMediaLinks.facebook : '');
+    if (icon === 'facebook' && user && user.socialMediaLinks) {
+      setLink(user.socialMediaLinks.facebook);
     }
 
-    if (icon === 'twitter') {
-      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.twitter);
-      user && user.socialMediaLinks && setLink(user.socialMediaLinks.twitter ? user.socialMediaLinks.twitter : '');
+    if (icon === 'twitter' && user && user.socialMediaLinks) {
+      setLink(user.socialMediaLinks.twitter);
     }
 
-    if (icon === 'instagram') {
-      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.instagram);
-      user && user.socialMediaLinks && setLink(user.socialMediaLinks.instagram ? user.socialMediaLinks.instagram : '');
+    if (icon === 'instagram' && user && user.socialMediaLinks) {
+      setLink(user.socialMediaLinks.instagram);
     };
   };
 
@@ -276,13 +270,11 @@ const ProfileScreen = ({navigation}: any) => {
         />
         <ChangeSocialMediaModal 
           showModalChangeSocialMedia={showModalChangeSocialMedia}
-          setModalVisible={setModalVisible}
+          setShowModalChangeSocialMedia={setShowModalChangeSocialMedia}
           selectedSocialMediaIcon={selectedSocialMediaIcon}
           link={link}
           setLink={setLink}
-          socialMediaLinkTextInputValue={socialMediaLinkTextInputValue}
           handleChangeSocialLink={handleChangeSocialLink}
-          setShowModalSocialMedia={setShowModalSocialMedia}
         />
 
       </View>

@@ -361,8 +361,8 @@ const AppContext = ({ children }: any) => {
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
 
-      if (!token || !state.user) return { msg: 'Not authenticated' };
-      if (!file) return { msg: 'No file' };
+      if (!token || !state.user) return reject('Not authenticated.');
+      if (!file) return reject('no file');
 
       const fileToUpload = {
         uri: file.uri,
@@ -394,8 +394,8 @@ const AppContext = ({ children }: any) => {
     return new Promise(async (resolve, reject) => {
 
       const token = await AsyncStorage.getItem('token');
-      if (!token || !state.user) return { msg: 'Not authenticated.' };
-      if (!type || !link) return { msg: 'Missing information' };
+      if (!token || !state.user) return reject('Not authenticated.');
+      if (!type) return reject('Missing information');
 
       axios.put(`${API}/users/change-social-media-link`, {
         userId: state.user.id,
@@ -405,6 +405,7 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
         .then(response => {
+          console.log(response.data)
           validateToken();
           resolve(response.data);
         })
