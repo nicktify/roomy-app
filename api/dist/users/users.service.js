@@ -252,24 +252,13 @@ let UsersService = class UsersService {
             if (!user)
                 return { msg: 'User not exist' };
             if (type === 'facebook') {
-                user.socialMediaLinks = { facebook: link,
-                    twitter: user.socialMediaLinks.twitter,
-                    instagram: user.socialMediaLinks.instagram
-                };
+                user.socialMediaLinks = Object.assign(Object.assign({}, user.socialMediaLinks), { facebook: link });
             }
             if (type === 'twitter') {
-                user.socialMediaLinks = {
-                    facebook: user.socialMediaLinks.facebook,
-                    twitter: link,
-                    instagram: user.socialMediaLinks.instagram
-                };
+                user.socialMediaLinks = Object.assign(Object.assign({}, user.socialMediaLinks), { twitter: link });
             }
             if (type === 'instagram') {
-                user.socialMediaLinks = {
-                    facebook: user.socialMediaLinks.facebook,
-                    twitter: user.socialMediaLinks.twitter,
-                    instagram: link
-                };
+                user.socialMediaLinks = Object.assign(Object.assign({}, user.socialMediaLinks), { instagram: link });
             }
             user.save();
             return {

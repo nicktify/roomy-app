@@ -304,24 +304,24 @@ export class UsersService {
       if (!user) return {msg: 'User not exist'};
 
       if (type === 'facebook') {
-        user.socialMediaLinks = {facebook: link, 
-            twitter: user.socialMediaLinks.twitter,
-            instagram: user.socialMediaLinks.instagram
-          };
+        user.socialMediaLinks = {
+          ...user.socialMediaLinks,
+          facebook: link,
+        };
       }
 
       if (type === 'twitter') {
         user.socialMediaLinks = {
-          facebook: user.socialMediaLinks.facebook,
+          ...user.socialMediaLinks,
           twitter: link,
-          instagram: user.socialMediaLinks.instagram};
+        };
       }
 
       if (type === 'instagram') {
         user.socialMediaLinks = {
-          facebook: user.socialMediaLinks.facebook,
-          twitter: user.socialMediaLinks.twitter,
-          instagram: link};
+          ...user.socialMediaLinks,
+          instagram: link,
+        };
       }
 
       user.save();
