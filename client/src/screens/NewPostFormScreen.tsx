@@ -74,29 +74,35 @@ const NewPostForm = ({navigation}: any) => {
         }}>
           Create new post
         </Text>
-        <TextInput
+        <View
           style={{
-            fontSize: 18,
             width: windowWidth * 0.9,
-            color: 'black',
-            backgroundColor: '#E8E8E8',
-            padding: 15,
-            borderRadius: 10,
             alignSelf: 'center'
           }}
-          placeholder='What do you want to share?'
-          placeholderTextColor="#9a9b9c"
-          autoCorrect={false}
-          autoFocus
-          multiline
-          onChangeText={bodyPost => setBodyPost(bodyPost)}
-          defaultValue={bodyPost}
-          value={bodyPost}
-        />
-        {
-          bodyPostFormError.length > 0 &&
-          <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
-        }
+        >
+          <TextInput
+            style={{
+              fontSize: 18,
+              width: windowWidth * 0.9,
+              color: 'black',
+              backgroundColor: '#E8E8E8',
+              padding: 15,
+              borderRadius: 10,
+            }}
+            placeholder='What do you want to share?'
+            placeholderTextColor="#9a9b9c"
+            autoCorrect={false}
+            autoFocus
+            multiline
+            onChangeText={bodyPost => setBodyPost(bodyPost)}
+            defaultValue={bodyPost}
+            value={bodyPost}
+          />
+          {
+            bodyPostFormError.length > 0 &&
+            <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
+          }
+        </View>
         <View style={{ width: windowWidth, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingVertical: 20 }}>
           {
             imageUri &&
