@@ -634,7 +634,9 @@ export class RoomsService {
         if (a.date > b.date) return -1;
         return 0
       })
+
       return { posts: returnedPosts, users, forumPosts: returnedForumPosts };
+
     } catch (error) {
       throw error;
     }

@@ -62,7 +62,7 @@ export class UsersService {
     
     try {
       const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
-      if (user) return { msg: 'User already exist.' };
+      if (user) return { msg: 'Email already registered, try another or log in.' };
 
       const rounds = 10;
       const hash = await bcrypt.hash(password, rounds);
