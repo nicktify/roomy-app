@@ -43,19 +43,18 @@ const ProfileScreen = ({navigation}: any) => {
     setShowModalSocialMedia(true);
 
     if (icon === 'facebook') {
-      setSocialMediaLinkTextInputValue(user?.socialMediaLinks.facebook);
-      setLink(user?.socialMediaLinks.facebook ? user.socialMediaLinks.facebook : '');
+      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.facebook);
+      user && user.socialMediaLinks && setLink(user.socialMediaLinks.facebook ? user.socialMediaLinks.facebook : '');
     }
 
     if (icon === 'twitter') {
-      setSocialMediaLinkTextInputValue(user?.socialMediaLinks.twitter);
-      setLink(user?.socialMediaLinks.twitter ? user.socialMediaLinks.twitter : '');
-
+      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.twitter);
+      user && user.socialMediaLinks && setLink(user.socialMediaLinks.twitter ? user.socialMediaLinks.twitter : '');
     }
 
     if (icon === 'instagram') {
-      setSocialMediaLinkTextInputValue(user?.socialMediaLinks.instagram);
-      setLink(user?.socialMediaLinks.instagram ? user.socialMediaLinks.instagram : '');
+      user && user.socialMediaLinks && setSocialMediaLinkTextInputValue(user.socialMediaLinks.instagram);
+      user && user.socialMediaLinks && setLink(user.socialMediaLinks.instagram ? user.socialMediaLinks.instagram : '');
     };
   };
 
