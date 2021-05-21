@@ -19,12 +19,15 @@ import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
+import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
+import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
 
 @Injectable()
 export class RoomsService {
   constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>,
     @InjectModel('User') private userModel: Model<UserDocument>,
-    @InjectModel('Post') private postModel: Model<PostDocument> ) {}
+    @InjectModel('Post') private postModel: Model<PostDocument>,
+    @InjectModel('ForumPost') private forumPostModel: Model<ForumPostDocument> ) {}
 
   async getRooms(): Promise<ReturnRoomDto[]> {
 
@@ -36,7 +39,6 @@ export class RoomsService {
       participants: room.participants ,
       links: room.links,
       dates: room.dates,
-      posts: room.posts,
       books: room.books,
     }))
 
@@ -58,7 +60,6 @@ export class RoomsService {
         participants: findedRoom.participants,
         links: findedRoom.links,
         dates: findedRoom.dates,
-        posts: findedRoom.posts,
         books: findedRoom.books,
       };
 
@@ -88,7 +89,6 @@ export class RoomsService {
         participants: createdRoom.participants,
         links: createdRoom.links,
         dates: createdRoom.dates,
-        posts: createdRoom.posts,
         books: createdRoom.books,
       };
       
@@ -119,7 +119,6 @@ export class RoomsService {
         participants: editedRoom.participants,
         links: editedRoom.links,
         dates: editedRoom.dates,
-        posts: editedRoom.posts,
         books: editedRoom.books,
       };
 
@@ -199,7 +198,6 @@ export class RoomsService {
         participants: findedRoom.participants,
         links: findedRoom.links,
         dates: findedRoom.dates,
-        posts: findedRoom.posts,
         books: findedRoom.books,
       };
       
@@ -244,7 +242,6 @@ export class RoomsService {
         participants: findedRoom.participants,
         links: findedRoom.links,
         dates: findedRoom.dates,
-        posts: findedRoom.posts,
         books: findedRoom.books,
       };
       
@@ -286,7 +283,6 @@ export class RoomsService {
         participants: findedRoom.participants,
         links: findedRoom.links,
         dates: findedRoom.dates,
-        posts: findedRoom.posts,
         books: findedRoom.books,
       };
 
@@ -332,7 +328,6 @@ export class RoomsService {
         participants: findedRoom.participants,
         links: findedRoom.links,
         dates: findedRoom.dates,
-        posts: findedRoom.posts,
         books: findedRoom.books,
       };
 
@@ -534,7 +529,6 @@ export class RoomsService {
             participants: room.participants,
             links: room.links,
             dates: room.dates,
-            posts: room.posts,
             books: room.books,
           });
         }
@@ -550,7 +544,6 @@ export class RoomsService {
             participants: room.participants,
             links: room.links,
             dates: room.dates,
-            posts: room.posts,
             books: room.books,
           });
         }
@@ -571,25 +564,25 @@ export class RoomsService {
     }
   }
 
-  async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[]} | {msg: string}> {
+  async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[], forumPosts: ReturnForumPostDto[]} | {msg: string}> {
     try {
       const room = await this.roomModel.findById( roomId );
       if (! room ) return { msg: 'Room not exist.' };
 
-      let posts: ReturnPostDto[] = [];
-      for (let i = 0; i < room.posts.length; i ++) {
-        const post = await this.postModel.findById(room.posts[i]);
-        if (post) {
-          posts.push({
-            id: post._id,
-            roomId: post.roomId,
-            authorId: post.authorId,
-            authorProfilePicture: post.authorProfilePicture,
-            authorName: post.authorName,
-            body: post.body,
-            date: post.date,
-            image: post.image,
-          });
+      const posts = await this.postModel.find({roomId});
+      let returnedPosts: ReturnPostDto[] = []
+      if (posts) {
+        for (let i = 0; i < posts.length; i ++) {
+          returnedPosts.push({
+            id: posts[i]._id,
+            authorId: posts[i].authorId,
+            roomId: posts[i].roomId,
+            authorProfilePicture: posts[i].authorProfilePicture,
+            authorName: posts[i].authorName,
+            body: posts[i].body,
+            date: posts[i].date,
+            image: posts[i].image,
+          })
         }
       }
 
@@ -611,8 +604,37 @@ export class RoomsService {
         }
       }
 
-      return { posts, users };
+      let forumPosts = await this.forumPostModel.find({ roomId });
 
+      let returnedForumPosts: ReturnForumPostDto[] = [];
+      if (forumPosts) {
+        for (let i = 0; i < forumPosts.length; i ++) {
+          returnedForumPosts.push({
+            id: forumPosts[i]._id,
+            roomId: forumPosts[i].roomId,
+            authorId: forumPosts[i].authorId,
+            authorName: forumPosts[i].authorName,
+            authorProfilePicture: forumPosts[i].authorProfilePicture,
+            body: forumPosts[i].body,
+            image: forumPosts[i].image,
+            comments: forumPosts[i].comments,
+            date: forumPosts[i].date,
+          })
+        }
+      }
+
+      returnedPosts.sort((a, b) => {
+        if (a.date < b.date) return 1;
+        if (a.date > b.date) return -1;
+        return 0
+      })
+
+      returnedForumPosts.sort((a, b) => {
+        if (a.date < b.date) return 1;
+        if (a.date > b.date) return -1;
+        return 0
+      })
+      return { posts: returnedPosts, users, forumPosts: returnedForumPosts };
     } catch (error) {
       throw error;
     }

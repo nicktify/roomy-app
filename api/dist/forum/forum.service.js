@@ -134,19 +134,6 @@ let ForumService = class ForumService {
             throw error;
         }
     }
-    async deleteForumPost({ forumPostId }) {
-        try {
-            await this.forumPostModel.findByIdAndDelete(forumPostId);
-            const forumPost = await this.forumPostModel.findById(forumPostId);
-            if (!forumPost)
-                return { msg: 'Forum post deleted.' };
-            else
-                return { msg: 'Please try again.' };
-        }
-        catch (error) {
-            throw error;
-        }
-    }
     async addForumPostComment({ forumPostId, authorId, body }) {
         try {
             const forumPost = await this.forumPostModel.findById(forumPostId);
@@ -164,7 +151,21 @@ let ForumService = class ForumService {
                 date: new Date()
             });
             forumPost.comments.push(comment._id);
+            forumPost.save();
             return { msg: 'Comment created.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteForumPost({ forumPostId }) {
+        try {
+            await this.forumPostModel.findByIdAndDelete(forumPostId);
+            const forumPost = await this.forumPostModel.findById(forumPostId);
+            if (!forumPost)
+                return { msg: 'Forum post deleted.' };
+            else
+                return { msg: 'Please try again.' };
         }
         catch (error) {
             throw error;

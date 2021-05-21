@@ -140,17 +140,6 @@ export class ForumService {
     }
   }
 
-  async deleteForumPost({forumPostId}: DeleteForumPostDto): Promise<{msg: string}> {
-    try {
-      await this.forumPostModel.findByIdAndDelete(forumPostId);
-      const forumPost = await this.forumPostModel.findById(forumPostId);
-      if (!forumPost) return {msg: 'Forum post deleted.'}
-      else return {msg: 'Please try again.'}
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async addForumPostComment({forumPostId, authorId, body}: AddForumPostCommentDto): Promise<{msg: string}> {
     try {
       const forumPost = await this.forumPostModel.findById(forumPostId)
@@ -169,8 +158,20 @@ export class ForumService {
       })
 
       forumPost.comments.push(comment._id);
+      forumPost.save();
 
       return {msg: 'Comment created.'}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteForumPost({forumPostId}: DeleteForumPostDto): Promise<{msg: string}> {
+    try {
+      await this.forumPostModel.findByIdAndDelete(forumPostId);
+      const forumPost = await this.forumPostModel.findById(forumPostId);
+      if (!forumPost) return {msg: 'Forum post deleted.'}
+      else return {msg: 'Please try again.'}
     } catch (error) {
       throw error;
     }

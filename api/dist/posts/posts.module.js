@@ -10,6 +10,7 @@ exports.PostsModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const room_schema_1 = require("../rooms/schemas/room.schema");
+const user_schema_1 = require("../users/schemas/user.schema");
 const posts_controller_1 = require("./posts.controller");
 const posts_service_1 = require("./posts.service");
 const post_schema_1 = require("./schemas/post.schema");
@@ -21,6 +22,7 @@ PostsModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: 'Post', schema: post_schema_1.PostSchema },
                 { name: 'Room', schema: room_schema_1.RoomSchema },
+                { name: 'User', schema: user_schema_1.UserSchema },
             ])
         ],
         controllers: [posts_controller_1.PostsController],

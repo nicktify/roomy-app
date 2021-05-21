@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, { createContext, useEffect, useReducer } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import axios from 'axios';
+import userReducer from './reducers/UserReducer';
 import { API } from '../config/environment/constants';
 import InitialState, { User, LoginData, RegisterData } from '../types/user';
-import userReducer from './reducers/UserReducer';
 import { Room } from '../types/Room';
 import { Post } from '../types/Post';
 
@@ -18,6 +17,7 @@ const initialState: InitialState = {
   selectedRoom: null,
   selectedRoomPosts: null,
   selectedRoomUsers: null,
+  selectedRoomForumPosts: null,
 };
 
 interface ContextProps {
@@ -61,7 +61,6 @@ const AppContext = ({ children }: any) => {
   useEffect(() => {
     validateToken();
   }, []);
-
 
   const signIn = ({ email, password }: LoginData): Promise<{ msg: string; }> => {
 
@@ -228,7 +227,7 @@ const AppContext = ({ children }: any) => {
         .then(response => {
           dispatch({
             type: 'SET_ROOM_INFORMATION',
-            payload: { posts: response.data.posts, users: response.data.users }
+            payload: { posts: response.data.posts, users: response.data.users, forumPosts: response.data.forumPosts }
           });
           resolve('done');
         })
@@ -586,10 +585,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data);
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
   }
@@ -604,10 +604,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data);
       })
       .catch(error => {
-        console.log(error);
+        reject(error);
       })
     })
   }
@@ -625,10 +626,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response)
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error);
       })
     })
   }
@@ -642,10 +644,11 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
   }
@@ -662,14 +665,14 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response);
+        getAllRoomForumPost()
+        resolve(response.data)
       })
       .catch(error => {
-        console.log(error);
+        reject(error)
       })
     })
-  } 
-
+  }
 
   return (
     <Context.Provider value={{

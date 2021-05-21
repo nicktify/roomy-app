@@ -26,7 +26,6 @@ export class ForumController {
     return this.forumService.getAllRoomForumPost( roomId );
   }
 
-  
   @UseGuards( JwtAuthGuard )
   @Delete('delete-forum-post/:forumPostId')
   async deleteForumPost(@Param() forumPostId: DeleteForumPostDto): Promise<{msg: string}> {
@@ -34,15 +33,15 @@ export class ForumController {
   }
 
   @UseGuards( JwtAuthGuard )
-  @Get('get-all-forum-post-comments/:forumPostId')
-  async getAllForumPostComments(@Param() forumPostId) {
-    return this.forumService.getAllForumPostComments(forumPostId);
-  }
-
-  @UseGuards( JwtAuthGuard )
   @Post('add-forum-post-comment')
   async addForumPostComment(@Body() addForumPostCommentDto: AddForumPostCommentDto) {
     return this.forumService.addForumPostComment(addForumPostCommentDto);
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Get('get-all-forum-post-comments/:forumPostId')
+  async getAllForumPostComments(@Param() forumPostId) {
+    return this.forumService.getAllForumPostComments(forumPostId);
   }
 
   @UseGuards( JwtAuthGuard )

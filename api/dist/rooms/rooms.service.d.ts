@@ -15,11 +15,14 @@ import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
+import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
+import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
     private postModel;
-    constructor(roomModel: Model<RoomDocument>, userModel: Model<UserDocument>, postModel: Model<PostDocument>);
+    private forumPostModel;
+    constructor(roomModel: Model<RoomDocument>, userModel: Model<UserDocument>, postModel: Model<PostDocument>, forumPostModel: Model<ForumPostDocument>);
     getRooms(): Promise<ReturnRoomDto[]>;
     getRoom(id: string): Promise<ReturnRoomDto | {
         msg: string;
@@ -77,6 +80,7 @@ export declare class RoomsService {
     }): Promise<{
         posts: ReturnPostDto[];
         users: ReturnUserDto[];
+        forumPosts: ReturnForumPostDto[];
     } | {
         msg: string;
     }>;

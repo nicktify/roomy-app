@@ -20,11 +20,14 @@ const user_schema_1 = require("../users/schemas/user.schema");
 const return_user_dto_1 = require("../users/dto/return-user.dto");
 const post_schema_1 = require("../posts/schemas/post.schema");
 const return_post_dto_1 = require("../posts/dto/return-post-dto");
+const forum_post_schema_1 = require("../forum/schemas/forum-post.schema");
+const return_forum_post_dto_1 = require("../forum/dto/return-forum-post.dto");
 let RoomsService = class RoomsService {
-    constructor(roomModel, userModel, postModel) {
+    constructor(roomModel, userModel, postModel, forumPostModel) {
         this.roomModel = roomModel;
         this.userModel = userModel;
         this.postModel = postModel;
+        this.forumPostModel = forumPostModel;
     }
     async getRooms() {
         const rooms = await this.roomModel.find();
@@ -35,7 +38,6 @@ let RoomsService = class RoomsService {
             participants: room.participants,
             links: room.links,
             dates: room.dates,
-            posts: room.posts,
             books: room.books,
         }));
     }
@@ -53,7 +55,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -78,7 +79,6 @@ let RoomsService = class RoomsService {
                 participants: createdRoom.participants,
                 links: createdRoom.links,
                 dates: createdRoom.dates,
-                posts: createdRoom.posts,
                 books: createdRoom.books,
             };
         }
@@ -105,7 +105,6 @@ let RoomsService = class RoomsService {
                 participants: editedRoom.participants,
                 links: editedRoom.links,
                 dates: editedRoom.dates,
-                posts: editedRoom.posts,
                 books: editedRoom.books,
             };
         }
@@ -172,7 +171,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -212,7 +210,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -251,7 +248,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -291,7 +287,6 @@ let RoomsService = class RoomsService {
                 participants: findedRoom.participants,
                 links: findedRoom.links,
                 dates: findedRoom.dates,
-                posts: findedRoom.posts,
                 books: findedRoom.books,
             };
         }
@@ -473,7 +468,6 @@ let RoomsService = class RoomsService {
                         participants: room.participants,
                         links: room.links,
                         dates: room.dates,
-                        posts: room.posts,
                         books: room.books,
                     });
                 }
@@ -488,7 +482,6 @@ let RoomsService = class RoomsService {
                         participants: room.participants,
                         links: room.links,
                         dates: room.dates,
-                        posts: room.posts,
                         books: room.books,
                     });
                 }
@@ -511,19 +504,19 @@ let RoomsService = class RoomsService {
             const room = await this.roomModel.findById(roomId);
             if (!room)
                 return { msg: 'Room not exist.' };
-            let posts = [];
-            for (let i = 0; i < room.posts.length; i++) {
-                const post = await this.postModel.findById(room.posts[i]);
-                if (post) {
-                    posts.push({
-                        id: post._id,
-                        roomId: post.roomId,
-                        authorId: post.authorId,
-                        authorProfilePicture: post.authorProfilePicture,
-                        authorName: post.authorName,
-                        body: post.body,
-                        date: post.date,
-                        image: post.image,
+            const posts = await this.postModel.find({ roomId });
+            let returnedPosts = [];
+            if (posts) {
+                for (let i = 0; i < posts.length; i++) {
+                    returnedPosts.push({
+                        id: posts[i]._id,
+                        authorId: posts[i].authorId,
+                        roomId: posts[i].roomId,
+                        authorProfilePicture: posts[i].authorProfilePicture,
+                        authorName: posts[i].authorName,
+                        body: posts[i].body,
+                        date: posts[i].date,
+                        image: posts[i].image,
                     });
                 }
             }
@@ -544,7 +537,38 @@ let RoomsService = class RoomsService {
                     });
                 }
             }
-            return { posts, users };
+            let forumPosts = await this.forumPostModel.find({ roomId });
+            let returnedForumPosts = [];
+            if (forumPosts) {
+                for (let i = 0; i < forumPosts.length; i++) {
+                    returnedForumPosts.push({
+                        id: forumPosts[i]._id,
+                        roomId: forumPosts[i].roomId,
+                        authorId: forumPosts[i].authorId,
+                        authorName: forumPosts[i].authorName,
+                        authorProfilePicture: forumPosts[i].authorProfilePicture,
+                        body: forumPosts[i].body,
+                        image: forumPosts[i].image,
+                        comments: forumPosts[i].comments,
+                        date: forumPosts[i].date,
+                    });
+                }
+            }
+            returnedPosts.sort((a, b) => {
+                if (a.date < b.date)
+                    return 1;
+                if (a.date > b.date)
+                    return -1;
+                return 0;
+            });
+            returnedForumPosts.sort((a, b) => {
+                if (a.date < b.date)
+                    return 1;
+                if (a.date > b.date)
+                    return -1;
+                return 0;
+            });
+            return { posts: returnedPosts, users, forumPosts: returnedForumPosts };
         }
         catch (error) {
             throw error;
@@ -556,7 +580,9 @@ RoomsService = __decorate([
     __param(0, mongoose_1.InjectModel('Room')),
     __param(1, mongoose_1.InjectModel('User')),
     __param(2, mongoose_1.InjectModel('Post')),
+    __param(3, mongoose_1.InjectModel('ForumPost')),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model])
 ], RoomsService);

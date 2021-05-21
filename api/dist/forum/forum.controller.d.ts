@@ -18,12 +18,12 @@ export declare class ForumController {
     deleteForumPost(forumPostId: DeleteForumPostDto): Promise<{
         msg: string;
     }>;
-    getAllForumPostComments(forumPostId: any): Promise<import("./dto/return-forum-post-comment.dto").ReturnForumPostCommentDto[] | {
-        msg: string;
-    }>;
     addForumPostComment(addForumPostCommentDto: AddForumPostCommentDto): Promise<{
         msg: string;
     }>;
+    getAllForumPostComments(forumPostId: any): Promise<{
+        msg: string;
+    } | import("./dto/return-forum-post-comment.dto").ReturnForumPostCommentDto[]>;
     deleteForumPostComment(deleteForumPostCommentDto: DeleteForumPostCommentDto): Promise<{
         msg: string;
     }>;

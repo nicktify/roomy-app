@@ -47,11 +47,6 @@ __decorate([
     class_validator_1.IsNotEmpty(),
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
-], ReturnRoomDto.prototype, "posts", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsArray(),
-    __metadata("design:type", Array)
 ], ReturnRoomDto.prototype, "books", void 0);
 exports.ReturnRoomDto = ReturnRoomDto;
 ;
