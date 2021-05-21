@@ -2597,7 +2597,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/change-social-media-link.dto.ts": {
-        "version": "7e4c59516dffdf07d656abfe55d48dd176abb1184e5f6042dbbc9e4e9c1b0204",
+        "version": "ddc27af903968529fc48e7d4e18e43a09e22e3eaf4b9eda70b589ee261f66f8d",
         "signature": "3f5ac13d5915eb37b7ad8ce4dc17e5d13de81f1173da2c920f7a8e55a69e2a39",
         "affectsGlobalScope": false
       },
