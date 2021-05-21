@@ -12,9 +12,9 @@ export class User {
   profilePicture: string | null;
   profileBackground: string | null;
   socialMediaLinks: {
-    facebook: string | null,
-    instagram: string | null,
-    twitter: string | null,
+    facebook: string,
+    instagram: string,
+    twitter: string,
   }
 }
 

@@ -9,13 +9,11 @@ const windowHeight = Dimensions.get('window').height;
 
 const ChangeSocialMediaModal = ({
   showModalChangeSocialMedia,
-  setModalVisible,
+  setShowModalChangeSocialMedia,
   selectedSocialMediaIcon,
   link,
   setLink,
-  socialMediaLinkTextInputValue,
   handleChangeSocialLink,
-  setShowModalSocialMedia,
 }: any) => {
 
   return (
@@ -24,7 +22,7 @@ const ChangeSocialMediaModal = ({
     transparent={true}
     visible={showModalChangeSocialMedia}
     onRequestClose={() => {
-      setModalVisible(!showModalChangeSocialMedia);
+      setShowModalChangeSocialMedia(!showModalChangeSocialMedia);
     }}
   >
     <View
@@ -46,7 +44,7 @@ const ChangeSocialMediaModal = ({
           placeholderTextColor='#a1a1a1a1'
           onChangeText={(link) => setLink(link)}
           value={link}
-          defaultValue={socialMediaLinkTextInputValue ? socialMediaLinkTextInputValue : ''}
+          defaultValue={link}
         />
         <TouchableOpacity
           style={{
@@ -63,7 +61,6 @@ const ChangeSocialMediaModal = ({
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
-            opacity: link.length > 0 ? 1 : 0.5
           }}
           onPress={handleChangeSocialLink}
         >
@@ -71,7 +68,7 @@ const ChangeSocialMediaModal = ({
         </TouchableOpacity>
         <TouchableOpacity
           style={modalStyles.button}
-          onPress={() => setShowModalSocialMedia(!showModalChangeSocialMedia)}
+          onPress={() => setShowModalChangeSocialMedia(!showModalChangeSocialMedia)}
         >
           <Text style={modalStyles.textStyle}>Cancel</Text>
         </TouchableOpacity>

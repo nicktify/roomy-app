@@ -2597,7 +2597,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/change-social-media-link.dto.ts": {
-        "version": "7e4c59516dffdf07d656abfe55d48dd176abb1184e5f6042dbbc9e4e9c1b0204",
+        "version": "ddc27af903968529fc48e7d4e18e43a09e22e3eaf4b9eda70b589ee261f66f8d",
         "signature": "3f5ac13d5915eb37b7ad8ce4dc17e5d13de81f1173da2c920f7a8e55a69e2a39",
         "affectsGlobalScope": false
       },
@@ -2617,7 +2617,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "03127af147ee23ba4eae98bde2fb980551782caf1963ce10239ca4b0ac83ef09",
+        "version": "046929b412ad78ab803e8b7791de401932f07efa99c7264866c1d22a47b25f60",
         "signature": "66e9f53a4ee1c5030165eeb12c9f1124687e21cf07d9ed620a8d14deebed1e6b",
         "affectsGlobalScope": false
       },

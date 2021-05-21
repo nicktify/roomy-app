@@ -10,7 +10,6 @@ export class ChangeSocialMediaLinkDto {
   @IsString()
   type: string;
 
-  @IsNotEmpty()
   @IsString()
   link: string;
 
