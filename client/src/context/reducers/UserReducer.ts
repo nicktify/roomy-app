@@ -1,17 +1,20 @@
 import { ForumPost } from "../../types/ForumPost";
 import { Post } from "../../types/Post";
 import { Room } from "../../types/Room";
-import InitialState, { User } from "../../types/user";
+import { User } from "../../types/user";
+import { InitialState } from "../../types/InitialState";
 
-type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User; }; }
-  | { type: 'LOGOUT'; }
-  | { type: 'VALIDATION_COMPLETED'; }
-  | { type: 'SET_ROOMS', payload: Room[]; }
-  | { type: 'SET_SELECTED_ROOM', payload: Room; }
-  | { type: 'SET_ROOM_POSTS', payload: Post[]; }
-  | { type: 'SET_ROOM_INFORMATION', payload: { posts: Post[], users: User[], forumPosts: ForumPost[] }; }
+type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User; } }
+  | { type: 'LOGOUT' }
+  | { type: 'VALIDATION_COMPLETED' }
+  | { type: 'SET_ROOMS', payload: Room[] }
+  | { type: 'SET_SELECTED_ROOM', payload: Room }
+  | { type: 'SET_ROOM_POSTS', payload: Post[] }
+  | { type: 'SET_ROOM_INFORMATION', payload: { posts: Post[], users: User[], forumPosts: ForumPost[] } }
   | { type: 'SET_ROOM_USERS', payload: User[]; }
-  | { type: 'SET_ROOM_FORUM_POSTS', payload: ForumPost[]; }
+  | { type: 'SET_ROOM_FORUM_POSTS', payload: ForumPost[] }
+  | { type: 'SET_SEARCHED_USER', payload: User }
+  | { type: 'CLEAN_SEARCHED_USER' }
 
 const userReducer = (state: InitialState, action: TypeAction) => {
 
@@ -79,6 +82,18 @@ const userReducer = (state: InitialState, action: TypeAction) => {
       return {
         ...state,
         selectedRoomForumPosts: action.payload,
+      }
+
+    case 'SET_SEARCHED_USER':
+      return {
+        ...state,
+        searchedUser: action.payload,
+      }
+    
+    case 'CLEAN_SEARCHED_USER':
+      return {
+        ...state,
+        searchedUser: null
       }
 
     default:
