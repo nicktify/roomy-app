@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import userReducer from './reducers/UserReducer';
 import { API } from '../config/environment/constants';
-import InitialState, { User, LoginData, RegisterData } from '../types/user';
+import { User, LoginData, RegisterData } from '../types/user';
+import { InitialState } from '../types/InitialState';
 import { Room } from '../types/Room';
 import { Post } from '../types/Post';
 
@@ -18,6 +19,7 @@ const initialState: InitialState = {
   selectedRoomPosts: null,
   selectedRoomUsers: null,
   selectedRoomForumPosts: null,
+  searchedUser: null
 };
 
 interface ContextProps {
@@ -28,6 +30,7 @@ interface ContextProps {
   rooms: Room[] | null;
   selectedRoomPosts: Post[] | null;
   selectedRoomUsers: User[] | null;
+  searchedUser: User | null;
   signIn: (loginData: LoginData) => Promise<{ msg: string; }>;
   singUp: (registerData: RegisterData) => Promise<{ msg: string; }>;
   validateToken: (token: string) => Promise<void>;
@@ -50,6 +53,8 @@ interface ContextProps {
   getAllUsersFromRoom: (roomId: string) => Promise<User[]>;
   setSelectedRoom: (roomId: string) => Promise<any>;
   getAllRoomInformation: (roomId: string) => Promise<any>;
+  fetchUserByEmail: (email: string) => Promise<any>;
+  cleanSearchedUser: () => void;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -206,7 +211,7 @@ const AppContext = ({ children }: any) => {
       if (!roomId) return reject('Missing roomId');
       if (!state.rooms) return reject('Missing rooms in state');
 
-      const selectedRoom = state.rooms.filter(room => room.id === roomId)[0];
+      const selectedRoom = state.rooms.filter((room: Room) => room.id === roomId)[0];
 
       dispatch({ type: 'SET_SELECTED_ROOM', payload: selectedRoom });
       resolve('done');
@@ -563,6 +568,32 @@ const AppContext = ({ children }: any) => {
     })
   }
 
+  const fetchUserByEmail = (email: string): Promise<any> => {
+    return new Promise(async (resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) return;
+  
+      axios.get(`${API}/users/get-by-email/${email}`, {
+        headers: { Authorization: `Bearer ${JSON.parse(token)}` }
+      })
+        .then(response => {
+          if (!response.data.msg) {
+            dispatch({ type: 'SET_SEARCHED_USER', payload: response.data });
+            resolve(response.data);
+          }
+          if (response.data.msg === 'User not exist.') {
+            reject(response.data.msg);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    })
+  };
+
+  const cleanSearchedUser = () => {
+    dispatch({ type: 'CLEAN_SEARCHED_USER' })
+  }
 
   const createNewForumPost = (body: string, data: ImagePickerResponse): Promise<any> => {
     return new Promise(async(resolve, reject) => {
@@ -683,6 +714,7 @@ const AppContext = ({ children }: any) => {
       selectedRoom: state.selectedRoom,
       selectedRoomPosts: state.selectedRoomPosts,
       selectedRoomUsers: state.selectedRoomUsers,
+      searchedUser: state.searchedUser,
       signIn,
       singUp,
       validateToken,
@@ -705,6 +737,8 @@ const AppContext = ({ children }: any) => {
       getRooms,
       getCurrentRoomPosts,
       getAllRoomInformation,
+      fetchUserByEmail,
+      cleanSearchedUser,
     }}
     >
       {children}

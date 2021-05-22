@@ -115,7 +115,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 <Text style={style.textLabel}>Enter your name:</Text>
                 <TextInput
                   style={style.textInput}
-                  placeholder="Brad Pitt"
+                  placeholder="Your Name"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={name => onChange(name, email, password, repeatedPassword)}
                   defaultValue={name}
