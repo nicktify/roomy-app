@@ -10,6 +10,7 @@ import AddUserToRoomScreen from '../screens/AddUserToRoomScreen';
 import NewPostForm from '../screens/NewPostFormScreen';
 import EditAboutFormScreen from '../screens/EditAboutFormScreen';
 import SearchUserFromRoom from '../screens/SearchUserFromRoom';
+import NewForumPostForm from '../screens/AddNewForumPostScreen';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const AppNavigation = () => {
                     <Stack.Screen name="Room" component={ RoomNavigation } />
                     <Stack.Screen name="AddUserToRoom" component={ AddUserToRoomScreen } />
                     <Stack.Screen name="NewPostForm" component={ NewPostForm } />
+                    <Stack.Screen name="NewForumPostForm" component={ NewForumPostForm } />
                     <Stack.Screen name="EditAboutForm" component={ EditAboutFormScreen } />
                     <Stack.Screen name="SearchUserFromRoom" component={ SearchUserFromRoom } />
                   </>

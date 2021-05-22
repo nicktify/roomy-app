@@ -2,12 +2,13 @@ import React, { createContext, useEffect, useReducer } from 'react';
 import { ImagePickerResponse } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import userReducer from './reducers/UserReducer';
+import appReducer from './reducers/appReducer';
 import { API } from '../config/environment/constants';
 import { User, LoginData, RegisterData } from '../types/user';
 import { InitialState } from '../types/InitialState';
 import { Room } from '../types/Room';
 import { Post } from '../types/Post';
+import { ForumPost } from '../types/ForumPost';
 
 const initialState: InitialState = {
   user: null,
@@ -30,6 +31,7 @@ interface ContextProps {
   rooms: Room[] | null;
   selectedRoomPosts: Post[] | null;
   selectedRoomUsers: User[] | null;
+  selectedRoomForumPosts: ForumPost[] | null;
   searchedUser: User | null;
   signIn: (loginData: LoginData) => Promise<{ msg: string; }>;
   singUp: (registerData: RegisterData) => Promise<{ msg: string; }>;
@@ -55,13 +57,18 @@ interface ContextProps {
   getAllRoomInformation: (roomId: string) => Promise<any>;
   fetchUserByEmail: (email: string) => Promise<any>;
   cleanSearchedUser: () => void;
+  createNewForumPost: (body: string, data: ImagePickerResponse | undefined) => Promise<any>;
+  deleteForumPost: (forumPostId: string) => Promise<any>;
+  addForumPostComment: (forumPostId: string, body: string) => Promise<any>;
+  getAllForumPostComments: (forumPostId: string) => Promise<any>;
+  deleteForumPostComment: (forumPostCommentId: string) => Promise<any> 
 }
 
 export const Context = createContext({} as ContextProps);
 
 const AppContext = ({ children }: any) => {
 
-  const [state, dispatch] = useReducer(userReducer, initialState);
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   useEffect(() => {
     validateToken();
@@ -556,11 +563,11 @@ const AppContext = ({ children }: any) => {
       const token = await AsyncStorage.getItem('token');
       if (!token || !state.user) return 'Not authenticated.'
       if (!state.selectedRoom) return 'Missing information.'
-      axios.get(`${API}/get-all-room-forum-posts/${state.selectedRoom.id}`, {
+      axios.get(`${API}/forum/get-all-room-forum-posts/${state.selectedRoom.id}`, {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
-        console.log(response)
+        dispatch({ type: 'SET_ROOM_FORUM_POSTS', payload: response.data })
       })
       .catch(error => {
         console.log(error)
@@ -595,7 +602,7 @@ const AppContext = ({ children }: any) => {
     dispatch({ type: 'CLEAN_SEARCHED_USER' })
   }
 
-  const createNewForumPost = (body: string, data: ImagePickerResponse): Promise<any> => {
+  const createNewForumPost = (body: string, data: ImagePickerResponse | undefined): Promise<any> => {
     return new Promise(async(resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
       if (!token || !state.user) return 'Not authenticated.';
@@ -671,7 +678,7 @@ const AppContext = ({ children }: any) => {
       const token = await AsyncStorage.getItem('token');
       if(!token || !state.user) return 'Not authenticated.';
       if (!forumPostId) return 'Missing information.';
-      axios.get(`${API}/get-all-forum-post-comments/${forumPostId}`, {
+      axios.get(`${API}/forum/get-all-forum-post-comments/${forumPostId}`, {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
       .then(response => {
@@ -715,6 +722,7 @@ const AppContext = ({ children }: any) => {
       selectedRoomPosts: state.selectedRoomPosts,
       selectedRoomUsers: state.selectedRoomUsers,
       searchedUser: state.searchedUser,
+      selectedRoomForumPosts: state.selectedRoomForumPosts,
       signIn,
       singUp,
       validateToken,
@@ -739,6 +747,11 @@ const AppContext = ({ children }: any) => {
       getAllRoomInformation,
       fetchUserByEmail,
       cleanSearchedUser,
+      createNewForumPost,
+      deleteForumPost,
+      addForumPostComment,
+      getAllForumPostComments,
+      deleteForumPostComment,
     }}
     >
       {children}

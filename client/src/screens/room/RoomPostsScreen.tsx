@@ -34,7 +34,7 @@ const RoomPostsScreen = ({navigation}: any) => {
   };
 
   const handleDeletePost = () => {
-    if (!selectedRoom?.id) return console.log('roomId is missing');
+    if (!selectedRoom) return;
     deletePost(selectedRoom.id, activeSelectedPostOptions.id);
     setModalPostOptionVisible(false);
   };
@@ -136,7 +136,14 @@ const RoomPostsScreen = ({navigation}: any) => {
       {
         userIsOwner &&
           <Icon
-            style={style.addIcon}
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              margin: 15,
+              backgroundColor: principalColor,
+              borderRadius: 50,
+            }}
             name="add"
             color='white'
             size={40}

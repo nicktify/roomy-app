@@ -16,7 +16,7 @@ type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User; } }
   | { type: 'SET_SEARCHED_USER', payload: User }
   | { type: 'CLEAN_SEARCHED_USER' }
 
-const userReducer = (state: InitialState, action: TypeAction) => {
+const appReducer = (state: InitialState, action: TypeAction) => {
 
   switch (action.type) {
 
@@ -38,6 +38,7 @@ const userReducer = (state: InitialState, action: TypeAction) => {
         selectedRoomPosts: null,
         selectedRoomUsers: null,
         selectedRoomForumPosts: null,
+        searchedUser: null,
       };
 
     case 'VALIDATION_COMPLETED':
@@ -101,4 +102,4 @@ const userReducer = (state: InitialState, action: TypeAction) => {
   }
 };
 
-export default userReducer;
+export default appReducer;
