@@ -656,7 +656,7 @@ const AppContext = ({ children }: any) => {
       const token = await AsyncStorage.getItem('token');
       if (!token || !state.user) return 'Not authenticated.';
       if (!forumPostId || !body) return 'Missing information.';
-      axios.post(`${API}/add-forum-post-comment`, {
+      axios.post(`${API}/forum/add-forum-post-comment`, {
         forumPostId,
         authorId: state.user.id,
         body,

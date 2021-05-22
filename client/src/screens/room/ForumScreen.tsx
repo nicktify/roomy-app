@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, FlatList, Image, Pressable } from 'react-native';
+import { Text, View, FlatList, Image, Pressable, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
 import { Context } from '../../context/MainContext';
@@ -115,6 +115,123 @@ const ForumScreen = ({ navigation }: any) => {
                 />
               </Pressable>
           }
+        </View>
+        <View>
+          {
+            item.latestComment &&
+            <View
+              style={{
+                width: '90%',
+                alignSelf: 'flex-end',
+                borderTopWidth: 0.3,
+                borderTopColor: '#b5b5b5',
+                padding: 5,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Image 
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 50,
+                    marginRight: 10,
+                  }}
+                  source={{
+                    uri: item.latestComment.authorProfilePicture
+                  }}
+                />
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    opacity: 0.8,
+                  }}
+                >
+                  {item.latestComment.authorName}
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    opacity: 0.8,
+                  }}
+                >
+                  {item.latestComment.body}
+                </Text>
+              </View>
+            </View>
+          }
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 5,
+            justifyContent: 'flex-end',
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              backgroundColor: principalColor,
+              borderRadius: 5,
+              width: 150,
+              alignItems: 'center',
+              padding: 5,
+              marginRight: 5,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+              elevation: 3,
+            }}
+            onPress={() => navigation.navigate('NewForumPostCommentForm', {
+              forumPostId: item.id,
+            })}
+          >
+            <Text
+              style={{
+                color: 'white',
+                opacity: 0.8,
+              }}
+            >
+              ADD COMMENT
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 5,
+                width: '20%',
+                alignItems: 'center',
+                padding: 5,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.22,
+                shadowRadius: 2.22,
+                elevation: 3,
+              }}
+              onPress={() => navigation.navigate('ForumPostInformation', {
+                ...item,
+              })}
+            >
+              <Text
+                style={{
+                  opacity: 0.8,
+                  color: 'black',
+                }}
+              >
+                MORE
+              </Text>
+            </TouchableOpacity>
         </View>
       </View>
     </View>

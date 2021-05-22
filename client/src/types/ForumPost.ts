@@ -7,4 +7,10 @@ export class ForumPost {
   authorName: string;
   body: string;
   date: Date;
+  latestComment: {
+    authorId: string;
+    authorName: string;
+    authorProfilePicture: string;
+    body: string;
+  }
 }

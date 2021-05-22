@@ -55,6 +55,7 @@ const style = StyleSheet.create({
   text: {
     fontSize: 16,
     marginBottom: 5,
+    opacity: 0.8,
   },
   textContainer: {
     width: '100%',

@@ -169,7 +169,7 @@ export class ForumService {
         authorProfilePicture: author.profilePicture,
         body: comment.body,
       }
-      
+
       forumPost.save();
 
       return {msg: 'Comment created.'}
