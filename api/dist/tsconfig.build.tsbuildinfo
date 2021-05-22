@@ -2727,7 +2727,7 @@
         "affectsGlobalScope": false
       },
       "../src/forum/forum.service.ts": {
-        "version": "084f0718f466fbb7fbe940298735f3986b8bf75ee4ec20be0599460574f63b63",
+        "version": "eda98ddfe5cfa74239cce67df6a2a06ac78fd8331b56059d5039c58c5788b996",
         "signature": "4f0bdfe432073d682e5bc31ae6af3fa29b8d9000241d6d89f052a8dbd079a2c4",
         "affectsGlobalScope": false
       },
