@@ -1597,8 +1597,8 @@
         "affectsGlobalScope": false
       },
       "../src/forum/schemas/forum-post.schema.ts": {
-        "version": "e9dfc1b9c0718982b6853a565fcd99b6eea1a4d731b29d1466c54ceba29a359b",
-        "signature": "24edf93deae91635a6ad7a4cbb815f655333ccf25d8fef4db6ff163b89c60750",
+        "version": "c2fb71d1246df4ad9dbbd5de43d3d6fa0272b63eacae382b3ca5e8b42643c2f5",
+        "signature": "ebece8a93e3a1f7d49d1487ef424e53c7d6a5e1e8f587a7c4b67aec2049c0989",
         "affectsGlobalScope": false
       },
       "../src/posts/schemas/post.schema.ts": {
@@ -2727,7 +2727,7 @@
         "affectsGlobalScope": false
       },
       "../src/forum/forum.service.ts": {
-        "version": "1cc96d317be24a187a337487d3c085e26018b144d5899b569e3ff4e798e3d5ed",
+        "version": "ee04d78254e118614a4bef0cd5ff9228aa9ab532bc7e3a391775d8df835add2c",
         "signature": "4f0bdfe432073d682e5bc31ae6af3fa29b8d9000241d6d89f052a8dbd079a2c4",
         "affectsGlobalScope": false
       },

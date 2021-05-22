@@ -29,6 +29,7 @@ export class ForumPost {
   @Prop({ type: Object })
   latestComment: {
     authorId: string,
+    authorName: string,
     authorProfilePicture: string,
     body: string,
   };

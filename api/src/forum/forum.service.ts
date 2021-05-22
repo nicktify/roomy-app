@@ -165,6 +165,7 @@ export class ForumService {
 
       forumPost.latestComment = {
         authorId: author._id,
+        authorName: author.name,
         authorProfilePicture: author.profilePicture,
         body: comment.body,
       }
