@@ -55,8 +55,8 @@ __decorate([
 ], ReturnForumPostDto.prototype, "date", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
-    class_validator_1.IsArray(),
-    __metadata("design:type", Array)
-], ReturnForumPostDto.prototype, "comments", void 0);
+    class_validator_1.IsObject(),
+    __metadata("design:type", Object)
+], ReturnForumPostDto.prototype, "latestComment", void 0);
 exports.ReturnForumPostDto = ReturnForumPostDto;
 //# sourceMappingURL=return-forum-post.dto.js.map

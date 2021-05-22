@@ -617,8 +617,8 @@ export class RoomsService {
             authorProfilePicture: forumPosts[i].authorProfilePicture,
             body: forumPosts[i].body,
             image: forumPosts[i].image,
-            comments: forumPosts[i].comments,
             date: forumPosts[i].date,
+            latestComment: forumPosts[i].latestComment,
           })
         }
       }

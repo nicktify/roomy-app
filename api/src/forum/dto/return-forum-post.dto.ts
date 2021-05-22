@@ -1,4 +1,4 @@
-import { IsArray, IsDataURI, IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDataURI, IsDate, IsNotEmpty, IsObject, IsString } from "class-validator";
 
 export class ReturnForumPostDto {
   @IsNotEmpty()
@@ -34,6 +34,10 @@ export class ReturnForumPostDto {
   date: Date;
 
   @IsNotEmpty()
-  @IsArray()
-  comments: string[];
+  @IsObject()
+  latestComment: {
+    authorId: string,
+    authorProfilePicture: string,
+    body: string,
+  }
 }

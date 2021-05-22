@@ -53,7 +53,7 @@ let ForumService = class ForumService {
                     body: forumPost.body,
                     image: forumPost.image,
                     date: forumPost.date,
-                    comments: forumPost.comments,
+                    latestComment: forumPost.latestComment,
                 };
             }
             return new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ let ForumService = class ForumService {
                         body: forumPost.body,
                         image: forumPost.image,
                         date: forumPost.date,
-                        comments: forumPost.comments,
+                        latestComment: forumPost.latestComment,
                     });
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
@@ -96,7 +96,7 @@ let ForumService = class ForumService {
                 body: forumPost.body,
                 image: forumPost.image,
                 date: forumPost.date,
-                comments: forumPost.comments,
+                latestComment: forumPost.latestComment,
             }));
             returnedForumPost.sort((a, b) => {
                 if (a.date < b.date)
@@ -157,7 +157,11 @@ let ForumService = class ForumService {
                 body,
                 date: new Date()
             });
-            forumPost.comments.push(comment._id);
+            forumPost.latestComment = {
+                authorId: author._id,
+                authorProfilePicture: author.profilePicture,
+                body: comment.body,
+            };
             forumPost.save();
             return { msg: 'Comment created.' };
         }

@@ -42,9 +42,9 @@ __decorate([
     __metadata("design:type", Date)
 ], ForumPost.prototype, "date", void 0);
 __decorate([
-    mongoose_1.Prop(),
-    __metadata("design:type", Array)
-], ForumPost.prototype, "comments", void 0);
+    mongoose_1.Prop({ type: Object }),
+    __metadata("design:type", Object)
+], ForumPost.prototype, "latestComment", void 0);
 ForumPost = __decorate([
     mongoose_1.Schema()
 ], ForumPost);

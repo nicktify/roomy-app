@@ -26,8 +26,12 @@ export class ForumPost {
   @Prop()
   date: Date;
 
-  @Prop()
-  comments: string[];
+  @Prop({ type: Object })
+  latestComment: {
+    authorId: string,
+    authorProfilePicture: string,
+    body: string,
+  };
 }
 
 export const ForumPostSchema = SchemaFactory.createForClass( ForumPost );

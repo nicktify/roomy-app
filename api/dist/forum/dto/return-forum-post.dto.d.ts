@@ -7,5 +7,9 @@ export declare class ReturnForumPostDto {
     body: string;
     image: string;
     date: Date;
-    comments: string[];
+    latestComment: {
+        authorId: string;
+        authorProfilePicture: string;
+        body: string;
+    };
 }

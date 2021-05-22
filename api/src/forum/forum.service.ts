@@ -51,7 +51,7 @@ export class ForumService {
           body: forumPost.body,
           image: forumPost.image,
           date: forumPost.date,
-          comments: forumPost.comments,
+          latestComment: forumPost.latestComment,
         }
       }
 
@@ -72,7 +72,7 @@ export class ForumService {
             body: forumPost.body,
             image: forumPost.image,
             date: forumPost.date,
-            comments: forumPost.comments,
+            latestComment: forumPost.latestComment,
           });
         }
       );
@@ -98,7 +98,7 @@ export class ForumService {
         body: forumPost.body,
         image: forumPost.image,
         date: forumPost.date,
-        comments: forumPost.comments,
+        latestComment: forumPost.latestComment,
       }))
 
       returnedForumPost.sort((a, b) => {
@@ -163,7 +163,12 @@ export class ForumService {
         date: new Date()
       })
 
-      forumPost.comments.push(comment._id);
+      forumPost.latestComment = {
+        authorId: author._id,
+        authorProfilePicture: author.profilePicture,
+        body: comment.body,
+      }
+      
       forumPost.save();
 
       return {msg: 'Comment created.'}
