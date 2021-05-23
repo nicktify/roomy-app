@@ -1,4 +1,5 @@
 export class ForumPostComment {
+  id: string;
   forumPostId: string;
   authorId: string;
   authorName: string;

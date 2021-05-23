@@ -3,6 +3,7 @@ import { Post } from "../../types/Post";
 import { Room } from "../../types/Room";
 import { User } from "../../types/user";
 import { InitialState } from "../../types/InitialState";
+import { ForumPostComment } from "../../types/ForumPostComment";
 
 type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User; } }
   | { type: 'LOGOUT' }
@@ -15,6 +16,7 @@ type TypeAction = { type: 'SIGN_IN', payload: { token: string, user: User; } }
   | { type: 'SET_ROOM_FORUM_POSTS', payload: ForumPost[] }
   | { type: 'SET_SEARCHED_USER', payload: User }
   | { type: 'CLEAN_SEARCHED_USER' }
+  | { type: 'SET_ALL_FORUM_POST_COMMENTS', payload: ForumPostComment[] }
 
 const appReducer = (state: InitialState, action: TypeAction) => {
 
@@ -39,6 +41,7 @@ const appReducer = (state: InitialState, action: TypeAction) => {
         selectedRoomUsers: null,
         selectedRoomForumPosts: null,
         searchedUser: null,
+        selectedForumPostComments: null,
       };
 
     case 'VALIDATION_COMPLETED':
@@ -95,6 +98,12 @@ const appReducer = (state: InitialState, action: TypeAction) => {
       return {
         ...state,
         searchedUser: null
+      }
+    
+    case 'SET_ALL_FORUM_POST_COMMENTS':
+      return {
+        ...state,
+        selectedForumPostComments: action.payload,
       }
 
     default:

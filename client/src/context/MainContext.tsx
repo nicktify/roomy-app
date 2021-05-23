@@ -9,6 +9,7 @@ import { InitialState } from '../types/InitialState';
 import { Room } from '../types/Room';
 import { Post } from '../types/Post';
 import { ForumPost } from '../types/ForumPost';
+import { ForumPostComment } from '../types/ForumPostComment';
 
 const initialState: InitialState = {
   user: null,
@@ -20,7 +21,8 @@ const initialState: InitialState = {
   selectedRoomPosts: null,
   selectedRoomUsers: null,
   selectedRoomForumPosts: null,
-  searchedUser: null
+  searchedUser: null,
+  selectedForumPostComments: null,
 };
 
 interface ContextProps {
@@ -33,6 +35,7 @@ interface ContextProps {
   selectedRoomUsers: User[] | null;
   selectedRoomForumPosts: ForumPost[] | null;
   searchedUser: User | null;
+  selectedForumPostComments: ForumPostComment[] | null;
   signIn: (loginData: LoginData) => Promise<{ msg: string; }>;
   singUp: (registerData: RegisterData) => Promise<{ msg: string; }>;
   validateToken: (token: string) => Promise<void>;
@@ -61,7 +64,7 @@ interface ContextProps {
   deleteForumPost: (forumPostId: string) => Promise<any>;
   addForumPostComment: (forumPostId: string, body: string) => Promise<any>;
   getAllForumPostComments: (forumPostId: string) => Promise<any>;
-  deleteForumPostComment: (forumPostCommentId: string) => Promise<any> 
+  deleteForumPostComment: (forumPostCommentId: string, forumPostId: string) => Promise<any> 
 }
 
 export const Context = createContext({} as ContextProps);
@@ -691,14 +694,15 @@ const AppContext = ({ children }: any) => {
     })
   }
 
-  const deleteForumPostComment = (forumPostCommentId: string): Promise<any> => {
+  const deleteForumPostComment = (forumPostCommentId: string, forumPostId: string): Promise<any> => {
     return new Promise(async(resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
       if (!token || !state.user) return 'Not authenticated.';
-      if (!forumPostCommentId) return 'Missing information.';
-      axios.delete(`${API}/delete-forum-post-comment0`, {
+      if (!forumPostCommentId || !forumPostId) return 'Missing information.';
+      axios.delete(`${API}/forum/delete-forum-post-comment`, {
         data: {
-          forumPostCommentId
+          forumPostCommentId,
+          forumPostId
         }, 
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
@@ -723,6 +727,7 @@ const AppContext = ({ children }: any) => {
       selectedRoomUsers: state.selectedRoomUsers,
       searchedUser: state.searchedUser,
       selectedRoomForumPosts: state.selectedRoomForumPosts,
+      selectedForumPostComments: state.selectedForumPostComments,
       signIn,
       singUp,
       validateToken,

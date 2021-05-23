@@ -1,4 +1,5 @@
 import { ForumPost } from "./ForumPost";
+import { ForumPostComment } from "./ForumPostComment";
 import { Post } from "./Post";
 import { Room } from "./Room";
 import { User } from "./user";
@@ -14,4 +15,5 @@ export class InitialState {
   selectedRoomUsers: User[] | null;
   selectedRoomForumPosts: ForumPost[] | null;
   searchedUser: User | null;
+  selectedForumPostComments: ForumPostComment[] | null;
 }

@@ -1,28 +1,28 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const AddNewForumPostCommentScreen = ({ navigation, route }: any) => {
 
-  const { forumPostId } = route.params;
+  const { id, image, authorName, authorProfilePicture, body  } = route.params;
 
   const { addForumPostComment } = useContext(Context);
 
-  const [body, setBody] = useState('');
+  const [bodyInput, setBodyInput] = useState('');
   const [createDisabled, setCreateDisabled] = useState(false);
   const [nameError, setNameError] = useState('');
 
   const handleCreateNewComment = () => {
     if (body.length > 0) {
       setCreateDisabled(true);
-      addForumPostComment(forumPostId, body)
+      addForumPostComment(id, bodyInput)
         .then(() => {
-          setBody('');
+          setBodyInput('');
           setCreateDisabled(false);
           setNameError('')
           navigation.navigate('Room');
@@ -74,20 +74,85 @@ const AddNewForumPostCommentScreen = ({ navigation, route }: any) => {
                     marginBottom: 15,
                   }}
                 >
-                  Create room
+                  Add new comment
                 </Text>
               </View>
+              <View
+                style={{
+                  margin: 20,
+                  width: windowWidth * 0.9,
+                  backgroundColor: 'white',
+                  borderRadius: 5,
+                  padding: 10,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 15,
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: 40,
+                      width: 40,
+                      borderRadius: 50,
+                      marginRight: 10,
+                    }}
+                    source={{
+                      uri: authorProfilePicture,
+                    }}
+                  />
+                  <Text>
+                    {authorName}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                  }}
+                >
+                  {
+                    image && 
+                    <Image
+                      style={{
+                        width: 80,
+                        height: 80,
+                        marginRight: 20,
+                        borderRadius: 5,
+                      }}
+                      source={{
+                        uri: image
+                      }}
+                    />
+                  }
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      opacity: 0.8,
+                    }}
+                  >
+                    {body}
+                  </Text>
+                </View>
+              </View>
               <View>
-                <Text style={style.textLabel}>
-                  Enter room name:
-                </Text>
                 <TextInput
                   style={style.textInput}
-                  placeholder="Quantum mechanics"
+                  placeholder="I think it's a great idea."
                   placeholderTextColor="#9a9b9c"
-                  onChangeText={body => setBody(body)}
-                  defaultValue={body}
-                  value={body}
+                  onChangeText={bodyInput => setBodyInput(bodyInput)}
+                  defaultValue={bodyInput}
+                  value={bodyInput}
                   autoCorrect={false}
                   returnKeyType = {"next"}
                   autoFocus
@@ -116,7 +181,7 @@ const AddNewForumPostCommentScreen = ({ navigation, route }: any) => {
                       color: 'white'
                     }}
                   >
-                    add comment
+                    Add comment
                 </Text>
                 </TouchableOpacity>
               </View>

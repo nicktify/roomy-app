@@ -175,7 +175,7 @@ const ForumScreen = ({ navigation }: any) => {
         >
           <TouchableOpacity
             style={{
-              backgroundColor: principalColor,
+              backgroundColor: 'white',
               borderRadius: 5,
               width: 150,
               alignItems: 'center',
@@ -191,12 +191,12 @@ const ForumScreen = ({ navigation }: any) => {
               elevation: 3,
             }}
             onPress={() => navigation.navigate('NewForumPostCommentForm', {
-              forumPostId: item.id,
+              ...item
             })}
           >
             <Text
               style={{
-                color: 'white',
+                color: 'black',
                 opacity: 0.8,
               }}
             >

@@ -6,6 +6,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const PostOptionModal = ({modalPostOptionVisible, setModalPostOptionVisible, activeSelectedPostOptions, handleDeletePost }: any) => {
+  if (!activeSelectedPostOptions) return null;
   return (
     <Modal
     animationType="slide"

@@ -12,7 +12,7 @@ import EditAboutFormScreen from '../screens/EditAboutFormScreen';
 import SearchUserFromRoom from '../screens/SearchUserFromRoom';
 import NewForumPostForm from '../screens/AddNewForumPostScreen';
 import AddNewForumPostCommentScreen from '../screens/AddNewForumPostCommentScreen';
-import ForumPostInformation from '../screens/AllForumPostCommentsScreen';
+import AllForumPostCommentsScreen from '../screens/AllForumPostCommentsScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +34,7 @@ const AppNavigation = () => {
                     <Stack.Screen name="NewPostForm" component={ NewPostForm } />
                     <Stack.Screen name="NewForumPostForm" component={ NewForumPostForm } />
                     <Stack.Screen name="NewForumPostCommentForm" component={ AddNewForumPostCommentScreen } />
-                    <Stack.Screen name="ForumPostInformation" component={ ForumPostInformation } />
+                    <Stack.Screen name="ForumPostInformation" component={ AllForumPostCommentsScreen } />
                     <Stack.Screen name="EditAboutForm" component={ EditAboutFormScreen } />
                     <Stack.Screen name="SearchUserFromRoom" component={ SearchUserFromRoom } />
                   </>

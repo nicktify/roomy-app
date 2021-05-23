@@ -6,12 +6,16 @@ import { ForumPostComment } from '../types/ForumPostComment';
 import style from '../styles/screens/roomPostScreen';
 import { principalColor } from '../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PostOptionModal from '../components/modals/PostOptionModal';
 
-const ForumPostInformation = ({ navigation, route }: any) => {
+const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
 
-  const { id: forumPostId, authorId, authorName, authorProfilePicture, body, image } = route.params;
+  const { id: forumPostId, authorName, authorProfilePicture, body, image } = route.params;
 
-  const { user, getAllForumPostComments } = useContext(Context)
+  const { user, getAllForumPostComments, deleteForumPostComment } = useContext(Context);
+
+  const [commentOptionModal, setCommentOptionModal] = useState(false);
+  const [activeSelectedCommentOptions, setActiveSelectedCommentOptions] = useState<ForumPostComment | null>(null);
 
   const [comments, setComments] = useState<ForumPostComment[]>([]);
 
@@ -20,6 +24,19 @@ const ForumPostInformation = ({ navigation, route }: any) => {
     .then((data: ForumPostComment[]) => setComments(data))
     .catch(error => console.log(error))
   }, [])
+
+  useEffect(() => {}, [])
+
+  const handleDeleteComment = () => {
+    console.log('here')
+    if (!activeSelectedCommentOptions) return;
+    deleteForumPostComment(activeSelectedCommentOptions.id, forumPostId)
+    .then(() => {
+      setCommentOptionModal(false);
+      getAllForumPostComments(forumPostId).then((data) => setComments(data));
+    })
+    .catch(error => console.log(error))
+  }
 
   const renderItem = ({item}: {item:ForumPostComment}) => (
 
@@ -75,7 +92,10 @@ const ForumPostInformation = ({ navigation, route }: any) => {
           {
             user && user.id === item.authorId &&
             <TouchableOpacity
-              onPress={() => console.log('options comment')}
+              onPress={() => {
+                setActiveSelectedCommentOptions(item)
+                setCommentOptionModal(true)
+              }}
             >
               <Icon 
                 name='more-vert'
@@ -158,12 +178,17 @@ const ForumPostInformation = ({ navigation, route }: any) => {
           data={comments}
           renderItem={renderItem}
           keyExtractor={item => `${item.body}${item.date}`}
-          ListFooterComponent={<View style={{ width: '100%', height: 60 }}></View>}
-          ListHeaderComponent={<View style={{ width: '100%', height: 20 }}></View>}
         />
       </View>
+
+      <PostOptionModal 
+        modalPostOptionVisible={commentOptionModal}
+        setModalPostOptionVisible={setCommentOptionModal}
+        activeSelectedPostOptions={activeSelectedCommentOptions}
+        handleDeletePost={handleDeleteComment}
+      />
     </View>
   );
 };
 
-export default ForumPostInformation;
+export default AllForumPostCommentsScreen;
