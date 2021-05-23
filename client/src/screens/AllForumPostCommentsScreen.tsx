@@ -28,7 +28,6 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
   useEffect(() => {}, [])
 
   const handleDeleteComment = () => {
-    console.log('here')
     if (!activeSelectedCommentOptions) return;
     deleteForumPostComment(activeSelectedCommentOptions.id, forumPostId)
     .then(() => {

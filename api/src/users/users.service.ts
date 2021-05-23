@@ -63,9 +63,6 @@ export class UsersService {
   async createUser( { name, email, password }: CreateUserDto, file: Express.Multer.File ): Promise<{ msg: string }> {
     
     try {
-
-
-
       const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
       if (user) return { msg: 'Email already registered, try another or log in.' };
 
@@ -75,7 +72,6 @@ export class UsersService {
 
       const rounds = 10;
       const hash = await bcrypt.hash(password, rounds);
-
 
       const passFirstPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '')
       const passSecondPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '')
@@ -143,7 +139,6 @@ export class UsersService {
     } catch (error) {
       throw error;
     }
-
   }
 
   async emailConfirmation({ userId, emailConfirmationPassword }): Promise<{msg: string}> {

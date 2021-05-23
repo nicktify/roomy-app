@@ -38,7 +38,7 @@ export class UsersController {
   }
 
   @Get('email-confirmation/:userId/special-info/:emailConfirmationPassword')
-  emailConfirmation(@Param() params){
+  emailConfirmation(@Param() params): Promise<{msg: string}> {
     return this.usersService.emailConfirmation(params);
   }
 

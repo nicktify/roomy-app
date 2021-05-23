@@ -2617,12 +2617,12 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "689fd4ffeaee1c6aa274a4c1a0113c15fe0656f6fdeab51ba8235a5e95877f80",
+        "version": "37d71df9dc9622b931598ffc9f0aaa5c82618d841c278637a02c30540d1fa744",
         "signature": "08c7faf0dbebb1c58d7c7a866fc7c7ff28fad01ed6eda51b35f3e59dea57e0b3",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "34f30e3090eb7e2571f8f72ddb1ab3ca0b086c429a4cce47120a6735185b6ea0",
+        "version": "6aff1b065c77405056ad827a351d7b8706e4cc89b92e995ff1332a646a476fcd",
         "signature": "c291fe980f0abb87fd2fef251ce93cfd2ebc316c82a28fec4cbf0cd1c3ab1e58",
         "affectsGlobalScope": false
       },
