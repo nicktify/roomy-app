@@ -208,7 +208,7 @@ export class ForumService {
         })
 
         forumPost.latestComment = {
-          id: comments[1].id,
+          id: comments[1]._id,
           authorId: comments[1].authorId,
           authorName: comments[1].authorName,
           authorProfilePicture: comments[1].authorProfilePicture,
