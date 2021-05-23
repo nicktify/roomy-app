@@ -193,7 +193,7 @@ let ForumService = class ForumService {
             if (!commentToCompare)
                 return { msg: 'Inexistent comment.' };
             const comments = await this.forumPostCommentModel.find({ forumPostId });
-            if (comments) {
+            if (comments.length >= 2) {
                 comments.sort((a, b) => {
                     if (a.date < b.date)
                         return 1;
@@ -202,7 +202,7 @@ let ForumService = class ForumService {
                     return 0;
                 });
                 forumPost.latestComment = {
-                    id: comments[1].id,
+                    id: comments[1]._id,
                     authorId: comments[1].authorId,
                     authorName: comments[1].authorName,
                     authorProfilePicture: comments[1].authorProfilePicture,

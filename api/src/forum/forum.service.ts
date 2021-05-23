@@ -200,7 +200,7 @@ export class ForumService {
 
       const comments = await this.forumPostCommentModel.find({ forumPostId });
 
-      if (comments) {
+      if (comments.length >= 2) {
         comments.sort((a, b) => {
           if (a.date < b.date) return 1
           if (a.date > b.date) return -1
