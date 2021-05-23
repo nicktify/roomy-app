@@ -2617,8 +2617,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "37d71df9dc9622b931598ffc9f0aaa5c82618d841c278637a02c30540d1fa744",
-        "signature": "08c7faf0dbebb1c58d7c7a866fc7c7ff28fad01ed6eda51b35f3e59dea57e0b3",
+        "version": "75f217f09886a1e5184ee45367380ee1e7e95d9626d2d1483fb65c3f4c3bb48f",
+        "signature": "9175f26fc0aa23cf57509c5b04ffcea4433f3e2c60004985c781018da4f3779d",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
@@ -5693,6 +5693,7 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-about.tdo.ts",

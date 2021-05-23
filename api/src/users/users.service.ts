@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
+import { readFile } from 'fs';
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 let nodemailer = require('nodemailer');
@@ -141,7 +142,7 @@ export class UsersService {
     }
   }
 
-  async emailConfirmation({ userId, emailConfirmationPassword }): Promise<{msg: string}> {
+  async emailConfirmation({ userId, emailConfirmationPassword }): Promise<any> {
     try {
       const user = await this.userModel.findById(userId)
       if (!user) return {msg: 'Inexistent user.'}
@@ -150,7 +151,45 @@ export class UsersService {
       user.emailConfirmation = true;
       user.save();
 
-      return {msg: 'Email confirmation completed.'}
+      return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Roomy app</title>
+          <link rel="preconnect" href="https://fonts.gstatic.com">
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+          <style>
+            .container {
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              height: 100vh;
+              align-items: center;
+              background-color: #69C1AC;
+            }
+            .title {
+              font-weight: bold;
+              font-size: 60px;
+              color: white;
+              background-color: black;
+              font-family: 'Roboto', sans-serif;
+              line-height: 100px
+            }
+          </style>
+        </head>
+        <body>
+          <div class='container'>
+            <div>
+              <h1 class='title'>Email confirmed. Now you can use Roomy app.</h1>
+              <h1 class='title'>Thank you for your trust in our services.</h1>
+            </div>
+          </div>
+        </body>
+        </html>
+      `
 
     } catch (error) {
       throw error;

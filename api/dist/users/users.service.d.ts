@@ -25,9 +25,7 @@ export declare class UsersService {
     emailConfirmation({ userId, emailConfirmationPassword }: {
         userId: any;
         emailConfirmationPassword: any;
-    }): Promise<{
-        msg: string;
-    }>;
+    }): Promise<any>;
     changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{
         msg: string;
     }>;
