@@ -164,6 +164,7 @@ export class ForumService {
       })
 
       forumPost.latestComment = {
+        id: comment._id,
         authorId: author._id,
         authorName: author.name,
         authorProfilePicture: author.profilePicture,
@@ -189,12 +190,41 @@ export class ForumService {
     }
   }
 
-  async deleteForumPostComment({forumPostCommentId}: DeleteForumPostCommentDto): Promise<{msg: string}> {
+  async deleteForumPostComment({forumPostCommentId, forumPostId}: DeleteForumPostCommentDto): Promise<{msg: string}> {
     try {
+      const forumPost = await this.forumPostModel.findById(forumPostId);
+      if (!forumPost) return {msg: 'Inexistent forum post'}
+      
+      const commentToCompare = await this.forumPostCommentModel.findById(forumPostCommentId);
+      if (!commentToCompare) return {msg: 'Inexistent comment.'}
+
+      const comments = await this.forumPostCommentModel.find({ forumPostId });
+
+      if (comments) {
+        comments.sort((a, b) => {
+          if (a.date < b.date) return 1
+          if (a.date > b.date) return -1
+          return 0
+        })
+
+        forumPost.latestComment = {
+          id: comments[1].id,
+          authorId: comments[1].authorId,
+          authorName: comments[1].authorName,
+          authorProfilePicture: comments[1].authorProfilePicture,
+          body: comments[1].body,
+        }
+        forumPost.save();
+      } else {
+        forumPost.latestComment = null;
+        forumPost.save();
+      }
+
       await this.forumPostCommentModel.deleteOne({_id: forumPostCommentId});
       const comment = await this.forumPostCommentModel.findById(forumPostCommentId);
       if (!comment) return {msg: 'Comment deleted.'}
       return {msg: 'Please try again.'}
+
     } catch (error) {
       throw error;
     }

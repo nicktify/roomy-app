@@ -18,5 +18,10 @@ __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
 ], DeleteForumPostCommentDto.prototype, "forumPostCommentId", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], DeleteForumPostCommentDto.prototype, "forumPostId", void 0);
 exports.DeleteForumPostCommentDto = DeleteForumPostCommentDto;
 //# sourceMappingURL=delete-forum-post-comment.dto.js.map

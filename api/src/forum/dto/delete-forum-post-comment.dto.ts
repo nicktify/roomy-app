@@ -4,4 +4,8 @@ export class DeleteForumPostCommentDto {
   @IsNotEmpty()
   @IsString()
   forumPostCommentId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  forumPostId: string;
 }

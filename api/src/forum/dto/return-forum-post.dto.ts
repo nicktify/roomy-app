@@ -36,7 +36,9 @@ export class ReturnForumPostDto {
   @IsNotEmpty()
   @IsObject()
   latestComment: {
+    id: string,
     authorId: string,
+    authorName: string,
     authorProfilePicture: string,
     body: string,
   }

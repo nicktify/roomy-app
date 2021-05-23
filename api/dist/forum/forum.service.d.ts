@@ -33,7 +33,7 @@ export declare class ForumService {
     deleteForumPost({ forumPostId }: DeleteForumPostDto): Promise<{
         msg: string;
     }>;
-    deleteForumPostComment({ forumPostCommentId }: DeleteForumPostCommentDto): Promise<{
+    deleteForumPostComment({ forumPostCommentId, forumPostId }: DeleteForumPostCommentDto): Promise<{
         msg: string;
     }>;
 }

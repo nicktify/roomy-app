@@ -9,6 +9,7 @@ export declare class ForumPost {
     image: string;
     date: Date;
     latestComment: {
+        id: string;
         authorId: string;
         authorName: string;
         authorProfilePicture: string;

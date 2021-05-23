@@ -21,9 +21,9 @@ export declare class ForumController {
     addForumPostComment(addForumPostCommentDto: AddForumPostCommentDto): Promise<{
         msg: string;
     }>;
-    getAllForumPostComments(forumPostId: any): Promise<{
+    getAllForumPostComments(forumPostId: any): Promise<import("./dto/return-forum-post-comment.dto").ReturnForumPostCommentDto[] | {
         msg: string;
-    } | import("./dto/return-forum-post-comment.dto").ReturnForumPostCommentDto[]>;
+    }>;
     deleteForumPostComment(deleteForumPostCommentDto: DeleteForumPostCommentDto): Promise<{
         msg: string;
     }>;
