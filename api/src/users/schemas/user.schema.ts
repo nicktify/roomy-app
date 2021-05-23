@@ -13,6 +13,12 @@ export class User {
   email: string;
 
   @Prop()
+  emailConfirmation: boolean;
+
+  @Prop()
+  temporalEmailConfirmationPassword: string;
+
+  @Prop()
   password: string;
 
   @Prop()

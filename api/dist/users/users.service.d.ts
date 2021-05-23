@@ -22,6 +22,12 @@ export declare class UsersService {
     createUser({ name, email, password }: CreateUserDto, file: Express.Multer.File): Promise<{
         msg: string;
     }>;
+    emailConfirmation({ userId, emailConfirmationPassword }: {
+        userId: any;
+        emailConfirmationPassword: any;
+    }): Promise<{
+        msg: string;
+    }>;
     changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{
         msg: string;
     }>;

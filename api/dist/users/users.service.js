@@ -13,12 +13,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
+require('dotenv').config();
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
+let nodemailer = require('nodemailer');
 const post_schema_1 = require("../posts/schemas/post.schema");
 let UsersService = class UsersService {
     constructor(userModel, postModel) {
@@ -67,9 +69,51 @@ let UsersService = class UsersService {
             }
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            const createdUser = await this.userModel.create({ name, email: email.toLocaleLowerCase(), password: hash, about: '' });
-            if (!file)
-                return { msg: 'User register success.' };
+            const passFirstPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
+            const passSecondPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
+            const passThirdPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
+            const createdUser = await this.userModel.create({
+                name,
+                email: email.toLocaleLowerCase(),
+                password: hash,
+                temporalEmailConfirmationPassword: `${passFirstPart}${passSecondPart}${passThirdPart}`,
+                about: '',
+            });
+            const transporter = nodemailer.createTransport({
+                service: "gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASS,
+                },
+            });
+            var message = {
+                from: 'Roomy',
+                to: process.env.EMAIL_TEST,
+                subject: "Confirm email - Roomy",
+                html: `
+          <div>
+            <h1>Confirm your email by clicking the following link</h1>
+            <a
+              href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
+            >Confirm email</a>
+          </div>
+        `
+            };
+            if (!file) {
+                return new Promise((resolve, reject) => {
+                    transporter.sendMail(message, (err, info) => {
+                        if (!err) {
+                            resolve({ msg: 'Register success. Please confirm your email.' });
+                        }
+                        else {
+                            reject(err);
+                        }
+                    });
+                });
+            }
+            ;
             return new Promise((resolve, reject) => {
                 let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
@@ -80,6 +124,21 @@ let UsersService = class UsersService {
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async emailConfirmation({ userId, emailConfirmationPassword }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return { msg: 'Inexistent user.' };
+            if (emailConfirmationPassword !== user.temporalEmailConfirmationPassword)
+                return { msg: 'Invalid information.' };
+            user.emailConfirmation = true;
+            user.save();
+            return { msg: 'Email confirmation completed.' };
         }
         catch (error) {
             throw error;

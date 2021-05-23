@@ -14,8 +14,8 @@ export class AuthService {
     private jwtService: JwtService
     ) {}
   
-  async validateUser( { username, password } ): Promise<ReturnUserDto | { msg: string }> {
-    
+  async validateUser( { username, password } ): Promise<any> {
+
     const user = await this.userModel.findOne({ email: username });
 
     if ( ! user ) return null;
@@ -28,6 +28,7 @@ export class AuthService {
       id: user._id,
       name: user.name,
       email: user.email,
+      emailConfirmation: user.emailConfirmation,
       about: user.about,
       ownedRooms: user.ownedRooms,
       participantRooms: user.participantRooms,
@@ -40,7 +41,8 @@ export class AuthService {
 
   }
 
-  async login( user: ReturnUserDto ): Promise<{ access_token: string, user: ReturnUserDto }> {
+  async login( user ): Promise<{ access_token: string, user: ReturnUserDto } | {msg: string}> {
+    if (!user.emailConfirmation) return {msg: 'Unverified email.'}
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign( payload ),

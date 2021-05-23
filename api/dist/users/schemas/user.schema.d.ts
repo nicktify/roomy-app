@@ -3,6 +3,8 @@ export declare type UserDocument = User & Document;
 export declare class User {
     name: string;
     email: string;
+    emailConfirmation: boolean;
+    temporalEmailConfirmationPassword: string;
     password: string;
     about: string;
     ownedRooms: string[];

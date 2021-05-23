@@ -37,6 +37,11 @@ export class UsersController {
     return this.usersService.createUser( createUserDto, file );
   }
 
+  @Get('email-confirmation/:userId/special-info/:emailConfirmationPassword')
+  emailConfirmation(@Param() params){
+    return this.usersService.emailConfirmation(params);
+  }
+
   @UseGuards( JwtAuthGuard )
   @Post('/add-profile-picture')
   @UseInterceptors(FileInterceptor('file'))

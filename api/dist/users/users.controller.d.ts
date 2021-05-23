@@ -26,6 +26,9 @@ export declare class UsersController {
     postUser(createUserDto: CreateUserDto, file: Express.Multer.File): Promise<ReturnUserDto | {
         msg: string;
     }>;
+    emailConfirmation(params: any): Promise<{
+        msg: string;
+    }>;
     addPicture(userId: {
         userId: string;
     }, file: Express.Multer.File, req: any): Promise<ReturnUserDto | {
@@ -47,6 +50,8 @@ export declare class UsersController {
     login(req: any): Promise<{
         access_token: string;
         user: ReturnUserDto;
+    } | {
+        msg: string;
     }>;
     validateToken(req: any): Promise<{
         access_token: string;

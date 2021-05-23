@@ -23,6 +23,14 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     mongoose_1.Prop(),
+    __metadata("design:type", Boolean)
+], User.prototype, "emailConfirmation", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", String)
+], User.prototype, "temporalEmailConfirmationPassword", void 0);
+__decorate([
+    mongoose_1.Prop(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([

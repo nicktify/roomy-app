@@ -36,6 +36,7 @@ let AuthService = class AuthService {
             id: user._id,
             name: user.name,
             email: user.email,
+            emailConfirmation: user.emailConfirmation,
             about: user.about,
             ownedRooms: user.ownedRooms,
             participantRooms: user.participantRooms,
@@ -46,6 +47,8 @@ let AuthService = class AuthService {
         return curatedUser;
     }
     async login(user) {
+        if (!user.emailConfirmation)
+            return { msg: 'Unverified email.' };
         const payload = { email: user.email, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
