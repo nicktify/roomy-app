@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Pressable, StyleSheet } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { principalColor } from '../config/colors';
 
 import { Context } from '../context/MainContext';
 import { signInValidation } from '../validations/signin';
+
+const windowsWidth = Dimensions.get('window').width;
 
 const LoginScreen = ({ navigation }: any) => {
 
@@ -39,8 +41,8 @@ const LoginScreen = ({ navigation }: any) => {
           setLoginDisabled(false);
           getRooms();
         })
-        .catch(() => {
-          setFetchErrorMessage('Email or password is invalid.');
+        .catch((result) => {
+          setFetchErrorMessage(result);
           setLoginDisabled(false);
         });
     } else {
@@ -57,6 +59,7 @@ const LoginScreen = ({ navigation }: any) => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        width: windowsWidth,
       }}
     >
       <KeyboardAwareScrollView
@@ -100,7 +103,7 @@ const LoginScreen = ({ navigation }: any) => {
                 </Text>
                 {
                   fetchErrorMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{fetchErrorMessage}</Text>
+                  <Text style={{ color: 'red', fontStyle: 'italic', width: windowsWidth * 0.8 }}>{fetchErrorMessage}</Text>
                 }
                 <TextInput
                   style={style.textInput}

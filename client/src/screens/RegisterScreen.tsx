@@ -25,6 +25,9 @@ const RegisterScreen = ({ navigation }: any) => {
     };
   }, []);
 
+  const _keyboardDidShow = () => setKeyboardState(true);
+  const _keyboardDidHide = () => setKeyboardState(false);
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -60,9 +63,6 @@ const RegisterScreen = ({ navigation }: any) => {
     if (errors.password.length === 0) setBadPasswordMessage('');
   }, [name, email, password, repeatedPassword, errors]);
 
-  const _keyboardDidShow = () => setKeyboardState(true);
-  const _keyboardDidHide = () => setKeyboardState(false);
-
   const handleRegister = () => {
     if (password !== repeatedPassword) setPasswordMatchError(true);
     if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError && !registerDisabled) {
@@ -73,8 +73,13 @@ const RegisterScreen = ({ navigation }: any) => {
         password,
       })
         .then((response) => {
-          if (response.msg === 'User register success.') {
+          console.log(response)
+          if (response.msg === 'Register success. Please confirm your email.') {
             setModalRegisterSuccess(true);
+            setName('')
+            setEmail('')
+            setPassword('')
+            setRepeatedPassword('')
           }
           if (response.msg === 'Email already registered, try another or log in.') {
             setFetchErrorMessage(response.msg);
@@ -223,7 +228,7 @@ const RegisterScreen = ({ navigation }: any) => {
         </View>
         <View style={modalStyles.centeredView}>
           <View style={modalStyles.modalView}>
-            <Text>You have been registered successfuly.</Text>
+            <Text>You have been registered successfuly. Please, check your email inbox and confirm your email.</Text>
             <Pressable
               style={modalStyles.button}
               onPress={() => {

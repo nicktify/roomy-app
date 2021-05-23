@@ -85,9 +85,13 @@ const AppContext = ({ children }: any) => {
         password
       })
         .then(async response => {
-          await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
-          dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
-          resolve({ msg: 'Authenticated' });
+          if (response.data.msg === 'Unverified email.') reject('Unverified email. Please check your email inbox and confirm your email.');
+          if (response.data.access_token && response.data.user) {
+            await AsyncStorage.setItem('token', JSON.stringify(response.data.access_token));
+            dispatch({ type: 'SIGN_IN', payload: { token: response.data.access_token, user: response.data.user } });
+            resolve({ msg: 'Authenticated' });
+          }
+          reject('Login failed.')
         })
         .catch(error => {
           reject(error);
