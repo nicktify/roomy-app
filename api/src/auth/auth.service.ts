@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   async login( user ): Promise<{ access_token: string, user: ReturnUserDto } | {msg: string}> {
-    if (!user.emailConfirmation) return {msg: 'Unverified email.'}
+    // if (!user.emailConfirmation) return {msg: 'Unverified email.'}
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign( payload ),
