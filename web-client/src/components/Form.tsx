@@ -130,9 +130,9 @@ const Form  = () => {
               showError && 
                 <div
                   style={{
-                    color: 'red',
+                    color: 'white',
                     fontStyle: 'italic',
-                    maxWidth: 300
+                    maxWidth: 300,
                   }}
                 >
                   {errors.password}
@@ -166,14 +166,14 @@ const Form  = () => {
                 borderStyle: 'none',
                 fontSize: 20,
                 width: 300,
-                color: 'black'
+                color: 'black',
               }}
             />
             {
               showError && 
                 <div
                   style={{
-                    color: 'red',
+                    color: 'white',
                     fontStyle: 'italic',
                     maxWidth: 300
                   }}
