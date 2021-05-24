@@ -43,6 +43,9 @@ export class User {
     twitter: string,
   }
 
+  @Prop()
+  changePasswordRequestDate: Date;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass( User );

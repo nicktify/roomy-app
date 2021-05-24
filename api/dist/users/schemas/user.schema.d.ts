@@ -16,5 +16,6 @@ export declare class User {
         instagram: string;
         twitter: string;
     };
+    changePasswordRequestDate: Date;
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, {}>, import("mongoose").Model<any, any>, undefined>;

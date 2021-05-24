@@ -11,6 +11,7 @@ import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 export declare class UsersController {
     private usersService;
     private authService;
@@ -77,4 +78,5 @@ export declare class UsersController {
     deleteAbout(userIdDto: UserIdDto): Promise<{
         msg: string;
     }>;
+    forgotPassword(body: ForgotPasswordDto): Promise<any>;
 }

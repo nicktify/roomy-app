@@ -1607,8 +1607,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/schemas/user.schema.ts": {
-        "version": "667861df97bb430738262ac142adfcc53339b82bbb59438f23162627f84b2327",
-        "signature": "43a217f118c3db8eb78f6cb50066a65c30270dfd4014d5c477cec9210b4ff0e3",
+        "version": "bd8d7bf34016f607b16ab9ff2798eef0e998b8160a44354fca1b739ee78b02f1",
+        "signature": "bc4091f9c4311e78c3429351b2020144bdf4bc1ff78bd00da83a981ffa67c604",
         "affectsGlobalScope": false
       },
       "../node_modules/class-validator/types/validation/ValidationError.d.ts": {
@@ -2567,7 +2567,7 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "83bd4c37e10b7b0cabb5a0406e64fbed67792b5f9489eb58345e267fca57de37",
+        "version": "51807359da9d9ea80bd3cba1d6870c1682225f6816270b3c6e62daec770988ac",
         "signature": "b587d22afb59af22d86e9b5792a46531c046ddf4cba5c02a08daef9ce5f82105",
         "affectsGlobalScope": false
       },
@@ -2616,14 +2616,19 @@
         "signature": "b975a93449faa23e413ab3d414bf16dc5dea17d50fb6683b12ee65564686fa65",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/forgot-password.dto.ts": {
+        "version": "4be3460fc6d1f62bed09b8fc1499cbe673e7e61402fd7339cdda7ebbb2313216",
+        "signature": "24a24c0324e53e350a7c0f293ecb8c5d30beffde131e5f8e8de3ce12bb04c194",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "75f217f09886a1e5184ee45367380ee1e7e95d9626d2d1483fb65c3f4c3bb48f",
-        "signature": "9175f26fc0aa23cf57509c5b04ffcea4433f3e2c60004985c781018da4f3779d",
+        "version": "ffe724b58bfed05e2a4e0f7075c77a1bdc525c2144772cb001a2e69649b2a4b9",
+        "signature": "18a2fe15cc59fa11e74344e67b30bc60ff39473c9e54c9ea2336f91d3b778f9d",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "6aff1b065c77405056ad827a351d7b8706e4cc89b92e995ff1332a646a476fcd",
-        "signature": "c291fe980f0abb87fd2fef251ce93cfd2ebc316c82a28fec4cbf0cd1c3ab1e58",
+        "version": "e3414d892b0cc73bcdfa53adce8665e17bfb71cc52a314efa673b1d5cc37863a",
+        "signature": "07864e408bab79cc41fa754a27dd95793f7eedbce535c874dab7ee9cb1a570a2",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5648,6 +5653,9 @@
       "../src/users/dto/find-by-email-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/users/dto/forgot-password.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/login-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5675,6 +5683,7 @@
         "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
+        "../src/users/dto/forgot-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
@@ -5703,6 +5712,7 @@
         "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
+        "../src/users/dto/forgot-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
@@ -7959,6 +7969,7 @@
         "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
+        "../src/users/dto/forgot-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
@@ -7973,6 +7984,7 @@
         "../src/users/dto/delete-social-media-link.dto.ts",
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
+        "../src/users/dto/forgot-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
@@ -8612,6 +8624,7 @@
       "../src/users/dto/delete-social-media-link.dto.ts",
       "../src/users/dto/edit-user.dto.ts",
       "../src/users/dto/find-by-email-dto.ts",
+      "../src/users/dto/forgot-password.dto.ts",
       "../src/users/dto/login-dto.ts",
       "../src/users/dto/return-user.dto.ts",
       "../src/users/dto/user-id.dto.ts",

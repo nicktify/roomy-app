@@ -15,6 +15,7 @@ import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -114,6 +115,11 @@ export class UsersController {
   @Put('clean-about')
   async deleteAbout(@Body() userIdDto: UserIdDto): Promise<{msg: string}> {
     return this.usersService.clearAbout(userIdDto);
+  }
+
+  @Post('forgot-password')
+  async forgotPassword(@Body() body: ForgotPasswordDto): Promise<any> {
+    return this.usersService.forgotPassword(body);
   }
 
 }

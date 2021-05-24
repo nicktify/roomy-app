@@ -134,8 +134,47 @@ let UsersService = class UsersService {
             const user = await this.userModel.findById(userId);
             if (!user)
                 return { msg: 'Inexistent user.' };
-            if (emailConfirmationPassword !== user.temporalEmailConfirmationPassword)
-                return { msg: 'Invalid information.' };
+            if (emailConfirmationPassword !== user.temporalEmailConfirmationPassword) {
+                return `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Roomy app</title>
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+            <style>
+              .container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                height: 100vh;
+                align-items: center;
+                background-color: #69C1AC;
+              }
+              .title {
+                font-weight: bold;
+                font-size: 60px;
+                color: white;
+                background-color: black;
+                font-family: 'Roboto', sans-serif;
+                line-height: 100px
+              }
+            </style>
+          </head>
+          <body>
+            <div class='container'>
+              <div>
+                <h1 class='title'>Something went wrong. Cannot confirm the email.</h1>
+                <h1 class='title'>Please try again.</h1>
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+            }
             user.emailConfirmation = true;
             user.save();
             return `
@@ -438,6 +477,40 @@ let UsersService = class UsersService {
             user.about = '';
             user.save();
             return { msg: 'About cleaned' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async forgotPassword({ email }) {
+        try {
+            const user = await this.userModel.findOne({ email });
+            if (!user)
+                return 'Inexistent email.';
+            let date = new Date();
+            date.setDate(date.getDate() + 1);
+            user.changePasswordRequestDate = date;
+            user.save();
+            const transporter = nodemailer.createTransport({
+                service: "gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASS,
+                },
+            });
+            var message = {};
+            return new Promise((resolve, reject) => {
+                transporter.sendMail(message, (err, info) => {
+                    if (!err) {
+                        resolve('Email sent.');
+                    }
+                    else {
+                        reject(err);
+                    }
+                });
+            });
         }
         catch (error) {
             throw error;

@@ -47,8 +47,6 @@ let AuthService = class AuthService {
         return curatedUser;
     }
     async login(user) {
-        if (!user.emailConfirmation)
-            return { msg: 'Unverified email.' };
         const payload = { email: user.email, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),

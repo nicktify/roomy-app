@@ -19,6 +19,7 @@ import { ChangeSocialMediaLinkDto } from './dto/change-social-media-link.dto';
 import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -557,6 +558,56 @@ export class UsersService {
       user.save();
 
       return {msg: 'About cleaned'};
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async forgotPassword({email}: ForgotPasswordDto): Promise<any> {
+    try {
+      const user = await this.userModel.findOne({email});
+      if (!user) return 'Inexistent email.'
+
+      let date = new Date();
+      date.setDate(date.getDate() + 1);
+
+      user.changePasswordRequestDate = date;
+      user.save()
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASS,
+        },
+      });
+
+      var message = {
+        // from: 'Roomy',
+        // to: process.env.EMAIL_TEST,
+        // subject: "Confirm email - Roomy",
+        // html: `
+        //   <div>
+        //     <h1>Confirm your email by clicking the following link</h1>
+        //     <a
+        //       href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
+        //     >Confirm email</a>
+        //   </div>
+        // `
+      };
+
+      return new Promise((resolve, reject) => {
+        transporter.sendMail(message, (err, info) => {
+          if (!err) {
+            resolve('Email sent.')
+          } else {
+            reject(err)
+          }
+        });
+      })
 
     } catch (error) {
       throw error;

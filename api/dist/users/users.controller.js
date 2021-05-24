@@ -28,6 +28,7 @@ const change_social_media_link_dto_1 = require("./dto/change-social-media-link.d
 const delete_social_media_link_dto_1 = require("./dto/delete-social-media-link.dto");
 const change_about_tdo_1 = require("./dto/change-about.tdo");
 const user_id_dto_1 = require("./dto/user-id.dto");
+const forgot_password_dto_1 = require("./dto/forgot-password.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -80,6 +81,9 @@ let UsersController = class UsersController {
     }
     async deleteAbout(userIdDto) {
         return this.usersService.clearAbout(userIdDto);
+    }
+    async forgotPassword(body) {
+        return this.usersService.forgotPassword(body);
     }
 };
 __decorate([
@@ -208,6 +212,13 @@ __decorate([
     __metadata("design:paramtypes", [user_id_dto_1.UserIdDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteAbout", null);
+__decorate([
+    common_1.Post('forgot-password'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [forgot_password_dto_1.ForgotPasswordDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "forgotPassword", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
