@@ -2932,7 +2932,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "a1a9c1a2ff8f026f4ceb58832b2d76e0a90d781ade15c01581959075f22e18c2",
+        "version": "650c020783a40895e54711b120a5f5c4982ff8ca13fb0ff41145b7d9679d4799",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
