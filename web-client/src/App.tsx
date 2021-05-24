@@ -4,8 +4,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Testing from './components/Testing';
 import Home from './components/Home';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/reset-password'>
-          <Testing />
+        <Route path='/reset-password/:userId'>
+          <Form />
         </Route>
       </Switch>
     </Router>
