@@ -8,8 +8,4 @@ export class ResetPasswordDto {
   @IsNotEmpty()
   @IsString()
   newPassword: string;
-
-  @IsNotEmpty()
-  @IsDateString()
-  expirationDate: Date;
 }

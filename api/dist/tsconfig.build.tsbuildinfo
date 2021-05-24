@@ -2622,13 +2622,13 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/reset-password.dto.ts": {
-        "version": "d67f6bbc82447fb9366f398035c477a5c7af41759ca8462986652a7d8b9e3710",
-        "signature": "23515ab72c3e8f883bd52bbef329fad1a92a1d6ee69eada02e480905e584b578",
+        "version": "3dfd3078cf47f9349b59b62f92446e497d27c858836984a7d5444a6ddd4a2f87",
+        "signature": "23bbbb3b6d46c93cf67f298aa22e3d900ee40d28b98b4d9f9c8165e65807f109",
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "af9e68dc48f703bd1183a93230e03ddf1b43d12dac6fdfedd9f045a713a02041",
-        "signature": "34acf8a033ffef0b913b178c1517ec3c56990de186bb3cb8ec0570b0ea2fbd5b",
+        "version": "1cf5b3914f4ffcc30737db0fb059e4e8ceeb3eaec009f6aaf6e893452cb22ace",
+        "signature": "64d5471b95702b5741657a7492c245bdc19366ea8b9556bb46ad100709a640ac",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {

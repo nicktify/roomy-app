@@ -260,7 +260,7 @@ export class UsersService {
     }
   }
 
-  async resetPassword({newPassword, userId, expirationDate}: ResetPasswordDto): Promise<any> {
+  async resetPassword({newPassword, userId}: ResetPasswordDto): Promise<any> {
     try {
       const user = await this.userModel.findById(userId)
       if (!user) return 'Inexistent user.'
@@ -268,9 +268,7 @@ export class UsersService {
         return 'Password should have at least one lowercase, one uppercase, and one number.'
       }
       const today = new Date();
-      const expiration = new Date(expirationDate)
-      console.log('today', today)
-      console.log('expiration', expiration)
+      const expiration = new Date(user.changePasswordRequestDate);
       if (expiration < today) {
         return 'The link you have followed has expired.'
       }
@@ -613,17 +611,18 @@ export class UsersService {
       });
 
       var message = {
-        // from: 'Roomy',
-        // to: process.env.EMAIL_TEST,
-        // subject: "Confirm email - Roomy",
-        // html: `
-        //   <div>
-        //     <h1>Confirm your email by clicking the following link</h1>
-        //     <a
-        //       href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
-        //     >Confirm email</a>
-        //   </div>
-        // `
+        from: 'Roomy',
+        to: process.env.EMAIL_TEST,
+        subject: "Reset password - Roomy",
+        html: `
+          <div>
+            <h1>Hello ${user.name}</h1>
+            <h1>Go to the following link to reset your password</h1>
+            <a
+              href="https://roomy-app.netlify.app/reset-password/${user.id}"
+            >Confirm email</a>
+          </div>
+        `
       };
 
       return new Promise((resolve, reject) => {
