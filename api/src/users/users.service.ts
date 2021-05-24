@@ -20,6 +20,7 @@ import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -237,7 +238,7 @@ export class UsersService {
     }
   }
 
-  async changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user): Promise<{msg: string}> {
+  async changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto): Promise<{msg: string}> {
     try {
       
       const user = await this.userModel.findById( userId );
@@ -254,6 +255,32 @@ export class UsersService {
       
       return { msg: 'Password changed.' };
 
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async resetPassword({newPassword, userId, expirationDate}: ResetPasswordDto): Promise<any> {
+    try {
+      const user = await this.userModel.findById(userId)
+      if (!user) return 'Inexistent user.'
+      if (!/[a-z]/.test(newPassword) || !/[A-Z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
+        return 'Password should have at least one lowercase, one uppercase, and one number.'
+      }
+      const today = new Date();
+      const expiration = new Date(expirationDate)
+      console.log('today', today)
+      console.log('expiration', expiration)
+      if (expiration < today) {
+        return 'The link you have followed has expired.'
+      }
+      
+      const rounds = 10;
+      const hash = await bcrypt.hash(newPassword, rounds);
+      user.password = hash;
+      user.save();
+
+      return 'Password changed successfuly.'
     } catch (error) {
       throw error;
     }

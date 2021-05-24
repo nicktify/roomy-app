@@ -221,7 +221,7 @@ let UsersService = class UsersService {
             throw error;
         }
     }
-    async changePassword({ newPassword, oldPassword, userId }, user) {
+    async changePassword({ newPassword, oldPassword, userId }) {
         try {
             const user = await this.userModel.findById(userId);
             if (!user)
@@ -234,6 +234,31 @@ let UsersService = class UsersService {
             user.password = newHashedPassword;
             user.save();
             return { msg: 'Password changed.' };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async resetPassword({ newPassword, userId, expirationDate }) {
+        try {
+            const user = await this.userModel.findById(userId);
+            if (!user)
+                return 'Inexistent user.';
+            if (!/[a-z]/.test(newPassword) || !/[A-Z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
+                return 'Password should have at least one lowercase, one uppercase, and one number.';
+            }
+            const today = new Date();
+            const expiration = new Date(expirationDate);
+            console.log('today', today);
+            console.log('expiration', expiration);
+            if (expiration < today) {
+                return 'The link you have followed has expired.';
+            }
+            const rounds = 10;
+            const hash = await bcrypt.hash(newPassword, rounds);
+            user.password = hash;
+            user.save();
+            return 'Password changed successfuly.';
         }
         catch (error) {
             throw error;

@@ -29,6 +29,7 @@ const delete_social_media_link_dto_1 = require("./dto/delete-social-media-link.d
 const change_about_tdo_1 = require("./dto/change-about.tdo");
 const user_id_dto_1 = require("./dto/user-id.dto");
 const forgot_password_dto_1 = require("./dto/forgot-password.dto");
+const reset_password_dto_1 = require("./dto/reset-password.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -64,8 +65,11 @@ let UsersController = class UsersController {
     async validateToken(req) {
         return this.authService.validateToken(req.user);
     }
-    async changePassword(changePasswordDto, req) {
-        return this.usersService.changePassword(changePasswordDto, req.user);
+    async changePassword(changePasswordDto) {
+        return this.usersService.changePassword(changePasswordDto);
+    }
+    async resetPassword(resetPasswordDto) {
+        return this.usersService.resetPassword(resetPasswordDto);
     }
     async editProfileBackground(changeBackgroundDto, file) {
         return this.usersService.changeProfileBackground(changeBackgroundDto, file);
@@ -166,11 +170,18 @@ __decorate([
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post('change-password'),
-    __param(0, common_1.Body()), __param(1, common_1.Request()),
+    __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [change_password_dto_1.ChangePasswordDto, Object]),
+    __metadata("design:paramtypes", [change_password_dto_1.ChangePasswordDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "changePassword", null);
+__decorate([
+    common_1.Post('reset-password'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [reset_password_dto_1.ResetPasswordDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "resetPassword", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.UseInterceptors(platform_express_1.FileInterceptor('file')),

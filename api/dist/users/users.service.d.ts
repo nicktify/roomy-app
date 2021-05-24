@@ -12,6 +12,7 @@ import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 export declare class UsersService {
     private userModel;
     private postModel;
@@ -27,9 +28,10 @@ export declare class UsersService {
         userId: any;
         emailConfirmationPassword: any;
     }): Promise<any>;
-    changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto, user: any): Promise<{
+    changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto): Promise<{
         msg: string;
     }>;
+    resetPassword({ newPassword, userId, expirationDate }: ResetPasswordDto): Promise<any>;
     addProfilePicture({ userId }: {
         userId: string;
     }, file: Express.Multer.File, authenticatedUser: any): Promise<ReturnUserDto | {

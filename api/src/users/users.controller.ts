@@ -16,6 +16,7 @@ import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -82,8 +83,13 @@ export class UsersController {
 
   @UseGuards( JwtAuthGuard )
   @Post('change-password')
-  async changePassword( @Body() changePasswordDto: ChangePasswordDto, @Request() req ): Promise<{msg: string}> {
-    return this.usersService.changePassword(changePasswordDto, req.user );
+  async changePassword( @Body() changePasswordDto: ChangePasswordDto ): Promise<{msg: string}> {
+    return this.usersService.changePassword(changePasswordDto);
+  }
+
+  @Post('reset-password')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<any> {
+    return this.usersService.resetPassword(resetPasswordDto);
   }
 
   @UseGuards( JwtAuthGuard )

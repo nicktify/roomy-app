@@ -12,6 +12,7 @@ import { DeleteSocialMediaLinkDto } from './dto/delete-social-media-link.dto';
 import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 export declare class UsersController {
     private usersService;
     private authService;
@@ -60,9 +61,10 @@ export declare class UsersController {
     } | {
         msg: string;
     }>;
-    changePassword(changePasswordDto: ChangePasswordDto, req: any): Promise<{
+    changePassword(changePasswordDto: ChangePasswordDto): Promise<{
         msg: string;
     }>;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     editProfileBackground(changeBackgroundDto: ChangeBackgroundDto, file: Express.Multer.File): Promise<ReturnUserDto | {
         msg: string;
     }>;

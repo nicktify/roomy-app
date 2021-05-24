@@ -2621,14 +2621,19 @@
         "signature": "24a24c0324e53e350a7c0f293ecb8c5d30beffde131e5f8e8de3ce12bb04c194",
         "affectsGlobalScope": false
       },
+      "../src/users/dto/reset-password.dto.ts": {
+        "version": "d67f6bbc82447fb9366f398035c477a5c7af41759ca8462986652a7d8b9e3710",
+        "signature": "23515ab72c3e8f883bd52bbef329fad1a92a1d6ee69eada02e480905e584b578",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "ffe724b58bfed05e2a4e0f7075c77a1bdc525c2144772cb001a2e69649b2a4b9",
-        "signature": "18a2fe15cc59fa11e74344e67b30bc60ff39473c9e54c9ea2336f91d3b778f9d",
+        "version": "af9e68dc48f703bd1183a93230e03ddf1b43d12dac6fdfedd9f045a713a02041",
+        "signature": "34acf8a033ffef0b913b178c1517ec3c56990de186bb3cb8ec0570b0ea2fbd5b",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "e3414d892b0cc73bcdfa53adce8665e17bfb71cc52a314efa673b1d5cc37863a",
-        "signature": "07864e408bab79cc41fa754a27dd95793f7eedbce535c874dab7ee9cb1a570a2",
+        "version": "71ef4b8a8bb9f7b445d257c9c0f14ad4b5a28df242af1e50172e954ce8994260",
+        "signature": "c7dae44a96d92ba83cbd523149560d5323200382682060866e2eae3458bafbb5",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -5659,6 +5664,9 @@
       "../src/users/dto/login-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/users/dto/reset-password.dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/users/dto/return-user.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5684,6 +5692,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/forgot-password.dto.ts",
+        "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
@@ -5713,6 +5722,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/forgot-password.dto.ts",
+        "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
@@ -7970,6 +7980,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/forgot-password.dto.ts",
+        "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/users.service.ts"
@@ -7985,6 +7996,7 @@
         "../src/users/dto/edit-user.dto.ts",
         "../src/users/dto/find-by-email-dto.ts",
         "../src/users/dto/forgot-password.dto.ts",
+        "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
@@ -8626,6 +8638,7 @@
       "../src/users/dto/find-by-email-dto.ts",
       "../src/users/dto/forgot-password.dto.ts",
       "../src/users/dto/login-dto.ts",
+      "../src/users/dto/reset-password.dto.ts",
       "../src/users/dto/return-user.dto.ts",
       "../src/users/dto/user-id.dto.ts",
       "../src/users/schemas/user.schema.ts",
