@@ -113,8 +113,15 @@ const RegisterScreen = ({ navigation }: any) => {
                 style={style.loginTextContainer}
               >
                 <Text
-                  style={style.loginText}
-                >Register</Text>
+                  style={{
+                    color: '#69C1AC',
+                    fontSize: 35,
+                    fontWeight: 'bold',
+                    marginBottom: 15,
+                  }}
+                >
+                  Create an account
+                </Text>
               </View>
               <View>
                 <Text style={style.textLabel}>Enter your name:</Text>
@@ -175,19 +182,26 @@ const RegisterScreen = ({ navigation }: any) => {
                 {
                   !registerDisabled ?
                     <View
-                      style={style.registerContainer}
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                      }}
                     >
-                      <Text
-                        style={style.dontHaveAnAccountText}
-                      >
-                        Arleady have an account?
-                    </Text>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('Login')}
                       >
                         <Text
-                          style={style.registerLink}
-                        >LOGIN</Text>
+                          style={{
+                            color: '#69C1AC',
+                            fontWeight: 'bold',
+                            fontSize: 20,
+                            marginLeft: 10,
+                            marginTop: 5,
+                            opacity: 0.6,
+                          }}
+                        >
+                          Arleady have an account?
+                        </Text>
                       </TouchableOpacity>
                     </View>
                     :
@@ -209,7 +223,7 @@ const RegisterScreen = ({ navigation }: any) => {
                   <Text
                     style={style.textButton}
                   >
-                    Register
+                    Continue
                 </Text>
                 </Pressable>
               </View>

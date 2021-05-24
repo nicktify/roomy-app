@@ -135,6 +135,20 @@ const LoginScreen = ({ navigation }: any) => {
                   badPasswordMessage.length > 1 &&
                   <Text style={{ color: 'red', fontStyle: 'italic' }}>{badPasswordMessage}</Text>
                 }
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ForgotPassword')}
+                >
+                  <Text
+                    style={{
+                      color: principalColor,
+                      fontWeight: 'bold',
+                      fontSize: 16,
+                      alignSelf: 'flex-end',
+                    }}
+                  >
+                    Forgot your password?
+                  </Text>
+                </TouchableOpacity>
                 {
                   !loginDisabled ?
                     <View
@@ -142,8 +156,8 @@ const LoginScreen = ({ navigation }: any) => {
                         flexDirection: 'row',
                         justifyContent: 'center',
                         marginTop: 20,
-                        height: 30,
-                        minWidth: 10,
+                        alignItems: 'center',
+                        marginBottom: 20,
                       }}
                     >
                       <Text
@@ -159,12 +173,12 @@ const LoginScreen = ({ navigation }: any) => {
                         <Text
                           style={{
                             color: '#69C1AC',
+                            fontSize: 20,
                             fontWeight: 'bold',
                             marginLeft: 10,
-                            opacity: 0.6,
                           }}
                         >
-                          REGISTER
+                          Register
                         </Text>
                       </TouchableOpacity>
                     </View>
