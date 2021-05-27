@@ -1,8 +1,10 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   navigationBottom: {
-    height: 60,
+    height: 50,
     width: '100%',
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -16,6 +18,7 @@ const style = StyleSheet.create({
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
     elevation: 11,
+    maxWidth: windowWidth
   },
   navigationBottomIcon: {
     opacity: 0.5,

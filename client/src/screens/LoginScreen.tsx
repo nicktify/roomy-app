@@ -92,6 +92,7 @@ const LoginScreen = ({ navigation }: any) => {
                     fontSize: 50,
                     fontWeight: 'bold',
                     marginBottom: 15,
+                    opacity: 0.8,
                   }}
                 >
                   Login
@@ -144,6 +145,7 @@ const LoginScreen = ({ navigation }: any) => {
                       fontWeight: 'bold',
                       fontSize: 16,
                       alignSelf: 'flex-end',
+                      opacity: 0.8,
                     }}
                   >
                     Forgot your password?
@@ -158,6 +160,7 @@ const LoginScreen = ({ navigation }: any) => {
                         marginTop: 20,
                         alignItems: 'center',
                         marginBottom: 20,
+                        opacity: 0.8,
                       }}
                     >
                       <Text

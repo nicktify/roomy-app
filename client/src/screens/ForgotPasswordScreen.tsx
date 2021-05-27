@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Modal, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import TransparentBackground from '../components/TransparentBackground';
 import { principalColor } from '../config/colors';
 import forgotPassword from '../controllers/forgotPassword';
 import { isEmailValidation } from '../validations/isEmailValidation';
+
+const windowWidth = Dimensions.get('window').width;
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(isEmailValidation(email));
   const [showError, setShowError] = useState(false);
+  const [showEmailSentModal, setShowEmailSentModal] = useState(false);
 
   const onChange = (email: string) => {
     setShowError(false)
@@ -22,9 +26,12 @@ const ForgotPasswordScreen = () => {
       return
     }
     setShowError(false)
-    forgotPassword(email)
+    forgotPassword(email.toLowerCase())
     .then(result => {
       console.log(result)
+      if (result === 'Email sent.') {
+        setShowEmailSentModal(true);
+      }
       setShowError(false);
     })
     .catch(error => {
@@ -76,6 +83,7 @@ const ForgotPasswordScreen = () => {
           onChangeText={email => onChange(email)}
           defaultValue={email}
           value={email}
+          keyboardType='email-address'
         />
         {
           showError && 
@@ -111,6 +119,56 @@ const ForgotPasswordScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        visible={showEmailSentModal}
+        transparent
+        onRequestClose={() => setShowEmailSentModal(false)}
+      >
+        <TransparentBackground />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center'
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: 'white',
+              width: windowWidth * 0.8,
+              alignSelf: 'center',
+              borderRadius: 20,
+              padding: 20,
+            }}
+          >
+            <Text
+              style={{
+                opacity: 0.9,
+              }}
+            >
+              Email sent. Please check your inbox.
+            </Text>
+            <Pressable
+              style={{
+                backgroundColor: principalColor,
+                alignSelf: 'center',
+                paddingVertical: 5,
+                paddingHorizontal: 20,
+                borderRadius: 20,
+                marginTop: 10,
+              }}
+              onPress={() => setShowEmailSentModal(!showEmailSentModal)}
+            >
+              <Text
+                style={{
+                  color: 'white',
+                }}
+              >
+                OK
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
