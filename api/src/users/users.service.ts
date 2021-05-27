@@ -106,7 +106,9 @@ export class UsersService {
             <h1>Confirm your email by clicking the following link</h1>
             <a
               href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
-            >Confirm email</a>
+            >
+              Reset password
+            </a>
           </div>
         `
       };
