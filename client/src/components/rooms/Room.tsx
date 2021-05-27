@@ -6,7 +6,7 @@ import { Context } from '../../context/MainContext';
 
 const windowWidth = Dimensions.get('window').width;
 
-const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: { name: string, id: string, navigation: any, setModalRoomOptions: any, setSelectedRoomId: any; }) => {
+const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
 
   const { setSelectedRoom, getAllRoomInformation } = useContext(Context);
 
@@ -49,20 +49,25 @@ const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: 
           width: windowWidth * 0.75,
         }}
       >
-        <View style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Text style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            opacity: 0.7,
-            color: 'black',
-            maxWidth: '90%',
+        <View 
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
-          >{shortedName.length > 50 ? shortedName + '...' : shortedName}</Text>
+        >
+          <Text 
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              opacity: 0.7,
+              color: 'black',
+              maxWidth: '90%',
+            }}
+          >
+            {shortedName.length > 50 ? shortedName + '...' : shortedName}
+          </Text>
         </View>
       </TouchableOpacity>
       <Pressable

@@ -4,6 +4,7 @@ import { principalColor } from "../config/colors";
 import { submitResetPassword } from "../controllers/submitResetPassword";
 import { passwordValidation } from "../validations/passwordValidation";
 import PasswordChangedSuccess from "./PasswordChangedSuccess";
+import { Button } from './styledComponents';
 
 interface Params {
   userId: string;
@@ -183,19 +184,11 @@ const Form  = () => {
             }
           </div>
         </div>
-        <div
-          style={{
-            backgroundColor: 'black',
-            color: 'white',
-            borderRadius: 40,
-            padding: 20,
-            fontSize: 22,
-            cursor: 'pointer',
-          }}
+        <Button
           onClick={handleSubmit}
         >
           Reset password
-        </div>
+        </Button>
       </div>
     </div>
   );

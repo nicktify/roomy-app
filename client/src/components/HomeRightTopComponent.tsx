@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Modal, Pressable, Text, TouchableWithoutFeedback, View, Dimensions } from 'react-native';
+import { Image, Modal, Pressable, Text, View, Dimensions } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../config/colors';

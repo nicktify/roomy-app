@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import { readFile } from 'fs';
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 let nodemailer = require('nodemailer');
