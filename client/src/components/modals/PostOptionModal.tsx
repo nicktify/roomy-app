@@ -1,6 +1,9 @@
 import React from 'react';
 import { Dimensions, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { principalColor } from '../../config/colors';
 import { style as modalStyles } from '../../styles/components/modal';
+import styles from '../../styles/screens/roomPostScreen'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -52,18 +55,22 @@ const PostOptionModal = ({modalPostOptionVisible, setModalPostOptionVisible, act
                 alignItems: 'center',
               }}
             >
-              <Image
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 50,
-                }}
-                source={{
-                  uri: activeSelectedPostOptions.authorProfilePicture
-                }}
-                width={40}
-                height={40}
-              />
+            {
+              activeSelectedPostOptions.authorProfilePicture ?
+                <Image
+                  source={{
+                    uri: activeSelectedPostOptions.authorProfilePicture
+                  }}
+                  style={styles.authorProfileImage}
+                />
+                :
+                <Icon
+                  style={styles.authorProfileImage}
+                  name="account-circle"
+                  size={38}
+                  color={principalColor}
+                />
+            }
               <Text style={{ fontSize: 15, fontWeight: 'bold', opacity: 0.7, marginLeft: 10, }}>{activeSelectedPostOptions.authorName}</Text>
             </View>
             <Text style={{ fontSize: 15, color: 'black', margin: 10, opacity: 0.8 }}>

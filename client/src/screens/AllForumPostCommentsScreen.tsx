@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { Context } from '../context/MainContext';
 import { ForumPostComment } from '../types/ForumPostComment';
-
 import style from '../styles/screens/roomPostScreen';
 import { principalColor } from '../config/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import PostOptionModal from '../components/modals/PostOptionModal';
 
 const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
@@ -62,17 +62,29 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
             width: '90%',
           }}
         >
-          <Image 
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 50,
-              marginRight: 10,
-            }}
-            source={{
-              uri: item.authorProfilePicture
-            }}
-          />
+          {
+            item.authorProfilePicture ?
+              <Image 
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 50,
+                  marginRight: 10,
+                }}
+                source={{
+                  uri: item.authorProfilePicture
+                }}
+              />
+              :
+              <Icon
+                style={{
+                  marginRight: 5,
+                }}
+                name="account-circle"
+                size={28}
+                color={principalColor}
+              />
+          }
           <Text
             style={{
               fontWeight: 'bold',
@@ -133,7 +145,7 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
                 <Icon
                   style={style.authorProfileImage}
                   name="account-circle"
-                  size={80}
+                  size={38}
                   color={principalColor}
                 />
             }

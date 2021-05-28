@@ -52,7 +52,7 @@ const ForumScreen = ({ navigation }: any) => {
                 <Icon
                   style={style.authorProfileImage}
                   name="account-circle"
-                  size={80}
+                  size={38}
                   color={principalColor}
                 />
             }

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Pressable, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+import { Pressable, Text, View, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Context } from '../../context/MainContext';
 import UserOnRoomOptionModal from '../../components/modals/UserOnRoomOptionModal';
 import DeleteUserFromRoomConfirmationModal from '../../components/modals/DeleteUserFromRoomConfirmationModal';
 import { principalColor } from '../../config/colors';
 import { User } from '../../types/user';
+
+const windowWidth = Dimensions.get('window').width;
 
 const PeopleScreen = ({ navigation }: any) => {
 
@@ -33,13 +35,22 @@ const PeopleScreen = ({ navigation }: any) => {
     <Pressable
       style={{
         backgroundColor: 'white',
-        width: '100%',
-        height: 68,
-        borderRadius: 20,
+        width: windowWidth * 0.95,
+        height: 60,
+        borderRadius: 10,
         marginVertical: 5,
+        marginHorizontal: 5,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
       }}
     >
       <View
@@ -112,7 +123,7 @@ const PeopleScreen = ({ navigation }: any) => {
           marginBottom: 10,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          width: '80%',
+          width: windowWidth * 0.8,
           alignSelf: 'center',
           marginTop: 10,
         }}
@@ -145,7 +156,10 @@ const PeopleScreen = ({ navigation }: any) => {
         </TouchableOpacity>
       </View>
       <View
-        style={{ width: '100%', paddingHorizontal: 10, height: '100%' }}
+        style={{
+          flex: 1,
+          alignItems: 'center',
+        }}
       >
         <FlatList
           data={selectedRoomUsers}
