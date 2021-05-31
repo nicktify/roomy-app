@@ -23,5 +23,10 @@ __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
 ], ResetPasswordDto.prototype, "newPassword", void 0);
+__decorate([
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], ResetPasswordDto.prototype, "token", void 0);
 exports.ResetPasswordDto = ResetPasswordDto;
 //# sourceMappingURL=reset-password.dto.js.map

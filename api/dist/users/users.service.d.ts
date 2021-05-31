@@ -31,7 +31,7 @@ export declare class UsersService {
     changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto): Promise<{
         msg: string;
     }>;
-    resetPassword({ newPassword, userId }: ResetPasswordDto): Promise<any>;
+    resetPassword({ newPassword, userId, token }: ResetPasswordDto): Promise<any>;
     addProfilePicture({ userId }: {
         userId: string;
     }, file: Express.Multer.File, authenticatedUser: any): Promise<ReturnUserDto | {

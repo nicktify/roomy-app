@@ -18,7 +18,8 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
-let cloudinary = require("cloudinary").v2;
+const uuid_1 = require("uuid");
+const cloudinary_1 = require("cloudinary");
 let streamifier = require('streamifier');
 let nodemailer = require('nodemailer');
 const post_schema_1 = require("../posts/schemas/post.schema");
@@ -97,7 +98,9 @@ let UsersService = class UsersService {
             <h1>Confirm your email by clicking the following link</h1>
             <a
               href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
-            >Confirm email</a>
+            >
+              Reset password
+            </a>
           </div>
         `
             };
@@ -115,7 +118,7 @@ let UsersService = class UsersService {
             }
             ;
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject(error);
                     createdUser.profilePicture = result.secure_url;
@@ -239,7 +242,7 @@ let UsersService = class UsersService {
             throw error;
         }
     }
-    async resetPassword({ newPassword, userId }) {
+    async resetPassword({ newPassword, userId, token }) {
         try {
             const user = await this.userModel.findById(userId);
             if (!user)
@@ -247,14 +250,18 @@ let UsersService = class UsersService {
             if (!/[a-z]/.test(newPassword) || !/[A-Z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
                 return 'Password should have at least one lowercase, one uppercase, and one number.';
             }
+            if (user.changePasswordInfo.token !== token) {
+                return 'Invalid authentication.';
+            }
             const today = new Date();
-            const expiration = new Date(user.changePasswordRequestDate);
+            const expiration = new Date(user.changePasswordInfo.date);
             if (expiration < today) {
                 return 'The link you have followed has expired.';
             }
             const rounds = 10;
             const hash = await bcrypt.hash(newPassword, rounds);
             user.password = hash;
+            user.changePasswordInfo.token = uuid_1.v4();
             user.save();
             return 'Password changed successfuly.';
         }
@@ -273,7 +280,7 @@ let UsersService = class UsersService {
                 return { msg: 'Image is required.' };
             const userPosts = await this.postModel.find({ authorId: userId });
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject({ msg: 'Error uploading image.' });
                     user.profilePicture = result.secure_url;
@@ -380,7 +387,7 @@ let UsersService = class UsersService {
             if (!user)
                 return { msg: 'User not exist' };
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject({ msg: 'Error uploading image.' });
                     user.profileBackground = result.secure_url;
@@ -512,7 +519,10 @@ let UsersService = class UsersService {
                 return 'Inexistent email.';
             let date = new Date();
             date.setDate(date.getDate() + 1);
-            user.changePasswordRequestDate = date;
+            user.changePasswordInfo = {
+                token: uuid_1.v4(),
+                date,
+            };
             user.save();
             const transporter = nodemailer.createTransport({
                 service: "gmail.com",
@@ -532,8 +542,8 @@ let UsersService = class UsersService {
             <h1>Hello ${user.name}</h1>
             <h1>Go to the following link to reset your password</h1>
             <a
-              href="https://roomy-app.netlify.app/reset-password/${user.id}"
-            >Confirm email</a>
+              href="https://roomy-app.netlify.app/reset-password/${user.id}/validation/${user.changePasswordInfo.token}"
+            >Reset password</a>
           </div>
         `
             };

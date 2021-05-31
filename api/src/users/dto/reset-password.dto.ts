@@ -8,4 +8,8 @@ export class ResetPasswordDto {
   @IsNotEmpty()
   @IsString()
   newPassword: string;
+
+  @IsNotEmpty()
+  @IsString()
+  token: string;
 }

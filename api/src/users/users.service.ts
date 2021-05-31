@@ -3,7 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-let cloudinary = require("cloudinary").v2;
+import { v4 as uuidv4 } from 'uuid';
+import { v2 as cloudinary } from 'cloudinary';
+// let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 let nodemailer = require('nodemailer');
 
@@ -261,22 +263,29 @@ export class UsersService {
     }
   }
 
-  async resetPassword({newPassword, userId}: ResetPasswordDto): Promise<any> {
+  async resetPassword({newPassword, userId, token}: ResetPasswordDto): Promise<any> {
     try {
       const user = await this.userModel.findById(userId)
       if (!user) return 'Inexistent user.'
+
       if (!/[a-z]/.test(newPassword) || !/[A-Z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
         return 'Password should have at least one lowercase, one uppercase, and one number.'
       }
+
+      if (user.changePasswordInfo.token !== token) {
+        return 'Invalid authentication.'
+      }
+
       const today = new Date();
-      const expiration = new Date(user.changePasswordRequestDate);
+      const expiration = new Date(user.changePasswordInfo.date);
       if (expiration < today) {
         return 'The link you have followed has expired.'
       }
-      
+
       const rounds = 10;
       const hash = await bcrypt.hash(newPassword, rounds);
       user.password = hash;
+      user.changePasswordInfo.token = uuidv4();
       user.save();
 
       return 'Password changed successfuly.'
@@ -598,7 +607,10 @@ export class UsersService {
       let date = new Date();
       date.setDate(date.getDate() + 1);
 
-      user.changePasswordRequestDate = date;
+      user.changePasswordInfo = {
+        token: uuidv4(),
+        date,
+      };
       user.save()
 
       const transporter = nodemailer.createTransport({
@@ -620,8 +632,8 @@ export class UsersService {
             <h1>Hello ${user.name}</h1>
             <h1>Go to the following link to reset your password</h1>
             <a
-              href="https://roomy-app.netlify.app/reset-password/${user.id}"
-            >Confirm email</a>
+              href="https://roomy-app.netlify.app/reset-password/${user.id}/validation/${user.changePasswordInfo.token}"
+            >Reset password</a>
           </div>
         `
       };

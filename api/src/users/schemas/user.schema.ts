@@ -43,8 +43,11 @@ export class User {
     twitter: string,
   }
 
-  @Prop()
-  changePasswordRequestDate: Date;
+  @Prop({type: Object})
+  changePasswordInfo: {
+    token: string,
+    date: Date,
+  };
 
 }
 

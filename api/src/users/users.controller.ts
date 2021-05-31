@@ -1,7 +1,6 @@
 import { Controller, Delete, Get, Post, Put, Body, UseGuards, Request, UseInterceptors, UploadedFile, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
-
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChangePasswordDto } from './dto/change-password.dto';

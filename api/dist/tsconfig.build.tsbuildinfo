@@ -1607,8 +1607,8 @@
         "affectsGlobalScope": false
       },
       "../src/users/schemas/user.schema.ts": {
-        "version": "bd8d7bf34016f607b16ab9ff2798eef0e998b8160a44354fca1b739ee78b02f1",
-        "signature": "bc4091f9c4311e78c3429351b2020144bdf4bc1ff78bd00da83a981ffa67c604",
+        "version": "85410435e1d6be2101a58bf9d85230e168c9e3c0d3df111d1e024fbb96156728",
+        "signature": "541af98f76250537c5238b33049ebe6491eba3faeeea1307f54c82d5a21e0cc8",
         "affectsGlobalScope": false
       },
       "../node_modules/class-validator/types/validation/ValidationError.d.ts": {
@@ -2596,6 +2596,11 @@
         "signature": "50e1873a2aa0c05c66dbe5218dcf90f0e9394f15bb139c234db64ceec480973b",
         "affectsGlobalScope": false
       },
+      "../node_modules/cloudinary/types/index.d.ts": {
+        "version": "d31113596887e63fd51cd5ba6cf331538ea95da3662161584e27fd0b190ee58d",
+        "signature": "d31113596887e63fd51cd5ba6cf331538ea95da3662161584e27fd0b190ee58d",
+        "affectsGlobalScope": false
+      },
       "../src/users/dto/change-social-media-link.dto.ts": {
         "version": "ddc27af903968529fc48e7d4e18e43a09e22e3eaf4b9eda70b589ee261f66f8d",
         "signature": "3f5ac13d5915eb37b7ad8ce4dc17e5d13de81f1173da2c920f7a8e55a69e2a39",
@@ -2622,17 +2627,17 @@
         "affectsGlobalScope": false
       },
       "../src/users/dto/reset-password.dto.ts": {
-        "version": "3dfd3078cf47f9349b59b62f92446e497d27c858836984a7d5444a6ddd4a2f87",
-        "signature": "23bbbb3b6d46c93cf67f298aa22e3d900ee40d28b98b4d9f9c8165e65807f109",
+        "version": "49194210c79394a5c9c9ab1ef026c92901ee87a2123d3c1ddcfa5177c4831be4",
+        "signature": "3a048024594d1695ad028a4d7e93a1fe0c7cf1b3c7fc1a543ea954dd6f3f7012",
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "1cf5b3914f4ffcc30737db0fb059e4e8ceeb3eaec009f6aaf6e893452cb22ace",
-        "signature": "64d5471b95702b5741657a7492c245bdc19366ea8b9556bb46ad100709a640ac",
+        "version": "ec9cb35c3cf842a157b9e111bc881048226bfb20370d0e73afcf3a5e5b808356",
+        "signature": "048b561525fa649580549ea7ff7e33fa7ff79357e32207f4f49e86316f46957c",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
-        "version": "71ef4b8a8bb9f7b445d257c9c0f14ad4b5a28df242af1e50172e954ce8994260",
+        "version": "24b1495f25b26020f0f73208fb07299abb4a699ee2a8bd5ecbaa1d5abdd10810",
         "signature": "c7dae44a96d92ba83cbd523149560d5323200382682060866e2eae3458bafbb5",
         "affectsGlobalScope": false
       },
@@ -5034,6 +5039,9 @@
       "../node_modules/class-validator/types/validation/ValidatorConstraintInterface.d.ts": [
         "../node_modules/class-validator/types/validation/ValidationArguments.d.ts"
       ],
+      "../node_modules/cloudinary/types/index.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
+      ],
       "../node_modules/jest-diff/build/diffLines.d.ts": [
         "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
@@ -5711,7 +5719,7 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/cloudinary/types/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-about.tdo.ts",
@@ -7531,6 +7539,9 @@
       "../node_modules/class-validator/types/validation/ValidatorConstraintInterface.d.ts": [
         "../node_modules/class-validator/types/validation/ValidationArguments.d.ts"
       ],
+      "../node_modules/cloudinary/types/index.d.ts": [
+        "../node_modules/@types/node/stream.d.ts"
+      ],
       "../node_modules/jest-diff/build/diffLines.d.ts": [
         "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
         "../node_modules/jest-diff/build/types.d.ts"
@@ -8469,6 +8480,7 @@
       "../node_modules/class-validator/types/validation/Validator.d.ts",
       "../node_modules/class-validator/types/validation/ValidatorConstraintInterface.d.ts",
       "../node_modules/class-validator/types/validation/ValidatorOptions.d.ts",
+      "../node_modules/cloudinary/types/index.d.ts",
       "../node_modules/jest-diff/build/cleanupSemantic.d.ts",
       "../node_modules/jest-diff/build/diffLines.d.ts",
       "../node_modules/jest-diff/build/index.d.ts",
