@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API } from "../config/environment/api";
+import { API } from "../config/api";
 
 export const submitResetPassword = (userId: string, password: string, token: string) => {
   return new Promise((resolve, reject) => {

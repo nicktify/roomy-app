@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { principalColor } from "../config/colors";
 import { submitResetPassword } from "../controllers/submitResetPassword";
 import { passwordValidation } from "../validations/passwordValidation";
 import PasswordChangedSuccess from "./PasswordChangedSuccess";
-import { Button } from './styledComponents';
+import styles from '../styles/Form.module.css';
 
 interface Params {
   userId: string;
@@ -41,7 +40,6 @@ const Form  = () => {
   }
 
   const handleSubmit = () => {
-    console.log(errors)
     if (errors.password.length > 0 || errors.passwordMatch.length > 0) {
       setShowError(true);
       return;
@@ -62,136 +60,40 @@ const Form  = () => {
   )
 
   return (
-    <div
-      style={{
-        backgroundColor: principalColor,
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <div
-        style={{
-          width: '600px',
-          boxShadow: '10px 5px 5px black',
-          borderWidth: '5px',
-          borderColor: 'black',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: 40,
-        }}
-      >
-        <p
-          style={{
-            fontSize: '40px',
-            fontWeight: 'bold',
-          }}
-        >
-          Reset password
-        </p>
-        <div
-          style={{
-            marginTop: 40,
-            marginBottom: 40,
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <label 
-              htmlFor="password"
-              style={{
-                fontSize: 19,
-                marginBottom: 5,
-              }}
-            >
-              Password
-            </label>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <p className={styles.title}>Reset password</p>
+        <div className={styles.inputContainer}>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="password" className={styles.label}>Password</label>
             <input 
               name='password'
               type="password"
               onChange={handlePasswordChange}
               value={input.password}
-              style={{
-                padding: 10,
-                borderRadius: 30,
-                borderStyle: 'none',
-                fontSize: 20,
-                width: 300,
-                color: 'black'
-              }}
+              className={styles.input}
             />
             {
-              showError && 
-                <strong
-                  style={{
-                    color: 'white',
-                    fontStyle: 'italic',
-                    maxWidth: 300,
-                  }}
-                >
-                  {errors.password}
-                </strong>
+              showError &&
+              <i className={styles.errorMessage}>{errors.password}</i>
             }
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              marginTop: 20,
-            }}
-          >
-            <label 
-              htmlFor="repeat-password"
-              style={{
-                fontSize: 19,
-                marginBottom:5,
-              }}
-            >
-              Repeat password
-            </label>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="repeat-password" className={styles.label}>Repeat password</label>
             <input 
               name='repeatedPassword'
               type="password"
               onChange={handleRepeatedPasswordChange}
               value={input.repeatedPassword}
-              style={{
-                padding: 10,
-                borderRadius: 30,
-                borderStyle: 'none',
-                fontSize: 20,
-                width: 300,
-                color: 'black',
-              }}
+              className={styles.input}
             />
             {
               showError && 
-                <div
-                  style={{
-                    color: 'white',
-                    fontStyle: 'italic',
-                    maxWidth: 300
-                  }}
-                >
-                  {errors.passwordMatch}
-                </div>
+                <i className={styles.errorMessage}>{errors.passwordMatch}</i>
             }
           </div>
         </div>
-        <Button
-          onClick={handleSubmit}
-          style={{
-            cursor: 'pointer',
-          }}
-        >
-          Reset password
-        </Button>
+        <button onClick={handleSubmit} className={styles.button}>Reset password</button>
       </div>
     </div>
   );

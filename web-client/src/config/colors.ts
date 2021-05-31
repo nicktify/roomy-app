@@ -1,1 +1,0 @@
-export const principalColor = '#69C1AC';
