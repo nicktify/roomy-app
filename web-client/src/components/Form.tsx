@@ -8,11 +8,12 @@ import { Button } from './styledComponents';
 
 interface Params {
   userId: string;
+  token: string;
 }
 
 const Form  = () => {
 
-  const {userId} = useParams<Params>()
+  const {userId, token} = useParams<Params>()
   const [input, setInput] = useState({
     password: '',
     repeatedPassword: '',
@@ -21,14 +22,13 @@ const Form  = () => {
   const [showError, setShowError] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
 
-  useEffect(() => {}, [input, errors])
+  useEffect(() => {setErrors(passwordValidation(input.password, input.repeatedPassword))}, [input])
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({
       ...input,
       password: e.target.value
     })
-    setErrors(passwordValidation(input.password, input.repeatedPassword));
     setShowError(false)
   }
 
@@ -37,23 +37,23 @@ const Form  = () => {
       ...input,
       repeatedPassword: e.target.value
     })
-    setErrors(passwordValidation(input.password, input.repeatedPassword));
     setShowError(false)
   }
 
   const handleSubmit = () => {
-    if (errors.password.length > 0 || errors.password.length > 0) {
+    console.log(errors)
+    if (errors.password.length > 0 || errors.passwordMatch.length > 0) {
       setShowError(true);
       return;
     }
-    submitResetPassword(userId, input.password)
+    submitResetPassword(userId, input.password, token)
     .then(result => {
       if (result === 'Password changed successfuly.') {
         setPasswordChanged(true);
       }
     })
     .catch(error => {
-      console.log(error)
+      alert(error);
     })
   }
 
@@ -129,7 +129,7 @@ const Form  = () => {
             />
             {
               showError && 
-                <div
+                <strong
                   style={{
                     color: 'white',
                     fontStyle: 'italic',
@@ -137,7 +137,7 @@ const Form  = () => {
                   }}
                 >
                   {errors.password}
-                </div>
+                </strong>
             }
           </div>
           <div
@@ -186,6 +186,9 @@ const Form  = () => {
         </div>
         <Button
           onClick={handleSubmit}
+          style={{
+            cursor: 'pointer',
+          }}
         >
           Reset password
         </Button>

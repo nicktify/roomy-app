@@ -13,7 +13,7 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/reset-password/:userId'>
+        <Route path='/reset-password/:userId/validation/:token'>
           <Form />
         </Route>
       </Switch>
