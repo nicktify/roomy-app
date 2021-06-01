@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { ForumModule } from './forum/forum.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ForumModule } from './forum/forum.module';
     AuthModule,
     PostsModule,
     ForumModule,
+    NotificationsModule,
   ],
   controllers: [ AppController ],
   providers: [ AppService ],

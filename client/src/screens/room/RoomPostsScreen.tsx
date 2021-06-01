@@ -56,7 +56,7 @@ const RoomPostsScreen = ({navigation}: any) => {
                 <Icon
                   style={style.authorProfileImage}
                   name="account-circle"
-                  size={80}
+                  size={50}
                   color={principalColor}
                 />
             }

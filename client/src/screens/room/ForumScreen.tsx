@@ -52,7 +52,7 @@ const ForumScreen = ({ navigation }: any) => {
                 <Icon
                   style={style.authorProfileImage}
                   name="account-circle"
-                  size={38}
+                  size={50}
                   color={principalColor}
                 />
             }
@@ -134,17 +134,29 @@ const ForumScreen = ({ navigation }: any) => {
                   alignItems: 'center',
                 }}
               >
-                <Image 
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 50,
-                    marginRight: 10,
-                  }}
-                  source={{
-                    uri: item.latestComment.authorProfilePicture
-                  }}
-                />
+                {
+                  item.latestComment.authorProfilePicture ?
+                  <Image 
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 50,
+                      marginRight: 10,
+                    }}
+                    source={{
+                      uri: item.latestComment.authorProfilePicture
+                    }}
+                  />
+                  :
+                  <Icon
+                    name="account-circle"
+                    size={35}
+                    color={principalColor}
+                    style={{
+                      marginRight: 10,
+                    }}
+                  />
+                }
                 <Text
                   style={{
                     fontWeight: 'bold',

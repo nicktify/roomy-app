@@ -1,6 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-// import { FileInterceptor } from '@nestjs/platform-express';
-
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room-dto';
 import { RoomsService } from './rooms.service';
 import { ReturnRoomDto } from './dto/return-room-dto';
@@ -21,7 +19,6 @@ import { GetAllRoomInformation } from './dto/get-all-room-information';
 
 @Controller('rooms')
 export class RoomsController {
-
   constructor( private readonly roomService: RoomsService ) {}
 
   @Get()

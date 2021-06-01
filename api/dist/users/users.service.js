@@ -17,12 +17,12 @@ require('dotenv').config();
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
+const post_schema_1 = require("../posts/schemas/post.schema");
 const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
-const cloudinary_1 = require("cloudinary");
+let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 let nodemailer = require('nodemailer');
-const post_schema_1 = require("../posts/schemas/post.schema");
 let UsersService = class UsersService {
     constructor(userModel, postModel) {
         this.userModel = userModel;
@@ -118,7 +118,7 @@ let UsersService = class UsersService {
             }
             ;
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject(error);
                     createdUser.profilePicture = result.secure_url;
@@ -280,7 +280,7 @@ let UsersService = class UsersService {
                 return { msg: 'Image is required.' };
             const userPosts = await this.postModel.find({ authorId: userId });
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject({ msg: 'Error uploading image.' });
                     user.profilePicture = result.secure_url;
@@ -387,7 +387,7 @@ let UsersService = class UsersService {
             if (!user)
                 return { msg: 'User not exist' };
             return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary_1.v2.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
                     if (error)
                         reject({ msg: 'Error uploading image.' });
                     user.profileBackground = result.secure_url;

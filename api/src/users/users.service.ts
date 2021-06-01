@@ -2,13 +2,6 @@ require('dotenv').config()
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import * as bcrypt from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
-import { v2 as cloudinary } from 'cloudinary';
-// let cloudinary = require("cloudinary").v2;
-let streamifier = require('streamifier');
-let nodemailer = require('nodemailer');
-
 import { ReturnUserDto } from './dto/return-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
@@ -22,6 +15,11 @@ import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import * as bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
+let cloudinary = require("cloudinary").v2;
+let streamifier = require('streamifier');
+let nodemailer = require('nodemailer');
 
 @Injectable()
 export class UsersService {

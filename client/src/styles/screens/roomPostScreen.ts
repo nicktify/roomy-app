@@ -124,8 +124,8 @@ const style = StyleSheet.create({
     opacity: 0.8,
   },
   authorProfileImage: {
-    width: 36,
-    height: 36,
+    width: 50,
+    height: 50,
     borderRadius: 50,
     marginRight: 10,
   },
