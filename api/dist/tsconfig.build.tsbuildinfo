@@ -2437,7 +2437,7 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {
-        "version": "1cdcb80476947132b235306db7a10d7988fb4caf5efbf72b016e0c947d2cba76",
+        "version": "4435e0237f1ced4da68631cf39ba87b3e006886df3ea5bb9e7059960ee55ddb1",
         "signature": "ad06c69a4aed6b1a166f149de17d10e55a81948cc9977b4f1960c224922668d9",
         "affectsGlobalScope": false
       },
@@ -2627,7 +2627,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "0b319dadf1e34dae045e0e8414d35f61febd4504da06c0565c5ea30f3d56ab6b",
+        "version": "341cde5a1f98317606dc4b651230953448adba6a5fdc0d7523dd50d06b01b1d3",
         "signature": "048b561525fa649580549ea7ff7e33fa7ff79357e32207f4f49e86316f46957c",
         "affectsGlobalScope": false
       },
@@ -2751,18 +2751,18 @@
         "signature": "7541019ae0ea75dbb1b7f29b04e2fbe5813c0cef6f0da605b1b3bf57c480a061",
         "affectsGlobalScope": false
       },
-      "../src/notifications/notifications.controller.ts": {
-        "version": "675a537159cea7d6558fe6a1f0cb166c8c4f304c8d48185b9111c640b5aec785",
-        "signature": "dab78ba3082fd6bd14e377b777f7084ba94c73c65c9f79a6eb8c51da8c12aaa8",
+      "../src/notifications/notifications.service.ts": {
+        "version": "f1163e6bd794057055300c05cbd9eea862ad996d1535f99b901d0489178b8135",
+        "signature": "484f8ad2e7fc3d0f0169fd425de69e29f0a2e106241ce574df4e1c03e55179a7",
         "affectsGlobalScope": false
       },
-      "../src/notifications/notifications.service.ts": {
-        "version": "1066895143dfaf1c21b4dbdcafd4a96d3bd6afe5cc34acabb28f7654f6b33a09",
-        "signature": "083acd6f8b3fd8cee1d3dfe4320e9c953c318b80d99c19e789eeb9a13195c2e7",
+      "../src/notifications/notifications.controller.ts": {
+        "version": "37b4fa0392e16f65d5f413744de8c32e611f0c6e520ba4d30c4feadb9707beff",
+        "signature": "3cb35db93ebe6f7194516f7e144ace941333a63cbbb37c6402ff2048e6bdcc3e",
         "affectsGlobalScope": false
       },
       "../src/notifications/notifications.module.ts": {
-        "version": "6f9b328c400d3712a2b19f68ffcdf9df8c1e101192b68ec31f8fb914cd13e964",
+        "version": "976a1649d3f1147895db18da1858d27964c00c073fb3cf558b07cbd7741f4b6a",
         "signature": "909e294833009d798301ca6a0626731ebfaf12ad02af753ba4ff4e8f3662a643",
         "affectsGlobalScope": false
       },
@@ -5504,15 +5504,21 @@
         "../src/app.module.ts"
       ],
       "../src/notifications/notifications.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts"
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/notifications/notifications.service.ts"
       ],
       "../src/notifications/notifications.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
         "../src/notifications/notifications.controller.ts",
-        "../src/notifications/notifications.service.ts"
+        "../src/notifications/notifications.service.ts",
+        "../src/users/schemas/user.schema.ts"
       ],
       "../src/notifications/notifications.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts"
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/users/schemas/user.schema.ts"
       ],
       "../src/posts/dto/create-post.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
@@ -7929,6 +7935,13 @@
       ],
       "../src/forum/schemas/forum-post.schema.ts": [
         "../node_modules/mongoose/index.d.ts"
+      ],
+      "../src/notifications/notifications.controller.ts": [
+        "../src/notifications/notifications.service.ts"
+      ],
+      "../src/notifications/notifications.service.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/users/schemas/user.schema.ts"
       ],
       "../src/posts/posts.controller.ts": [
         "../src/posts/dto/create-post.dto.ts",

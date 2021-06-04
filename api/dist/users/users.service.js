@@ -70,14 +70,11 @@ let UsersService = class UsersService {
             }
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            const passFirstPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
-            const passSecondPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
-            const passThirdPart = Math.random().toString(36).slice(-8).replace('.', '').replace('/', '');
             const createdUser = await this.userModel.create({
                 name,
                 email: email.toLocaleLowerCase(),
                 password: hash,
-                temporalEmailConfirmationPassword: `${passFirstPart}${passSecondPart}${passThirdPart}`,
+                temporalEmailConfirmationPassword: uuid_1.v4(),
                 about: '',
             });
             const transporter = nodemailer.createTransport({
@@ -99,7 +96,7 @@ let UsersService = class UsersService {
             <a
               href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
             >
-              Reset password
+              Confirm email
             </a>
           </div>
         `
