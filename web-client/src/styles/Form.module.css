@@ -51,6 +51,7 @@
   border-style: none;
   border: 1px solid rgba(0, 0, 0, 0.24);
   font-size: 24px;
+  outline: none;
 }
 
 .passwordHelperText:before {
