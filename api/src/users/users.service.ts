@@ -22,6 +22,7 @@ let streamifier = require('streamifier');
 import { transporter } from '../config/nodemailer/transporter';
 import { returnedUserObject } from '../utils/returnedObject';
 
+
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>, @InjectModel('Post') private postModel: Model<PostDocument>) {}
@@ -73,32 +74,21 @@ export class UsersService {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Confirm email - Roomy",
-        html: `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        <body>
-          <div class='container'>
-            <p class='text'>
-              Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
-              Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
-            </p>
-            <button class='button'>
-              <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
-                Confirm email
-              </a>
-            </button>
-            <p class='text'>
-              If you need help please send an email to supportemail@roomyapp.com.ar<br>
-              We will be back to you as soon as posible.
-            </p>
-          </div>
-        </body>
-        </html>`
+        html: `<div>
+                <p>
+                  Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
+                  Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
+                </p>
+                <button>
+                  <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
+                    Confirm email
+                  </a>
+                </button>
+                <p>
+                  If you need help please send an email to supportemail@roomyapp.com.ar<br>
+                  We will be back to you as soon as posible.
+                </p>
+              </div>`
       };
 
       if ( ! file) {
@@ -492,21 +482,19 @@ export class UsersService {
         token: uuidv4(),
         date,
       };
-      user.save()
+      user.save();
 
       const message = {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Reset password - Roomy",
-        html: `
-          <div>
-            <h1>Hello ${user.name}</h1>
-            <h1>Go to the following link to reset your password</h1>
-            <a
-              href="https://roomy-app.netlify.app/reset-password/${user.id}/validation/${user.changePasswordInfo.token}"
-            >Reset password</a>
-          </div>
-        `
+        html: `<div>
+                <h1>Hello ${user.name}</h1>
+                <h1>Go to the following link to reset your password</h1>
+                <a
+                  href="https://roomy-app.netlify.app/reset-password/${user.id}/validation/${user.changePasswordInfo.token}"
+                >Reset password</a>
+              </div>`
       };
 
       return new Promise((resolve, reject) => {
