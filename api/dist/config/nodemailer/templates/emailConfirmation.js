@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.emailConfirmation = void 0;
+exports.emailConfirmation = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -37,7 +40,7 @@
       Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
     </p>
     <button class='button'>
-      <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
+      <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/{{id}}/special-info/{{confirmationPassword}}">
         Confirm email
       </a>
     </button>
@@ -47,4 +50,5 @@
     </p>
   </div>
 </body>
-</html>
+</html>`;
+//# sourceMappingURL=emailConfirmation.js.map

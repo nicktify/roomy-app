@@ -24,7 +24,6 @@ let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 const transporter_1 = require("../config/nodemailer/transporter");
 const returnedObject_1 = require("../utils/returnedObject");
-const fs = require('fs');
 let UsersService = class UsersService {
     constructor(userModel, postModel) {
         this.userModel = userModel;
@@ -62,14 +61,67 @@ let UsersService = class UsersService {
             }
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            await fs.readFile(__dirname + '/emailConfirmation.html', 'utf-8', (err, data) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                console.log(data);
+            const createdUser = await this.userModel.create({
+                name,
+                email: email.toLocaleLowerCase(),
+                password: hash,
+                temporalEmailConfirmationPassword: uuid_1.v4(),
+                about: '',
             });
-            return { msg: 'hello' };
+            const message = {
+                from: 'Roomy',
+                to: process.env.EMAIL_TEST,
+                subject: "Confirm email - Roomy",
+                html: `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body>
+          <div class='container'>
+            <p class='text'>
+              Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
+              Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
+            </p>
+            <button class='button'>
+              <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
+                Confirm email
+              </a>
+            </button>
+            <p class='text'>
+              If you need help please send an email to supportemail@roomyapp.com.ar<br>
+              We will be back to you as soon as posible.
+            </p>
+          </div>
+        </body>
+        </html>`
+            };
+            if (!file) {
+                return new Promise((resolve, reject) => {
+                    transporter_1.transporter.sendMail(message, (err, info) => {
+                        if (!err) {
+                            resolve({ msg: 'Register success. Please confirm your email.' });
+                        }
+                        else {
+                            reject(err);
+                        }
+                    });
+                });
+            }
+            ;
+            return new Promise((resolve, reject) => {
+                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
+                    if (error)
+                        reject(error);
+                    createdUser.profilePicture = result.secure_url;
+                    createdUser.save();
+                    resolve({ msg: 'User register success.' });
+                });
+                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+            });
         }
         catch (error) {
             throw error;
@@ -391,7 +443,7 @@ let UsersService = class UsersService {
                 date,
             };
             user.save();
-            var message = {
+            const message = {
                 from: 'Roomy',
                 to: process.env.EMAIL_TEST,
                 subject: "Reset password - Roomy",

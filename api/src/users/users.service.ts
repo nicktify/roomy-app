@@ -22,8 +22,6 @@ let streamifier = require('streamifier');
 import { transporter } from '../config/nodemailer/transporter';
 import { returnedUserObject } from '../utils/returnedObject';
 
-const fs = require('fs');
-
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>, @InjectModel('Post') private postModel: Model<PostDocument>) {}
@@ -63,55 +61,72 @@ export class UsersService {
       const rounds = 10;
       const hash = await bcrypt.hash(password, rounds);
 
-      // const createdUser = await this.userModel.create({ 
-      //   name,
-      //   email: email.toLocaleLowerCase(),
-      //   password: hash,
-      //   temporalEmailConfirmationPassword: uuidv4(),
-      //   about: '',
-      // });
+      const createdUser = await this.userModel.create({ 
+        name,
+        email: email.toLocaleLowerCase(),
+        password: hash,
+        temporalEmailConfirmationPassword: uuidv4(),
+        about: '',
+      });
       
+      const message = {
+        from: 'Roomy',
+        to: process.env.EMAIL_TEST,
+        subject: "Confirm email - Roomy",
+        html: `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body>
+          <div class='container'>
+            <p class='text'>
+              Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
+              Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
+            </p>
+            <button class='button'>
+              <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
+                Confirm email
+              </a>
+            </button>
+            <p class='text'>
+              If you need help please send an email to supportemail@roomyapp.com.ar<br>
+              We will be back to you as soon as posible.
+            </p>
+          </div>
+        </body>
+        </html>`
+      };
 
-
-      // var message = {
-      //   from: 'Roomy',
-      //   to: process.env.EMAIL_TEST,
-      //   subject: "Confirm email - Roomy",
-      await fs.readFile(__dirname + '/../templates/emailConfirmation.html', 'utf-8', (err, data) => {
-          if (err) {
-            console.error(err)
-            return
-          }
-          console.log(data)
+      if ( ! file) {
+        return new Promise((resolve, reject) => {
+          transporter.sendMail(message, (err, info) => {
+            if (!err) {
+              resolve({msg: 'Register success. Please confirm your email.'})
+            } else {
+              reject(err)
+            }
+          });
         })
-      // };
-        return {msg: 'hello'}
-      // if ( ! file) {
-      //   return new Promise((resolve, reject) => {
-      //     transporter.sendMail(message, (err, info) => {
-      //       if (!err) {
-      //         resolve({msg: 'Register success. Please confirm your email.'})
-      //       } else {
-      //         reject(err)
-      //       }
-      //     });
-      //   })
-      // };
+      };
 
-      // return new Promise((resolve, reject) => {
-      //   let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
-      //     function (error, result) {
+      return new Promise((resolve, reject) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+          function (error, result) {
 
-      //       if (error) reject(error);
+            if (error) reject(error);
 
-      //       createdUser.profilePicture = result.secure_url;
-      //       createdUser.save();
+            createdUser.profilePicture = result.secure_url;
+            createdUser.save();
 
-      //       resolve({ msg: 'User register success.'});
-      //     }
-      //   );
-      //   streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-      // });
+            resolve({ msg: 'User register success.'});
+          }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      });
 
     } catch (error) {
       throw error;
@@ -479,7 +494,7 @@ export class UsersService {
       };
       user.save()
 
-      var message = {
+      const message = {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Reset password - Roomy",
