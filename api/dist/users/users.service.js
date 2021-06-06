@@ -18,12 +18,13 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const post_schema_1 = require("../posts/schemas/post.schema");
+const transporter_1 = require("../config/nodemailer/transporter");
 const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
-let cloudinary = require("cloudinary").v2;
-let streamifier = require('streamifier');
-const transporter_1 = require("../config/nodemailer/transporter");
+const streamifier = require('streamifier');
+const cloudinary = require("cloudinary").v2;
 const returnedObject_1 = require("../utils/returnedObject");
+const emailConfirmation_1 = require("../config/nodemailer/emailConfirmation");
 let UsersService = class UsersService {
     constructor(userModel, postModel) {
         this.userModel = userModel;
@@ -72,21 +73,7 @@ let UsersService = class UsersService {
                 from: 'Roomy',
                 to: process.env.EMAIL_TEST,
                 subject: "Confirm email - Roomy",
-                html: `<div>
-                <p>
-                  Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
-                  Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
-                </p>
-                <button>
-                  <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
-                    Confirm email
-                  </a>
-                </button>
-                <p>
-                  If you need help please send an email to supportemail@roomyapp.com.ar<br>
-                  We will be back to you as soon as posible.
-                </p>
-              </div>`
+                html: emailConfirmation_1.html.replace('{{id}}', createdUser._id).replace('{{token}}', createdUser.temporalEmailConfirmationPassword),
             };
             if (!file) {
                 return new Promise((resolve, reject) => {

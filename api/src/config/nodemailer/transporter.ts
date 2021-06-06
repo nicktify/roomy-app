@@ -1,4 +1,4 @@
-let nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 export const transporter = nodemailer.createTransport({
   service: "gmail.com",
   port: 587,

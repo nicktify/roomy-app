@@ -15,13 +15,13 @@ import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import {transporter} from '../config/nodemailer/transporter';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-let cloudinary = require("cloudinary").v2;
-let streamifier = require('streamifier');
-import { transporter } from '../config/nodemailer/transporter';
+const streamifier = require('streamifier');
+const cloudinary = require("cloudinary").v2;
 import { returnedUserObject } from '../utils/returnedObject';
-
+import { html } from 'src/config/nodemailer/emailConfirmation';
 
 @Injectable()
 export class UsersService {
@@ -74,21 +74,7 @@ export class UsersService {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Confirm email - Roomy",
-        html: `<div>
-                <p>
-                  Hello, thanks for filling the form to register on roomy app. We are really happy to have you as a user.
-                  Please, in order to have the full user experience, you need to confirm your email by clicking the following button.
-                </p>
-                <button>
-                  <a class="link" href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}">
-                    Confirm email
-                  </a>
-                </button>
-                <p>
-                  If you need help please send an email to supportemail@roomyapp.com.ar<br>
-                  We will be back to you as soon as posible.
-                </p>
-              </div>`
+        html: html.replace('{{id}}', createdUser._id).replace('{{token}}', createdUser.temporalEmailConfirmationPassword),
       };
 
       if ( ! file) {
@@ -474,7 +460,6 @@ export class UsersService {
     try {
       const user = await this.userModel.findOne({email});
       if (!user) return 'Inexistent email.'
-
       let date = new Date();
       date.setDate(date.getDate() + 1);
 
@@ -510,5 +495,4 @@ export class UsersService {
       throw error;
     }
   }
-
 }

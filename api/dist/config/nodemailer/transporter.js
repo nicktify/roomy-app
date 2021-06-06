@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.transporter = void 0;
-let nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 exports.transporter = nodemailer.createTransport({
     service: "gmail.com",
     port: 587,

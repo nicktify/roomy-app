@@ -2627,7 +2627,7 @@
         "affectsGlobalScope": false
       },
       "../src/config/nodemailer/transporter.ts": {
-        "version": "ec44f688ec6a691c0f99dde79bac7b2ed261a5cb0f4ffb77d89f9027da1145d9",
+        "version": "6202636b79f06c98d68a736ec72faf13605d7dd252c351ec33aa78352a494c6a",
         "signature": "c6afab41b80558792d579f4ba97cc6683a814cc2c0f2afedbdfb8ea8e80c214f",
         "affectsGlobalScope": false
       },
@@ -2636,8 +2636,13 @@
         "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
         "affectsGlobalScope": false
       },
+      "../src/config/nodemailer/emailConfirmation.ts": {
+        "version": "4d285cc8f25e5fb36eb16a5d47509c083d7b2de1dcd784ea8040b9b7b5fcdc38",
+        "signature": "49b96e6d4046c9b46be2af526ad1e13e48da3ed4c05f08faa069d1d380ea72dc",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "5ce318411f40f078ae5d310dc9537b46d0e7e4111d2cd76287d545e30e8798b6",
+        "version": "82f8330bcc5e499f2b2583c5d7faf71249ff1746385a0899de11ba2934096d4d",
         "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
@@ -5755,6 +5760,7 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
+        "../src/config/nodemailer/emailConfirmation.ts",
         "../src/config/nodemailer/transporter.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-about.tdo.ts",
@@ -8635,6 +8641,7 @@
       "../src/auth/jwt-auth.guard.ts",
       "../src/auth/jwt.strategy.ts",
       "../src/auth/local.strategy.ts",
+      "../src/config/nodemailer/emailConfirmation.ts",
       "../src/config/nodemailer/transporter.ts",
       "../src/forum/dto/add-forum-post-comment.dto.ts",
       "../src/forum/dto/create-forum-post.dto.ts",
