@@ -1182,7 +1182,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.controller.ts": {
-        "version": "5f9644ca9a3764e39f70c8d7f6eaa5e65bfc0f471f40fe21c883b264ec08685d",
+        "version": "a1726967f375c7d22ac0e15d154f9dccb63ec2784068c9f431ad1fb1688b905a",
         "signature": "ef022c91ea9e75ab4082f2e881f9c4db7b346be2da706e876b253bebce5e6140",
         "affectsGlobalScope": false
       },
@@ -2626,9 +2626,19 @@
         "signature": "3a048024594d1695ad028a4d7e93a1fe0c7cf1b3c7fc1a543ea954dd6f3f7012",
         "affectsGlobalScope": false
       },
+      "../src/config/nodemailer/transporter.ts": {
+        "version": "ec44f688ec6a691c0f99dde79bac7b2ed261a5cb0f4ffb77d89f9027da1145d9",
+        "signature": "c6afab41b80558792d579f4ba97cc6683a814cc2c0f2afedbdfb8ea8e80c214f",
+        "affectsGlobalScope": false
+      },
+      "../src/utils/returnedObject.ts": {
+        "version": "ba760ea531853099b9a87ce3acba6cea44c3587cbf7a74f47587cc2273718582",
+        "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.service.ts": {
-        "version": "341cde5a1f98317606dc4b651230953448adba6a5fdc0d7523dd50d06b01b1d3",
-        "signature": "048b561525fa649580549ea7ff7e33fa7ff79357e32207f4f49e86316f46957c",
+        "version": "13059b8184c7eb042176bd0394dbb4bb95949813bb8794b601165524f5243cec",
+        "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
       "../src/users/users.controller.ts": {
@@ -2767,7 +2777,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "af69ed998f0592772803bbb829e9f246ac4644779e658e1e34cbe9aed706d863",
+        "version": "5d8db909267c172e94965f1add6e99565ec48fa22bae570786a29a4876afe2d3",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
@@ -2947,7 +2957,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "650c020783a40895e54711b120a5f5c4982ff8ca13fb0ff41145b7d9679d4799",
+        "version": "7672b770e37caeaa0bf61ec396ec724eb8976e12e0f5862d3ad33431cc4c878d",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -5745,6 +5755,7 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
+        "../src/config/nodemailer/transporter.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-password.dto.ts",
@@ -5757,7 +5768,8 @@
         "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
-        "../src/users/schemas/user.schema.ts"
+        "../src/users/schemas/user.schema.ts",
+        "../src/utils/returnedObject.ts"
       ]
     },
     "exportedModulesMap": {
@@ -8623,6 +8635,7 @@
       "../src/auth/jwt-auth.guard.ts",
       "../src/auth/jwt.strategy.ts",
       "../src/auth/local.strategy.ts",
+      "../src/config/nodemailer/transporter.ts",
       "../src/forum/dto/add-forum-post-comment.dto.ts",
       "../src/forum/dto/create-forum-post.dto.ts",
       "../src/forum/dto/delete-forum-post-comment.dto.ts",
@@ -8687,7 +8700,8 @@
       "../src/users/types/user.ts",
       "../src/users/users.controller.ts",
       "../src/users/users.module.ts",
-      "../src/users/users.service.ts"
+      "../src/users/users.service.ts",
+      "../src/utils/returnedObject.ts"
     ]
   },
   "version": "4.2.4"

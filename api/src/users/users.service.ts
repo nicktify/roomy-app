@@ -19,51 +19,39 @@ import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
-let nodemailer = require('nodemailer');
+import { transporter } from '../config/nodemailer/transporter';
+import { returnedUserObject } from '../utils/returnedObject';
+
+const fs = require('fs');
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>, @InjectModel('Post') private postModel: Model<PostDocument>) {}
 
-    async getUsers(): Promise<ReturnUserDto[]> {
-
-    const users = await this.userModel.find();
-
-    return users.map(user => ({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      about: user.about,
-      ownedRooms: user.ownedRooms,
-      participantRooms: user.participantRooms,
-      profilePicture: user.profilePicture,
-      profileBackground: user.profileBackground,
-      socialMediaLinks: user.socialMediaLinks,
-    }));
+  async getUsers(): Promise<ReturnUserDto[]> {
+    try {
+      const users = await this.userModel.find();
+      return users.map(user => returnedUserObject(user));
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getUser( id: string ): Promise<ReturnUserDto | { msg: string }> {
-  
-    if ( ! id ) return { msg: 'Id is mandatory.' };
-  
-    const findedUser = await this.userModel.findById( id );
-    if ( ! findedUser ) return { msg: 'User not exists.' }
-  
-    return {
-      id: findedUser._id,
-      name: findedUser.name,
-      email: findedUser.email,
-      about: findedUser.about,
-      ownedRooms: findedUser.ownedRooms,
-      participantRooms: findedUser.participantRooms,
-      profilePicture: findedUser.profilePicture,
-      profileBackground: findedUser.profileBackground,
-      socialMediaLinks: findedUser.socialMediaLinks,
-    };
+    try {
+      if ( ! id ) return { msg: 'Id is mandatory.' };
+
+      const findedUser = await this.userModel.findById( id );
+      if ( ! findedUser ) return { msg: 'User not exists.' }
+
+      return returnedUserObject(findedUser);
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   async createUser( { name, email, password }: CreateUserDto, file: Express.Multer.File ): Promise<{ msg: string }> {
-    
     try {
       const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
       if (user) return { msg: 'Email already registered, try another or log in.' };
@@ -75,66 +63,55 @@ export class UsersService {
       const rounds = 10;
       const hash = await bcrypt.hash(password, rounds);
 
-      const createdUser = await this.userModel.create({ 
-        name,
-        email: email.toLocaleLowerCase(),
-        password: hash,
-        temporalEmailConfirmationPassword: uuidv4(),
-        about: '',
-      });
+      // const createdUser = await this.userModel.create({ 
+      //   name,
+      //   email: email.toLocaleLowerCase(),
+      //   password: hash,
+      //   temporalEmailConfirmationPassword: uuidv4(),
+      //   about: '',
+      // });
+      
 
-      const transporter = nodemailer.createTransport({
-        service: "gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASS,
-        },
-      });
 
-      var message = {
-        from: 'Roomy',
-        to: process.env.EMAIL_TEST,
-        subject: "Confirm email - Roomy",
-        html: `
-          <div>
-            <h1>Confirm your email by clicking the following link</h1>
-            <a
-              href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
-            >
-              Confirm email
-            </a>
-          </div>
-        `
-      };
-
-      if ( ! file) {
-        return new Promise((resolve, reject) => {
-          transporter.sendMail(message, (err, info) => {
-            if (!err) {
-              resolve({msg: 'Register success. Please confirm your email.'})
-            } else {
-              reject(err)
-            }
-          });
-        })
-      };
-
-      return new Promise((resolve, reject) => {
-        let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
-          function (error, result) {
-
-            if (error) reject(error);
-
-            createdUser.profilePicture = result.secure_url;
-            createdUser.save();
-
-            resolve({ msg: 'User register success.'});
+      // var message = {
+      //   from: 'Roomy',
+      //   to: process.env.EMAIL_TEST,
+      //   subject: "Confirm email - Roomy",
+      await fs.readFile(__dirname + '/../templates/emailConfirmation.html', 'utf-8', (err, data) => {
+          if (err) {
+            console.error(err)
+            return
           }
-        );
-        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-      });
+          console.log(data)
+        })
+      // };
+        return {msg: 'hello'}
+      // if ( ! file) {
+      //   return new Promise((resolve, reject) => {
+      //     transporter.sendMail(message, (err, info) => {
+      //       if (!err) {
+      //         resolve({msg: 'Register success. Please confirm your email.'})
+      //       } else {
+      //         reject(err)
+      //       }
+      //     });
+      //   })
+      // };
+
+      // return new Promise((resolve, reject) => {
+      //   let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
+      //     function (error, result) {
+
+      //       if (error) reject(error);
+
+      //       createdUser.profilePicture = result.secure_url;
+      //       createdUser.save();
+
+      //       resolve({ msg: 'User register success.'});
+      //     }
+      //   );
+      //   streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+      // });
 
     } catch (error) {
       throw error;
@@ -249,7 +226,7 @@ export class UsersService {
 
       user.password = newHashedPassword;
       user.save()
-      
+
       return { msg: 'Password changed.' };
 
     } catch (error) {
@@ -289,13 +266,11 @@ export class UsersService {
   }
 
   async addProfilePicture( { userId }: { userId: string }, file: Express.Multer.File, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
-
     try {
       const user = await this.userModel.findById( userId );
+
       if ( ! user ) return { msg: 'User not exist.' };
-
       if ( userId !== authenticatedUser.userId ) return { msg: 'You don\'t have the rights to do this action.' };
-
       if ( ! file ) return { msg: 'Image is required.' };
 
       const userPosts = await this.postModel.find({ authorId: userId });
@@ -303,7 +278,6 @@ export class UsersService {
       return new Promise(( resolve, reject ) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
           function (error, result) {
-
             if (error) reject({ msg: 'Error uploading image.' });
 
             user.profilePicture = result.secure_url;
@@ -314,70 +288,35 @@ export class UsersService {
               post.authorProfilePicture = result.secure_url;
               post.save();
             }
-
-            const curatedUser = {
-              id: user._id,
-              name: user.name,
-              email: user.email,
-              about: user.about,
-              ownedRooms: user.ownedRooms,
-              participantRooms: user.participantRooms,
-              profilePicture: user.profilePicture,
-              profileBackground: user.profileBackground,
-              socialMediaLinks: user.socialMediaLinks,
-            }
-
-            resolve(curatedUser);
+            resolve(returnedUserObject(user));
           }
         );
         streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
       })
-
     } catch (error) {
       throw error;
     }
-
   }
 
   async editUser( { id, name, email, role}: EditUserDto, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
-
     try {
-      
       const user = await this.userModel.findById( id );
-      if ( ! user ) return { msg: 'User not exist.' };
 
-      /**
-       * Check if the @body ID match the @req (authenticatedUser) userId from the authenticated user from passport JWT
-       */
+      if ( ! user ) return { msg: 'User not exist.' };
       if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the rights to do this action.' };
 
       await this.userModel.updateOne({ _id: id }, { name, email, role });
       const editedUser = await this.userModel.findById( id );
 
-      return {
-        id: editedUser._id,
-        name: editedUser.name,
-        email: editedUser.email,
-        about: editedUser.about,
-        ownedRooms: editedUser.ownedRooms,
-        participantRooms: editedUser.participantRooms,
-        profilePicture: editedUser.profilePicture,
-        profileBackground: editedUser.profileBackground,
-        socialMediaLinks: editedUser.socialMediaLinks,
-      }
-      
+      return returnedUserObject(editedUser);
+
     } catch ( error ) {
       throw error;
     }
   }
 
   async deleteUser( id: string, authenticatedUser ): Promise<{ msg: string }> {
-
     try {
-
-      /**
-       * Check if the @body ID match the @req (authenticatedUser) userId from the authenticated user from passport JWT
-       */
       if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' }
 
       await this.userModel.deleteOne({ _id: id });
@@ -386,84 +325,38 @@ export class UsersService {
     } catch ( error ) {
       throw error;
     }
-
   }
 
   async getByEmail( { email }: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}>  {
-
     try {
-
       const user = await this.userModel.findOne({email: email.toLocaleLowerCase()});
       if ( !user ) return { msg: 'User not exist.' };
 
-      return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        about: user.about,
-        ownedRooms: user.ownedRooms,
-        participantRooms: user.participantRooms,
-        profilePicture: user.profilePicture,
-        profileBackground: user.profileBackground,
-        socialMediaLinks: user.socialMediaLinks,
-      };
+      return returnedUserObject(user);
 
     } catch ( error ) {
       throw error;
     }
   }
 
-
-  async validateUser( user ) {
-
-    try {
-
-      const findById = await this.userModel.findById( user.userId );
-      if ( ! findById ) return { msg: 'Invalid user', validToken: false };
-
-      const findByEmail = await this.userModel.findOne({ email: user.email });
-      if ( ! findByEmail ) return { msg: 'Invalid user', validToken: false };
-
-      return { msg: 'Token authenticated', validToken: true, user: findById };
-
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async changeProfileBackground( { userId }, file: Express.Multer.File): Promise<ReturnUserDto | {msg: string}> {
     try {
-
       const user = await this.userModel.findById( userId );
       if (!user) return { msg: 'User not exist' };
 
       return new Promise((resolve, reject) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
           function (error, result) {
-
             if (error) reject({ msg: 'Error uploading image.' });
 
             user.profileBackground = result.secure_url;
             user.save();
 
-            const curatedUser = {
-              id: user._id,
-              name: user.name,
-              email: user.email,
-              about: user.about,
-              ownedRooms: user.ownedRooms,
-              participantRooms: user.participantRooms,
-              profilePicture: user.profilePicture,
-              profileBackground: user.profileBackground,
-              socialMediaLinks: user.socialMediaLinks
-            }
-
-            resolve(curatedUser);
+            resolve(returnedUserObject(user));
           }
         );
         streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
       })
-
     } catch (error) {
      throw error; 
     }
@@ -471,8 +364,8 @@ export class UsersService {
 
   async changeSocialMediaLink({ userId, type, link }: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
     try {
-      const user = await this.userModel.findById(userId);
-      if (!user) return {msg: 'User not exist'};
+      const user = await this.userModel.findById( userId );
+      if ( ! user ) return { msg: 'User not exist' };
 
       if (type === 'facebook') {
         user.socialMediaLinks = {
@@ -497,18 +390,8 @@ export class UsersService {
 
       user.save();
 
-      return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        about: user.about,
-        ownedRooms: user.ownedRooms,
-        participantRooms: user.participantRooms,
-        profilePicture: user.profilePicture,
-        profileBackground: user.profileBackground,
-        socialMediaLinks: user.socialMediaLinks
-      }
-      
+      return returnedUserObject(user);
+
     } catch (error) {
       throw error;
     }
@@ -545,17 +428,7 @@ export class UsersService {
 
       user.save();
 
-      return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        about: user.about,
-        ownedRooms: user.ownedRooms,
-        participantRooms: user.participantRooms,
-        profilePicture: user.profilePicture,
-        profileBackground: user.profileBackground,
-        socialMediaLinks: user.socialMediaLinks
-      }
+      return returnedUserObject(user);
       
     } catch (error) {
       throw error;
@@ -583,7 +456,6 @@ export class UsersService {
       if (!user) return {msg: 'User not exist.'}
 
       user.about = '';
-
       user.save();
 
       return {msg: 'About cleaned'};
@@ -606,16 +478,6 @@ export class UsersService {
         date,
       };
       user.save()
-
-      const transporter = nodemailer.createTransport({
-        service: "gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASS,
-        },
-      });
 
       var message = {
         from: 'Roomy',
@@ -641,7 +503,6 @@ export class UsersService {
           }
         });
       })
-
     } catch (error) {
       throw error;
     }

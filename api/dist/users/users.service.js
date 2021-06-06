@@ -22,43 +22,35 @@ const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
-let nodemailer = require('nodemailer');
+const transporter_1 = require("../config/nodemailer/transporter");
+const returnedObject_1 = require("../utils/returnedObject");
+const fs = require('fs');
 let UsersService = class UsersService {
     constructor(userModel, postModel) {
         this.userModel = userModel;
         this.postModel = postModel;
     }
     async getUsers() {
-        const users = await this.userModel.find();
-        return users.map(user => ({
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            about: user.about,
-            ownedRooms: user.ownedRooms,
-            participantRooms: user.participantRooms,
-            profilePicture: user.profilePicture,
-            profileBackground: user.profileBackground,
-            socialMediaLinks: user.socialMediaLinks,
-        }));
+        try {
+            const users = await this.userModel.find();
+            return users.map(user => returnedObject_1.returnedUserObject(user));
+        }
+        catch (error) {
+            throw error;
+        }
     }
     async getUser(id) {
-        if (!id)
-            return { msg: 'Id is mandatory.' };
-        const findedUser = await this.userModel.findById(id);
-        if (!findedUser)
-            return { msg: 'User not exists.' };
-        return {
-            id: findedUser._id,
-            name: findedUser.name,
-            email: findedUser.email,
-            about: findedUser.about,
-            ownedRooms: findedUser.ownedRooms,
-            participantRooms: findedUser.participantRooms,
-            profilePicture: findedUser.profilePicture,
-            profileBackground: findedUser.profileBackground,
-            socialMediaLinks: findedUser.socialMediaLinks,
-        };
+        try {
+            if (!id)
+                return { msg: 'Id is mandatory.' };
+            const findedUser = await this.userModel.findById(id);
+            if (!findedUser)
+                return { msg: 'User not exists.' };
+            return returnedObject_1.returnedUserObject(findedUser);
+        }
+        catch (error) {
+            throw error;
+        }
     }
     async createUser({ name, email, password }, file) {
         try {
@@ -70,60 +62,14 @@ let UsersService = class UsersService {
             }
             const rounds = 10;
             const hash = await bcrypt.hash(password, rounds);
-            const createdUser = await this.userModel.create({
-                name,
-                email: email.toLocaleLowerCase(),
-                password: hash,
-                temporalEmailConfirmationPassword: uuid_1.v4(),
-                about: '',
+            await fs.readFile(__dirname + '/emailConfirmation.html', 'utf-8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                console.log(data);
             });
-            const transporter = nodemailer.createTransport({
-                service: "gmail.com",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: process.env.EMAIL,
-                    pass: process.env.PASS,
-                },
-            });
-            var message = {
-                from: 'Roomy',
-                to: process.env.EMAIL_TEST,
-                subject: "Confirm email - Roomy",
-                html: `
-          <div>
-            <h1>Confirm your email by clicking the following link</h1>
-            <a
-              href="https://roomy-app-api.herokuapp.com/users/email-confirmation/${createdUser._id}/special-info/${createdUser.temporalEmailConfirmationPassword}"
-            >
-              Confirm email
-            </a>
-          </div>
-        `
-            };
-            if (!file) {
-                return new Promise((resolve, reject) => {
-                    transporter.sendMail(message, (err, info) => {
-                        if (!err) {
-                            resolve({ msg: 'Register success. Please confirm your email.' });
-                        }
-                        else {
-                            reject(err);
-                        }
-                    });
-                });
-            }
-            ;
-            return new Promise((resolve, reject) => {
-                let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
-                    if (error)
-                        reject(error);
-                    createdUser.profilePicture = result.secure_url;
-                    createdUser.save();
-                    resolve({ msg: 'User register success.' });
-                });
-                streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
-            });
+            return { msg: 'hello' };
         }
         catch (error) {
             throw error;
@@ -287,18 +233,7 @@ let UsersService = class UsersService {
                         post.authorProfilePicture = result.secure_url;
                         post.save();
                     }
-                    const curatedUser = {
-                        id: user._id,
-                        name: user.name,
-                        email: user.email,
-                        about: user.about,
-                        ownedRooms: user.ownedRooms,
-                        participantRooms: user.participantRooms,
-                        profilePicture: user.profilePicture,
-                        profileBackground: user.profileBackground,
-                        socialMediaLinks: user.socialMediaLinks,
-                    };
-                    resolve(curatedUser);
+                    resolve(returnedObject_1.returnedUserObject(user));
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });
@@ -316,17 +251,7 @@ let UsersService = class UsersService {
                 return { msg: 'You don\'t have the rights to do this action.' };
             await this.userModel.updateOne({ _id: id }, { name, email, role });
             const editedUser = await this.userModel.findById(id);
-            return {
-                id: editedUser._id,
-                name: editedUser.name,
-                email: editedUser.email,
-                about: editedUser.about,
-                ownedRooms: editedUser.ownedRooms,
-                participantRooms: editedUser.participantRooms,
-                profilePicture: editedUser.profilePicture,
-                profileBackground: editedUser.profileBackground,
-                socialMediaLinks: editedUser.socialMediaLinks,
-            };
+            return returnedObject_1.returnedUserObject(editedUser);
         }
         catch (error) {
             throw error;
@@ -348,31 +273,7 @@ let UsersService = class UsersService {
             const user = await this.userModel.findOne({ email: email.toLocaleLowerCase() });
             if (!user)
                 return { msg: 'User not exist.' };
-            return {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                about: user.about,
-                ownedRooms: user.ownedRooms,
-                participantRooms: user.participantRooms,
-                profilePicture: user.profilePicture,
-                profileBackground: user.profileBackground,
-                socialMediaLinks: user.socialMediaLinks,
-            };
-        }
-        catch (error) {
-            throw error;
-        }
-    }
-    async validateUser(user) {
-        try {
-            const findById = await this.userModel.findById(user.userId);
-            if (!findById)
-                return { msg: 'Invalid user', validToken: false };
-            const findByEmail = await this.userModel.findOne({ email: user.email });
-            if (!findByEmail)
-                return { msg: 'Invalid user', validToken: false };
-            return { msg: 'Token authenticated', validToken: true, user: findById };
+            return returnedObject_1.returnedUserObject(user);
         }
         catch (error) {
             throw error;
@@ -389,18 +290,7 @@ let UsersService = class UsersService {
                         reject({ msg: 'Error uploading image.' });
                     user.profileBackground = result.secure_url;
                     user.save();
-                    const curatedUser = {
-                        id: user._id,
-                        name: user.name,
-                        email: user.email,
-                        about: user.about,
-                        ownedRooms: user.ownedRooms,
-                        participantRooms: user.participantRooms,
-                        profilePicture: user.profilePicture,
-                        profileBackground: user.profileBackground,
-                        socialMediaLinks: user.socialMediaLinks
-                    };
-                    resolve(curatedUser);
+                    resolve(returnedObject_1.returnedUserObject(user));
                 });
                 streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
             });
@@ -424,17 +314,7 @@ let UsersService = class UsersService {
                 user.socialMediaLinks = Object.assign(Object.assign({}, user.socialMediaLinks), { instagram: link });
             }
             user.save();
-            return {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                about: user.about,
-                ownedRooms: user.ownedRooms,
-                participantRooms: user.participantRooms,
-                profilePicture: user.profilePicture,
-                profileBackground: user.profileBackground,
-                socialMediaLinks: user.socialMediaLinks
-            };
+            return returnedObject_1.returnedUserObject(user);
         }
         catch (error) {
             throw error;
@@ -467,17 +347,7 @@ let UsersService = class UsersService {
                 };
             }
             user.save();
-            return {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                about: user.about,
-                ownedRooms: user.ownedRooms,
-                participantRooms: user.participantRooms,
-                profilePicture: user.profilePicture,
-                profileBackground: user.profileBackground,
-                socialMediaLinks: user.socialMediaLinks
-            };
+            return returnedObject_1.returnedUserObject(user);
         }
         catch (error) {
             throw error;
@@ -521,15 +391,6 @@ let UsersService = class UsersService {
                 date,
             };
             user.save();
-            const transporter = nodemailer.createTransport({
-                service: "gmail.com",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: process.env.EMAIL,
-                    pass: process.env.PASS,
-                },
-            });
             var message = {
                 from: 'Roomy',
                 to: process.env.EMAIL_TEST,
@@ -545,7 +406,7 @@ let UsersService = class UsersService {
         `
             };
             return new Promise((resolve, reject) => {
-                transporter.sendMail(message, (err, info) => {
+                transporter_1.transporter.sendMail(message, (err, info) => {
                     if (!err) {
                         resolve('Email sent.');
                     }

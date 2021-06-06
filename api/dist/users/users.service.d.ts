@@ -46,15 +46,6 @@ export declare class UsersService {
     getByEmail({ email }: FindByEmailDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    validateUser(user: any): Promise<{
-        msg: string;
-        validToken: boolean;
-        user?: undefined;
-    } | {
-        msg: string;
-        validToken: boolean;
-        user: UserDocument;
-    }>;
     changeProfileBackground({ userId }: {
         userId: any;
     }, file: Express.Multer.File): Promise<ReturnUserDto | {
