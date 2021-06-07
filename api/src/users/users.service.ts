@@ -20,8 +20,9 @@ import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 const streamifier = require('streamifier');
 const cloudinary = require("cloudinary").v2;
-import { returnedUserObject } from '../utils/returnedObject';
-import { html } from 'src/config/nodemailer/emailConfirmation';
+import { returnedUserObject } from 'src/utils/returnedObject';
+import { emailConfirmation, htmlError, htmlSuccess } from 'src/config/templates/emailConfirmation';
+import { forgotPasswordHtml } from 'src/config/templates/forgotPassword';
 
 @Injectable()
 export class UsersService {
@@ -42,9 +43,8 @@ export class UsersService {
 
       const findedUser = await this.userModel.findById( id );
       if ( ! findedUser ) return { msg: 'User not exists.' }
-
+      
       return returnedUserObject(findedUser);
-
     } catch (error) {
       throw error;
     }
@@ -74,7 +74,7 @@ export class UsersService {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Confirm email - Roomy",
-        html: html.replace('{{id}}', createdUser._id).replace('{{token}}', createdUser.temporalEmailConfirmationPassword),
+        html: emailConfirmation.replace('{{id}}', createdUser._id).replace('{{token}}', createdUser.temporalEmailConfirmationPassword),
       };
 
       if ( ! file) {
@@ -92,18 +92,14 @@ export class UsersService {
       return new Promise((resolve, reject) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" },
           function (error, result) {
-
             if (error) reject(error);
-
             createdUser.profilePicture = result.secure_url;
             createdUser.save();
-
             resolve({ msg: 'User register success.'});
           }
         );
         streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
       });
-
     } catch (error) {
       throw error;
     }
@@ -113,91 +109,13 @@ export class UsersService {
     try {
       const user = await this.userModel.findById(userId)
       if (!user) return {msg: 'Inexistent user.'}
-      if (emailConfirmationPassword !== user.temporalEmailConfirmationPassword) {
-        return `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Roomy app</title>
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-            <style>
-              .container {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                height: 100vh;
-                align-items: center;
-                background-color: #69C1AC;
-              }
-              .title {
-                font-weight: bold;
-                font-size: 60px;
-                color: white;
-                background-color: black;
-                font-family: 'Roboto', sans-serif;
-                line-height: 100px
-              }
-            </style>
-          </head>
-          <body>
-            <div class='container'>
-              <div>
-                <h1 class='title'>Something went wrong. Cannot confirm the email.</h1>
-                <h1 class='title'>Please try again.</h1>
-              </div>
-            </div>
-          </body>
-          </html>
-        `
-      }
+
+      if (emailConfirmationPassword !== user.temporalEmailConfirmationPassword) return htmlError;
 
       user.emailConfirmation = true;
       user.save();
 
-      return `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Roomy app</title>
-          <link rel="preconnect" href="https://fonts.gstatic.com">
-          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-          <style>
-            .container {
-              display: flex;
-              justify-content: center;
-              width: 100%;
-              height: 100vh;
-              align-items: center;
-              background-color: #69C1AC;
-            }
-            .title {
-              font-weight: bold;
-              font-size: 60px;
-              color: white;
-              background-color: black;
-              font-family: 'Roboto', sans-serif;
-              line-height: 100px
-            }
-          </style>
-        </head>
-        <body>
-          <div class='container'>
-            <div>
-              <h1 class='title'>Email confirmed. Now you can use Roomy app.</h1>
-              <h1 class='title'>Thank you for your trust in our services.</h1>
-            </div>
-          </div>
-        </body>
-        </html>
-      `
-
+      return htmlSuccess;
     } catch (error) {
       throw error;
     }
@@ -473,13 +391,7 @@ export class UsersService {
         from: 'Roomy',
         to: process.env.EMAIL_TEST,
         subject: "Reset password - Roomy",
-        html: `<div>
-                <h1>Hello ${user.name}</h1>
-                <h1>Go to the following link to reset your password</h1>
-                <a
-                  href="https://roomy-app.netlify.app/reset-password/${user.id}/validation/${user.changePasswordInfo.token}"
-                >Reset password</a>
-              </div>`
+        html: forgotPasswordHtml.replace('{{id}}', user.id).replace('{{name}}', user.name).replace('{{token}}', user.changePasswordInfo.token)
       };
 
       return new Promise((resolve, reject) => {

@@ -2636,13 +2636,18 @@
         "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
         "affectsGlobalScope": false
       },
-      "../src/config/nodemailer/emailConfirmation.ts": {
-        "version": "4d285cc8f25e5fb36eb16a5d47509c083d7b2de1dcd784ea8040b9b7b5fcdc38",
-        "signature": "49b96e6d4046c9b46be2af526ad1e13e48da3ed4c05f08faa069d1d380ea72dc",
+      "../src/config/templates/emailConfirmation.ts": {
+        "version": "df58baa682e24b1e4a477324bdbe6c69819f8fd8f25a014bf57ca68f5cb2d8c1",
+        "signature": "9062d0a112922a679e95e648102590cf17986a8edd808e25a5b71e02b1f30cdd",
+        "affectsGlobalScope": false
+      },
+      "../src/config/templates/forgotPassword.ts": {
+        "version": "caf791039052276cf293a3fd8ea4e41566b17e0bb8d3f1b37ee7236656fb9c36",
+        "signature": "39af11c589252ee6f1d35bd363451e38393d01a217aa0f0cf79f9dca5c51efa8",
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "82f8330bcc5e499f2b2583c5d7faf71249ff1746385a0899de11ba2934096d4d",
+        "version": "0317931f2fa12ee63dc95f380b158eaa88685d80a7033d5a6b00618a248a1c36",
         "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
@@ -5760,8 +5765,9 @@
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
-        "../src/config/nodemailer/emailConfirmation.ts",
         "../src/config/nodemailer/transporter.ts",
+        "../src/config/templates/emailConfirmation.ts",
+        "../src/config/templates/forgotPassword.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/users/dto/change-about.tdo.ts",
         "../src/users/dto/change-password.dto.ts",
@@ -8641,8 +8647,9 @@
       "../src/auth/jwt-auth.guard.ts",
       "../src/auth/jwt.strategy.ts",
       "../src/auth/local.strategy.ts",
-      "../src/config/nodemailer/emailConfirmation.ts",
       "../src/config/nodemailer/transporter.ts",
+      "../src/config/templates/emailConfirmation.ts",
+      "../src/config/templates/forgotPassword.ts",
       "../src/forum/dto/add-forum-post-comment.dto.ts",
       "../src/forum/dto/create-forum-post.dto.ts",
       "../src/forum/dto/delete-forum-post-comment.dto.ts",
