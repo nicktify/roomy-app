@@ -19,6 +19,7 @@ const auth_module_1 = require("./auth/auth.module");
 const posts_module_1 = require("./posts/posts.module");
 const forum_module_1 = require("./forum/forum.module");
 const notifications_module_1 = require("./notifications/notifications.module");
+const notifications_gateway_1 = require("./notifications.gateway");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -40,7 +41,7 @@ AppModule = __decorate([
             notifications_module_1.NotificationsModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, notifications_gateway_1.NotificationsGateway],
     })
 ], AppModule);
 exports.AppModule = AppModule;

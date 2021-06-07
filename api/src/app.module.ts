@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { ForumModule } from './forum/forum.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationsGateway } from './notifications.gateway';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import { NotificationsModule } from './notifications/notifications.module';
     NotificationsModule,
   ],
   controllers: [ AppController ],
-  providers: [ AppService ],
+  providers: [ AppService, NotificationsGateway ],
 })
 export class AppModule {}
