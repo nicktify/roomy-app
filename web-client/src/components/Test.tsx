@@ -3,11 +3,13 @@ import { io } from "socket.io-client";
 
 const Test = () => {
   useEffect(() => {
-    // const socket = io();
-    // socket.on('connect', function() {
-    //   console.log('Connected');
-    //   socket.emit('message', 'Hola');
-    // });
+    const socket = io('http://127.0.0.1:8000/test', {
+      transports: ['websocket']
+    });
+    socket.on('connection', () => {
+      console.log('connected')
+    })
+    socket.emit('events', 'hola');
   }, [])
 
   return (

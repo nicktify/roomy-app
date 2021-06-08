@@ -2912,8 +2912,8 @@
         "affectsGlobalScope": false
       },
       "../src/notifications.gateway.ts": {
-        "version": "94370b2d4c17c6e7d0a0cd55094a24a37803cc15a8e622dd4640b8e960d5af44",
-        "signature": "c5be1448f65e5815d204944947a8cc1c5560dd62a2e275d057139ea74cf28754",
+        "version": "9dc71a01c821497f35f0c390501809d34e3df6e09a7f36ecc1b3a2551749bebf",
+        "signature": "445e5fc2bfb59e5ad13a91d58479eb566d4cd62de5b3c9bd128930f1b9b8baba",
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
@@ -5709,7 +5709,6 @@
         "../src/app.module.ts"
       ],
       "../src/notifications.gateway.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/websockets/index.d.ts"
       ],
       "../src/notifications/notifications.controller.ts": [
@@ -8207,9 +8206,6 @@
       ],
       "../src/forum/schemas/forum-post.schema.ts": [
         "../node_modules/mongoose/index.d.ts"
-      ],
-      "../src/notifications.gateway.ts": [
-        "../node_modules/@nestjs/websockets/index.d.ts"
       ],
       "../src/notifications/notifications.controller.ts": [
         "../src/notifications/notifications.service.ts"

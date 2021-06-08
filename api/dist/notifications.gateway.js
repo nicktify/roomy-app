@@ -14,25 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsGateway = void 0;
-const common_1 = require("@nestjs/common");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 let NotificationsGateway = class NotificationsGateway {
-    constructor() {
-        this.logger = new common_1.Logger('AppGateway');
-    }
     handleMessage(data) {
         console.log(data);
-        return 'Hello world!';
-    }
-    afterInit(server) {
-        this.logger.log('Init');
-    }
-    handleDisconnect(client) {
-        this.logger.log(`Client disconnected: ${client.id}`);
-    }
-    handleConnection(client, ...args) {
-        this.logger.log(`Client connected: ${client.id}`);
+        return data;
     }
 };
 __decorate([
@@ -40,14 +27,14 @@ __decorate([
     __metadata("design:type", typeof (_a = typeof socket_io_1.Server !== "undefined" && socket_io_1.Server) === "function" ? _a : Object)
 ], NotificationsGateway.prototype, "server", void 0);
 __decorate([
-    websockets_1.SubscribeMessage('message'),
+    websockets_1.SubscribeMessage('events'),
     __param(0, websockets_1.MessageBody()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", String)
 ], NotificationsGateway.prototype, "handleMessage", null);
 NotificationsGateway = __decorate([
-    websockets_1.WebSocketGateway()
+    websockets_1.WebSocketGateway(8000, { transports: ['websocket'] })
 ], NotificationsGateway);
 exports.NotificationsGateway = NotificationsGateway;
 //# sourceMappingURL=notifications.gateway.js.map
