@@ -1,5 +1,10 @@
-import { Server } from 'socket.io';
-export declare class NotificationsGateway {
+import { OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import { Socket, Server } from 'socket.io';
+export declare class NotificationsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     server: Server;
-    handleMessage(data: string): string;
+    private logger;
+    handleMessage(client: Socket, payload: string): void;
+    afterInit(server: Server): void;
+    handleDisconnect(client: Socket): void;
+    handleConnection(client: Socket, ...args: any[]): void;
 }

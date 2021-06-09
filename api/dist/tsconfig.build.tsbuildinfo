@@ -2912,8 +2912,8 @@
         "affectsGlobalScope": false
       },
       "../src/notifications.gateway.ts": {
-        "version": "9dc71a01c821497f35f0c390501809d34e3df6e09a7f36ecc1b3a2551749bebf",
-        "signature": "445e5fc2bfb59e5ad13a91d58479eb566d4cd62de5b3c9bd128930f1b9b8baba",
+        "version": "03d7237ebddb268fd491d939cd50f31aa98e8c8e05ab97587c3cafc4f9b4cc3f",
+        "signature": "d6b2d0f53f989f099b55d70b4965200212b31771f6e6d5480dbcfb15a04d4abc",
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
@@ -3092,7 +3092,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "35442935359ff3eb975f76685a6fc2a9d7b42ba6b1ec473fcc7b31b2d97d860a",
+        "version": "b4d5362c62e3b509261b5a30b0d4f1cff544685524cc96140ea25818370a757f",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -5706,9 +5706,12 @@
       "../src/main.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/core/index.d.ts",
+        "../node_modules/@nestjs/platform-express/index.d.ts",
+        "../node_modules/@types/node/path.d.ts",
         "../src/app.module.ts"
       ],
       "../src/notifications.gateway.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/websockets/index.d.ts"
       ],
       "../src/notifications/notifications.controller.ts": [
@@ -8206,6 +8209,9 @@
       ],
       "../src/forum/schemas/forum-post.schema.ts": [
         "../node_modules/mongoose/index.d.ts"
+      ],
+      "../src/notifications.gateway.ts": [
+        "../node_modules/@nestjs/websockets/index.d.ts"
       ],
       "../src/notifications/notifications.controller.ts": [
         "../src/notifications/notifications.service.ts"
