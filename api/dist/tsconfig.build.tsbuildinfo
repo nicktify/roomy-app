@@ -2566,8 +2566,13 @@
         "signature": "6c407a8b6e5cabde0c5e4ad2d1d0e18c4de012983e9a006fc5e3e121545552f1",
         "affectsGlobalScope": false
       },
+      "../src/utils/returnedObject.ts": {
+        "version": "ba760ea531853099b9a87ce3acba6cea44c3587cbf7a74f47587cc2273718582",
+        "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
+        "affectsGlobalScope": false
+      },
       "../src/auth/auth.service.ts": {
-        "version": "bffbaf695ec73033f5d273aef7ffbcf90d272ccbd1e9fb1c2a7bb5516ef4098f",
+        "version": "73d5cf1e5f41f0f382a7d83bdae5d41d42dc31dd2bf21ef8d62f179f7a2072bf",
         "signature": "b587d22afb59af22d86e9b5792a46531c046ddf4cba5c02a08daef9ce5f82105",
         "affectsGlobalScope": false
       },
@@ -2631,11 +2636,6 @@
         "signature": "c6afab41b80558792d579f4ba97cc6683a814cc2c0f2afedbdfb8ea8e80c214f",
         "affectsGlobalScope": false
       },
-      "../src/utils/returnedObject.ts": {
-        "version": "ba760ea531853099b9a87ce3acba6cea44c3587cbf7a74f47587cc2273718582",
-        "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
-        "affectsGlobalScope": false
-      },
       "../src/config/templates/emailConfirmation.ts": {
         "version": "df58baa682e24b1e4a477324bdbe6c69819f8fd8f25a014bf57ca68f5cb2d8c1",
         "signature": "9062d0a112922a679e95e648102590cf17986a8edd808e25a5b71e02b1f30cdd",
@@ -2647,7 +2647,7 @@
         "affectsGlobalScope": false
       },
       "../src/users/users.service.ts": {
-        "version": "0317931f2fa12ee63dc95f380b158eaa88685d80a7033d5a6b00618a248a1c36",
+        "version": "b3a924355dc773374181fb18d5d55836d10e63486d2f1408a83f68ec3d14dfba",
         "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
@@ -2912,8 +2912,8 @@
         "affectsGlobalScope": false
       },
       "../src/notifications.gateway.ts": {
-        "version": "03d7237ebddb268fd491d939cd50f31aa98e8c8e05ab97587c3cafc4f9b4cc3f",
-        "signature": "d6b2d0f53f989f099b55d70b4965200212b31771f6e6d5480dbcfb15a04d4abc",
+        "version": "75ed84923fcac7dcae0cb3076c11c1a7adef10813f9283b5bce29e2505164d7a",
+        "signature": "571e5825c1537ac540840ab9a10d0b1f7e394e49dbe4fc752598c20f1f77afa8",
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
@@ -5615,7 +5615,8 @@
         "../node_modules/@types/bcrypt/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/users/dto/return-user.dto.ts",
-        "../src/users/schemas/user.schema.ts"
+        "../src/users/schemas/user.schema.ts",
+        "../src/utils/returnedObject.ts"
       ],
       "../src/auth/jwt-auth.guard.ts": [
         "../node_modules/@nestjs/common/index.d.ts",

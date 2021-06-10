@@ -10,6 +10,8 @@ const windowsWidth = Dimensions.get('window').width;
 
 const LoginScreen = ({ navigation }: any) => {
 
+  const { signIn, getRooms } = useContext(Context);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginDisabled, setLoginDisabled] = useState(false);
@@ -17,8 +19,6 @@ const LoginScreen = ({ navigation }: any) => {
   const [fetchErrorMessage, setFetchErrorMessage] = useState('');
   const [badEmailMessage, setBadEmailMessage] = useState('');
   const [badPasswordMessage, setBadPasswordMessage] = useState('');
-
-  const { signIn, getRooms } = useContext(Context);
 
   const onChange = (email: string, password: string) => {
     setEmail(email);
@@ -31,11 +31,8 @@ const LoginScreen = ({ navigation }: any) => {
   useEffect(() => { }, [email, password]);
 
   const handleLogin = () => {
-
     if (errors.email.length === 0 && errors.password.length === 0) {
-
       setLoginDisabled(true);
-
       signIn({ email, password })
         .then(() => {
           setLoginDisabled(false);

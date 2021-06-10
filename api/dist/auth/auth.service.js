@@ -20,6 +20,7 @@ const user_schema_1 = require("../users/schemas/user.schema");
 const jwt_1 = require("@nestjs/jwt");
 const return_user_dto_1 = require("../users/dto/return-user.dto");
 const bcrypt = require("bcrypt");
+const returnedObject_1 = require("../utils/returnedObject");
 let AuthService = class AuthService {
     constructor(userModel, jwtService) {
         this.userModel = userModel;
@@ -32,19 +33,7 @@ let AuthService = class AuthService {
         const result = await bcrypt.compare(password, user.password);
         if (!result)
             return null;
-        const curatedUser = {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            emailConfirmation: user.emailConfirmation,
-            about: user.about,
-            ownedRooms: user.ownedRooms,
-            participantRooms: user.participantRooms,
-            profilePicture: user.profilePicture,
-            profileBackground: user.profileBackground,
-            socialMediaLinks: user.socialMediaLinks,
-        };
-        return curatedUser;
+        return returnedObject_1.returnedUserObject(user);
     }
     async login(user) {
         const payload = { email: user.email, sub: user.id };
@@ -58,17 +47,7 @@ let AuthService = class AuthService {
         const payload = { email: user.email, sub: user._id };
         return {
             access_token: this.jwtService.sign(payload),
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                about: user.about,
-                ownedRooms: user.ownedRooms,
-                participantRooms: user.participantRooms,
-                profilePicture: user.profilePicture,
-                profileBackground: user.profileBackground,
-                socialMediaLinks: user.socialMediaLinks,
-            }
+            user: returnedObject_1.returnedUserObject(user),
         };
     }
 };
