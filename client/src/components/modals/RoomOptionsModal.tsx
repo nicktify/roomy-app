@@ -1,10 +1,8 @@
 import React from 'react';
-import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
-
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import styles from '../../styles/modals/roomOption';
 import { style as ModalStyles } from '../../styles/components/modal';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import Background from '../Background';
 
 const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfirmationDeleteRoom, modalConfirmationDeleteRoom, handleDeleteRoom }: any) => {
   return (
@@ -17,54 +15,20 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
           setModalRoomOptions(false);
         }}
       >
-        <View style={{ position: 'absolute', backgroundColor: 'black', opacity: 0.5, width: windowWidth, height: windowHeight }}></View>
-        <View
-          style={ModalStyles.centeredView}
-        >
-          <View
-            style={ModalStyles.modalView}
-          >
+        <Background />
+        <View style={ModalStyles.centeredView}>
+          <View style={ModalStyles.modalView}>
             <TouchableOpacity
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
+              style={styles.touchableOpacity}
               onPress={() => setModalConfirmationDeleteRoom(true)}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Delete room</Text>
+              <Text style={styles.text}>Delete room</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
+              style={styles.touchableOpacity}
               onPress={() => setModalRoomOptions(false)}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>Cancel</Text>
+              <Text style={styles.text}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -79,54 +43,20 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
           setModalConfirmationDeleteRoom(false);
         }}
       >
-        <View
-          style={ModalStyles.centeredView}
-        >
-          <View
-            style={ModalStyles.modalView}
-          >
+        <View style={ModalStyles.centeredView}>
+          <View style={ModalStyles.modalView}>
             <Text style={{ fontSize: 18, marginBottom: 15, }}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
             <TouchableOpacity
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'red',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
+              style={styles.touchableOpacity}
               onPress={handleDeleteRoom}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.9, color: 'white' }}>Yes, delete</Text>
+              <Text style={styles.yesDeleteText}>Yes, delete</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                width: 200,
-                alignItems: 'center',
-                borderRadius: 20,
-                padding: 10,
-                margin: 10,
-                backgroundColor: 'white',
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
+              style={styles.touchableOpacity}
               onPress={() => setModalConfirmationDeleteRoom(false)}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', opacity: 0.7 }}>cancel</Text>
+              <Text style={styles.text}>cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
