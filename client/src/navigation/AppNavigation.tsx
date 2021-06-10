@@ -17,11 +17,10 @@ import AllForumPostCommentsScreen from '../screens/AllForumPostCommentsScreen';
 const Stack = createStackNavigator();
 
 const AppNavigation = () => {
-
-  const { validationCompleted, user, rooms } = useContext( Context );
+  const { validationCompleted, user } = useContext( Context );
 
   if ( ! validationCompleted ) return <LoadingScreen />
-  
+
   return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {

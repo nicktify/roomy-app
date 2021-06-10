@@ -5,7 +5,6 @@ import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const AddNewForumPostCommentScreen = ({ navigation, route }: any) => {
 

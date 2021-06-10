@@ -2,11 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 
 const useWebSocket = () => {
-
   const ws = useRef<WebSocket | null>(null)
 
   const setupWebSocket = () => {
-
     const socket = new WebSocket('ws://localhost:4000')
 
     socket.onopen = () => {
@@ -36,15 +34,10 @@ const useWebSocket = () => {
   return {
     sendMessage: (message: string) => Boolean(ws.current) && ws.current!.send(message),
   }
-
 }
 
 const MessageScreen = () => {
-
   const socket = useWebSocket()
-
-
-
 
   return (
     <View style={{flex: 1}}>
@@ -55,7 +48,6 @@ const MessageScreen = () => {
           borderWidth: 0.1,
           marginTop: 200,
           width: 500,
-          
         }}
       />
       <Button

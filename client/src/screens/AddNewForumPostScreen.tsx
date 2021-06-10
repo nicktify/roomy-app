@@ -100,20 +100,20 @@ const NewForumPostForm = ({navigation}: any) => {
           />
           {
             bodyPostFormError.length > 0 &&
-            <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
+              <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
           }
         </View>
         <View style={{ width: windowWidth, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingVertical: 20 }}>
           {
             imageUri &&
-            <Image
-              style={{ width: 100, height: 100, borderRadius: 5, }}
-              source={{
-                uri: imageUri.uri
-              }}
-              width={100}
-              height={100}
-            />
+              <Image
+                style={{ width: 100, height: 100, borderRadius: 5, }}
+                source={{
+                  uri: imageUri.uri
+                }}
+                width={100}
+                height={100}
+              />
           }
           <TouchableOpacity
             style={{
@@ -126,12 +126,13 @@ const NewForumPostForm = ({navigation}: any) => {
             }}
             onPress={() => setModalPictureVisible(true)}
           >
-            <Text style={{
-              color: 'black',
-              fontSize: 15,
-              opacity: 0.7,
-            }}>
-              {imageUri ? 'Upload another image' : 'Upload image'}
+            <Text 
+              style={{
+                color: 'black',
+                fontSize: 15,
+                opacity: 0.7,
+              }}>
+                {imageUri ? 'Upload another image' : 'Upload image'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -155,17 +156,17 @@ const NewForumPostForm = ({navigation}: any) => {
                 fontSize: 25,
                 fontWeight: 'bold',
               }}
-            >Publish</Text>
+            >
+              Publish
+            </Text>
           </Pressable>
       </KeyboardAwareScrollView>
-
       <SelectImageOnPostFormModal 
         modalPictureVisible={modalPictureVisible}
         setModalPictureVisible={setModalPictureVisible}
         handleUploadImage={handleUploadImage}
         handleTakePicture={handleTakePicture}
       />
-
     </View>
   );
 };
