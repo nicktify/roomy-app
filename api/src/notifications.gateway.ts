@@ -20,11 +20,11 @@ import {
     console.log(payload)
     this.server.emit('msgToClient', payload);
   }
- 
+
   afterInit(server: Server) {
     this.logger.log('Init');
   }
- 
+
   handleDisconnect(client) {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
