@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { principalColor } from '../config/colors';
-
 import { Context } from '../context/MainContext';
 import { signInValidation } from '../validations/signin';
-
-const windowsWidth = Dimensions.get('window').width;
+import styles from '../styles/screens/login';
 
 const LoginScreen = ({ navigation }: any) => {
 
@@ -49,62 +46,26 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View 
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: windowsWidth,
-      }}
-    >
-      <KeyboardAwareScrollView
-        style={{ flex: 1, backgroundColor: 'white' }}
-      >
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-        >
-          <TouchableWithoutFeedback
-            style={{ flex: 1 }}
-            onPress={Keyboard.dismiss}
-          >
-
-            <View 
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <View
-                style={{
-                  minWidth: '80%',
-                }}
-              >
-                <Text
-                  style={{
-                    color: '#69C1AC',
-                    fontSize: 50,
-                    fontWeight: 'bold',
-                    marginBottom: 15,
-                    opacity: 0.8,
-                  }}
-                >
+    <View style={styles.container}>
+      <KeyboardAwareScrollView style={styles.awareScrollView}>
+        <KeyboardAvoidingView style={styles.avoidingView}>
+          <TouchableWithoutFeedback style={styles.withoutFeedback} onPress={Keyboard.dismiss}>
+            <View style={styles.innerContainer}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>
                   Login
                 </Text>
               </View>
               <View>
-                <Text style={style.textLabel}>
+                <Text style={styles.textLabel}>
                   Enter your email:
                 </Text>
                 {
                   fetchErrorMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic', width: windowsWidth * 0.8 }}>{fetchErrorMessage}</Text>
+                  <Text style={styles.fetchErrorMessage}>{fetchErrorMessage}</Text>
                 }
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="example@gmail.com"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={email => onChange(email, password)}
@@ -115,13 +76,13 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {
                   badEmailMessage.length > 1 &&
-                    <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
+                    <Text style={styles.errorMessage}>{badEmailMessage}</Text>
                 }
-                <Text style={style.textLabel}>
+                <Text style={styles.textLabel}>
                   Enter your password:
                 </Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="******"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={password => onChange(email, password)}
@@ -131,89 +92,32 @@ const LoginScreen = ({ navigation }: any) => {
                 />
                 {
                   badPasswordMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badPasswordMessage}</Text>
+                  <Text style={styles.errorMessage}>{badPasswordMessage}</Text>
                 }
                 <TouchableOpacity
                   onPress={() => navigation.navigate('ForgotPassword')}
                 >
-                  <Text
-                    style={{
-                      color: principalColor,
-                      fontWeight: 'bold',
-                      fontSize: 16,
-                      alignSelf: 'flex-end',
-                      opacity: 0.8,
-                    }}
-                  >
+                  <Text style={styles.forgotPasswordText}>
                     Forgot your password?
                   </Text>
                 </TouchableOpacity>
                 {
                   !loginDisabled ?
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        marginTop: 20,
-                        alignItems: 'center',
-                        marginBottom: 20,
-                        opacity: 0.8,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          opacity: 0.6,
-                        }}
-                      >
+                    <View style={styles.dontHaveAnAccountContainer}>
+                      <Text style={styles.dontHaveAnAccountText}>
                         Don't have an account?
                       </Text>
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate('Register')}
-                      >
-                        <Text
-                          style={{
-                            color: '#69C1AC',
-                            fontSize: 20,
-                            fontWeight: 'bold',
-                            marginLeft: 10,
-                          }}
-                        >
+                      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                        <Text style={styles.registerText}>
                           Register
                         </Text>
                       </TouchableOpacity>
                     </View>
                     :
-                    <View 
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        marginTop: 20,
-                        height: 30,
-                        minWidth: 10,
-                      }}
-                    >
-                    </View>
+                    <View style={styles.phantomContainer}></View>
                 }
-                <Pressable
-                  style={{
-                    backgroundColor: principalColor,
-                    borderRadius: 20,
-                    height: 55,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: loginDisabled ? 0.5 : 1,
-                    marginTop: 10,
-                  }}
-                  onPress={handleLogin}
-                >
-                  <Text
-                    style={{
-                      fontSize: 28,
-                      fontWeight: 'bold',
-                      color: 'white'
-                    }}
-                  >
+                <Pressable style={[styles.loginButton, { opacity: loginDisabled ? 0.5 : 1 }]} onPress={handleLogin}>
+                  <Text style={styles.loginButtonText}>
                     Login
                   </Text>
                 </Pressable>
@@ -225,24 +129,6 @@ const LoginScreen = ({ navigation }: any) => {
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  textInput: {
-    fontSize: 18,
-    width: 200,
-    color: 'black',
-    backgroundColor: '#E8E8E8',
-    padding: 15,
-    borderRadius: 10,
-    minWidth: '80%',
-  },
-  textLabel: {
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20,
-    opacity: 0.6,
-  },
-});
 
 export default LoginScreen;
 
