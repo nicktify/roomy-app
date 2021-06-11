@@ -45,7 +45,7 @@ const RoomPostsScreen = ({navigation}: any) => {
         <View style={style.postTopContainer}>
           <View style={style.authorInfoContainer}>
             {
-              item.authorProfilePicture.length > 10 ?
+              item.authorProfilePicture ?
                 <Image
                   source={{
                     uri: item.authorProfilePicture

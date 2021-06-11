@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   yesDeleteText: {
     fontSize: 20,
     fontWeight: 'bold',
-    opacity: 0.9,
-    color: 'white'
+    color: 'black',
+    opacity: 0.7,
   },
   
 })

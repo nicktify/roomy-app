@@ -243,6 +243,7 @@ const AppContext = ({ children }: any) => {
         headers: { Authorization: `Bearer ${JSON.parse(token)}` }
       })
         .then(response => {
+          console.log(response.data.posts)
           dispatch({
             type: 'SET_ROOM_INFORMATION',
             payload: { posts: response.data.posts, users: response.data.users, forumPosts: response.data.forumPosts }

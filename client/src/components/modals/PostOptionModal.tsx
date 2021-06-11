@@ -8,8 +8,8 @@ import roomStyles from '../../styles/screens/roomPostScreen'
 import { style as modalStyles } from '../../styles/components/modal';
 
 
-const PostOptionModal = ({modalPostOptionVisible, setModalPostOptionVisible, activeSelectedPostOptions, handleDeletePost }: any) => {
-  if (!activeSelectedPostOptions) return null;
+const PostOptionModal = ({ modalPostOptionVisible, setModalPostOptionVisible, activeSelectedPostOptions, handleDeletePost }: any) => {
+  if ( ! activeSelectedPostOptions ) return null;
   return (
     <Modal
       animationType="slide"
