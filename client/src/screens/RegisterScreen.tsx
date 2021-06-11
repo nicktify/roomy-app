@@ -4,9 +4,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 
-import style from '../styles/screens/register';
+import styles from '../styles/screens/register';
 import { style as modalStyles } from '../styles/components/modal';
 import { signUpValidation } from '../validations/signup';
+import RegisterSuccessModal from '../components/modals/RegisterSuccessModal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -97,36 +98,20 @@ const RegisterScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={style.root}>
-      <KeyboardAwareScrollView
-        style={{ flex: 1, backgroundColor: 'white' }}
-      >
-        <KeyboardAvoidingView
-          style={{ flex: 1, marginBottom: keyboardState ? 50 : 0 }}
-        >
-          <TouchableWithoutFeedback
-            style={{ flex: 1 }}
-            onPress={Keyboard.dismiss}
-          >
-            <View style={style.formContainer}>
-              <View
-                style={style.loginTextContainer}
-              >
-                <Text
-                  style={{
-                    color: '#69C1AC',
-                    fontSize: 35,
-                    fontWeight: 'bold',
-                    marginBottom: 15,
-                  }}
-                >
+    <View style={styles.root}>
+      <KeyboardAwareScrollView style={styles.awareScrollView}>
+        <KeyboardAvoidingView style={{ flex: 1, marginBottom: keyboardState ? 50 : 0 }}>
+          <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+            <View style={styles.formContainer}>
+              <View style={styles.loginTextContainer}>
+                <Text style={styles.createAccountText}>
                   Create an account
                 </Text>
               </View>
               <View>
-                <Text style={style.textLabel}>Enter your name:</Text>
+                <Text style={styles.textLabel}>Enter your name:</Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="Your Name"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={name => onChange(name, email, password, repeatedPassword)}
@@ -135,11 +120,11 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badNameMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badNameMessage}</Text>
+                  <Text style={styles.errorMessage}>{badNameMessage}</Text>
                 }
-                <Text style={style.textLabel}>Enter your email:</Text>
+                <Text style={styles.textLabel}>Enter your email:</Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="example@gmail.com"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={email => onChange(name, email, password, repeatedPassword)}
@@ -149,11 +134,11 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badEmailMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badEmailMessage}</Text>
+                  <Text style={styles.errorMessage}>{badEmailMessage}</Text>
                 }
-                <Text style={style.textLabel}>Enter your password:</Text>
+                <Text style={styles.textLabel}>Enter your password:</Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="******"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={password => onChange(name, email, password, repeatedPassword)}
@@ -163,11 +148,11 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   badPasswordMessage.length > 1 &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>{badPasswordMessage}</Text>
+                  <Text style={styles.errorMessage}>{badPasswordMessage}</Text>
                 }
-                <Text style={style.textLabel}>Repeat your password:</Text>
+                <Text style={styles.textLabel}>Repeat your password:</Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="******"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={repeatedPassword => onChange(name, email, password, repeatedPassword)}
@@ -177,51 +162,26 @@ const RegisterScreen = ({ navigation }: any) => {
                 />
                 {
                   passwordMatchError &&
-                  <Text style={{ color: 'red', fontStyle: 'italic' }}>Password needs to be equal.</Text>
+                  <Text style={styles.errorMessage}>Password needs to be equal.</Text>
                 }
                 {
                   !registerDisabled ?
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate('Login')}
-                      >
-                        <Text
-                          style={{
-                            color: '#69C1AC',
-                            fontWeight: 'bold',
-                            fontSize: 20,
-                            marginLeft: 10,
-                            marginTop: 5,
-                            opacity: 0.6,
-                          }}
-                        >
+                    <View style={styles.existentAccountContainer}>
+                      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={styles.existentAccountText}>
                           Arleady have an account?
                         </Text>
                       </TouchableOpacity>
                     </View>
                     :
-                    <View style={{ width: 10, height: 30 }}></View>
+                    <View style={styles.phantomContainer}></View>
                 }
                 <Pressable
-                  style={{
-                    backgroundColor: principalColor,
-                    marginTop: 20,
-                    borderRadius: 20,
-                    height: 55,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: registerDisabled ? 0.5 : 1,
-                  }}
+                  style={[styles.continueButtonContainer, { opacity: registerDisabled ? 0.5 : 1 }]}
                   onPress={handleRegister}
                 >
                   <Text
-                    style={style.textButton}
+                    style={styles.textButton}
                   >
                     Continue
                 </Text>
@@ -231,31 +191,13 @@ const RegisterScreen = ({ navigation }: any) => {
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </KeyboardAwareScrollView>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalRegisterSuccess}
-      >
-        <View
-          style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
-        >
-        </View>
-        <View style={modalStyles.centeredView}>
-          <View style={modalStyles.modalView}>
-            <Text>You have been registered successfuly. Please, check your email inbox and confirm your email.</Text>
-            <Pressable
-              style={modalStyles.button}
-              onPress={() => {
-                navigation.navigate('Login');
-                setModalRegisterSuccess(false);
-              }}
-            >
-              <Text style={modalStyles.textStyle}>Login</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
 
+      <RegisterSuccessModal 
+        modalRegisterSuccess={modalRegisterSuccess} 
+        navigation={navigation} 
+        setModalRegisterSuccess={setModalRegisterSuccess}
+      />
+      
       <Modal
         animationType="slide"
         transparent={true}

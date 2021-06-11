@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { principalColor } from "../../config/colors";
 
 const style = StyleSheet.create({
   root: {
@@ -7,6 +8,20 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  awareScrollView: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  createAccountText: {
+    color: '#69C1AC',
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  errorMessage: {
+    color: 'red',
+    fontStyle: 'italic'
   },
   loginTextContainer: {
     minWidth: '80%',
@@ -56,7 +71,32 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 10,
     opacity: 0.6,
-  }
+  },
+  existentAccountContainer:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  existentAccountText: {
+    color: '#69C1AC',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginLeft: 10,
+    marginTop: 5,
+    opacity: 0.6,
+  },
+  phantomContainer: {
+    width: 10,
+    height: 30
+  },
+  continueButtonContainer: {
+    backgroundColor: principalColor,
+    marginTop: 20,
+    borderRadius: 20,
+    height: 55,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default style;

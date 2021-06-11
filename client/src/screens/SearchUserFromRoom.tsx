@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DeleteUserFromRoomConfirmationModal from '../components/modals/DeleteUserFromRoomConfirmationModal';
@@ -7,8 +7,7 @@ import UserOnRoomOptionModal from '../components/modals/UserOnRoomOptionModal';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 import { User } from '../types/user';
-
-const windowWidth = Dimensions.get('window').width;
+import styles from '../styles/screens/searchUserFromRoom';
 
 const SearchUserFromRoom = () => {
 
@@ -36,32 +35,12 @@ const SearchUserFromRoom = () => {
   };
 
   const renderItem = ({ item }: { item: User; }) => (
-    <View
-      style={{
-        backgroundColor: 'white',
-        width: '100%',
-        height: 68,
-        borderRadius: 20,
-        marginVertical: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}
-    >
-      <View
-        style={{
-          justifyContent: 'center',
-          marginHorizontal: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+    <View style={styles.renderItemContainer}>
+      <View style={styles.renderItemProfilePictureContainer}>
         {
           item.profilePicture ?
             <Image
-              style={{
-                borderRadius: 50,
-              }}
+              style={styles.renderItemProfilePicture}
               source={{
                 uri: item.profilePicture
               }}
@@ -75,16 +54,12 @@ const SearchUserFromRoom = () => {
               color={principalColor}
             />
         }
-        <Text style={{ fontWeight: 'bold', fontSize: 18, opacity: 0.8, marginHorizontal: 10, }}>{item.name}</Text>
+        <Text style={styles.renderItemUserName}>{item.name}</Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row'
-        }}
-      >
+      <View style={styles.renderItemOptionsContainer}>
       {
         selectedRoom && selectedRoom.owners.includes(item.id) &&
-          <Text style={{ fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
+          <Text style={styles.renderItemOwnerText}>Owner</Text>
       }
       {
         selectedRoom?.owners.includes(user?.id ? user.id : '') &&
@@ -105,35 +80,14 @@ const SearchUserFromRoom = () => {
   );
 
   return (
-    <View style={{ flex: 1, alignItems: 'center'}}>
-      <View
-        style={{
-          minWidth: '80%',
-        }}
-      >
-        <Text 
-          style={{
-            color: '#69C1AC',
-            fontSize: 30,
-            alignSelf: 'center',
-            fontWeight: 'bold',
-            marginBottom: 15,
-          }}
-        >
+    <View style={styles.container}>
+      <View style={styles.innerContainer}>
+        <Text  style={styles.title}>
           {`Search user from ${selectedRoom?.name}`}
         </Text>
       </View>
       <TextInput
-        style={{
-          fontSize: 18,
-          width: windowWidth * 0.9,
-          color: 'black',
-          backgroundColor: '#E8E8E8',
-          padding: 15,
-          borderRadius: 10,
-          minWidth: '80%',
-          marginBottom: 40,
-        }}
+        style={styles.textInput}
         autoFocus
         placeholder='Enter room name'
         placeholderTextColor="#9a9b9c"
@@ -143,20 +97,14 @@ const SearchUserFromRoom = () => {
       />
       {
         showNotFound &&
-        <View
-          style={{
-            paddingHorizontal: 20,
-          }}
-        >
-          <Text style={{ fontWeight: 'bold', fontSize: 30, opacity: 0.8, marginTop: 20 }}>User Not Found, please try again.</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 15, opacity: 0.8, marginTop: 20 }}>Did you type a correct name?</Text>
+        <View style={styles.notFoundTextContainer}>
+          <Text style={styles.tryAgainText}>User Not Found, please try again.</Text>
+          <Text style={styles.correctNameTypeText}>Did you type a correct name?</Text>
         </View>
       }
       {
         searchedResult  &&
-          <View
-              style={{ width: '100%', paddingHorizontal: 10, height: '100%' }}
-          >
+          <View style={styles.flatListContainer}>
             <FlatList
               data={searchedResult}
               renderItem={renderItem}

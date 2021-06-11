@@ -8,8 +8,7 @@ import SelectProfilePictureModal from '../components/modals/SelectProfilePicture
 import SocialMediaIcons from '../components/SocialMediaIcons';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
-
-
+import styles from '../styles/screens/profileScreen';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -111,104 +110,42 @@ const ProfileScreen = ({navigation}: any) => {
 
   return (
     <KeyboardAwareScrollView>
-      <View style={{ flex: 1 }}>
-        <View style={{
-          width: windowWidth,
-          height: 250
-        }}>
-          <TouchableOpacity
-            onPress={() => handleModal('backgroundPicture')}
-          >
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <TouchableOpacity onPress={() => handleModal('backgroundPicture')}>
             {
               user?.profileBackground ?
                 <Image
-                  style={{
-                    width: '100%',
-                    height: '100%'
-                  }}
-                  source={{
-                    uri: user.profileBackground
-                  }}
+                  style={styles.profileBackgroundImage}
+                  source={{ uri: user.profileBackground }}
                   width={windowWidth}
                   height={windowHeight * 0.30}
                 />
                 :
-                <View
-                  style={{
-                    backgroundColor: '#a1a1a1a1',
-                    width: windowWidth,
-                    height: windowHeight * 0.30,
-                  }}
-                >
-                </View>
+                <View style={styles.phantomContainer}></View>
             }
           </TouchableOpacity>
-          <View
-            style={{
-              width: windowWidth,
-              bottom: 50,
-            }}
-          >
+          <View style={styles.profilePictureContainer}>
             {
               user?.profilePicture ?
                 <TouchableOpacity
-                  style={{
-                    alignSelf: 'center',
-                    height: 100,
-                    width: 100,
-                    borderRadius: 50,
-                  }}
+                  style={styles.touchableProfilePicture}
                   onPress={() => handleModal('profilePicture')}
                 >
-                  <Image
-                    source={{
-                      uri: user.profilePicture,
-                    }}
-                    style={{
-                      alignSelf: 'center',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                    }}
-                  />
+                  <Image source={{ uri: user.profilePicture, }} style={styles.profilePictureImage}/>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity
-                  style={{
-                    alignSelf: 'center',
-                    height: 100,
-                    width: 100,
-                    borderRadius: 50,
-                    backgroundColor: 'black'
-                  }}
-                  onPress={() => handleModal('profilePicture')}
-                >
-                </TouchableOpacity>
+                <TouchableOpacity style={styles.phantomTouchableProfilePicture} onPress={() => handleModal('profilePicture')}></TouchableOpacity>
             }
           </View>
         </View>
-        <View
-          style={{
-            width: windowWidth,
-            marginTop: 40,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          <Text style={{ fontSize: 30, fontWeight: 'bold', opacity: 0.8 }}>{user?.name}</Text>
+        <View style={styles.nameContainer}>
+          <Text style={styles.nameText}>{user?.name}</Text>
           <View>
             <SocialMediaIcons handleSocialMediaPress={handleSocialMediaPress} />
           </View>
-          <View
-            style={{
-              borderTopColor: 'black',
-              borderTopWidth: 1,
-              width: '90%',
-              paddingTop: 10,
-              paddingBottom: 10,
-            }}
-          >
-            <Text style={{ width: '100%', textAlign: 'center', fontSize: 20, fontWeight: 'bold', opacity: 0.8, marginBottom: 10, }}>About</Text>
+          <View style={styles.aboutContainer}>
+            <Text style={styles.aboutTextTitle}>About</Text>
             {
               user && user.about.length > 0 && showTextInputChangeAbout === false ?
                 <View>
@@ -218,45 +155,15 @@ const ProfileScreen = ({navigation}: any) => {
                     <Text style={{ fontSize: 16 }}>{user.about}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={{
-                      alignItems: 'center',
-                      backgroundColor: principalColor,
-                      borderRadius: 10,
-                      padding: 5,
-                      justifyContent: 'center',
-                      marginTop: 18,
-                      width: windowWidth * 0.5,
-                      alignSelf: 'center',
-                    }}
+                    style={styles.editAboutButton}
                     onPress={() => navigation.navigate('EditAboutForm')}
                   >
-                    <Text style={{ fontSize: 25,fontWeight: 'bold', color: 'white' }}>Edit about</Text>
+                    <Text style={styles.editAboutText}>Edit about</Text>
                   </TouchableOpacity>
                 </View>
                 :
-                  <TouchableOpacity
-                    style={{
-                      width: 80,
-                      marginTop: 30,
-                      alignItems: 'center',
-                      alignSelf: 'center',
-                      backgroundColor: 'white',
-                      borderRadius: 5,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                        width: 0,
-                        height: 1,
-                      },
-                      shadowOpacity: 0.22,
-                      shadowRadius: 2.22,
-                      elevation: 3,
-                    }}
-                    onPress={() => navigation.navigate('EditAboutForm')}
-                  >
-                    <Icon
-                      name='add'
-                      size={40}
-                    />
+                  <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('EditAboutForm')}>
+                    <Icon name='add' size={40} />
                   </TouchableOpacity>
             }
           </View>
