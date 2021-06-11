@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsOptional } from "class-validator";
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -9,7 +9,7 @@ export class CreatePostDto {
   @IsString()
   authorId: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   authorProfilePicture: string;
 

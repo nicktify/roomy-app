@@ -2567,8 +2567,8 @@
         "affectsGlobalScope": false
       },
       "../src/utils/returnedObject.ts": {
-        "version": "ba760ea531853099b9a87ce3acba6cea44c3587cbf7a74f47587cc2273718582",
-        "signature": "bfb5894b3f7677702730ec7bc0dea3c8c1b0cf35303f87646650c5e4acc04ed0",
+        "version": "cd3ae5efd7e92929c1989bfac77406ecea0cfe566f48a5e69834c2f1c4d0e35c",
+        "signature": "e0ee63ad60b529480d956ddbd4ad4eda7af8d1afa98b8856c7ce086f8073e383",
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
@@ -2692,7 +2692,7 @@
         "affectsGlobalScope": false
       },
       "../src/posts/dto/create-post.dto.ts": {
-        "version": "8b64e71591b951c324a02e4a67aecb626a8f79c32ce3ea01ebb1f810045f1f53",
+        "version": "8505cef75d866b0d88da3c6d356b0673dd8f10e279c02e0c19f83509c6b4fea4",
         "signature": "6a05ba87aeaebd96d1e3826b763f007db1b17604a1ffd6f7df6609f0e8bfcc3f",
         "affectsGlobalScope": false
       },
@@ -2702,7 +2702,7 @@
         "affectsGlobalScope": false
       },
       "../src/posts/posts.service.ts": {
-        "version": "08bf0b1285001a91dcd09c0f1e82182b7ececff74b37263dbd30c569af126daf",
+        "version": "caa3a8d148fde9e265858ccd6ae38b4c6ebac2ba01a12f82ab272f21ece78ece",
         "signature": "1555f1119ab1708e2b71e33be38d22ac9f1d119a97bf3c87b9ad03d83714120b",
         "affectsGlobalScope": false
       },
@@ -2912,7 +2912,7 @@
         "affectsGlobalScope": false
       },
       "../src/notifications.gateway.ts": {
-        "version": "75ed84923fcac7dcae0cb3076c11c1a7adef10813f9283b5bce29e2505164d7a",
+        "version": "a1168bf44c8fdf0dcff6837c0ee9e03b6c3578fbedc93c6c1b3ccf5ee0ed7e45",
         "signature": "571e5825c1537ac540840ab9a10d0b1f7e394e49dbe4fc752598c20f1f77afa8",
         "affectsGlobalScope": false
       },
@@ -5767,7 +5767,8 @@
         "../src/posts/dto/return-post-dto.ts",
         "../src/posts/schemas/post.schema.ts",
         "../src/rooms/schemas/room.schema.ts",
-        "../src/users/schemas/user.schema.ts"
+        "../src/users/schemas/user.schema.ts",
+        "../src/utils/returnedObject.ts"
       ],
       "../src/posts/schemas/post.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -5974,6 +5975,10 @@
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts",
         "../src/utils/returnedObject.ts"
+      ],
+      "../src/utils/returnedObject.ts": [
+        "../src/posts/dto/return-post-dto.ts",
+        "../src/users/dto/return-user.dto.ts"
       ]
     },
     "exportedModulesMap": {
@@ -8317,6 +8322,10 @@
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
         "../src/users/schemas/user.schema.ts"
+      ],
+      "../src/utils/returnedObject.ts": [
+        "../src/posts/dto/return-post-dto.ts",
+        "../src/users/dto/return-user.dto.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [

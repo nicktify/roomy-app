@@ -1,11 +1,4 @@
-export declare const returnedUserObject: (object: any) => {
-    id: any;
-    email: any;
-    name: any;
-    about: any;
-    ownedRooms: any;
-    participantRooms: any;
-    profilePicture: any;
-    profileBackground: any;
-    socialMediaLinks: any;
-};
+import { ReturnPostDto } from "src/posts/dto/return-post-dto";
+import { ReturnUserDto } from "src/users/dto/return-user.dto";
+export declare const returnedUserObject: (object: any) => ReturnUserDto;
+export declare const returnedPostObject: (object: any) => ReturnPostDto;

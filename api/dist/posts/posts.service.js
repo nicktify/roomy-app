@@ -18,6 +18,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const room_schema_1 = require("../rooms/schemas/room.schema");
 const user_schema_1 = require("../users/schemas/user.schema");
+const returnedObject_1 = require("../utils/returnedObject");
 let cloudinary = require("cloudinary").v2;
 let streamifier = require('streamifier');
 let PostsService = class PostsService {
@@ -32,22 +33,10 @@ let PostsService = class PostsService {
             if (!room)
                 return { msg: 'Room not exist.' };
             const posts = await this.postModel.find({ roomId: id });
-            let returnedPost = [];
             if (posts) {
-                for (let i = 0; i < posts.length; i++) {
-                    returnedPost.push({
-                        id: posts[i]._id,
-                        authorId: posts[i].authorId,
-                        authorName: posts[i].authorName,
-                        authorProfilePicture: posts[i].authorProfilePicture,
-                        body: posts[i].body,
-                        roomId: posts[i].roomId,
-                        date: posts[i].date,
-                        image: posts[i].image,
-                    });
-                }
+                return posts.map(post => returnedObject_1.returnedPostObject(post));
             }
-            return returnedPost;
+            return [];
         }
         catch (error) {
             throw error;
@@ -58,17 +47,7 @@ let PostsService = class PostsService {
             const post = await this.postModel.findById(id);
             if (!post)
                 return { msg: 'Post not exist.' };
-            const returnedPost = {
-                id: post._id,
-                roomId: post.roomId,
-                authorId: post.authorId,
-                authorProfilePicture: post.authorProfilePicture,
-                authorName: post.authorName,
-                body: post.body,
-                date: post.date,
-                image: post.image,
-            };
-            return returnedPost;
+            return returnedObject_1.returnedPostObject(post);
         }
         catch (error) {
             throw error;
@@ -82,7 +61,11 @@ let PostsService = class PostsService {
             const user = await this.userModel.findById(authorId);
             if (!user)
                 return { msg: 'Inexistent user.' };
-            const post = await this.postModel.create({ authorId, authorProfilePicture, authorName, roomId, body, date: new Date() });
+            const post = await this.postModel.create({ authorId, authorName, roomId, body, date: new Date() });
+            if (authorProfilePicture) {
+                post.authorProfilePicture = authorProfilePicture;
+                post.save();
+            }
             if (file) {
                 return new Promise((resolve, reject) => {
                     let cld_upload_stream = cloudinary.uploader.upload_stream({ folder: "foo" }, function (error, result) {
@@ -90,33 +73,13 @@ let PostsService = class PostsService {
                             reject(error);
                         post.image = { url: result.secure_url, size: { width: result.width, height: result.height } };
                         post.save();
-                        const returnedPost = {
-                            id: post._id,
-                            authorId: post.authorId,
-                            authorProfilePicture: post.authorProfilePicture,
-                            authorName: post.authorName,
-                            roomId: post.roomId,
-                            body: post.body,
-                            image: post.image,
-                            date: post.date
-                        };
-                        resolve(returnedPost);
+                        resolve(returnedObject_1.returnedPostObject(post));
                     });
                     streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
                 });
             }
             else {
-                const returnedPost = {
-                    id: post._id,
-                    authorId: post.authorId,
-                    authorProfilePicture: post.authorProfilePicture,
-                    authorName: post.authorName,
-                    roomId: post.roomId,
-                    body: post.body,
-                    image: post.image,
-                    date: post.date
-                };
-                return returnedPost;
+                return returnedObject_1.returnedPostObject(post);
             }
         }
         catch (error) {
