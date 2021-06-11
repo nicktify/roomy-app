@@ -37,13 +37,19 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  authorProfileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  authorNameContainer: {
+    justifyContent: 'center',
+  },
   authorNameText: {
     fontSize: 15,
     fontWeight: 'bold',
     opacity: 0.8,
-  },
-  authorNameContainer: {
-    justifyContent: 'center',
   },
   image: {
     borderRadius: 2,
@@ -122,12 +128,6 @@ const style = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     opacity: 0.8,
-  },
-  authorProfileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    marginRight: 10,
   },
 });
 

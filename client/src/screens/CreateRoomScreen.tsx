@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
-
 import { createRoomValidations } from '../validations/createRoom';
-
-const windowWidth = Dimensions.get('window').width;
+import styles from '../styles/screens/createRoomScreen';
 
 const CreateRoomScreen = ({ navigation }: any) => {
 
@@ -42,52 +39,24 @@ const CreateRoomScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View 
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}
-    >
-      <KeyboardAwareScrollView
-        style={{ flex: 1, backgroundColor: 'white' }}
-      >
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-        >
-          <TouchableWithoutFeedback
-            style={{ flex: 1 }}
-            onPress={Keyboard.dismiss}
-          >
-            <View 
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
+    <View style={styles.container}>
+      <KeyboardAwareScrollView style={styles.awareScrollView}>
+        <KeyboardAvoidingView style={styles.avoidingView}>
+          <TouchableWithoutFeedback style={styles.keyboardDismiss} onPress={Keyboard.dismiss}>
+            <View  style={styles.innerContainer}>
               <View
-                style={{
-                  minWidth: '80%',
-                }}
+                style={styles.titleContainer}
               >
-                <Text 
-                  style={{
-                    color: '#69C1AC',
-                    fontSize: 30,
-                    alignSelf: 'center',
-                    fontWeight: 'bold',
-                    marginBottom: 15,
-                  }}
-                >
+                <Text style={styles.title}>
                   Create room
                 </Text>
               </View>
               <View>
-                <Text style={style.textLabel}>
+                <Text style={styles.textLabel}>
                   Enter room name:
                 </Text>
                 <TextInput
-                  style={style.textInput}
+                  style={styles.textInput}
                   placeholder="Quantum mechanics"
                   placeholderTextColor="#9a9b9c"
                   onChangeText={name => onChange(name)}
@@ -102,16 +71,7 @@ const CreateRoomScreen = ({ navigation }: any) => {
                     <Text style={{ color: 'red' }}>{nameError}</Text>
                 }
                 <TouchableOpacity
-                  style={{
-                    backgroundColor: principalColor,
-                    borderRadius: 20,
-                    height: 55,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: createDisabled ? 0.5 : 1,
-                    marginTop: 20,
-                  }}
+                  style={[styles.createRoomButton, { opacity: createDisabled ? 0.5 : 1, }]}
                   onPress={handleCreateRoom}
                 >
                   <Text
@@ -132,23 +92,5 @@ const CreateRoomScreen = ({ navigation }: any) => {
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  textInput: {
-    fontSize: 18,
-    width: windowWidth * 0.9,
-    color: 'black',
-    backgroundColor: '#E8E8E8',
-    padding: 15,
-    borderRadius: 10,
-    minWidth: '80%',
-  },
-  textLabel: {
-    marginTop: 5,
-    marginBottom: 2,
-    fontSize: 15,
-    opacity: 0.6,
-  },
-});
 
 export default CreateRoomScreen;

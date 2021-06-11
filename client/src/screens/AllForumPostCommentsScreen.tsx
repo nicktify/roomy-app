@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import { Context } from '../context/MainContext';
 import { ForumPostComment } from '../types/ForumPostComment';
-import style from '../styles/screens/roomPostScreen';
 import { principalColor } from '../config/colors';
 import PostOptionModal from '../components/modals/PostOptionModal';
+import styles from '../styles/screens/allForumPostComments'
 
 const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
 
@@ -16,7 +15,6 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
 
   const [commentOptionModal, setCommentOptionModal] = useState(false);
   const [activeSelectedCommentOptions, setActiveSelectedCommentOptions] = useState<ForumPostComment | null>(null);
-
   const [comments, setComments] = useState<ForumPostComment[]>([]);
 
   useEffect(() => {
@@ -39,67 +37,25 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
 
   const renderItem = ({item}: {item:ForumPostComment}) => (
 
-    <View
-      style={{
-        width: '90%',
-        alignSelf: 'flex-end',
-        borderTopWidth: 0.3,
-        borderTopColor: '#b5b5b5',
-        padding: 5,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '100%',
-          alignItems: 'center',
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '90%',
-          }}
-        >
+    <View style={styles.renderItemContainer}>
+      <View style={styles.renderItemInnerContainer}>
+        <View style={styles.renderItemProfileContainer}>
           {
             item.authorProfilePicture ?
-              <Image 
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 50,
-                  marginRight: 10,
-                }}
-                source={{
-                  uri: item.authorProfilePicture
-                }}
-              />
+              <Image style={styles.renderItemProfileImage} source={{ uri: item.authorProfilePicture }} />
               :
               <Icon
-                style={{
-                  marginRight: 5,
-                }}
+                style={styles.renderItemIcon}
                 name="account-circle"
                 size={28}
                 color={principalColor}
               />
           }
-          <Text
-            style={{
-              fontWeight: 'bold',
-              opacity: 0.8,
-            }}
-            >
+          <Text style={styles.renderItemAuthorNameText} >
             {item.authorName}
           </Text>
         </View>
-        <View
-          style={{
-            width: '10%',
-            height: '100%',
-          }}
-        >
+        <View style={styles.renderItemMoreVertContainer}>
           {
             user && user.id === item.authorId &&
             <TouchableOpacity
@@ -117,11 +73,7 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
         </View>
       </View>
       <View>
-        <Text
-          style={{
-            opacity: 0.8,
-          }}
-        >
+        <Text style={styles.renderItemBodyText}>
           {item.body}
         </Text>
       </View>
@@ -129,41 +81,35 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
   )
 
   return (
-    <View style={style.postContainer}>
-      <View style={style.postInnerContainer}>
-        <View style={style.postTopContainer}>
-          <View style={style.authorInfoContainer}>
+    <View style={styles.postContainer}>
+      <View style={styles.postInnerContainer}>
+        <View style={styles.postTopContainer}>
+          <View style={styles.authorInfoContainer}>
             {
               authorProfilePicture ?
                 <Image
                   source={{
                     uri: authorProfilePicture
                   }}
-                  style={style.authorProfileImage}
+                  style={styles.authorProfileImage}
                 />
                 :
                 <Icon
-                  style={style.authorProfileImage}
+                  style={styles.authorProfileImage}
                   name="account-circle"
                   size={38}
                   color={principalColor}
                 />
             }
-            <View style={style.authorNameContainer}>
-              <Text style={style.authorNameText}>{authorName}</Text>
+            <View style={styles.authorNameContainer}>
+              <Text style={styles.authorNameText}>{authorName}</Text>
             </View>
           </View>
         </View>
-        <View style={style.textContainer}>
-          <Text style={style.text}>{body.trim()}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{body.trim()}</Text>
         </View>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 5,
-            backgroundColor: '#f1f1f1',
-          }}
-        >
+        <View style={styles.selectedImagePostButton}>
           {
             image &&
               <Pressable
@@ -172,10 +118,7 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
                 }}
               >
                 <Image
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                  }}
+                  style={styles.selectedImage}
                   source={{
                     uri: image,
                   }}

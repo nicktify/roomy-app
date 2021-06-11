@@ -5,6 +5,7 @@ import { Context } from '../context/MainContext';
 import HomeRightTopComponent from '../components/HomeRightTopComponent';
 import Rooms from '../components/rooms/Rooms';
 import RoomOptionsModal from '../components/modals/RoomOptionsModal';
+import styles from '../styles/screens/homeScreen';
 
 const HomeScreen = ({ navigation }: any) => {
 
@@ -27,140 +28,45 @@ const HomeScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: 'white',
-        flex: 1,
-      }}
-    >
-      <View 
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-        }}
-      >
-        <View 
-          style={{
-            flex: 1,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => navigation.openDrawer()}
-          >
+    <View style={styles.container}>
+      <View  style={styles.innerContainer}>
+        <View  style={styles.topLeftContainer}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icon
-              style={{
-                marginLeft: 10,
-                marginTop: 10,
-                marginBottom: 30,
-                opacity: 0.8
-              }}
+              style={styles.menuIcon}
               name="menu"
               size={30}
               color="black"
             />
           </TouchableOpacity>
-          <View 
-            style={{
-              flexDirection: 'row',
-              marginLeft: 10,
-            }}
-          >
-            <Text 
-              style={{
-                fontSize: 20,
-                fontWeight: '100',
-                opacity: 0.5,
-              }}
-            >
+          <View style={styles.greetingContainer}>
+            <Text  style={styles.helloText}>
               Hello,
             </Text>
-            <Text 
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                opacity: 0.8
-              }}
-            >
+            <Text style={styles.nameText}>
               {` ${user?.name}`}!
             </Text>
           </View>
-          <Text 
-            style={{
-              marginLeft: 10,
-              marginTop: 10,
-              fontWeight: '100',
-              opacity: 0.3
-            }}
-          >
+          <Text style={styles.happyLearningText}>
             Happy learning !
           </Text>
         </View>
         <HomeRightTopComponent />
       </View>
-      <View 
-        style={{
-          flex: 1,
-          backgroundColor: '#f1f1f1',
-          borderTopLeftRadius: 50,
-          borderTopRightRadius: 50,
-          elevation: 16,
-          justifyContent: 'center',
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 10,
-            height: 10,
-          },
-          shadowOpacity: 0.44,
-          shadowRadius: 5,
-        }}
-      >
-        <View 
-          style={{
-            alignItems: 'center',
-            height: '100%',
-            paddingHorizontal: 10,
-          }}
-        >
-          <View 
-            style={{
-              alignItems: 'center',
-              borderBottomColor: '#a4a4a4a4',
-              borderBottomWidth: 0.5,
-              marginBottom: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '80%',
-            }}
-          >
-            <Text 
-              style={{
-                fontSize: 22,
-                fontWeight: 'bold',
-                opacity: 0.7, }}
-            >
+      <View style={styles.bottomContainer}>
+        <View style={styles.bottomInnerContainer}>
+          <View style={styles.roomsContainer}>
+            <Text style={styles.yourRoomText}>
               Your rooms
             </Text>
-            <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}
-              onPress={() => navigation.navigate('SearchRoom')}
-            >
-              <Text
-                style={{
-                  opacity: 0.7,
-                }}
-              >
+            <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('SearchRoom')}>
+              <Text style={styles.searchButtonText}>
                 Search
               </Text>
               <Icon
                 name='search'
                 size={30}
-                style={{
-                  marginLeft: 5,
-                  opacity: 0.7,
-                }}
+                style={styles.searchIcon}
               />
             </TouchableOpacity>
           </View>

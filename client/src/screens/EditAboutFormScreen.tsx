@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, TextInput, View, Dimensions, TouchableOpacity, Keyboard } from 'react-native';
-import { principalColor } from '../config/colors';
+import { Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
 import { Context } from '../context/MainContext';
-
-const windowWidth = Dimensions.get('window').width;
+import styles from '../styles/screens/editAboutForm';
 
 const EditAboutFormScreen = ({navigation}: any) => {
 
@@ -41,26 +39,12 @@ const EditAboutFormScreen = ({navigation}: any) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-      }}
-    >
-      <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', opacity: 0.8 }}>Edit about</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+          <Text style={styles.title}>Edit about</Text>
       </View>
       <TextInput
-        style={{
-          width: windowWidth * 0.9,
-          borderRadius: 5,
-          borderColor: '#4a4a4a',
-          borderWidth: 0.2,
-          fontSize: 18,
-          paddingHorizontal: 20,
-          marginTop: 40,
-          color: '#4a4a4a',
-        }}
+        style={styles.textInput}
         placeholder='What best describes you?'
         placeholderTextColor='#4a4a4a'
         maxLength={500}
@@ -71,20 +55,10 @@ const EditAboutFormScreen = ({navigation}: any) => {
         onSubmitEditing={() => handleChangeAbout()}
       />
       <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          marginTop: 20,
-          backgroundColor: principalColor,
-          borderRadius: 20,
-          padding: 10,
-          justifyContent: 'center',
-          width: windowWidth * 0.5,
-          alignSelf: 'center',
-          opacity: saveAboutDisabled ? 0.5 : 1,
-        }}
+        style={[styles.changeAboutButton, { opacity: saveAboutDisabled ? 0.5 : 1 }]}
         onPress={() => handleChangeAbout()}
       >
-        <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Change about</Text>
+        <Text style={styles.changeAboutButtonText}>Change about</Text>
       </TouchableOpacity>
     </View>
   );
