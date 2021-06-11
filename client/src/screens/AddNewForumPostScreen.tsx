@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Dimensions, Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 import SelectImageOnPostFormModal from '../components/modals/SelectImageOnPostFormModal';
-
-const windowWidth = Dimensions.get('window').width;
+import styles from '../styles/screens/addNewForumPost'
 
 const NewForumPostForm = ({navigation}: any) => {
 
@@ -59,36 +57,14 @@ const NewForumPostForm = ({navigation}: any) => {
   };
 
   return (
-    <View style={{
-     flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center'
-    }}>
-      <KeyboardAwareScrollView style={{ flex: 1 }}>
-        <Text style={{
-          color: '#69C1AC',
-          fontSize: 30,
-          alignSelf: 'center',
-          fontWeight: 'bold',
-          marginBottom: 15,
-        }}>
+    <View style={styles.container}>
+      <KeyboardAwareScrollView style={styles.keyboardAwareScrollView}>
+        <Text style={styles.title}>
           Create new forum post
         </Text>
-        <View
-          style={{
-            width: windowWidth * 0.9,
-            alignSelf: 'center'
-          }}
-        >
+        <View style={styles.textInputContainer}>
           <TextInput
-            style={{
-              fontSize: 18,
-              width: windowWidth * 0.9,
-              color: 'black',
-              backgroundColor: '#E8E8E8',
-              padding: 15,
-              borderRadius: 10,
-            }}
+            style={styles.textInput}
             placeholder='What do you want to share?'
             placeholderTextColor="#9a9b9c"
             autoCorrect={false}
@@ -100,66 +76,33 @@ const NewForumPostForm = ({navigation}: any) => {
           />
           {
             bodyPostFormError.length > 0 &&
-              <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
+              <Text style={styles.bodyPostError}>{bodyPostFormError}</Text>
           }
         </View>
-        <View style={{ width: windowWidth, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingVertical: 20 }}>
+        <View style={styles.imageFormContainer}>
           {
             imageUri &&
               <Image
-                style={{ width: 100, height: 100, borderRadius: 5, }}
-                source={{
-                  uri: imageUri.uri
-                }}
+                style={styles.imageFormPreview}
+                source={{ uri: imageUri.uri }}
                 width={100}
                 height={100}
               />
           }
-          <TouchableOpacity
-            style={{
-              marginLeft: 10,
-              borderRadius: 2,
-              borderColor: '#4a4a4a',
-              borderWidth: 0.1,
-              padding: 15,
-              alignItems: 'center',
-            }}
-            onPress={() => setModalPictureVisible(true)}
-          >
-            <Text 
-              style={{
-                color: 'black',
-                fontSize: 15,
-                opacity: 0.7,
-              }}>
+          <TouchableOpacity style={styles.uploadImageButton} onPress={() => setModalPictureVisible(true)}>
+            <Text style={styles.uploadImageButtonText}>
                 {imageUri ? 'Upload another image' : 'Upload image'}
             </Text>
           </TouchableOpacity>
         </View>
-          <Pressable
-            style={{
-              alignItems: 'center',
-              backgroundColor: principalColor,
-              borderRadius: 20,
-              padding: 10,
-              justifyContent: 'center',
-              marginTop: 18,
-              width: windowWidth * 0.5,
-              alignSelf: 'center',
-              opacity: disabledPublishPostButton ? 0.5 : 1
-            }}
-            onPress={handlePublish}
-          >
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 25,
-                fontWeight: 'bold',
-              }}
-            >
-              Publish
-            </Text>
-          </Pressable>
+        <Pressable
+          style={[styles.publishButton, { opacity: disabledPublishPostButton ? 0.5 : 1 }]}
+          onPress={handlePublish}
+        >
+          <Text style={styles.publishButtonText}>
+            Publish
+          </Text>
+        </Pressable>
       </KeyboardAwareScrollView>
       <SelectImageOnPostFormModal 
         modalPictureVisible={modalPictureVisible}

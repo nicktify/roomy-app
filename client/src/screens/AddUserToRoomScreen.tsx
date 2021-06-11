@@ -6,6 +6,8 @@ import ShowSocialMediaPreviewLinkModal from '../components/modals/ShowSocialMedi
 import ShowUserOnFetchModal from '../components/modals/ShowUserOnFetchModal';
 import { principalColor } from '../config/colors';
 import { User } from '../types/user';
+import styles from '../styles/screens/addUserToRoom';
+import UserAddedToRoomModal from '../components/modals/UserAddedToRoomModal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -29,7 +31,7 @@ const AddUserToRoomScreen = () => {
       .then(() => {
         setShowNotFound(false);
       })
-      .catch(error => {
+      .catch(() => {
         setShowNotFound(true);
         cleanSearchedUser()
       })
@@ -84,37 +86,12 @@ const AddUserToRoomScreen = () => {
   };
 
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        backgroundColor: '#f1f1f1',
-        height: '100%',
-        position: 'absolute',
-        width: '100%',
-      }}
-    >
-      <Text 
-        style={{
-          color: '#69C1AC',
-          fontSize: 30,
-          alignSelf: 'center',
-          fontWeight: 'bold',
-        }}
-      >
+    <View style={styles.container}>
+      <Text  style={styles.title}>
         {`Add new user to \n${selectedRoom?.name}`}
       </Text>
       <TextInput
-        style={{
-          maxWidth: windowWidth * 0.9,
-          fontSize: 18,
-          width: windowWidth * 0.9,
-          color: 'black',
-          backgroundColor: '#E8E8E8',
-          padding: 15,
-          borderRadius: 10,
-          alignSelf: 'center',
-          marginVertical: 20,
-        }}
+        style={styles.textInput}
         placeholder='Search new user by email'
         placeholderTextColor='#4a4a4a'
         keyboardType='email-address'
@@ -124,144 +101,59 @@ const AddUserToRoomScreen = () => {
         defaultValue={searchUserOnFetchInputValue}
         onEndEditing={() => fetchSearchedUser()}
       />
-      <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          backgroundColor: principalColor,
-          borderRadius: 20,
-          padding: 10,
-          justifyContent: 'center',
-          width: windowWidth * 0.5,
-          alignSelf: 'center',
-        }}
-        onPress={() => fetchSearchedUser()}
-      >
-        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Search</Text>
+      <TouchableOpacity style={styles.searchButton} onPress={() => fetchSearchedUser()}>
+        <Text style={styles.searchButtonText}>Search</Text>
       </TouchableOpacity>
       {
         showNotFound &&
         <View
-          style={{
-            paddingHorizontal: 20,
-          }}
+          style={styles.showNotFoundContainer}
         >
-          <Text style={{ fontWeight: 'bold', fontSize: 30, opacity: 0.8, marginTop: 20 }}>User Not Found, please try again.</Text>
-          <Text style={{ fontWeight: 'bold', fontSize: 15, opacity: 0.8, marginTop: 20 }}>Did you type a correct email?</Text>
+          <Text style={styles.showNotFoundTextOne}>User Not Found, please try again.</Text>
+          <Text style={styles.showNotFoundTextTwo}>Did you type a correct email?</Text>
         </View>
       }
       {
         searchedUser &&
         <View>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            backgroundColor: 'white',
-            borderRadius: 5,
-            elevation: 5,
-            flexDirection: 'row',
-            minHeight: 100,
-            marginTop: 20,
-            paddingHorizontal: 10,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            width: windowWidth * 0.9,
-          }}
-          onPress={() => setShowProfilePreview(searchedUser)}
-        >
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              width: '60%',
-            }}
-          >
-            {
-              searchedUser && searchedUser.profilePicture ?
-                <Image
-                  source={{
-                    uri: searchedUser.profilePicture
-                  }}
-                  width={50}
-                  height={50}
-                  style={{
-                    borderRadius: 50,
-                    height: 50,
-                    width: 50,
-                  }}
-                />
-                :
-                <Icon
-                  name='account-circle'
-                  color={principalColor}
-                  size={50}
-                />
-            }
-            <Text style={{ fontSize: 18, fontWeight: 'bold', opacity: 0.8, marginLeft: 10 }}>{searchedUser.name}</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.userContainer} onPress={() => setShowProfilePreview(searchedUser)}>
+            <View style={styles.userInnercontainer}>
+              {
+                searchedUser && searchedUser.profilePicture ?
+                  <Image
+                    source={{ uri: searchedUser.profilePicture }}
+                    width={50}
+                    height={50}
+                    style={styles.userProfilePicture}
+                  />
+                  :
+                  <Icon
+                    name='account-circle'
+                    color={principalColor}
+                    size={50}
+                  />
+              }
+              <Text style={styles.userName}>{searchedUser.name}</Text>
+            </View>
+          </TouchableOpacity>
         {
           searchedUser  && selectedRoom && 
           (selectedRoom.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id)) &&
-          <Text style={{color: 'red', fontStyle: 'italic', fontSize: 12, marginTop: 10, }}>This user is already a participant of this room</Text>
+            <Text style={styles.userIsParticipantErrorText}>This user is already a participant of this room</Text>
         }
-        <View
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 20,
-          }}
-        >
-            <TouchableOpacity
-              style={{
-                backgroundColor: principalColor,
-                borderRadius: 10,
-                width: windowWidth * 0.4,
-                paddingVertical: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={() => setShowProfilePreview(searchedUser)}
-            >
-              <Text style={{ color: 'white' }}>View</Text>
+        <View style={styles.userActionButtonsContainer}>
+            <TouchableOpacity style={styles.viewUserButton} onPress={() => setShowProfilePreview(searchedUser)}>
+              <Text style={styles.viewUserButtonText}>View</Text>
             </TouchableOpacity>
             {
               searchedUser  && selectedRoom && 
               (selectedRoom.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id)) ?
-                <Pressable
-                  style={{
-                    backgroundColor: principalColor,
-                    borderRadius: 10,
-                    width: windowWidth * 0.4,
-                    paddingVertical: 10,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: 0.5,
-                  }}
-                >
-                  <Text style={{ color: 'white' }}>Add</Text>
+                <Pressable style={[styles.addUserButton, { opacity: 0.5 }]}>
+                  <Text style={styles.addUserButtonText}>Add</Text>
                 </Pressable>
                 :
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: principalColor,
-                    borderRadius: 10,
-                    width: windowWidth * 0.4,
-                    paddingVertical: 10,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  onPress={handleAddUserToRoom}
-                >
-                  <Text style={{ color: 'white' }}>Add</Text>
+                <TouchableOpacity style={styles.addUserButton} onPress={handleAddUserToRoom}>
+                  <Text style={styles.addUserButtonText}>Add</Text>
                 </TouchableOpacity>
             }
           </View>
@@ -279,57 +171,14 @@ const AddUserToRoomScreen = () => {
         setShowPreviewSocialMediaLink={setShowPreviewSocialMediaLink}
         selectedSocialMediaLink={selectedSocialMediaLink}
       />
-
-      <Modal
-        animationType='slide'
-        transparent={true}
-        visible={showUserAddedToRoomModal}
-        onRequestClose={() => {
-          setShowUserAddedToRoomModal(!showUserAddedToRoomModal)
-          setShowProfilePreview(null)
-          cleanSearchedUser();
-        }}
-      >
-      <View
-        style={{ flex: 1, backgroundColor: 'black', opacity: 0.5, position: 'absolute', width: windowWidth, height: windowHeight }}
-      >
-      </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 20,
-            alignSelf: 'center',
-            padding: 20,
-          }}
-        >
-          <Text>{`User ${searchedUser && searchedUser.name} added to room successfuly.`}</Text>
-          <TouchableOpacity
-            style={{
-              paddingHorizontal: 25,
-              paddingVertical: 10,
-              backgroundColor: principalColor,
-              alignSelf: 'center',
-              borderRadius: 20,
-              marginTop: 10,
-            }}
-            onPress={() => {
-              setShowUserAddedToRoomModal(false)
-              setShowProfilePreview(null)
-              cleanSearchedUser();
-            }}
-          >
-            <Text style={{color: 'white'}}>Ok</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      </Modal>
-
+      <UserAddedToRoomModal 
+        showUserAddedToRoomModal={showUserAddedToRoomModal}
+        setShowUserAddedToRoomModal={setShowUserAddedToRoomModal}
+        setShowProfilePreview={setShowProfilePreview}
+        cleanSearchedUser={cleanSearchedUser}
+        searchedUser={searchedUser}
+      />
+      
     </View>
   );
 };
