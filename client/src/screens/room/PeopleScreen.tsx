@@ -70,6 +70,8 @@ const PeopleScreen = ({ navigation }: any) => {
               source={{
                 uri: item.profilePicture
               }}
+              width={50}
+              height={50}
             />
             :
             <Icon

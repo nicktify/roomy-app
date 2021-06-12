@@ -289,9 +289,10 @@ const AppContext = ({ children }: any) => {
         type: data.type,
         name: data.fileName
       });
+      
       formData.append('roomId', state.selectedRoom.id);
       formData.append('authorId', state.user.id);
-      formData.append('authorProfilePicture', state.user.profilePicture);
+      data && formData.append('authorProfilePicture', state.user.profilePicture);
       formData.append('authorName', state.user?.name);
       formData.append('body', body);
 
