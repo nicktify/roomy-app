@@ -10,11 +10,13 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor( private readonly postsService: PostsService ) {}
 
+
   @UseGuards( JwtAuthGuard )
   @Get('get-all-posts/:id')
   getAllRoomPosts( @Param() { id } ): Promise<ReturnPostDto[] | { msg: string }> {
     return this.postsService.getAllRoomPost( id )
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Get('get-post/:id')
@@ -22,12 +24,14 @@ export class PostsController {
     return this.postsService.getPost( id )
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Post('add')
   @UseInterceptors(FileInterceptor('file'))
   addNewPost( @Body() createPostDto: CreatePostDto, @UploadedFile() file: Express.Multer.File): Promise<ReturnPostDto | {msg: string}> {
     return this.postsService.addNewPost( createPostDto, file );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Delete('delete-post/')

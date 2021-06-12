@@ -20,6 +20,7 @@ import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
 import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
 import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
 
+
 @Injectable()
 export class RoomsService {
   constructor( @InjectModel('Room') private roomModel: Model<RoomDocument>,
@@ -27,8 +28,8 @@ export class RoomsService {
     @InjectModel('Post') private postModel: Model<PostDocument>,
     @InjectModel('ForumPost') private forumPostModel: Model<ForumPostDocument> ) {}
 
-  async getRooms(): Promise<ReturnRoomDto[]> {
 
+  async getRooms(): Promise<ReturnRoomDto[]> {
     const rooms = await this.roomModel.find();
     return rooms.map(room =>  ({ 
       id: room._id, 
@@ -42,12 +43,10 @@ export class RoomsService {
 
   }
 
+
   async getRoom( id: string ): Promise<ReturnRoomDto | { msg: string }> {
-
     if ( ! id ) return { msg: 'Id should not be empty.' }
-
     try {
-
       const findedRoom = await this.roomModel.findById( id );
       if ( ! findedRoom ) return { msg: 'Room not exist.'};
 
@@ -60,11 +59,11 @@ export class RoomsService {
         dates: findedRoom.dates,
         books: findedRoom.books,
       };
-
     } catch ( error ) {
       throw error;
     }
   }
+
 
   async createRoom( { name, owner }: CreateRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
@@ -93,8 +92,8 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
   }
+
 
   async editRoom( { id, name, owner }: EditRoomDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
@@ -123,8 +122,8 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
   }
+
 
   async deleteRoom( id: string, owner: string, authenticatedUser ): Promise<{ msg: string }> {
 
@@ -159,8 +158,8 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
   }
+
 
   async addNewOwner( { id, owner, newOwner }: AddNewOwnerDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
@@ -202,8 +201,8 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
   }
+
 
   async deleteOwner( { id, owner, ownerToDelete }: DeleteOwnerDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
@@ -248,6 +247,7 @@ export class RoomsService {
     }
   }
 
+
   async addNewParticipant( { id, owner, newParticipant }: addNewParticipantDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
     try {
@@ -287,8 +287,8 @@ export class RoomsService {
     } catch ( error ) {
       throw error;
     }
-
   }
+
 
   async deleteParticipant( { id, owner, participantToDelete }: DeleteParticipantDto, authenticatedUser ): Promise<ReturnRoomDto | { msg: string }> {
 
@@ -334,6 +334,7 @@ export class RoomsService {
     }
   }
 
+
   async addNewBook( { id, ownerId, name, description, link }: AddNewBookDto, authenticatedUser ): Promise<{ msg: string }> {
     try {
 
@@ -358,6 +359,7 @@ export class RoomsService {
     }
   }
 
+
   async addNewLink( { id, ownerId, name, link }: AddNewLinkDto, authenticatedUser ): Promise<{ msg: string }> {
     try {
       
@@ -381,6 +383,7 @@ export class RoomsService {
       throw error;
     }
   }
+
 
   async getAllUsersFromRoom( roomId: string ): Promise<ReturnUserDto[] | { msg: string }> {
     try {
@@ -439,6 +442,7 @@ export class RoomsService {
     }
   }
 
+
   async deleteUserFromRoom({ roomId, userId }: DeleteUserFromRoomDto): Promise<{msg: string}> {
     try {
       const user = await this.userModel.findById( userId );
@@ -484,6 +488,7 @@ export class RoomsService {
     }
   }
 
+
   async makeUserParticipant({ userId, roomId }): Promise<{msg: string}> {
     try {
       const user = await this.userModel.findById( userId );
@@ -508,6 +513,7 @@ export class RoomsService {
       throw error;
     }
   }
+
 
   async getAllRoomsFromUser({userId}: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {msg: string}> {
 
@@ -561,6 +567,7 @@ export class RoomsService {
       throw error;
     }
   }
+
 
   async getAllRoomInformation({ roomId }): Promise<{posts: ReturnPostDto[], users: ReturnUserDto[], forumPosts: ReturnForumPostDto[]} | {msg: string}> {
     try {

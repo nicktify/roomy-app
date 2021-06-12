@@ -17,14 +17,17 @@ import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-ow
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { GetAllRoomInformation } from './dto/get-all-room-information';
 
+
 @Controller('rooms')
 export class RoomsController {
   constructor( private readonly roomService: RoomsService ) {}
+
 
   @Get()
   getRooms(): Promise<ReturnRoomDto[]> {
     return this.roomService.getRooms();
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Get('user-room/:id')
@@ -32,11 +35,13 @@ export class RoomsController {
     return this.roomService.getRoom( id );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Post()
   postRoom( @Body() createRoomDto: CreateRoomDto, @Request() req ): Promise<ReturnRoomDto | { msg: string } > {
     return this.roomService.createRoom( createRoomDto, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Put()
@@ -44,11 +49,13 @@ export class RoomsController {
     return this.roomService.editRoom( room, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Delete('delete-room')
   deleteRoom( @Body() { id, owner }: { id: string, owner: string }, @Request() req ): Promise<{ msg: string }> {
     return this.roomService.deleteRoom( id, owner, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Post('newowner')
@@ -56,11 +63,13 @@ export class RoomsController {
     return this.roomService.addNewOwner( addNewOwnerDto, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Delete('deleteowner')
   deleteOwner( @Body() deleteOwnerDto: DeleteOwnerDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.deleteOwner( deleteOwnerDto, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Post('newparticipant')
@@ -68,11 +77,13 @@ export class RoomsController {
     return this.roomService.addNewParticipant( addNewParticipantDto, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Delete('deleteparticipant')
   deleteParticipant( @Body() deleteParticipantDto: DeleteParticipantDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.deleteParticipant( deleteParticipantDto, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Post('books')
@@ -80,11 +91,13 @@ export class RoomsController {
     return this.roomService.addNewBook( addNewBookDto, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Post('links')
   addNewLink( @Body() addNewLinkDto: AddNewLinkDto, @Request() req ): Promise<{ msg: string }> {
     return this.roomService.addNewLink( addNewLinkDto, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Get('get-all-users-from-room/:roomId')
@@ -92,11 +105,13 @@ export class RoomsController {
     return this.roomService.getAllUsersFromRoom( roomId )
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Delete('delete-user-from-room')
   deleteUserFromRoom( @Body() deleteUserFromRoomDto: DeleteUserFromRoomDto ): Promise<{msg: string}> {
     return this.roomService.deleteUserFromRoom( deleteUserFromRoomDto );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Put('make-user-owner-of-room')
@@ -104,17 +119,20 @@ export class RoomsController {
     return this.roomService.makeUserOwner( makeUserOwnerOfRoomDto );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Put('make-user-participant-of-room')
   makeUserParticipant( @Body() makeUserParticipantOfRoomDto: MakeUserParticipantOrOwnerDto ): Promise<{msg: string}> {
     return this.roomService.makeUserParticipant( makeUserParticipantOfRoomDto );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Get('get-all-rooms-from-user/:userId')
   getAllRoomsFromUser(@Param() userId: GetAllRoomsFromUserDto): Promise<ReturnRoomDto[] | {msg: string}> {
     return this.roomService.getAllRoomsFromUser(userId);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Get('get-all-room-information/:roomId')

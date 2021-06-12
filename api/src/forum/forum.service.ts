@@ -24,6 +24,7 @@ export class ForumService {
     @InjectModel('ForumPostComment') private forumPostCommentModel: Model<ForumPostCommentDocument>
     ) {}
 
+
   async createNewForumPost({ authorId, roomId, body }: CreateForumPostDto, file: Express.Multer.File ): Promise<ReturnForumPostDto | {msg:string}> {
     try {
       const user = await this.userModel.findById( authorId );
@@ -83,6 +84,7 @@ export class ForumService {
     }
   }
 
+
   async getAllRoomForumPost({roomId}: GetAllRoomForumPostDto): Promise<ReturnForumPostDto[] | {msg: string}> {
     try {
       const room = await this.roomModel.findById( roomId );
@@ -112,6 +114,7 @@ export class ForumService {
       throw error;
     }
   }
+
 
   async getAllForumPostComments({forumPostId}: GetAllForumPostCommentsDto): Promise<ReturnForumPostCommentDto[] | {msg: string}> {
     try {
@@ -146,6 +149,7 @@ export class ForumService {
     }
   }
 
+
   async addForumPostComment({forumPostId, authorId, body}: AddForumPostCommentDto): Promise<{msg: string}> {
     try {
       const forumPost = await this.forumPostModel.findById(forumPostId)
@@ -179,6 +183,7 @@ export class ForumService {
     }
   }
 
+
   async deleteForumPost({forumPostId}: DeleteForumPostDto): Promise<{msg: string}> {
     try {
       await this.forumPostModel.findByIdAndDelete(forumPostId);
@@ -189,6 +194,7 @@ export class ForumService {
       throw error;
     }
   }
+
 
   async deleteForumPostComment({forumPostCommentId, forumPostId}: DeleteForumPostCommentDto): Promise<{msg: string}> {
     try {
@@ -223,8 +229,8 @@ export class ForumService {
       await this.forumPostCommentModel.deleteOne({_id: forumPostCommentId});
       const comment = await this.forumPostCommentModel.findById(forumPostCommentId);
       if (!comment) return {msg: 'Comment deleted.'}
+      
       return {msg: 'Please try again.'}
-
     } catch (error) {
       throw error;
     }

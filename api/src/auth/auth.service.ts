@@ -7,13 +7,15 @@ import { ReturnUserDto } from 'src/users/dto/return-user.dto';
 import * as bcrypt from 'bcrypt';
 import { returnedUserObject } from 'src/utils/returnedObject';
 
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
     private jwtService: JwtService
     ) {}
-  
+
+
   async validateUser( { username, password } ): Promise<ReturnUserDto | null> {
     const user = await this.userModel.findOne({ email: username });
     if ( ! user ) return null;
@@ -24,6 +26,7 @@ export class AuthService {
     return returnedUserObject(user);
   }
 
+
   async login( user: ReturnUserDto ): Promise<{ access_token: string, user: ReturnUserDto } | {msg: string}> {
     const payload = { email: user.email, sub: user.id };
     console.log(user)
@@ -33,6 +36,7 @@ export class AuthService {
     };
   }
 
+
   async validateToken( { email }: { email: string, userId: string } ): Promise<{ access_token: string, user: ReturnUserDto } | { msg: string }> {
     const user = await this.userModel.findOne({email});
     const payload = { email: user.email, sub: user._id };
@@ -41,5 +45,4 @@ export class AuthService {
       user: returnedUserObject(user),
     }
   }
-
 }

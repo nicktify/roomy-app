@@ -16,11 +16,12 @@ import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import {User} from './types/user';
+
 
 @Controller('users')
 export class UsersController {
   constructor( private usersService: UsersService, private authService: AuthService ) {}
+
 
   // @UseGuards( JwtAuthGuard )
   @Get()
@@ -28,10 +29,12 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
+
   @Get('get-by-id/:id')
   getUser( @Param() { id }: { id: string } ): Promise<ReturnUserDto | { msg: string }> {
     return this.usersService.getUser( id );
   }
+
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
@@ -39,10 +42,12 @@ export class UsersController {
     return this.usersService.createUser( createUserDto, file );
   }
 
+
   @Get('email-confirmation/:userId/special-info/:emailConfirmationPassword')
   emailConfirmation(@Param() params): Promise<{msg: string}> {
     return this.usersService.emailConfirmation(params);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Post('/add-profile-picture')
@@ -51,11 +56,13 @@ export class UsersController {
     return this.usersService.addProfilePicture( userId, file, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Put()
   editUser( @Body() user: EditUserDto, @Request() req ): Promise<ReturnUserDto | { msg: string }> | { msg: string } {
     return this.usersService.editUser( user, req.user );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Delete()
@@ -63,11 +70,13 @@ export class UsersController {
     return this.usersService.deleteUser( id, req.user );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Get('get-by-email/:email')
   getByEmail( @Param() email: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.getByEmail( email );
   }
+
 
   @UseGuards( AuthGuard('local') )
   @Post('auth/login')
@@ -75,11 +84,13 @@ export class UsersController {
     return this.authService.login(req.user);
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Post('auth/validate-token')
   async validateToken( @Request() req ) {
     return this.authService.validateToken( req.user )
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Post('change-password')
@@ -87,10 +98,12 @@ export class UsersController {
     return this.usersService.changePassword(changePasswordDto);
   }
 
+
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<any> {
     return this.usersService.resetPassword(resetPasswordDto);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @UseInterceptors(FileInterceptor('file'))
@@ -99,11 +112,13 @@ export class UsersController {
     return this.usersService.changeProfileBackground(changeBackgroundDto, file);
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Put('change-social-media-link')
   async changeSocialMediaLink(@Body() changeSocialMediaLinkDto: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
     return this.usersService.changeSocialMediaLink(changeSocialMediaLinkDto);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Delete('delete-social-media-link')
@@ -111,11 +126,13 @@ export class UsersController {
     return this.usersService.deleteSocialMediaLink(deleteSocialMediaLinkDto);
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Put('change-about')
   async changeAbout(@Body() changeAboutDto: ChangeAboutDto): Promise<{msg: string}> {
     return this.usersService.changeAbout(changeAboutDto);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Put('clean-about')
@@ -123,9 +140,9 @@ export class UsersController {
     return this.usersService.clearAbout(userIdDto);
   }
 
+
   @Post('forgot-password')
   async forgotPassword(@Body() body: ForgotPasswordDto): Promise<any> {
     return this.usersService.forgotPassword(body);
   }
-
 }

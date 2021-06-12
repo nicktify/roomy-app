@@ -13,6 +13,7 @@ import { ForumService } from './forum.service';
 export class ForumController {
   constructor( private forumService: ForumService) {}
 
+
   @UseGuards( JwtAuthGuard )
   @Post('create-new-forum-post')
   @UseInterceptors(FileInterceptor('file'))
@@ -20,11 +21,13 @@ export class ForumController {
     return this.forumService.createNewForumPost( createForumPostDto, file );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Get('get-all-room-forum-posts/:roomId')
   async getAllRoomForumPosts( @Param() roomId: GetAllRoomForumPostDto): Promise<ReturnForumPostDto[] | {msg: string}> {
     return this.forumService.getAllRoomForumPost( roomId );
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Delete('delete-forum-post/:forumPostId')
@@ -32,11 +35,13 @@ export class ForumController {
     return this.forumService.deleteForumPost( forumPostId );
   }
 
+
   @UseGuards( JwtAuthGuard )
   @Post('add-forum-post-comment')
   async addForumPostComment(@Body() addForumPostCommentDto: AddForumPostCommentDto) {
     return this.forumService.addForumPostComment(addForumPostCommentDto);
   }
+
 
   @UseGuards( JwtAuthGuard )
   @Get('get-all-forum-post-comments/:forumPostId')
@@ -44,6 +49,7 @@ export class ForumController {
     return this.forumService.getAllForumPostComments(forumPostId);
   }
 
+  
   @UseGuards( JwtAuthGuard )
   @Delete('delete-forum-post-comment')
   async deleteForumPostComment(@Body() deleteForumPostCommentDto: DeleteForumPostCommentDto): Promise<{msg: string}> {
