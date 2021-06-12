@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
 const RegisterSuccessModal = ({modalRegisterSuccess, navigation, setModalRegisterSuccess}: any) => {

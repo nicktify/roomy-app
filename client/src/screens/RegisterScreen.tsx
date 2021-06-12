@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Modal, Pressable, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
-
 import styles from '../styles/screens/register';
-import { style as modalStyles } from '../styles/components/modal';
+import { style as modalStyles } from '../styles/modals/modal';
 import { signUpValidation } from '../validations/signup';
 import RegisterSuccessModal from '../components/modals/RegisterSuccessModal';
 
@@ -74,7 +72,6 @@ const RegisterScreen = ({ navigation }: any) => {
         password,
       })
         .then((response) => {
-          console.log(response)
           if (response.msg === 'Register success. Please confirm your email.') {
             setModalRegisterSuccess(true);
             setName('')

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 import { styles } from '../../styles/modals/changeSocialMedia';
 import SocialMediaIcon from '../SocialMediaIcon';
 

@@ -3,7 +3,7 @@ import { Image, Modal, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
 import { Context } from '../../context/MainContext';
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 import styles from '../../styles/modals/userRoomOption';
 

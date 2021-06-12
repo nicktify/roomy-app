@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { Context } from '../../context/MainContext';
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 import { styles } from '../../styles/modals/deleteUserFromRoomConfirmation';
 
 const DeleteUserFromRoomConfirmationModal = ({

@@ -5,7 +5,7 @@ import { principalColor } from '../../config/colors';
 import Background from '../Background';
 import styles from '../../styles/modals/postModalOption';
 import roomStyles from '../../styles/screens/roomPostScreen'
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 
 
 const PostOptionModal = ({ modalPostOptionVisible, setModalPostOptionVisible, activeSelectedPostOptions, handleDeletePost }: any) => {

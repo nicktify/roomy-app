@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import styles from '../../styles/modals/roomOption';
-import { style as ModalStyles } from '../../styles/components/modal';
+import { style as ModalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
 const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfirmationDeleteRoom, modalConfirmationDeleteRoom, handleDeleteRoom }: any) => {

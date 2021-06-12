@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
-import { style as modalStyles } from '../../styles/components/modal';
+import { style as modalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
 const SelectImageOnPostFormModal = ({modalPictureVisible, setModalPictureVisible, handleUploadImage, handleTakePicture}: any) => {

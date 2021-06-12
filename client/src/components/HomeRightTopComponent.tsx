@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 import styles from '../styles/components/homeRightTop';
-import { style as modalStyles } from '../styles/components/modal';
+import { style as modalStyles } from '../styles/modals/modal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
