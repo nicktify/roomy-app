@@ -49,7 +49,9 @@ export declare class UsersController {
     getByEmail(email: FindByEmailDto): Promise<ReturnUserDto | {
         msg: string;
     }>;
-    login(req: any): Promise<{
+    login(req: {
+        user: ReturnUserDto;
+    } | null): Promise<{
         access_token: string;
         user: ReturnUserDto;
     } | {

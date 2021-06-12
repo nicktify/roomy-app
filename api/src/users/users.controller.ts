@@ -16,6 +16,7 @@ import { ChangeAboutDto } from './dto/change-about.tdo';
 import { UserIdDto } from './dto/user-id.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import {User} from './types/user';
 
 @Controller('users')
 export class UsersController {
@@ -70,7 +71,7 @@ export class UsersController {
 
   @UseGuards( AuthGuard('local') )
   @Post('auth/login')
-  async login( @Request() req ) {
+  async login( @Request() req: {user: ReturnUserDto} | null) {
     return this.authService.login(req.user);
   }
 

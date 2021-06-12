@@ -37,12 +37,13 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const payload = { email: user.email, sub: user.id };
+        console.log(user);
         return {
             access_token: this.jwtService.sign(payload),
             user
         };
     }
-    async validateToken({ email, userId }) {
+    async validateToken({ email }) {
         const user = await this.userModel.findOne({ email });
         const payload = { email: user.email, sub: user._id };
         return {

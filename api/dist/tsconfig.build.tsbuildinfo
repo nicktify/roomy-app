@@ -2572,8 +2572,8 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "73d5cf1e5f41f0f382a7d83bdae5d41d42dc31dd2bf21ef8d62f179f7a2072bf",
-        "signature": "b587d22afb59af22d86e9b5792a46531c046ddf4cba5c02a08daef9ce5f82105",
+        "version": "9ac9227f459a10064058a16dbab04eb58f7b93791dabdc3a34d1bc0451894a7a",
+        "signature": "7a25efd90946371e4eb21cda3ed6fd9379058d96bed6dfb0857bf2346a7f50cb",
         "affectsGlobalScope": false
       },
       "../src/users/dto/change-password.dto.ts": {
@@ -2651,9 +2651,14 @@
         "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
+      "../src/users/types/user.ts": {
+        "version": "9ced0f98775d9fc23de6ca458ba4887f60835383dacae1637268dace17bbb977",
+        "signature": "8a8ca6a281ccd83d775fbb43a01db9e275396f2d3004c0f0edf8801d8e565fe3",
+        "affectsGlobalScope": false
+      },
       "../src/users/users.controller.ts": {
-        "version": "24b1495f25b26020f0f73208fb07299abb4a699ee2a8bd5ecbaa1d5abdd10810",
-        "signature": "c7dae44a96d92ba83cbd523149560d5323200382682060866e2eae3458bafbb5",
+        "version": "1af212d06064b088c853339f275437d6f01e5243ac76d560de2ae8740397b5e2",
+        "signature": "b9c43b1082138984e0b114244db5d073e6e5cef8a0059e25fa5a4451043c41bf",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -3124,11 +3129,6 @@
       "../src/users/dto/login-dto.ts": {
         "version": "096aa050ed17c7d546f3fc6c3e009a087ef75e2ca3b04be80b2ae5c1a70ae326",
         "signature": "6c7c3ad0d8503662be36fcb84f9283282ba9b4d18d038963d29594b723cd9059",
-        "affectsGlobalScope": false
-      },
-      "../src/users/types/user.ts": {
-        "version": "9ced0f98775d9fc23de6ca458ba4887f60835383dacae1637268dace17bbb977",
-        "signature": "8a8ca6a281ccd83d775fbb43a01db9e275396f2d3004c0f0edf8801d8e565fe3",
         "affectsGlobalScope": false
       },
       "../node_modules/@babel/types/lib/index.d.ts": {
@@ -5941,6 +5941,7 @@
         "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
+        "../src/users/types/user.ts",
         "../src/users/users.service.ts"
       ],
       "../src/users/users.module.ts": [
