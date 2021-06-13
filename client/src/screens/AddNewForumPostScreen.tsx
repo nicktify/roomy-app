@@ -59,9 +59,11 @@ const NewForumPostForm = ({navigation}: any) => {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={styles.keyboardAwareScrollView}>
+
         <Text style={styles.title}>
           Create new forum post
         </Text>
+
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
@@ -79,6 +81,7 @@ const NewForumPostForm = ({navigation}: any) => {
               <Text style={styles.bodyPostError}>{bodyPostFormError}</Text>
           }
         </View>
+
         <View style={styles.imageFormContainer}>
           {
             imageUri &&
@@ -95,21 +98,29 @@ const NewForumPostForm = ({navigation}: any) => {
             </Text>
           </TouchableOpacity>
         </View>
+
+
         <Pressable
           style={[styles.publishButton, { opacity: disabledPublishPostButton ? 0.5 : 1 }]}
           onPress={handlePublish}
         >
+
           <Text style={styles.publishButtonText}>
             Publish
           </Text>
+
         </Pressable>
       </KeyboardAwareScrollView>
+
+
       <SelectImageOnPostFormModal 
         modalPictureVisible={modalPictureVisible}
         setModalPictureVisible={setModalPictureVisible}
         handleUploadImage={handleUploadImage}
         handleTakePicture={handleTakePicture}
       />
+
+
     </View>
   );
 };

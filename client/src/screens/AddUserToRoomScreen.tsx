@@ -9,9 +9,6 @@ import { User } from '../types/user';
 import styles from '../styles/screens/addUserToRoom';
 import UserAddedToRoomModal from '../components/modals/UserAddedToRoomModal';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 const AddUserToRoomScreen = () => {
 
   const { user, selectedRoom, getAllUsersFromRoom, makeUserParticipantOfRoom, fetchUserByEmail, searchedUser, cleanSearchedUser } = useContext(Context);
@@ -106,60 +103,58 @@ const AddUserToRoomScreen = () => {
       </TouchableOpacity>
       {
         showNotFound &&
-        <View
-          style={styles.showNotFoundContainer}
-        >
-          <Text style={styles.showNotFoundTextOne}>User Not Found, please try again.</Text>
-          <Text style={styles.showNotFoundTextTwo}>Did you type a correct email?</Text>
-        </View>
+          <View
+            style={styles.showNotFoundContainer}
+          >
+            <Text style={styles.showNotFoundTextOne}>User Not Found, please try again.</Text>
+            <Text style={styles.showNotFoundTextTwo}>Did you type a correct email?</Text>
+          </View>
       }
       {
         searchedUser &&
-        <View>
-          <TouchableOpacity style={styles.userContainer} onPress={() => setShowProfilePreview(searchedUser)}>
-            <View style={styles.userInnercontainer}>
-              {
-                searchedUser && searchedUser.profilePicture ?
-                  <Image
-                    source={{ uri: searchedUser.profilePicture }}
-                    width={50}
-                    height={50}
-                    style={styles.userProfilePicture}
-                  />
-                  :
-                  <Icon
-                    name='account-circle'
-                    color={principalColor}
-                    size={50}
-                  />
-              }
-              <Text style={styles.userName}>{searchedUser.name}</Text>
-            </View>
-          </TouchableOpacity>
-        {
-          searchedUser  && selectedRoom && 
-          (selectedRoom.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id)) &&
-            <Text style={styles.userIsParticipantErrorText}>This user is already a participant of this room</Text>
-        }
-        <View style={styles.userActionButtonsContainer}>
-            <TouchableOpacity style={styles.viewUserButton} onPress={() => setShowProfilePreview(searchedUser)}>
-              <Text style={styles.viewUserButtonText}>View</Text>
+          <View>
+            <TouchableOpacity style={styles.userContainer} onPress={() => setShowProfilePreview(searchedUser)}>
+              <View style={styles.userInnercontainer}>
+                {
+                  searchedUser && searchedUser.profilePicture ?
+                    <Image
+                      source={{ uri: searchedUser.profilePicture }}
+                      width={50}
+                      height={50}
+                      style={styles.userProfilePicture}
+                    />
+                    :
+                    <Icon
+                      name='account-circle'
+                      color={principalColor}
+                      size={50}
+                    />
+                }
+                <Text style={styles.userName}>{searchedUser.name}</Text>
+              </View>
             </TouchableOpacity>
             {
-              searchedUser  && selectedRoom && 
-              (selectedRoom.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id)) ?
-                <Pressable style={[styles.addUserButton, { opacity: 0.5 }]}>
-                  <Text style={styles.addUserButtonText}>Add</Text>
-                </Pressable>
-                :
-                <TouchableOpacity style={styles.addUserButton} onPress={handleAddUserToRoom}>
-                  <Text style={styles.addUserButtonText}>Add</Text>
-                </TouchableOpacity>
+              selectedRoom?.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id) &&
+                <Text style={styles.userIsParticipantErrorText}>This user is already a participant of this room</Text>
             }
+            <View style={styles.userActionButtonsContainer}>
+              <TouchableOpacity style={styles.viewUserButton} onPress={() => setShowProfilePreview(searchedUser)}>
+                <Text style={styles.viewUserButtonText}>View</Text>
+              </TouchableOpacity>
+              {
+                searchedUser  && selectedRoom && 
+                (selectedRoom.owners.includes(searchedUser.id) || selectedRoom?.participants.includes(searchedUser.id)) ?
+                  <Pressable style={[styles.addUserButton, { opacity: 0.5 }]}>
+                    <Text style={styles.addUserButtonText}>Add</Text>
+                  </Pressable>
+                  :
+                  <TouchableOpacity style={styles.addUserButton} onPress={handleAddUserToRoom}>
+                    <Text style={styles.addUserButtonText}>Add</Text>
+                  </TouchableOpacity>
+              }
+            </View>
           </View>
-        </View>
       }
-
       <ShowUserOnFetchModal
         showProfilePreview={showProfilePreview}
         setShowProfilePreview={setShowProfilePreview}
@@ -178,7 +173,6 @@ const AddUserToRoomScreen = () => {
         cleanSearchedUser={cleanSearchedUser}
         searchedUser={searchedUser}
       />
-      
     </View>
   );
 };

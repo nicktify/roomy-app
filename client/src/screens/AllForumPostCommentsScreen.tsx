@@ -5,9 +5,9 @@ import { Context } from '../context/MainContext';
 import { ForumPostComment } from '../types/ForumPostComment';
 import { principalColor } from '../config/colors';
 import PostOptionModal from '../components/modals/PostOptionModal';
-import styles from '../styles/screens/allForumPostComments'
+import styles from '../styles/screens/allForumPostComments';
 
-const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
+const AllForumPostCommentsScreen = ({ route }: any) => {
 
   const { id: forumPostId, authorName, authorProfilePicture, body, image } = route.params;
 
@@ -36,7 +36,6 @@ const AllForumPostCommentsScreen = ({ navigation, route }: any) => {
   }
 
   const renderItem = ({item}: {item:ForumPostComment}) => (
-
     <View style={styles.renderItemContainer}>
       <View style={styles.renderItemInnerContainer}>
         <View style={styles.renderItemProfileContainer}>

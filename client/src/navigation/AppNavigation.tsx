@@ -26,21 +26,21 @@ const AppNavigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {
           user ?
-                  <>
-                    <Stack.Screen name="HomeNavigation" component={ DrawerNavigation } />
-                    <Stack.Screen name="SearchRoom" component={ SearchRoomScreen } />
-                    <Stack.Screen name="Room" component={ RoomNavigation } />
-                    <Stack.Screen name="AddUserToRoom" component={ AddUserToRoomScreen } />
-                    <Stack.Screen name="NewPostForm" component={ NewPostForm } />
-                    <Stack.Screen name="NewForumPostForm" component={ NewForumPostForm } />
-                    <Stack.Screen name="NewForumPostCommentForm" component={ AddNewForumPostCommentScreen } />
-                    <Stack.Screen name="ForumPostInformation" component={ AllForumPostCommentsScreen } />
-                    <Stack.Screen name="EditAboutForm" component={ EditAboutFormScreen } />
-                    <Stack.Screen name="SearchUserFromRoom" component={ SearchUserFromRoom } />
-                    <Stack.Screen name="RenameRoom" component={ RenameRoomFormScreen } />
-                  </>
-               :
-                  <Stack.Screen name="AuthNavigation" component={ AuthNavigation } />
+            <>
+              <Stack.Screen name="HomeNavigation" component={ DrawerNavigation } />
+              <Stack.Screen name="SearchRoom" component={ SearchRoomScreen } />
+              <Stack.Screen name="Room" component={ RoomNavigation } />
+              <Stack.Screen name="AddUserToRoom" component={ AddUserToRoomScreen } />
+              <Stack.Screen name="NewPostForm" component={ NewPostForm } />
+              <Stack.Screen name="NewForumPostForm" component={ NewForumPostForm } />
+              <Stack.Screen name="NewForumPostCommentForm" component={ AddNewForumPostCommentScreen } />
+              <Stack.Screen name="ForumPostInformation" component={ AllForumPostCommentsScreen } />
+              <Stack.Screen name="EditAboutForm" component={ EditAboutFormScreen } />
+              <Stack.Screen name="SearchUserFromRoom" component={ SearchUserFromRoom } />
+              <Stack.Screen name="RenameRoom" component={ RenameRoomFormScreen } />
+            </>
+          :
+            <Stack.Screen name="AuthNavigation" component={ AuthNavigation } />
         }
       </Stack.Navigator>
   );

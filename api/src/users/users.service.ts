@@ -28,6 +28,7 @@ import { forgotPasswordHtml } from 'src/config/templates/forgotPassword';
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>, @InjectModel('Post') private postModel: Model<PostDocument>) {}
 
+
   async getUsers(): Promise<ReturnUserDto[]> {
     try {
       const users = await this.userModel.find();
@@ -36,6 +37,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async getUser( id: string ): Promise<ReturnUserDto | { msg: string }> {
     try {
@@ -49,6 +51,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async createUser( { name, email, password }: CreateUserDto, file: Express.Multer.File ): Promise<{ msg: string }> {
     try {
@@ -105,6 +108,7 @@ export class UsersService {
     }
   }
 
+
   async emailConfirmation({ userId, emailConfirmationPassword }): Promise<any> {
     try {
       const user = await this.userModel.findById(userId)
@@ -120,6 +124,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async changePassword({ newPassword, oldPassword, userId }: ChangePasswordDto): Promise<{msg: string}> {
     try {
@@ -142,6 +147,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async resetPassword({newPassword, userId, token}: ResetPasswordDto): Promise<any> {
     try {
@@ -173,6 +179,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async addProfilePicture( { userId }: { userId: string }, file: Express.Multer.File, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
     try {
@@ -207,6 +214,7 @@ export class UsersService {
     }
   }
 
+
   async editUser( { id, name, email, role}: EditUserDto, authenticatedUser ): Promise<ReturnUserDto | { msg: string }> {
     try {
       const user = await this.userModel.findById( id );
@@ -224,6 +232,7 @@ export class UsersService {
     }
   }
 
+
   async deleteUser( id: string, authenticatedUser ): Promise<{ msg: string }> {
     try {
       if ( id !== authenticatedUser.userId ) return { msg: 'You don\'t have the authorization to do this action.' }
@@ -236,6 +245,7 @@ export class UsersService {
     }
   }
 
+
   async getByEmail( { email }: FindByEmailDto ): Promise<ReturnUserDto | {msg: string}>  {
     try {
       const user = await this.userModel.findOne({email: email.toLocaleLowerCase()});
@@ -247,6 +257,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async changeProfileBackground( { userId }, file: Express.Multer.File): Promise<ReturnUserDto | {msg: string}> {
     try {
@@ -270,6 +281,7 @@ export class UsersService {
      throw error; 
     }
   }
+
 
   async changeSocialMediaLink({ userId, type, link }: ChangeSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
     try {
@@ -305,6 +317,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async deleteSocialMediaLink({ userId, type }: DeleteSocialMediaLinkDto): Promise<ReturnUserDto | {msg: string}> {
     try {
@@ -344,6 +357,7 @@ export class UsersService {
     }
   }
 
+
   async changeAbout( { userId, about }:ChangeAboutDto ): Promise<{msg: string}> {
     try {
       const user = await this.userModel.findById(userId);
@@ -358,6 +372,7 @@ export class UsersService {
       throw error;
     }
   }
+
 
   async clearAbout({ userId }: UserIdDto ): Promise<{msg: string}> {
     try {
@@ -374,6 +389,7 @@ export class UsersService {
     }
   }
 
+  
   async forgotPassword({email}: ForgotPasswordDto): Promise<any> {
     try {
       const user = await this.userModel.findOne({email});

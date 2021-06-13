@@ -39,8 +39,6 @@ const RoomPostsScreen = ({navigation}: any) => {
     setModalPostOptionVisible(false);
   };
 
-  console.log(selectedRoomPosts)
-
   const renderItem = ({ item }: { item: Post; }) => (
     <View style={style.postContainer}>
       <View style={style.postInnerContainer}>
