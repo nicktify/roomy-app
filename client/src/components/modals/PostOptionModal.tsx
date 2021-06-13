@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
 import Background from '../Background';
 import styles from '../../styles/modals/postModalOption';
-import roomStyles from '../../styles/screens/roomPostScreen'
+import roomStyles from '../../styles/screens/room/roomPostScreen'
 import { style as modalStyles } from '../../styles/modals/modal';
 
 

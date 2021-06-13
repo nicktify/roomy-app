@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../../config/colors';
 import { Context } from '../../context/MainContext';
 import { ForumPost } from '../../types/ForumPost';
-import style from '../../styles/screens/roomPostScreen';
+import style from '../../styles/screens/room/roomPostScreen';
 import PostOptionModal from '../../components/modals/PostOptionModal';
 import ImagePostPreviewModal from '../../components/modals/ImagePostPreviewModal';
 import styles from '../../styles/screens/room/forumScreen'

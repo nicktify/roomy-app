@@ -14,6 +14,7 @@ import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-owner.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { GetAllRoomInformation } from './dto/get-all-room-information';
+import { RenameRoomDto } from './dto/rename-room-dto';
 export declare class RoomsController {
     private readonly roomService;
     constructor(roomService: RoomsService);
@@ -29,6 +30,9 @@ export declare class RoomsController {
     editRoom(room: EditRoomDto, req: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
+    renameRoom(renameRoomDto: RenameRoomDto): Promise<{
+        msg: string;
+    } | ReturnRoomDto>;
     deleteRoom({ id, owner }: {
         id: string;
         owner: string;

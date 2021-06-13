@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     backgroundColor: principalColor,
     borderRadius: 50,
   },
-
 })
 
 export default styles;

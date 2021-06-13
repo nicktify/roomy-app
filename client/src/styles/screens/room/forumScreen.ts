@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { principalColor } from '../../../config/colors';
 
 const styles = StyleSheet.create({
   itemContainer: {
@@ -122,7 +123,6 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     color: 'black',
   },
-
   container: {
     flex: 1,
   },

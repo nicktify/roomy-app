@@ -16,6 +16,7 @@ import { DeleteUserFromRoomDto } from './dto/delete-user-from-room.dto';
 import { MakeUserParticipantOrOwnerDto } from './dto/make-user-participant-or-owner.dto';
 import { GetAllRoomsFromUserDto } from './dto/get-all-rooms-from-user.dto';
 import { GetAllRoomInformation } from './dto/get-all-room-information';
+import { RenameRoomDto } from './dto/rename-room-dto';
 
 
 @Controller('rooms')
@@ -47,6 +48,12 @@ export class RoomsController {
   @Put()
   editRoom( @Body() room: EditRoomDto, @Request() req ): Promise<ReturnRoomDto | { msg: string }> {
     return this.roomService.editRoom( room, req.user );
+  }
+
+  @UseGuards( JwtAuthGuard )
+  @Put('rename-room')
+  renameRoom( @Body() renameRoomDto: RenameRoomDto ): Promise<{msg:string} | ReturnRoomDto> {
+    return this.roomService.renameRoom(renameRoomDto)
   }
 
 

@@ -19,6 +19,8 @@ import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
 import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
 import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
+import { returnedRoomObject } from 'src/utils/returnedObject';
+import { RenameRoomDto } from './dto/rename-room-dto';
 
 
 @Injectable()
@@ -120,6 +122,21 @@ export class RoomsService {
       };
 
     } catch ( error ) {
+      throw error;
+    }
+  }
+
+  async renameRoom({ newName, roomId }: RenameRoomDto): Promise<{ msg: string } | ReturnRoomDto> {
+    try {
+      const room = await this.roomModel.findById( roomId );
+      if (!room) return { msg: 'Inexistent room.' };
+
+      room.name = newName;
+      room.save()
+
+      return returnedRoomObject(room);
+
+    } catch (error) {
       throw error;
     }
   }

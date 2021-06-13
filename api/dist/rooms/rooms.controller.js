@@ -30,6 +30,7 @@ const delete_user_from_room_dto_1 = require("./dto/delete-user-from-room.dto");
 const make_user_participant_or_owner_dto_1 = require("./dto/make-user-participant-or-owner.dto");
 const get_all_rooms_from_user_dto_1 = require("./dto/get-all-rooms-from-user.dto");
 const get_all_room_information_1 = require("./dto/get-all-room-information");
+const rename_room_dto_1 = require("./dto/rename-room-dto");
 let RoomsController = class RoomsController {
     constructor(roomService) {
         this.roomService = roomService;
@@ -45,6 +46,9 @@ let RoomsController = class RoomsController {
     }
     editRoom(room, req) {
         return this.roomService.editRoom(room, req.user);
+    }
+    renameRoom(renameRoomDto) {
+        return this.roomService.renameRoom(renameRoomDto);
     }
     deleteRoom({ id, owner }, req) {
         return this.roomService.deleteRoom(id, owner, req.user);
@@ -116,6 +120,14 @@ __decorate([
     __metadata("design:paramtypes", [edit_room_dto_1.EditRoomDto, Object]),
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "editRoom", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Put('rename-room'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [rename_room_dto_1.RenameRoomDto]),
+    __metadata("design:returntype", Promise)
+], RoomsController.prototype, "renameRoom", null);
 __decorate([
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Delete('delete-room'),

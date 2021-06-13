@@ -2311,9 +2311,19 @@
         "signature": "abf9c74edb502b52d80a25e5f1500effd8385c6a5f34debe2b60e323215cab4c",
         "affectsGlobalScope": false
       },
+      "../src/utils/returnedObject.ts": {
+        "version": "d50110390199bce3d809e73d0ca5ca5660fb3310c83091fba2fec45a19f2345b",
+        "signature": "915946eac05c08f9504e9c771dfedac23c47c22cef6c3725b5170a3924f4fb77",
+        "affectsGlobalScope": false
+      },
+      "../src/rooms/dto/rename-room-dto.ts": {
+        "version": "e4993bea9690c363143a9e6584dfc29a4f3ab82096cbdc20c7125b22dfd750d9",
+        "signature": "a8b3d9641546fd230d15edb9e9aaec9c246107c5c0cd480c2dabf368ad09e8ba",
+        "affectsGlobalScope": false
+      },
       "../src/rooms/rooms.service.ts": {
-        "version": "af886144cb753a2b1bb65cd1c3135d608cbdf4d3f078cc6457a91d72ca24a446",
-        "signature": "da6fda09469223648e9647fd517fc8b57814c249876c6d6667bd880bc0b2cfc8",
+        "version": "787b94ea0a1210e83b9f5994ee9b7e4092bdc66d0adf2ab83f53bf01fcf41489",
+        "signature": "36cc2b3ae839e29c58fa878daa613c427185082276e83b5947678f267b5544fc",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
@@ -2432,8 +2442,8 @@
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.controller.ts": {
-        "version": "879c1ce10ca806cee8605963697b5f9ce83fc50a14e5a53a8ef04246d1b65968",
-        "signature": "dc2fe08844d19adc61a552d5d6c3c57ae8a8fd5d577cc8ff1ba045bb415cde02",
+        "version": "ae6a1a865ea57ddf3ad52ca4c82465d48e6e476bc8fb4822774dfd90943369e6",
+        "signature": "1bf28bd50909dcd5a8d19e14eb44905634de5de9555a3dfb34e1ff9a05ee341f",
         "affectsGlobalScope": false
       },
       "../src/rooms/rooms.module.ts": {
@@ -2566,13 +2576,8 @@
         "signature": "6c407a8b6e5cabde0c5e4ad2d1d0e18c4de012983e9a006fc5e3e121545552f1",
         "affectsGlobalScope": false
       },
-      "../src/utils/returnedObject.ts": {
-        "version": "cd3ae5efd7e92929c1989bfac77406ecea0cfe566f48a5e69834c2f1c4d0e35c",
-        "signature": "e0ee63ad60b529480d956ddbd4ad4eda7af8d1afa98b8856c7ce086f8073e383",
-        "affectsGlobalScope": false
-      },
       "../src/auth/auth.service.ts": {
-        "version": "9ac9227f459a10064058a16dbab04eb58f7b93791dabdc3a34d1bc0451894a7a",
+        "version": "adb886939c86a06c889b905c651f6cb85d8399580340d858f0fcf19423c1714f",
         "signature": "7a25efd90946371e4eb21cda3ed6fd9379058d96bed6dfb0857bf2346a7f50cb",
         "affectsGlobalScope": false
       },
@@ -2651,13 +2656,8 @@
         "signature": "0022448bd994dc2921cd96771ee3eb4f76224627879a766c548ef416103223ba",
         "affectsGlobalScope": false
       },
-      "../src/users/types/user.ts": {
-        "version": "9ced0f98775d9fc23de6ca458ba4887f60835383dacae1637268dace17bbb977",
-        "signature": "8a8ca6a281ccd83d775fbb43a01db9e275396f2d3004c0f0edf8801d8e565fe3",
-        "affectsGlobalScope": false
-      },
       "../src/users/users.controller.ts": {
-        "version": "1af212d06064b088c853339f275437d6f01e5243ac76d560de2ae8740397b5e2",
+        "version": "739fc34fd9607d651a8d20fd1d379e1c449e31ce2f1cfb45a35fbb191ffb35e5",
         "signature": "b9c43b1082138984e0b114244db5d073e6e5cef8a0059e25fa5a4451043c41bf",
         "affectsGlobalScope": false
       },
@@ -2672,7 +2672,7 @@
         "affectsGlobalScope": false
       },
       "../src/auth/local.strategy.ts": {
-        "version": "62f6d6524b8fd37986eff37cf5e0f865bbd9c25c6ea223c3ddef9aea3cc69b99",
+        "version": "9ec4e50c87b45266a9dec1539964a4c77038fdc32565812d1906be22229bd670",
         "signature": "5c6b439eaf5629d67c26390c075ea6d5e9d37f0c6d81ac050a57c925e26e6988",
         "affectsGlobalScope": false
       },
@@ -2712,7 +2712,7 @@
         "affectsGlobalScope": false
       },
       "../src/posts/posts.controller.ts": {
-        "version": "5cb5c8a74df8510135808556d0d8625799a15443e7e86d3eee754adf8b98443d",
+        "version": "ef0e81c5c200239f9a7ea787f3fe8c8abedb8a5cdb70a3fdb4109f675f8d5c55",
         "signature": "0c2706496ab67a72398771ee06a23c5a69581b1489262e8e720412dfdb075b27",
         "affectsGlobalScope": false
       },
@@ -2762,12 +2762,12 @@
         "affectsGlobalScope": false
       },
       "../src/forum/forum.service.ts": {
-        "version": "2cdd1313b46d1c88f4493cc0fa42d65c2487c49cd51d383fa332376aef82f4f6",
+        "version": "90acb622c3d19f29e8e3d650ae401cdffb36f571788cf43fc458a1837ecbb771",
         "signature": "2a268576e414e4c7ee14c0831b0bf18dbbf8e524b938022758879c02e0dd4116",
         "affectsGlobalScope": false
       },
       "../src/forum/forum.controller.ts": {
-        "version": "a14e0cc09eac34609be9f4a426bc6e9b2f3991ba5a6f63b932ea2b32961bf576",
+        "version": "5b0879f560c8036102d15e8b274b3b28eba45055a4058e2238ebe416f6a73541",
         "signature": "00fd2aaa49cfb6698d0d7f9291e6dbbb88c9ea19aa38a6e852dc44fc07e09dd4",
         "affectsGlobalScope": false
       },
@@ -3129,6 +3129,11 @@
       "../src/users/dto/login-dto.ts": {
         "version": "096aa050ed17c7d546f3fc6c3e009a087ef75e2ca3b04be80b2ae5c1a70ae326",
         "signature": "6c7c3ad0d8503662be36fcb84f9283282ba9b4d18d038963d29594b723cd9059",
+        "affectsGlobalScope": false
+      },
+      "../src/users/types/user.ts": {
+        "version": "9ced0f98775d9fc23de6ca458ba4887f60835383dacae1637268dace17bbb977",
+        "signature": "8a8ca6a281ccd83d775fbb43a01db9e275396f2d3004c0f0edf8801d8e565fe3",
         "affectsGlobalScope": false
       },
       "../node_modules/@babel/types/lib/index.d.ts": {
@@ -5817,6 +5822,9 @@
       "../src/rooms/dto/make-user-participant-or-owner.dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
+      "../src/rooms/dto/rename-room-dto.ts": [
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
       "../src/rooms/dto/return-room-dto.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -5839,6 +5847,7 @@
         "../src/rooms/dto/get-all-rooms-from-user.dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
         "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
+        "../src/rooms/dto/rename-room-dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/rooms.service.ts",
         "../src/users/dto/return-user.dto.ts"
@@ -5871,10 +5880,12 @@
         "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-rooms-from-user.dto.ts",
+        "../src/rooms/dto/rename-room-dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/schemas/room.schema.ts",
         "../src/users/dto/return-user.dto.ts",
-        "../src/users/schemas/user.schema.ts"
+        "../src/users/schemas/user.schema.ts",
+        "../src/utils/returnedObject.ts"
       ],
       "../src/rooms/schemas/room.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -5941,7 +5952,6 @@
         "../src/users/dto/reset-password.dto.ts",
         "../src/users/dto/return-user.dto.ts",
         "../src/users/dto/user-id.dto.ts",
-        "../src/users/types/user.ts",
         "../src/users/users.service.ts"
       ],
       "../src/users/users.module.ts": [
@@ -5979,6 +5989,7 @@
       ],
       "../src/utils/returnedObject.ts": [
         "../src/posts/dto/return-post-dto.ts",
+        "../src/rooms/dto/return-room-dto.ts",
         "../src/users/dto/return-user.dto.ts"
       ]
     },
@@ -8261,6 +8272,7 @@
         "../src/rooms/dto/get-all-rooms-from-user.dto.ts",
         "../src/rooms/dto/get-all-users-from-room.dto.ts",
         "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
+        "../src/rooms/dto/rename-room-dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/rooms.service.ts",
         "../src/users/dto/return-user.dto.ts"
@@ -8281,6 +8293,7 @@
         "../src/rooms/dto/delete-user-from-room.dto.ts",
         "../src/rooms/dto/edit-room-dto.ts",
         "../src/rooms/dto/get-all-rooms-from-user.dto.ts",
+        "../src/rooms/dto/rename-room-dto.ts",
         "../src/rooms/dto/return-room-dto.ts",
         "../src/rooms/schemas/room.schema.ts",
         "../src/users/dto/return-user.dto.ts",
@@ -8326,6 +8339,7 @@
       ],
       "../src/utils/returnedObject.ts": [
         "../src/posts/dto/return-post-dto.ts",
+        "../src/rooms/dto/return-room-dto.ts",
         "../src/users/dto/return-user.dto.ts"
       ]
     },
@@ -8979,6 +8993,7 @@
       "../src/rooms/dto/get-all-rooms-from-user.dto.ts",
       "../src/rooms/dto/get-all-users-from-room.dto.ts",
       "../src/rooms/dto/make-user-participant-or-owner.dto.ts",
+      "../src/rooms/dto/rename-room-dto.ts",
       "../src/rooms/dto/return-room-dto.ts",
       "../src/rooms/dto/string.dto.ts",
       "../src/rooms/rooms.controller.ts",

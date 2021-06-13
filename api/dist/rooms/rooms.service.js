@@ -22,6 +22,7 @@ const post_schema_1 = require("../posts/schemas/post.schema");
 const return_post_dto_1 = require("../posts/dto/return-post-dto");
 const forum_post_schema_1 = require("../forum/schemas/forum-post.schema");
 const return_forum_post_dto_1 = require("../forum/dto/return-forum-post.dto");
+const returnedObject_1 = require("../utils/returnedObject");
 let RoomsService = class RoomsService {
     constructor(roomModel, userModel, postModel, forumPostModel) {
         this.roomModel = roomModel;
@@ -107,6 +108,19 @@ let RoomsService = class RoomsService {
                 dates: editedRoom.dates,
                 books: editedRoom.books,
             };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async renameRoom({ newName, roomId }) {
+        try {
+            const room = await this.roomModel.findById(roomId);
+            if (!room)
+                return { msg: 'Inexistent room.' };
+            room.name = newName;
+            room.save();
+            return returnedObject_1.returnedRoomObject(room);
         }
         catch (error) {
             throw error;

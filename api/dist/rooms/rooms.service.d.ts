@@ -17,6 +17,7 @@ import { PostDocument } from 'src/posts/schemas/post.schema';
 import { ReturnPostDto } from 'src/posts/dto/return-post-dto';
 import { ForumPostDocument } from 'src/forum/schemas/forum-post.schema';
 import { ReturnForumPostDto } from 'src/forum/dto/return-forum-post.dto';
+import { RenameRoomDto } from './dto/rename-room-dto';
 export declare class RoomsService {
     private roomModel;
     private userModel;
@@ -33,6 +34,9 @@ export declare class RoomsService {
     editRoom({ id, name, owner }: EditRoomDto, authenticatedUser: any): Promise<ReturnRoomDto | {
         msg: string;
     }>;
+    renameRoom({ newName, roomId }: RenameRoomDto): Promise<{
+        msg: string;
+    } | ReturnRoomDto>;
     deleteRoom(id: string, owner: string, authenticatedUser: any): Promise<{
         msg: string;
     }>;
