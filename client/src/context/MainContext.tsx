@@ -64,7 +64,8 @@ interface ContextProps {
   deleteForumPost: (forumPostId: string) => Promise<any>;
   addForumPostComment: (forumPostId: string, body: string) => Promise<any>;
   getAllForumPostComments: (forumPostId: string) => Promise<any>;
-  deleteForumPostComment: (forumPostCommentId: string, forumPostId: string) => Promise<any> 
+  deleteForumPostComment: (forumPostCommentId: string, forumPostId: string) => Promise<any>;
+  renameRoom: (newName: string) => Promise<any>;
 }
 
 export const Context = createContext({} as ContextProps);
@@ -351,6 +352,33 @@ const AppContext = ({ children }: any) => {
         });
     });
   };
+
+
+  const renameRoom = (newName: string): Promise<{msg: string}> => {
+    return new Promise(async(resolve, reject) => {
+
+      const token = await AsyncStorage.getItem('token');
+      if (!token) return { msg: 'User not authenticated.' };
+      if (!newName) return { msg: 'New name is missing.' };
+      if (!state.selectedRoom) return {msg: 'Missing selected room.'}
+
+      axios.put(`${API}/rooms/rename-room`, {
+        newName,
+        roomId: state.selectedRoom.id
+      }, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
 
   const deleteRoom = (id: string): Promise<{ msg: string; }> => {
     return new Promise(async (resolve, reject) => {
@@ -763,6 +791,7 @@ const AppContext = ({ children }: any) => {
       addForumPostComment,
       getAllForumPostComments,
       deleteForumPostComment,
+      renameRoom,
     }}
     >
       {children}

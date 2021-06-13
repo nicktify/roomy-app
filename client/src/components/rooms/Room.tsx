@@ -6,7 +6,7 @@ import { Context } from '../../context/MainContext';
 
 const windowWidth = Dimensions.get('window').width;
 
-const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: any) => {
+const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId, setSelectedRoomName }: any) => {
 
   const { setSelectedRoom, getAllRoomInformation } = useContext(Context);
 
@@ -74,6 +74,7 @@ const Room = ({ name, id, navigation, setModalRoomOptions, setSelectedRoomId }: 
         onPress={() => {
           setModalRoomOptions(true);
           setSelectedRoomId(id);
+          setSelectedRoomName(name);
         }}
         style={{ height: '100%', justifyContent: 'center', width: 30, alignItems: 'center', }}
       >

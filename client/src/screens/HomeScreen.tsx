@@ -14,6 +14,7 @@ const HomeScreen = ({ navigation }: any) => {
   const [modalRoomOptions, setModalRoomOptions] = useState(false);
   const [modalConfirmationDeleteRoom, setModalConfirmationDeleteRoom] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState('');
+  const [selectedRoomName, setSelectedRoomName] = useState('')
 
   const handleDeleteRoom = () => {
     deleteRoom(selectedRoomId)
@@ -26,6 +27,11 @@ const HomeScreen = ({ navigation }: any) => {
         console.log(error);
       });
   };
+
+  const handleRenameRoom = () => {
+    setModalRoomOptions(false);
+    navigation.navigate('RenameRoom', {name: selectedRoomName});
+  }
 
   return (
     <View style={styles.container}>
@@ -75,6 +81,7 @@ const HomeScreen = ({ navigation }: any) => {
             navigation={navigation}
             setModalRoomOptions={setModalRoomOptions}
             setSelectedRoomId={setSelectedRoomId}
+            setSelectedRoomName={setSelectedRoomName}
           />
 
         </View>
@@ -86,6 +93,7 @@ const HomeScreen = ({ navigation }: any) => {
         setModalConfirmationDeleteRoom={setModalConfirmationDeleteRoom}
         modalConfirmationDeleteRoom={modalConfirmationDeleteRoom}
         handleDeleteRoom={handleDeleteRoom}
+        handleRenameRoom={handleRenameRoom}
       />
 
     </View>

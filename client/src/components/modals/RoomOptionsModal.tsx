@@ -4,7 +4,7 @@ import styles from '../../styles/modals/roomOption';
 import { style as ModalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
-const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfirmationDeleteRoom, modalConfirmationDeleteRoom, handleDeleteRoom }: any) => {
+const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfirmationDeleteRoom, modalConfirmationDeleteRoom, handleDeleteRoom, handleRenameRoom }: any) => {
   return (
     <View>
       <Modal
@@ -18,6 +18,12 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
         <Background />
         <View style={ModalStyles.centeredView}>
           <View style={ModalStyles.modalView}>
+            <TouchableOpacity
+              style={styles.touchableOpacity}
+              onPress={handleRenameRoom}
+            >
+              <Text style={styles.text}>Rename room</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.touchableOpacity}
               onPress={() => setModalConfirmationDeleteRoom(true)}
