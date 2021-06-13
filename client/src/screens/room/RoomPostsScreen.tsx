@@ -66,13 +66,7 @@ const RoomPostsScreen = ({navigation}: any) => {
               <Text style={style.authorNameText}>{item.authorName}</Text>
             </View>
           </View>
-          <View
-            style={{
-              height: '100%',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
+          <View style={style.postMoreVertIconContainer}>
             {
               user?.id === item.authorId &&
                 <Icon
@@ -94,25 +88,16 @@ const RoomPostsScreen = ({navigation}: any) => {
         <View style={style.textContainer}>
           <Text style={style.text}>{item.body.trim()}</Text>
         </View>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 5,
-            backgroundColor: '#f1f1f1',
-          }}
-        >
+        <View style={style.postImageContainer}>
           {
             item.image && item.image.url &&
               <Pressable
                 onPress={() => {
-                  setSelectedImagePostUrl(item.image.url);
+                  setSelectedImagePostUrl( item.image.url )
                 }}
               >
                 <Image
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                  }}
+                  style={style.postImage}
                   source={{
                     uri: item.image.url,
                   }}
@@ -138,14 +123,7 @@ const RoomPostsScreen = ({navigation}: any) => {
       {
         userIsOwner &&
           <Icon
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: 15,
-              backgroundColor: principalColor,
-              borderRadius: 50,
-            }}
+            style={style.addNewPostIcon}
             name="add"
             color='white'
             size={40}

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Pressable, Text, View, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Pressable, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Context } from '../../context/MainContext';
 import UserOnRoomOptionModal from '../../components/modals/UserOnRoomOptionModal';
 import DeleteUserFromRoomConfirmationModal from '../../components/modals/DeleteUserFromRoomConfirmationModal';
 import { principalColor } from '../../config/colors';
 import { User } from '../../types/user';
+import styles from '../../styles/screens/room/peopleScreen';
 
-const windowWidth = Dimensions.get('window').width;
 
 const PeopleScreen = ({ navigation }: any) => {
 
@@ -32,41 +32,12 @@ const PeopleScreen = ({ navigation }: any) => {
   };
 
   const renderItem = ({ item }: { item: User; }) => (
-    <Pressable
-      style={{
-        backgroundColor: 'white',
-        width: windowWidth * 0.95,
-        height: 60,
-        borderRadius: 10,
-        marginVertical: 5,
-        marginHorizontal: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-      }}
-    >
-      <View
-        style={{
-          justifyContent: 'center',
-          marginHorizontal: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+    <Pressable style={styles.itemContainer}>
+      <View style={styles.itemPictureContainer}>
         {
           item.profilePicture ?
             <Image
-              style={{
-                borderRadius: 50,
-              }}
+              style={styles.itemPicture}
               source={{
                 uri: item.profilePicture
               }}
@@ -80,87 +51,50 @@ const PeopleScreen = ({ navigation }: any) => {
               color={principalColor}
             />
         }
-        <Text style={{ fontWeight: 'bold', fontSize: 18, opacity: 0.8, marginHorizontal: 10, }}>{item.name}</Text>
+        <Text style={styles.itemName}>{item.name}</Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row'
-        }}
-      >
+      <View style={styles.itemRightContainer}>
         {
           selectedRoom && selectedRoom.owners.includes(item.id) &&
-          <Text style={{ fontStyle: 'italic', marginRight: 10, }}>Owner</Text>
+          <Text style={styles.itemOwnerText}>Owner</Text>
         }
         {
           selectedRoom && user && selectedRoom.owners.includes(user.id) && item.id !== user.id &&
-        <TouchableOpacity
-          onPress={() => {
-            setShowModalUserOption(true);
-            setSelectedUser(item);
-          }}
-        >
-          <Icon
-            name='more-vert'
-            size={25}
-          />
-        </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setShowModalUserOption(true);
+                setSelectedUser(item);
+              }}
+            >
+              <Icon
+                name='more-vert'
+                size={25}
+              />
+            </TouchableOpacity>
         }
       </View>
     </Pressable>
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <View 
-        style={{
-          alignItems: 'center',
-          borderBottomColor: '#a4a4a4a4',
-          borderBottomWidth: 0.5,
-          marginBottom: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: windowWidth * 0.8,
-          alignSelf: 'center',
-          marginTop: 10,
-        }}
-      >
-        <Text 
-          style={{
-            fontSize: 22,
-            fontWeight: 'bold',
-            opacity: 0.8,
-          }}
-        >
+    <View style={styles.container}>
+      <View  style={styles.innerContainer}>
+        <Text  style={styles.roomParticipantsText}>
           Room participants
         </Text>
         <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}
+          style={styles.searchButton}
           onPress={() => navigation.navigate('SearchUserFromRoom')}
         >
           <Text>Search</Text>
           <Icon
             name='search'
             size={30}
-            style={{
-              marginLeft: 5,
-              opacity: 0.8,
-            }}
+            style={styles.searchIcon}
           />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.flatListContainer}>
         <FlatList
           data={selectedRoomUsers}
           renderItem={renderItem}
@@ -172,14 +106,7 @@ const PeopleScreen = ({ navigation }: any) => {
       {
         userIsOwner &&
         <Icon
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            margin: 15,
-            backgroundColor: principalColor,
-            borderRadius: 50,
-          }}
+          style={styles.addIcon}
           name="add"
           color='white'
           size={40}

@@ -7,6 +7,7 @@ import { ForumPost } from '../../types/ForumPost';
 import style from '../../styles/screens/roomPostScreen';
 import PostOptionModal from '../../components/modals/PostOptionModal';
 import ImagePostPreviewModal from '../../components/modals/ImagePostPreviewModal';
+import styles from '../../styles/screens/room/forumScreen'
 
 class SelectedForumPost {
   body: string;
@@ -36,21 +37,19 @@ const ForumScreen = ({ navigation }: any) => {
   };
 
   const renderItem = ({ item }: { item: ForumPost; }) => (
-    <View style={style.postContainer}>
-      <View style={style.postInnerContainer}>
-        <View style={style.postTopContainer}>
-          <View style={style.authorInfoContainer}>
+    <View style={styles.itemContainer}>
+      <View style={styles.itemInnerContainer}>
+        <View style={styles.itemTopContainer}>
+          <View style={styles.itemAuthorInfoContainer}>
             {
               item.authorProfilePicture ?
                 <Image
-                  source={{
-                    uri: item.authorProfilePicture
-                  }}
-                  style={style.authorProfileImage}
+                  source={{ uri: item.authorProfilePicture }}
+                  style={styles.itemAuthorProfileImage}
                 />
                 :
                 <Icon
-                  style={style.authorProfileImage}
+                  style={styles.itemAuthorProfileImage}
                   name="account-circle"
                   size={50}
                   color={principalColor}
@@ -60,13 +59,7 @@ const ForumScreen = ({ navigation }: any) => {
               <Text style={style.authorNameText}>{item.authorName}</Text>
             </View>
           </View>
-          <View
-            style={{
-              height: '100%',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
+          <View style={styles.itemMoreVertIconContainer}>
             {
               user && user.id === item.authorId &&
                 <Icon
@@ -88,28 +81,13 @@ const ForumScreen = ({ navigation }: any) => {
         <View style={style.textContainer}>
           <Text style={style.text}>{item.body.trim()}</Text>
         </View>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 5,
-            backgroundColor: '#f1f1f1',
-          }}
-        >
+        <View style={styles.itemImageContainer}>
           {
             item.image &&
-              <Pressable
-                onPress={() => {
-                  setSelectedImagePostUrl(item.image);
-                }}
-              >
+              <Pressable onPress={() => { setSelectedImagePostUrl(item.image) }}>
                 <Image
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                  }}
-                  source={{
-                    uri: item.image,
-                  }}
+                  style={styles.itemImage}
+                  source={{ uri: item.image }}
                   width={350}
                   height={350}
                 />
@@ -119,128 +97,52 @@ const ForumScreen = ({ navigation }: any) => {
         <View>
           {
             item.latestComment &&
-            <View
-              style={{
-                width: '90%',
-                alignSelf: 'flex-end',
-                borderTopWidth: 0.3,
-                borderTopColor: '#b5b5b5',
-                padding: 5,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
+            <View  style={styles.itemLatestCommentContainer}>
+              <View style={styles.itemLatestCommentAuthorContainer}>
                 {
                   item.latestComment.authorProfilePicture ?
                   <Image 
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 50,
-                      marginRight: 10,
-                    }}
-                    source={{
-                      uri: item.latestComment.authorProfilePicture
-                    }}
+                    style={styles.itemLatestCommentAuthorPicture}
+                    source={{ uri: item.latestComment.authorProfilePicture }}
                   />
                   :
                   <Icon
                     name="account-circle"
                     size={35}
                     color={principalColor}
-                    style={{
-                      marginRight: 10,
-                    }}
+                    style={styles.itemLatestCommentIcon}
                   />
                 }
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    opacity: 0.8,
-                  }}
-                >
+                <Text style={styles.itemLatestCommentAuthorName}>
                   {item.latestComment.authorName}
                 </Text>
               </View>
               <View>
-                <Text
-                  style={{
-                    opacity: 0.8,
-                  }}
-                >
+                <Text style={styles.itemLatestCommentBody}>
                   {item.latestComment.body}
                 </Text>
               </View>
             </View>
           }
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 5,
-            justifyContent: 'flex-end',
-          }}
-        >
+        <View style={styles.itemButtonsContainer}>
           <TouchableOpacity
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 5,
-              width: 150,
-              alignItems: 'center',
-              padding: 5,
-              marginRight: 5,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.22,
-              shadowRadius: 2.22,
-              elevation: 3,
-            }}
+            style={styles.itemAddCommentButton}
             onPress={() => navigation.navigate('NewForumPostCommentForm', {
               ...item
             })}
           >
-            <Text
-              style={{
-                color: 'black',
-                opacity: 0.8,
-              }}
-            >
+            <Text style={styles.itemAddCommentButtonText}>
               ADD COMMENT
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 5,
-                width: '20%',
-                alignItems: 'center',
-                padding: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.22,
-                shadowRadius: 2.22,
-                elevation: 3,
-              }}
+              style={styles.itemMoreButton}
               onPress={() => navigation.navigate('ForumPostInformation', {
                 ...item,
               })}
             >
-              <Text
-                style={{
-                  opacity: 0.8,
-                  color: 'black',
-                }}
-              >
+              <Text style={styles.itemMoreButtonText}>
                 MORE
               </Text>
             </TouchableOpacity>
@@ -250,11 +152,7 @@ const ForumScreen = ({ navigation }: any) => {
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
+    <View style={styles.container}>
       <FlatList
         data={selectedRoomForumPosts}
         renderItem={renderItem}
@@ -263,14 +161,7 @@ const ForumScreen = ({ navigation }: any) => {
         ListHeaderComponent={<View style={{ width: '100%', height: 20 }}></View>}
       />
       <Icon
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-          margin: 15,
-          backgroundColor: principalColor,
-          borderRadius: 50,
-        }}
+        style={styles.icon}
         name="add"
         color='white'
         size={40}

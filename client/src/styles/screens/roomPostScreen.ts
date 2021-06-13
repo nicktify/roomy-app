@@ -129,6 +129,29 @@ const style = StyleSheet.create({
     fontSize: 20,
     opacity: 0.8,
   },
+  postMoreVertIconContainer: {
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  postImageContainer: {
+    alignItems: 'center',
+    marginBottom: 5,
+    backgroundColor: '#f1f1f1',
+  },
+  postImage: {
+    width: '100%',
+    height: '100%',
+  },
+  addNewPostIcon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    margin: 15,
+    backgroundColor: principalColor,
+    borderRadius: 50,
+  },
+  
 });
 
 export default style;
