@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Dimensions, Modal, Pressable, Text, TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ConfirmationDeleteRoomModal from '../components/modals/ConfirmationDeleteRoomModal';
-import RoomOptionsModal from '../components/modals/RoomOptionsModal';
-import { Context } from '../context/MainContext';
-import styles from '../styles/screens/searchRoom';
+import ConfirmationDeleteRoomModal from '../../components/modals/ConfirmationDeleteRoomModal';
+import RoomOptionsModal from '../../components/modals/RoomOptionsModal';
+import { Context } from '../../context/MainContext';
+import styles from '../../styles/screens/searchRoom';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

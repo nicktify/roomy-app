@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Context } from '../context/MainContext';
-import styles from '../styles/screens/RenameRoomForm';
+import { Context } from '../../context/MainContext';
+import styles from '../../styles/screens/RenameRoomForm';
 
 const RenameRoomFormScreen = ({route, navigation}: any) => {
   

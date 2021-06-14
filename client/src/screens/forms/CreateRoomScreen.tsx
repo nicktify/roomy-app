@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Keyboard, KeyboardAvoidingView, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context } from '../context/MainContext';
-import { createRoomValidations } from '../validations/createRoom';
-import styles from '../styles/screens/createRoomScreen';
+import { Context } from '../../context/MainContext';
+import { createRoomValidations } from '../../validations/createRoom';
+import styles from '../../styles/screens/createRoomScreen';
 
 const CreateRoomScreen = ({ navigation }: any) => {
 

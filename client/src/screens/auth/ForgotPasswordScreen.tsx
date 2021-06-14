@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import forgotPassword from '../controllers/forgotPassword';
-import { isEmailValidation } from '../validations/isEmailValidation';
-import styles from '../styles/screens/forgotPassword';
-import EmailSentModal from '../components/modals/EmailSentModal';
+import forgotPassword from '../../controllers/forgotPassword';
+import { isEmailValidation } from '../../validations/isEmailValidation';
+import styles from '../../styles/screens/forgotPassword';
+import EmailSentModal from '../../components/modals/EmailSentModal';
 
 
 const ForgotPasswordScreen = () => {

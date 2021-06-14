@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Context } from '../context/MainContext';
-import { ForumPostComment } from '../types/ForumPostComment';
-import { principalColor } from '../config/colors';
-import PostOptionModal from '../components/modals/PostOptionModal';
-import styles from '../styles/screens/allForumPostComments';
+import { Context } from '../../context/MainContext';
+import { ForumPostComment } from '../../types/ForumPostComment';
+import { principalColor } from '../../config/colors';
+import PostOptionModal from '../../components/modals/PostOptionModal';
+import styles from '../../styles/screens/allForumPostComments';
 
 const AllForumPostCommentsScreen = ({ route }: any) => {
 

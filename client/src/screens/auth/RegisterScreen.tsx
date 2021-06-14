@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Modal, Pressable, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context } from '../context/MainContext';
-import styles from '../styles/screens/register';
-import { style as modalStyles } from '../styles/modals/modal';
-import { signUpValidation } from '../validations/signup';
-import RegisterSuccessModal from '../components/modals/RegisterSuccessModal';
+import { Context } from '../../context/MainContext';
+import styles from '../../styles/screens/register';
+import { style as modalStyles } from '../../styles/modals/modal';
+import { signUpValidation } from '../../validations/signup';
+import RegisterSuccessModal from '../../components/modals/RegisterSuccessModal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

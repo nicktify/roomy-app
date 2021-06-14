@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context } from '../context/MainContext';
-import SelectImageOnPostFormModal from '../components/modals/SelectImageOnPostFormModal';
-import styles from '../styles/screens/addNewForumPost'
+import { Context } from '../../context/MainContext';
+import SelectImageOnPostFormModal from '../../components/modals/SelectImageOnPostFormModal';
+import styles from '../../styles/screens/newPostFormScreen';
 
-const NewForumPostForm = ({navigation}: any) => {
+const NewPostForm = ({navigation}: any) => {
 
-  const { createNewForumPost } = useContext(Context);
+  const { addNewPost } = useContext(Context);
 
   const [bodyPost, setBodyPost] = useState('');
   const [bodyPostFormError, setBodyPostFormError] = useState('');
@@ -19,7 +19,7 @@ const NewForumPostForm = ({navigation}: any) => {
   const handlePublish = () => {
     if (bodyPost.length > 0 && !disabledPublishPostButton) {
       setDisabledPublishPostButton(true);
-      createNewForumPost(bodyPost, imageUri)
+      addNewPost(bodyPost, imageUri ? imageUri : undefined)
         .then(() => {
           navigation.navigate('Room')
         })
@@ -58,13 +58,13 @@ const NewForumPostForm = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView style={styles.keyboardAwareScrollView}>
-
-        <Text style={styles.title}>
-          Create new forum post
+      <KeyboardAwareScrollView style={styles.awareScrollView}>
+        <Text style={styles.cratePostText}>
+          Create new post
         </Text>
-
-        <View style={styles.textInputContainer}>
+        <View
+          style={styles.inputContainer}
+        >
           <TextInput
             style={styles.textInput}
             placeholder='What do you want to share?'
@@ -78,40 +78,32 @@ const NewForumPostForm = ({navigation}: any) => {
           />
           {
             bodyPostFormError.length > 0 &&
-              <Text style={styles.bodyPostError}>{bodyPostFormError}</Text>
+            <Text style={{ color: 'red' }}>{bodyPostFormError}</Text>
           }
         </View>
-
         <View style={styles.imageFormContainer}>
           {
             imageUri &&
-              <Image
-                style={styles.imageFormPreview}
-                source={{ uri: imageUri.uri }}
-                width={100}
-                height={100}
-              />
+            <Image
+              style={styles.imagePreview}
+              source={{ uri: imageUri.uri }}
+              width={100}
+              height={100}
+            />
           }
           <TouchableOpacity style={styles.uploadImageButton} onPress={() => setModalPictureVisible(true)}>
-            <Text style={styles.uploadImageButtonText}>
-                {imageUri ? 'Upload another image' : 'Upload image'}
+            <Text style={styles.uploadImageText}>
+              {imageUri ? 'Upload another image' : 'Upload image'}
             </Text>
           </TouchableOpacity>
         </View>
-
-
-        <Pressable
-          style={[styles.publishButton, { opacity: disabledPublishPostButton ? 0.5 : 1 }]}
-          onPress={handlePublish}
-        >
-
-          <Text style={styles.publishButtonText}>
-            Publish
-          </Text>
-
-        </Pressable>
+          <Pressable
+            style={[styles.publishButton, { opacity: disabledPublishPostButton ? 0.5 : 1 }]}
+            onPress={handlePublish}
+          >
+            <Text style={styles.publishButtonText}>Publish</Text>
+          </Pressable>
       </KeyboardAwareScrollView>
-
 
       <SelectImageOnPostFormModal 
         modalPictureVisible={modalPictureVisible}
@@ -120,9 +112,8 @@ const NewForumPostForm = ({navigation}: any) => {
         handleTakePicture={handleTakePicture}
       />
 
-
     </View>
   );
 };
 
-export default NewForumPostForm;
+export default NewPostForm;

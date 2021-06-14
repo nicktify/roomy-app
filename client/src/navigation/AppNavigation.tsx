@@ -4,16 +4,16 @@ import DrawerNavigation from './DrawerNavigation';
 import LoadingScreen from '../screens/LoadingScreen';
 import { Context } from '../context/MainContext';
 import AuthNavigation from './AuthNavigation';
-import SearchRoomScreen from '../screens/SearchRoomScreen';
+import SearchRoomScreen from '../screens/forms/SearchRoomScreen';
 import { RoomNavigation } from './ButtomTabNavigation';
-import AddUserToRoomScreen from '../screens/AddUserToRoomScreen';
-import NewPostForm from '../screens/NewPostFormScreen';
-import EditAboutFormScreen from '../screens/EditAboutFormScreen';
-import SearchUserFromRoom from '../screens/SearchUserFromRoom';
-import NewForumPostForm from '../screens/AddNewForumPostScreen';
-import AddNewForumPostCommentScreen from '../screens/AddNewForumPostCommentScreen';
-import AllForumPostCommentsScreen from '../screens/AllForumPostCommentsScreen';
-import RenameRoomFormScreen from '../screens/RenameRoomFormScreen';
+import AddUserToRoomScreen from '../screens/forms/AddUserToRoomScreen';
+import NewPostForm from '../screens/forms/NewPostFormScreen';
+import EditAboutFormScreen from '../screens/forms/EditAboutFormScreen';
+import SearchUserFromRoom from '../screens/forms/SearchUserFromRoom';
+import NewForumPostForm from '../screens/forms/AddNewForumPostScreen';
+import AddNewForumPostCommentScreen from '../screens/forms/AddNewForumPostCommentScreen';
+import AllForumPostCommentsScreen from '../screens/rooms/AllForumPostCommentsScreen';
+import RenameRoomFormScreen from '../screens/forms/RenameRoomFormScreen';
 
 const Stack = createStackNavigator();
 

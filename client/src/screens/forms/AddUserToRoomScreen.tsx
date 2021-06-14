@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Dimensions, Image, Linking, Pressable, Text, TextInput, View, TouchableOpacity, Alert, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Context } from '../context/MainContext';
-import ShowSocialMediaPreviewLinkModal from '../components/modals/ShowSocialMediaPreviewLinkModal';
-import ShowUserOnFetchModal from '../components/modals/ShowUserOnFetchModal';
-import { principalColor } from '../config/colors';
-import { User } from '../types/user';
-import styles from '../styles/screens/addUserToRoom';
-import UserAddedToRoomModal from '../components/modals/UserAddedToRoomModal';
+import { Context } from '../../context/MainContext';
+import ShowSocialMediaPreviewLinkModal from '../../components/modals/ShowSocialMediaPreviewLinkModal';
+import ShowUserOnFetchModal from '../../components/modals/ShowUserOnFetchModal';
+import { principalColor } from '../../config/colors';
+import { User } from '../../types/user';
+import styles from '../../styles/screens/addUserToRoom';
+import UserAddedToRoomModal from '../../components/modals/UserAddedToRoomModal';
 
 const AddUserToRoomScreen = () => {
 

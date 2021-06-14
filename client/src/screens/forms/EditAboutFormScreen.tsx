@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
-import { Context } from '../context/MainContext';
-import styles from '../styles/screens/editAboutForm';
+import { Context } from '../../context/MainContext';
+import styles from '../../styles/screens/editAboutForm';
 
 const EditAboutFormScreen = ({navigation}: any) => {
 

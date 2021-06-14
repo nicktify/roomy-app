@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context } from '../context/MainContext';
-import styles from '../styles/screens/addNewForumPostComment';
+import { Context } from '../../context/MainContext';
+import styles from '../../styles/screens/addNewForumPostComment';
 
 const AddNewForumPostCommentScreen = ({ navigation, route }: any) => {
 

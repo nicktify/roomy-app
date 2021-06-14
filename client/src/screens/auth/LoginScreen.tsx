@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context } from '../context/MainContext';
-import { signInValidation } from '../validations/signin';
-import styles from '../styles/screens/login';
+import { Context } from '../../context/MainContext';
+import { signInValidation } from '../../validations/signin';
+import styles from '../../styles/screens/login';
 
 const LoginScreen = ({ navigation }: any) => {
 

@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import DeleteUserFromRoomConfirmationModal from '../components/modals/DeleteUserFromRoomConfirmationModal';
-import UserOnRoomOptionModal from '../components/modals/UserOnRoomOptionModal';
-import { principalColor } from '../config/colors';
-import { Context } from '../context/MainContext';
-import { User } from '../types/user';
-import styles from '../styles/screens/searchUserFromRoom';
+import DeleteUserFromRoomConfirmationModal from '../../components/modals/DeleteUserFromRoomConfirmationModal';
+import UserOnRoomOptionModal from '../../components/modals/UserOnRoomOptionModal';
+import { principalColor } from '../../config/colors';
+import { Context } from '../../context/MainContext';
+import { User } from '../../types/user';
+import styles from '../../styles/screens/searchUserFromRoom';
 
 const SearchUserFromRoom = () => {
 
