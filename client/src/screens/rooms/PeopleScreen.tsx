@@ -10,15 +10,14 @@ import styles from '../../styles/screens/room/peopleScreen';
 
 
 const PeopleScreen = ({ navigation }: any) => {
-
   const { user, selectedRoom, getAllUsersFromRoom, selectedRoomUsers } = useContext(Context);
-
-  const userIsOwner = selectedRoom && user && selectedRoom.owners.includes(user.id);
 
   const [showModalUserOption, setShowModalUserOption] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showModalConfirmationDelete, setShowModalConfirmationDelete] = useState(false);
   const [confirmationDisabledButton, setConfirmationDisabledButton] = useState(false);
+
+  const userIsOwner = selectedRoom && user && selectedRoom.owners.includes(user.id);
 
   useEffect(() => {
     fetchAllUsersFromRoom();
@@ -131,8 +130,10 @@ const PeopleScreen = ({ navigation }: any) => {
         fetchAllUsersFromRoom={fetchAllUsersFromRoom}
         setShowModalUserOption={setShowModalUserOption}
       />
+      
     </View>
   );
 };
 
 export default PeopleScreen;
+

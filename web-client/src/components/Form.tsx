@@ -11,12 +11,12 @@ interface Params {
 }
 
 const Form  = () => {
-
   const {userId, token} = useParams<Params>()
   const [input, setInput] = useState({
     password: '',
     repeatedPassword: '',
   })
+  
   const [errors, setErrors] = useState(passwordValidation(input.password, input.repeatedPassword));
   const [showError, setShowError] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
@@ -100,3 +100,4 @@ const Form  = () => {
 };
 
 export default Form;
+

@@ -1,10 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
-
 import TabBarNavigation from '../components/TabBarNavigation';
 import CreateRoomScreen from '../screens/forms/CreateRoomScreen';
 import InsideRoomNavigation from './InsideRoomNavigation';
