@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Modal, Pressable, Text, View, Dimensions } from 'react-native';
+import { Image, Modal, Pressable, Text, View } from 'react-native';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { principalColor } from '../config/colors';
 import { Context } from '../context/MainContext';
 import styles from '../styles/components/homeRightTop';
 import { style as modalStyles } from '../styles/modals/modal';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import Background from './Background';
 
 const HomeRightTopComponent = () => {
-
   const { user, updateProfilePicture } = useContext(Context);
   
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,7 +20,6 @@ const HomeRightTopComponent = () => {
       mediaType: 'photo',
       quality: 0.5
     }, (resp: ImagePickerResponse) => {
-
       if (resp.didCancel) return;
       if (!resp.uri) return;
 
@@ -37,7 +33,6 @@ const HomeRightTopComponent = () => {
       mediaType: 'photo',
       quality: 0.5
     }, (resp: ImagePickerResponse) => {
-
       if (resp.didCancel) return;
       if (!resp.uri) return;
 
@@ -99,20 +94,7 @@ const HomeRightTopComponent = () => {
           setModalVisible(!modalVisible);
         }}
       >
-
-        {/* Dark background */}
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'black',
-            opacity: 0.5,
-            position: 'absolute',
-            width: windowWidth,
-            height: windowHeight
-          }}
-        >
-        </View>
-
+        <Background />
         <View style={modalStyles.centeredView}>
           <View style={modalStyles.modalView}>
             <Pressable

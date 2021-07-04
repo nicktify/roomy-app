@@ -6,15 +6,21 @@ import HomeRightTopComponent from '../components/HomeRightTopComponent';
 import Rooms from '../components/rooms/Rooms';
 import RoomOptionsModal from '../components/modals/RoomOptionsModal';
 import styles from '../styles/screens/homeScreen';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-const HomeScreen = ({ navigation }: any) => {
+type ProfileScreenNavigationProp = DrawerNavigationProp<any>;
 
-  const { deleteRoom, user } = useContext(Context);
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
 
+const HomeScreen = ({ navigation }: Props) => {
   const [modalRoomOptions, setModalRoomOptions] = useState(false);
   const [modalConfirmationDeleteRoom, setModalConfirmationDeleteRoom] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState('');
   const [selectedRoomName, setSelectedRoomName] = useState('')
+
+  const { deleteRoom, user } = useContext(Context);
 
   const handleDeleteRoom = () => {
     deleteRoom(selectedRoomId)
@@ -76,17 +82,14 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </TouchableOpacity>
           </View>
-
           <Rooms
             navigation={navigation}
             setModalRoomOptions={setModalRoomOptions}
             setSelectedRoomId={setSelectedRoomId}
             setSelectedRoomName={setSelectedRoomName}
           />
-
         </View>
       </View>
-
       <RoomOptionsModal 
         modalRoomOptions={modalRoomOptions}
         setModalRoomOptions={setModalRoomOptions}
@@ -95,7 +98,6 @@ const HomeScreen = ({ navigation }: any) => {
         handleDeleteRoom={handleDeleteRoom}
         handleRenameRoom={handleRenameRoom}
       />
-
     </View>
   );
 };
