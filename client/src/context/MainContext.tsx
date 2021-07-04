@@ -29,6 +29,9 @@ interface ContextProps {
   user: User | null;
   token: string | null;
   validationCompleted: boolean;
+  signIn: (loginData: LoginData) => Promise<{ msg: string; }>;
+  singUp: (registerData: RegisterData) => Promise<{ msg: string; }>;
+  logout: () => void;
   selectedRoom: Room | null;
   rooms: Room[] | null;
   selectedRoomPosts: Post[] | null;
@@ -36,10 +39,7 @@ interface ContextProps {
   selectedRoomForumPosts: ForumPost[] | null;
   searchedUser: User | null;
   selectedForumPostComments: ForumPostComment[] | null;
-  signIn: (loginData: LoginData) => Promise<{ msg: string; }>;
-  singUp: (registerData: RegisterData) => Promise<{ msg: string; }>;
   validateToken: (token: string) => Promise<void>;
-  logout: () => void;
   getUserById: (id: string) => Promise<User | string>;
   updateProfilePicture: (data: ImagePickerResponse) => Promise<any>;
   changeProfileBackground: (file: ImagePickerResponse) => Promise<{ msg: string; }>;
@@ -119,7 +119,6 @@ const AppContext = ({ children }: any) => {
   };
 
   const updateProfilePicture = async (data: ImagePickerResponse): Promise<any> => {
-
     return new Promise(async (resolve, reject) => {
       const token = await AsyncStorage.getItem('token');
       if (!token) return;
@@ -151,7 +150,6 @@ const AppContext = ({ children }: any) => {
 
 
   const validateToken = async () => {
-
     const token = await AsyncStorage.getItem('token');
     if (!token) {
       dispatch({ type: 'VALIDATION_COMPLETED' });
@@ -170,7 +168,6 @@ const AppContext = ({ children }: any) => {
         console.log(error);
         dispatch({ type: 'VALIDATION_COMPLETED' });
       });
-
   };
 
 
@@ -605,9 +602,10 @@ const AppContext = ({ children }: any) => {
       })
       .then(response => {
         dispatch({ type: 'SET_ROOM_FORUM_POSTS', payload: response.data })
+        resolve('done')
       })
       .catch(error => {
-        console.log(error)
+        reject(error)
       })
     })
   }

@@ -73,6 +73,9 @@ const ForgotPasswordScreen = () => {
         showEmailSentModal={showEmailSentModal}
         setShowEmailSentModal={setShowEmailSentModal}
       />
+      <Text>
+        Made with love by Nicolas Aguilar
+      </Text>
     </View>
   );
 };
