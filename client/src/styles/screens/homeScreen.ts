@@ -83,7 +83,17 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     opacity: 0.7,
   },
-  
+  rightTopContainer: {
+    flex: 1,
+  },
+  profileImage: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    marginTop: 50,
+    height: 75,
+    width: 75,
+    borderRadius: 50,
+  },
 })
 
 export default styles;
