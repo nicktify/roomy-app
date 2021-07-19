@@ -9,6 +9,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { style as modalStyles } from '../styles/modals/modal';
 import { principalColor } from '../config/colors';
+import Background from '../components/Background';
 
 type ProfileScreenNavigationProp = DrawerNavigationProp<any>;
 
