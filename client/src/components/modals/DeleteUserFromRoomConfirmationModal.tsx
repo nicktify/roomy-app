@@ -53,8 +53,10 @@ const DeleteUserFromRoomConfirmationModal = ({
       <View style={modalStyles.modalView}>
         <Text style={styles.areYouSureText}>Are you sure you want to delete the user from this room?</Text>
         <TouchableOpacity 
-          style={[styles.touchableOpacity,
-          { opacity: confirmationDisabledButton ? 0.5 : 1 }]}
+          style={[
+            styles.touchableOpacity,
+            { opacity: confirmationDisabledButton ? 0.5 : 1 }
+          ]}
           onPress={handleDeleteUser}
         >
           <Text style={styles.confirmationText}>Yes, delete</Text>
@@ -63,7 +65,9 @@ const DeleteUserFromRoomConfirmationModal = ({
           style={modalStyles.button}
           onPress={() => setShowModalConfirmationDelete(!showModalConfirmationDelete)}
         >
-          <Text style={modalStyles.textStyle}>Cancel</Text>
+          <Text style={modalStyles.textStyle}>
+            Cancel
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

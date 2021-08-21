@@ -41,26 +41,21 @@ const PostOptionModal = ({ modalPostOptionVisible, setModalPostOptionVisible, ac
                       color={principalColor}
                     />
                 }
-
                 <Text style={styles.authorNameText}>{activeSelectedPostOptions.authorName}</Text>
-
               </View>
               <Text style={styles.bodyText}>
                 {`${activeSelectedPostOptions.body.slice(0, 100)}${activeSelectedPostOptions.body.length > 99 ? '...' : ''}`}
               </Text>
-
-              {
-                activeSelectedPostOptions.image &&
-                  <View style={{ alignItems: 'center' }}>
-                    <Image
-                      style={styles.image}
-                      source={{ uri: activeSelectedPostOptions.image }}
-                      width={250}
-                      height={150}
-                    />
-                  </View>
+              {activeSelectedPostOptions.image &&
+                <View style={{ alignItems: 'center' }}>
+                  <Image
+                    style={styles.image}
+                    source={{ uri: activeSelectedPostOptions.image }}
+                    width={250}
+                    height={150}
+                  />
+                </View>
               }
-
             </View>
           </View>
           <TouchableOpacity style={modalStyles.button} onPress={ handleDeletePost }>
