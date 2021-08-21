@@ -7,7 +7,6 @@ import styles from '../../styles/modals/postModalOption';
 import roomStyles from '../../styles/screens/room/roomPostScreen'
 import { style as modalStyles } from '../../styles/modals/modal';
 
-
 const PostOptionModal = ({ modalPostOptionVisible, setModalPostOptionVisible, activeSelectedPostOptions, handleDeletePost }: any) => {
   if ( ! activeSelectedPostOptions ) return null;
   return (
@@ -75,7 +74,7 @@ const PostOptionModal = ({ modalPostOptionVisible, setModalPostOptionVisible, ac
           </TouchableOpacity>
         </View>
       </View>
-  </Modal>
+    </Modal>
   );
 };
 

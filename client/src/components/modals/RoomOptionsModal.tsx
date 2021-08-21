@@ -39,8 +39,6 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
           </View>
         </View>
       </Modal>
-
-      {/* Confirmation delete */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -51,7 +49,14 @@ const RoomOptionsModal = ({ modalRoomOptions, setModalRoomOptions, setModalConfi
       >
         <View style={ModalStyles.centeredView}>
           <View style={ModalStyles.modalView}>
-            <Text style={{ fontSize: 18, marginBottom: 15, }}>Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.</Text>
+            <Text
+              style={{
+                fontSize: 18,
+                marginBottom: 15,
+              }}
+            >
+              Are you sure yo want to delete the room. Once you deleted the room you cannot restore it.
+            </Text>
             <TouchableOpacity
               style={styles.touchableOpacity}
               onPress={handleDeleteRoom}

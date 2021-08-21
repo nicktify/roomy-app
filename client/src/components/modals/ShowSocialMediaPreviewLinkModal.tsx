@@ -3,7 +3,11 @@ import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import Background from '../Background';
 import styles from '../../styles/modals/showSocialMediaPreview';
 
-const ShowSocialMediaPreviewLinkModal = ({ showPreviewSocialMediaLink, setShowPreviewSocialMediaLink, selectedSocialMediaLink }: any) => {
+const ShowSocialMediaPreviewLinkModal = ({
+  showPreviewSocialMediaLink,
+  setShowPreviewSocialMediaLink,
+  selectedSocialMediaLink
+}: any) => {
   return (
     <Modal
       animationType="slide"

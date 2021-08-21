@@ -1,12 +1,14 @@
 import React from 'react';
-import { Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { style as modalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-const SelectProfilePictureModal = ({modalVisible, setModalVisible, handleUploadImage, handleTakePicture}: any) => {
+const SelectProfilePictureModal = ({
+  modalVisible,
+  setModalVisible,
+  handleUploadImage,
+  handleTakePicture
+}: any) => {
   return (
     <Modal
       animationType="slide"

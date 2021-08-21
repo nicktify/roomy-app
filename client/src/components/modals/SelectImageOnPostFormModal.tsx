@@ -3,7 +3,12 @@ import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { style as modalStyles } from '../../styles/modals/modal';
 import Background from '../Background';
 
-const SelectImageOnPostFormModal = ({modalPictureVisible, setModalPictureVisible, handleUploadImage, handleTakePicture}: any) => {
+const SelectImageOnPostFormModal = ({
+  modalPictureVisible,
+  setModalPictureVisible,
+  handleUploadImage,
+  handleTakePicture
+}: any) => {
   return (
     <Modal
       animationType="slide"
