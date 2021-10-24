@@ -1,6 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Pressable, StyleSheet, Dimensions } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Pressable,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Context } from '../../context/MainContext';
 import { signInValidation } from '../../validations/signin';
 import styles from '../../styles/screens/login';
@@ -47,9 +58,9 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView style={styles.awareScrollView}>
+      {/* <KeyboardAwareScrollView style={styles.awareScrollView}>
         <KeyboardAvoidingView style={styles.avoidingView}>
-          <TouchableWithoutFeedback style={styles.withoutFeedback} onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback style={styles.withoutFeedback} onPress={Keyboard.dismiss}> */}
             <View style={styles.innerContainer}>
               <View style={styles.titleContainer}>
                 <Text style={styles.title}>
@@ -123,9 +134,9 @@ const LoginScreen = ({ navigation }: any) => {
                 </Pressable>
               </View>
             </View>
-          </TouchableWithoutFeedback>
+          {/* </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-      </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView> */}
     </View>
   );
 };
