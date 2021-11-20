@@ -64,7 +64,13 @@ const RegisterScreen = ({ navigation }: any) => {
 
   const handleRegister = () => {
     if (password !== repeatedPassword) setPasswordMatchError(true);
-    if (errors.email.length === 0 && errors.password.length === 0 && errors.name.length === 0 && !passwordMatchError && !registerDisabled) {
+    if (
+      errors.email.length === 0
+      && errors.password.length === 0
+      && errors.name.length === 0
+      && !passwordMatchError
+      && !registerDisabled
+    ) {
       setRegisterDisabled(true);
       singUp({
         name,
@@ -96,99 +102,92 @@ const RegisterScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.root}>
-      <KeyboardAwareScrollView style={styles.awareScrollView}>
-        <KeyboardAvoidingView style={{ flex: 1, marginBottom: keyboardState ? 50 : 0 }}>
-          <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
-            <View style={styles.formContainer}>
-              <View style={styles.loginTextContainer}>
-                <Text style={styles.createAccountText}>
-                  Create an account
-                </Text>
+      <View style={styles.formContainer}>
+        <View style={styles.loginTextContainer}>
+          <Text style={styles.createAccountText}>
+            Create an account
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.textLabel}>Enter your name:</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Your Name"
+            placeholderTextColor="#9a9b9c"
+            onChangeText={name => onChange(name, email, password, repeatedPassword)}
+            defaultValue={name}
+            value={name}
+          />
+          {
+            badNameMessage.length > 1 &&
+            <Text style={styles.errorMessage}>{badNameMessage}</Text>
+          }
+          <Text style={styles.textLabel}>Enter your email:</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="example@gmail.com"
+            placeholderTextColor="#9a9b9c"
+            onChangeText={email => onChange(name, email, password, repeatedPassword)}
+            defaultValue={email}
+            value={email}
+            keyboardType='email-address'
+          />
+          {
+            badEmailMessage.length > 1 &&
+            <Text style={styles.errorMessage}>{badEmailMessage}</Text>
+          }
+          <Text style={styles.textLabel}>Enter your password:</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="******"
+            placeholderTextColor="#9a9b9c"
+            onChangeText={password => onChange(name, email, password, repeatedPassword)}
+            defaultValue={password}
+            value={password}
+            secureTextEntry
+          />
+          {
+            badPasswordMessage.length > 1 &&
+            <Text style={styles.errorMessage}>{badPasswordMessage}</Text>
+          }
+          <Text style={styles.textLabel}>Repeat your password:</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="******"
+            placeholderTextColor="#9a9b9c"
+            onChangeText={repeatedPassword => onChange(name, email, password, repeatedPassword)}
+            defaultValue={repeatedPassword}
+            value={repeatedPassword}
+            secureTextEntry
+          />
+          {
+            passwordMatchError &&
+            <Text style={styles.errorMessage}>Password needs to be equal.</Text>
+          }
+          {
+            !registerDisabled ?
+              <View style={styles.existentAccountContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                  <Text style={styles.existentAccountText}>
+                    Arleady have an account?
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <View>
-                <Text style={styles.textLabel}>Enter your name:</Text>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Your Name"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={name => onChange(name, email, password, repeatedPassword)}
-                  defaultValue={name}
-                  value={name}
-                />
-                {
-                  badNameMessage.length > 1 &&
-                  <Text style={styles.errorMessage}>{badNameMessage}</Text>
-                }
-                <Text style={styles.textLabel}>Enter your email:</Text>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="example@gmail.com"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={email => onChange(name, email, password, repeatedPassword)}
-                  defaultValue={email}
-                  value={email}
-                  keyboardType='email-address'
-                />
-                {
-                  badEmailMessage.length > 1 &&
-                  <Text style={styles.errorMessage}>{badEmailMessage}</Text>
-                }
-                <Text style={styles.textLabel}>Enter your password:</Text>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="******"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={password => onChange(name, email, password, repeatedPassword)}
-                  defaultValue={password}
-                  value={password}
-                  secureTextEntry
-                />
-                {
-                  badPasswordMessage.length > 1 &&
-                  <Text style={styles.errorMessage}>{badPasswordMessage}</Text>
-                }
-                <Text style={styles.textLabel}>Repeat your password:</Text>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="******"
-                  placeholderTextColor="#9a9b9c"
-                  onChangeText={repeatedPassword => onChange(name, email, password, repeatedPassword)}
-                  defaultValue={repeatedPassword}
-                  value={repeatedPassword}
-                  secureTextEntry
-                />
-                {
-                  passwordMatchError &&
-                  <Text style={styles.errorMessage}>Password needs to be equal.</Text>
-                }
-                {
-                  !registerDisabled ?
-                    <View style={styles.existentAccountContainer}>
-                      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.existentAccountText}>
-                          Arleady have an account?
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                    :
-                    <View style={styles.phantomContainer}></View>
-                }
-                <Pressable
-                  style={[styles.continueButtonContainer, { opacity: registerDisabled ? 0.5 : 1 }]}
-                  onPress={handleRegister}
-                >
-                  <Text
-                    style={styles.textButton}
-                  >
-                    Continue
-                </Text>
-                </Pressable>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </KeyboardAwareScrollView>
-
+              :
+              <View style={styles.phantomContainer}></View>
+          }
+          <Pressable
+            style={[styles.continueButtonContainer, { opacity: registerDisabled ? 0.5 : 1 }]}
+            onPress={handleRegister}
+          >
+            <Text
+              style={styles.textButton}
+            >
+              Continue
+            </Text>
+          </Pressable>
+        </View>
+      </View>
       <RegisterSuccessModal 
         modalRegisterSuccess={modalRegisterSuccess} 
         navigation={navigation} 
