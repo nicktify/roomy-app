@@ -82,13 +82,14 @@ export class UsersService {
 
       if ( ! file) {
         return new Promise((resolve, reject) => {
-          transporter.sendMail(message, (err, info) => {
-            if (!err) {
-              resolve({msg: 'Register success. Please confirm your email.'})
-            } else {
-              reject(err)
-            }
-          });
+          resolve({msg: 'Register success. Please confirm your email.'})
+          // transporter.sendMail(message, (err, info) => {
+          //   if (!err) {
+          //     resolve({msg: 'Register success. Please confirm your email.'})
+          //   } else {
+          //     reject(err)
+          //   }
+          // });
         })
       };
 

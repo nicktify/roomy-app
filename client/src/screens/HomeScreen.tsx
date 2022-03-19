@@ -11,6 +11,8 @@ import { style as modalStyles } from '../styles/modals/modal';
 import { principalColor } from '../config/colors';
 import Background from '../components/Background';
 
+import { Platform, StyleSheet } from 'react-native';
+
 type ProfileScreenNavigationProp = DrawerNavigationProp<any>;
 
 type Props = {
@@ -80,12 +82,19 @@ const HomeScreen = ({ navigation }: Props) => {
       <View  style={styles.innerContainer}>
         <View  style={styles.topLeftContainer}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Icon
-              style={styles.menuIcon}
-              name="menu"
-              size={30}
-              color="black"
-            />
+            {Platform.OS === 'android'
+              ? (
+                <Icon
+                  style={styles.menuIcon}
+                  name="menu"
+                  size={30}
+                  color="black"
+                />
+              ) : (
+                <Text>
+                  Change for ios here
+                </Text>
+              )}
           </TouchableOpacity>
           <View style={styles.greetingContainer}>
             <Text  style={styles.helloText}>
@@ -112,8 +121,8 @@ const HomeScreen = ({ navigation }: Props) => {
             width={50}
             height={50}
           />
-          {
-            user?.profilePicture ?
+          {user?.profilePicture
+            ? (
               <Pressable
                 style={{ flex: 1 }}
                 onPress={() => setModalVisible(true)}
@@ -134,15 +143,25 @@ const HomeScreen = ({ navigation }: Props) => {
                   height={80}
                 />
               </Pressable>
-              :
-              <Icon
-                style={styles.profileImage}
-                name="account-circle"
-                size={80}
-                color={principalColor}
-                onPress={() => setModalVisible(true)}
-              />
-          }
+            ) : (
+              <>
+                {
+                  Platform.OS === 'android'
+                    ? (
+                      <Icon
+                        style={styles.profileImage}
+                        name="account-circle"
+                        size={80}
+                        color={principalColor}
+                        onPress={() => setModalVisible(true)}
+                      />
+                    ) : (
+                      <Text>
+                        Change for ios here
+                      </Text>
+                    )}
+              </>
+            )}
           <Modal
             animationType="slide"
             transparent={true}
@@ -187,11 +206,18 @@ const HomeScreen = ({ navigation }: Props) => {
               <Text style={styles.searchButtonText}>
                 Search
               </Text>
-              <Icon
-                name='search'
-                size={30}
-                style={styles.searchIcon}
-              />
+              {Platform.OS === 'android'
+                ? (
+                  <Icon
+                    name='search'
+                    size={30}
+                    style={styles.searchIcon}
+                  />
+                ) : (
+                  <Text>
+                    Change for ios here
+                  </Text>
+                )}
             </TouchableOpacity>
           </View>
           <Rooms

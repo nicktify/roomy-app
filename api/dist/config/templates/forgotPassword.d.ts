@@ -1,1 +1,0 @@
-export declare const forgotPasswordHtml = "<div>\n<h1>Hello {{name}}</h1>\n<h1>Go to the following link to reset your password</h1>\n<a\n  href=\"https://roomy-app.netlify.app/reset-password/{{id}}/validation/{{token}}\"\n>Reset password</a>\n</div>";
